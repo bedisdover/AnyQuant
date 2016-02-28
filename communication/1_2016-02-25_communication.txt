@@ -1,0 +1,5 @@
+who: 宋益明, 苏琰梓, 章承尧, 周梦佳
+when: 第1周
+what: 讨论课程选题, 制定项目分工
+how long: 1h
+arrived solutions: 初步确定项目分工....
