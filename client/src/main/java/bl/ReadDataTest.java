@@ -1,8 +1,11 @@
 package bl;
 
+import net.sf.json.util.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -16,8 +19,11 @@ public class ReadDataTest {
         try{
             URL urlObject = new URL(url);
             URLConnection uc = urlObject.openConnection();
+            HttpURLConnection httpURLConnection = (HttpURLConnection) uc;
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty("X-Auth-Code","868f903da1795d23fd59e58707b7f6fa");
             BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-            String inputLine = null;
+            String inputLine;
             while((inputLine = br.readLine())!=null){
                 json.append(inputLine);
             }
@@ -30,8 +36,9 @@ public class ReadDataTest {
         System.out.println(json.toString());
     }
     public static void main(String[] args){
-        String url = "http://api.map.baidu.com/telematics/v3/weather?location=%E6%88%90%E9%83%BD&output=json&ak=rnm8udmHdWaHFWZTO2tuTiG8";
+        String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadDataTest rdt = new ReadDataTest();
         rdt.getData(url);
+//        JSONTokener jsonParser = new JSONTokener(json);
     }
 }
