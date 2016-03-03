@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c465c83-29f8-4a76-a6d2-d68ff895f148" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/resources/images/settings.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/client/target/classes/menu.gif" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/src/main/resources/menu.gif" afterPath="$PROJECT_DIR$/client/src/main/resources/images/menu.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/AllImage.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/AllImage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$1.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$2.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$3.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$4.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$5.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel.class" afterPath="$PROJECT_DIR$/client/target/classes/presentation/MenuPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/panel/HistoryPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/panel/HistoryPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/panel/MarketIndexPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/panel/MarketIndexPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/panel/PicturePanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/panel/PicturePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/panel/PortfolioPanel.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/panel/PortfolioPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/presentation/util/ExampleFileFilter.java" afterPath="$PROJECT_DIR$/client/src/main/java/presentation/util/ExampleFileFilter.java" />
     </list>
     <ignored path="AnyQuant.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,6 +35,13 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="AnyQuant" />
@@ -38,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+              <caret line="39" column="40" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#748#749#0" expanded="true" />
@@ -51,18 +65,18 @@
       <file leaf-file-name="MenuPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.315789">
-              <caret line="161" column="79" selection-start-line="161" selection-start-column="79" selection-end-line="161" selection-end-column="79" />
+            <state vertical-scroll-proportion="0.3448276">
+              <caret line="88" column="18" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3378#3579#0" expanded="true" />
-                <element signature="e#3578#3579#0" expanded="true" />
-                <element signature="e#3619#3818#0" expanded="true" />
-                <element signature="e#3817#3818#0" expanded="true" />
-                <element signature="e#3862#4065#0" expanded="true" />
-                <element signature="e#4064#4065#0" expanded="true" />
-                <element signature="e#4105#4304#0" expanded="true" />
-                <element signature="e#4303#4304#0" expanded="true" />
+                <element signature="e#3420#3621#0" expanded="true" />
+                <element signature="e#3620#3621#0" expanded="true" />
+                <element signature="e#3661#3860#0" expanded="true" />
+                <element signature="e#3859#3860#0" expanded="true" />
+                <element signature="e#3904#4107#0" expanded="true" />
+                <element signature="e#4106#4107#0" expanded="true" />
+                <element signature="e#4147#4346#0" expanded="true" />
+                <element signature="e#4345#4346#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,17 +118,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="25" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AnyQuant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/main/java/main/AnyQuant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+              <caret line="19" column="67" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -149,7 +153,6 @@
         <option value="$PROJECT_DIR$/test/src/test.form" />
         <option value="$PROJECT_DIR$/test/src/UITest/PanelTest.java" />
         <option value="$PROJECT_DIR$/test/src/UITest/FrameTest.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/main/AnyQuant.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/client/src/main/java/bl/ReadDataTest.java" />
@@ -157,8 +160,9 @@
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/panel/PicturePanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/panel/MarketIndexPanel.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/presentation/panel/HistoryPanel.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java" />
       </list>
     </option>
   </component>
@@ -311,6 +315,14 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -368,36 +380,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AnyQuant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AnyQuant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -410,7 +392,11 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/main/resources/Images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/main/resources/Images" />
       <recent name="$PROJECT_DIR$/client/src/main/resources" />
       <recent name="$PROJECT_DIR$/client/src/main/java/presentation/util" />
       <recent name="$PROJECT_DIR$/client/src/main/java/presentation" />
@@ -927,12 +913,12 @@
       <workItem from="1456993647548" duration="2003000" />
       <workItem from="1457000715618" duration="7313000" />
       <workItem from="1457011811390" duration="2486000" />
-      <workItem from="1457017753917" duration="356000" />
+      <workItem from="1457017753917" duration="2368000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20499000" />
+    <option name="totallyTimeSpent" value="22511000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -951,14 +937,15 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32761312" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32860345" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761312" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761312" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23328267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -969,7 +956,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1010,14 +996,14 @@
           <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3378#3579#0" expanded="true" />
-            <element signature="e#3578#3579#0" expanded="true" />
-            <element signature="e#3619#3818#0" expanded="true" />
-            <element signature="e#3817#3818#0" expanded="true" />
-            <element signature="e#3862#4065#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4105#4304#0" expanded="true" />
-            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#3420#3621#0" expanded="true" />
+            <element signature="e#3620#3621#0" expanded="true" />
+            <element signature="e#3661#3860#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
+            <element signature="e#3904#4107#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4147#4346#0" expanded="true" />
+            <element signature="e#4345#4346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1056,14 +1042,14 @@
           <caret line="99" column="69" selection-start-line="99" selection-start-column="69" selection-end-line="99" selection-end-column="69" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3378#3579#0" expanded="true" />
-            <element signature="e#3578#3579#0" expanded="true" />
-            <element signature="e#3619#3818#0" expanded="true" />
-            <element signature="e#3817#3818#0" expanded="true" />
-            <element signature="e#3862#4065#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4105#4304#0" expanded="true" />
-            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#3420#3621#0" expanded="true" />
+            <element signature="e#3620#3621#0" expanded="true" />
+            <element signature="e#3661#3860#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
+            <element signature="e#3904#4107#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4147#4346#0" expanded="true" />
+            <element signature="e#4345#4346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1102,14 +1088,14 @@
           <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3378#3579#0" expanded="true" />
-            <element signature="e#3578#3579#0" expanded="true" />
-            <element signature="e#3619#3818#0" expanded="true" />
-            <element signature="e#3817#3818#0" expanded="true" />
-            <element signature="e#3862#4065#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4105#4304#0" expanded="true" />
-            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#3420#3621#0" expanded="true" />
+            <element signature="e#3620#3621#0" expanded="true" />
+            <element signature="e#3661#3860#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
+            <element signature="e#3904#4107#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4147#4346#0" expanded="true" />
+            <element signature="e#4345#4346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1157,14 +1143,14 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3378#3579#0" expanded="true" />
-            <element signature="e#3578#3579#0" expanded="true" />
-            <element signature="e#3619#3818#0" expanded="true" />
-            <element signature="e#3817#3818#0" expanded="true" />
-            <element signature="e#3862#4065#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4105#4304#0" expanded="true" />
-            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#3420#3621#0" expanded="true" />
+            <element signature="e#3620#3621#0" expanded="true" />
+            <element signature="e#3661#3860#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
+            <element signature="e#3904#4107#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4147#4346#0" expanded="true" />
+            <element signature="e#4345#4346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1273,6 +1259,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/panel/MarketIndexPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31034482">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/main/AnyQuant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1281,46 +1275,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/panel/PortfolioPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#748#749#0" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/panel/PicturePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/panel/MarketIndexPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31034482">
-          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
           <folding />
         </state>
       </provider>
@@ -1335,20 +1293,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java">
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MainFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.315789">
-          <caret line="161" column="79" selection-start-line="161" selection-start-column="79" selection-end-line="161" selection-end-column="79" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3378#3579#0" expanded="true" />
-            <element signature="e#3578#3579#0" expanded="true" />
-            <element signature="e#3619#3818#0" expanded="true" />
-            <element signature="e#3817#3818#0" expanded="true" />
-            <element signature="e#3862#4065#0" expanded="true" />
-            <element signature="e#4064#4065#0" expanded="true" />
-            <element signature="e#4105#4304#0" expanded="true" />
-            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#748#749#0" expanded="true" />
+            <element signature="e#776#777#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/panel/PortfolioPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/AllImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="67" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/resources/images/menu.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/presentation/MenuPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3448276">
+          <caret line="88" column="18" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3420#3621#0" expanded="true" />
+            <element signature="e#3620#3621#0" expanded="true" />
+            <element signature="e#3661#3860#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
+            <element signature="e#3904#4107#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4147#4346#0" expanded="true" />
+            <element signature="e#4345#4346#0" expanded="true" />
           </folding>
         </state>
       </provider>

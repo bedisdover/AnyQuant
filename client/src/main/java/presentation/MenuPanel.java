@@ -48,11 +48,6 @@ public class MenuPanel extends JPanel {
     private BufferedImage portraitImage;
 
     /**
-     * 操作面板
-     */
-    private JPanel operationPanel;
-
-    /**
      * "自选"按钮
      * portfolio---证券投资组合
      * 自选股没有这个说法，Yahoo! Finance上的Add to Portfolio的功能比较接近这个～
@@ -95,13 +90,14 @@ public class MenuPanel extends JPanel {
 
         // 消除锯齿
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics2D.setColor(new Color(121, 106, 75));
+        //绘制菜单栏
         graphics2D.drawImage(AllImage.menu, 0, 0, this.getWidth(), this.getHeight(), null);
+        //绘制头像
         graphics2D.setColor(Color.gray);
         graphics2D.fillOval(PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
-
         graphics2D.drawImage(portraitImage, PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
+        //绘制设置图标
+        graphics2D.drawImage(AllImage.settings, PADDING, this.getHeight() - PADDING * 2, PADDING, PADDING, null);
     }
 
     /**
