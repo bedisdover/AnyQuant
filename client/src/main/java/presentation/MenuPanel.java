@@ -138,29 +138,28 @@ public class MenuPanel extends JPanel {
         btnPortfolio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                operationPanel = new PortfolioPanel();
+                MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
             }
         });
 
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                operationPanel = new PicturePanel();
+                MainFrame.getMainFrame().addOperationPanel(new PicturePanel());
             }
         });
 
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                operationPanel = new MarketIndexPanel();
+                MainFrame.getMainFrame().addOperationPanel(new MarketIndexPanel());
             }
         });
 
         btnHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                operationPanel = new HistoryPanel();
-
+                MainFrame.getMainFrame().addOperationPanel(new HistoryPanel());
             }
         });
     }

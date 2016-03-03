@@ -1,5 +1,7 @@
 package presentation;
 
+import presentation.panel.OperationPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -35,7 +37,7 @@ public final class MainFrame extends JFrame {
         createUIComponents();
     }
 
-    public static JFrame getMainFrame() {
+    public static MainFrame getMainFrame() {
         return frame;
     }
 
@@ -48,6 +50,7 @@ public final class MainFrame extends JFrame {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
+        panel.setLayout(null);
         frame.setLayout(null);
     }
 
@@ -56,6 +59,12 @@ public final class MainFrame extends JFrame {
         menuPanel.setBounds(0, 0, frame.getWidth() / 4, frame.getHeight());
 
         panel.add(menuPanel);
+    }
+
+    public void addOperationPanel(OperationPanel operationPanel) {
+        operationPanel.setBounds(frame.getWidth() / 4, 0, frame.getWidth(), frame.getHeight());
+
+        panel.add(operationPanel);
     }
 }
 

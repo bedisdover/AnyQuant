@@ -8,7 +8,7 @@ import java.awt.*;
  * <p>
  * 历史记录面板
  */
-public class HistoryPanel extends JPanel {
+public class HistoryPanel extends OperationPanel {
 
     public HistoryPanel() {
 
