@@ -32,10 +32,12 @@ public class MenuPanel extends JPanel {
      */
     private static final int PADDING = 30;
 
+    private static final int BUTTON_WIDTH = 110;
+
     /**
      * 头像文件
      */
-    private static final File PORTRAIT = new File("portrait.png");
+    private static final File PORTRAIT = new File("client/src/main/resources/images/portrait.png");
 
     /**
      * 原始图片
@@ -70,6 +72,16 @@ public class MenuPanel extends JPanel {
     private JButton btnHistory;
 
     /**
+     * 设置按钮(因显示要求,使用JLabel)
+     */
+    private JLabel btnSettings;
+
+    /**
+     * 换肤按钮
+     */
+    private JLabel btnSkin;
+
+    /**
      * 头像选择器
      */
     private Portrait portrait;
@@ -91,13 +103,11 @@ public class MenuPanel extends JPanel {
         // 消除锯齿
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //绘制菜单栏
-        graphics2D.drawImage(AllImage.menu, 0, 0, this.getWidth(), this.getHeight(), null);
+        graphics2D.drawImage(ImageLoader.menu, 0, 0, this.getWidth(), this.getHeight(), null);
         //绘制头像
         graphics2D.setColor(Color.gray);
         graphics2D.fillOval(PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
         graphics2D.drawImage(portraitImage, PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
-        //绘制设置图标
-        graphics2D.drawImage(AllImage.settings, PADDING, this.getHeight() - PADDING * 2, PADDING, PADDING, null);
     }
 
     /**
@@ -108,16 +118,24 @@ public class MenuPanel extends JPanel {
         btnPicture = new JButton("行  情");
         btnMarketIndex = new JButton("大盘指数");
         btnHistory = new JButton("历  史");
+        btnSettings = new JLabel();
+        btnSkin = new JLabel();
 
-        btnPortfolio.setBounds(PADDING, PORTRAIT_DIAMETER + PADDING * 2, 110, PADDING);
-        btnPicture.setBounds(PADDING, btnPortfolio.getY() + PADDING * 2, 110, PADDING);
-        btnMarketIndex.setBounds(PADDING, btnPicture.getY() + PADDING * 2, 110, PADDING);
-        btnHistory.setBounds(PADDING, btnMarketIndex.getY() + PADDING * 2, 110, PADDING);
+        btnPortfolio.setBounds(PADDING, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, PADDING);
+        btnPicture.setBounds(PADDING, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
+        btnMarketIndex.setBounds(PADDING, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
+        btnHistory.setBounds(PADDING, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
+        btnSettings.setBounds(PADDING, 450, PADDING, PADDING);
+        btnSkin.setBounds(110, 450, PADDING, PADDING);
+        btnSettings.setIcon(new ImageIcon(ImageLoader.settings));
+        btnSkin.setIcon(new ImageIcon(ImageLoader.skin));
 
         this.add(btnPortfolio);
         this.add(btnPicture);
         this.add(btnMarketIndex);
         this.add(btnHistory);
+        this.add(btnSettings);
+        this.add(btnSkin);
     }
 
     private void addListeners() {
@@ -156,6 +174,20 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(new HistoryPanel());
+            }
+        });
+
+        btnSettings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
+        btnSettings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
             }
         });
     }
