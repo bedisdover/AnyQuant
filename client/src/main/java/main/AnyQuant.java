@@ -1,7 +1,6 @@
 package main;
 
 import presentation.MainFrame;
-import presentation.MenuPanel;
 
 import javax.swing.*;
 
@@ -14,7 +13,6 @@ public class AnyQuant {
 
     public static void main(String[] args) {
         JFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setContentPane(new MenuPanel());
         mainFrame.setVisible(true);
     }
 }

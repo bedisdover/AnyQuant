@@ -1,6 +1,7 @@
 package presentation.panel;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by song on 16-3-2.
@@ -9,4 +10,16 @@ import javax.swing.*;
  */
 public class HistoryPanel extends JPanel {
 
+    public HistoryPanel() {
+
+    }
+
+    private void createUIComponents() {
+
+    }
+
+    @Override
+    public void paint(Graphics g) {
+
+    }
 }

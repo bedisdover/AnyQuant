@@ -89,14 +89,15 @@ public class MenuPanel extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
 
         // 消除锯齿
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         graphics2D.setColor(new Color(121, 106, 75));
-        graphics2D.fillRect(0, 0, this.getWidth() / 4, this.getHeight());
+        graphics2D.drawImage(AllImage.menu, 0, 0, this.getWidth(), this.getHeight(), null);
         graphics2D.setColor(Color.gray);
         graphics2D.fillOval(PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
 
@@ -159,6 +160,7 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 operationPanel = new HistoryPanel();
+
             }
         });
     }

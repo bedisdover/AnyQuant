@@ -15,6 +15,8 @@ public final class MainFrame extends JFrame {
 
     private static final MainFrame frame;
 
+    private static final JPanel panel;
+
     private static Dimension screen;
 
     private MainFrame() {
@@ -27,8 +29,10 @@ public final class MainFrame extends JFrame {
         height = width * 3 / 4;
 
         frame = new MainFrame();
+        panel = new JPanel();
 
         init();
+        createUIComponents();
     }
 
     public static JFrame getMainFrame() {
@@ -43,7 +47,15 @@ public final class MainFrame extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(panel);
         frame.setLayout(null);
+    }
+
+    private static void createUIComponents() {
+        MenuPanel menuPanel = new MenuPanel();
+        menuPanel.setBounds(0, 0, frame.getWidth() / 4, frame.getHeight());
+
+        panel.add(menuPanel);
     }
 }
 
