@@ -176,8 +176,15 @@ public class MenuPanel extends JPanel {
 
         //文件选择器
         JFileChooser chooser = new JFileChooser();
-        ExampleFileFilter filter = new ExampleFileFilter(new String[]{"jpg", "gif"}, "JPEG & GIF Images");
-        chooser.addChoosableFileFilter(filter);
+        chooser.setDialogTitle("请选择图像文件...");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        ExampleFileFilter filter = new ExampleFileFilter();
+        filter.addExtension("jpg");
+        filter.addExtension("gif");
+        filter.addExtension("png");
+        filter.setDescription("JPG & GIF & PNG Images");
+        chooser.setFileFilter(filter);
+
         int result = chooser.showOpenDialog(MainFrame.getMainFrame());
 
         if (result == JFileChooser.APPROVE_OPTION) {
