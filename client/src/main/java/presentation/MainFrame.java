@@ -50,8 +50,10 @@ public final class MainFrame extends JFrame {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
-        panel.setLayout(null);
         frame.setLayout(null);
+        frame.setIconImage(ImageLoader.icon);
+
+        panel.setLayout(null);
     }
 
     private static void createUIComponents() {

@@ -16,12 +16,14 @@ public class ImageLoader {
     public static Image menu;
     public static Image settings;
     public static Image skin;
+    public static Image icon;
 
     static {
         try {
             menu = ImageIO.read(new File(IMAGE_PATH + "menu.gif"));
             settings = ImageIO.read(new File(IMAGE_PATH + "settings.png"));
             skin = ImageIO.read(new File(IMAGE_PATH + "skin.png"));
+            icon = ImageIO.read(new File(IMAGE_PATH + "icon.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
