@@ -1,6 +1,0 @@
-*.iml
-.idea/
-AnyQuant.iml
-client/client.iml
-common/common.iml
-server/server.iml
