@@ -18,6 +18,7 @@ import java.text.ParseException;
  * Created by zcy on 2016/3/3.
  */
 public class ReadDataTest {
+
     public String getData(String url) {
         StringBuilder json = new StringBuilder();
         try{
