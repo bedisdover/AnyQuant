@@ -25,14 +25,28 @@ public class MenuPanel extends JPanel {
     /**
      * 头像直径
      */
-    private static final int PORTRAIT_DIAMETER = 80;
+    private final int PORTRAIT_DIAMETER;
+
+    /**
+     * 外边距
+     */
+    private final int MARGIN;
 
     /**
      * 内边距
      */
-    private static final int PADDING = 30;
+    private final int PADDING;
 
-    private static final int BUTTON_WIDTH = 110;
+    /**
+     * 按钮宽度
+     */
+    private final int BUTTON_WIDTH;
+
+    /**
+     * 按钮高度
+     */
+    private final int BUTTON_HEIGHT;
+
 
     /**
      * 头像文件
@@ -87,7 +101,13 @@ public class MenuPanel extends JPanel {
     private Portrait portrait;
 
     public MenuPanel() {
-        this.setLayout(null);
+        init();
+
+        PORTRAIT_DIAMETER = getWidth() / 2;
+        BUTTON_WIDTH = getWidth() * 2 / 3;
+        BUTTON_HEIGHT = BUTTON_WIDTH / 3;
+        MARGIN = (getWidth() - BUTTON_WIDTH) / 2;
+        PADDING = BUTTON_HEIGHT;
 
         createUIComponents();
         addListeners();
@@ -106,8 +126,17 @@ public class MenuPanel extends JPanel {
         graphics2D.drawImage(ImageLoader.menu, 0, 0, this.getWidth(), this.getHeight(), null);
         //绘制头像
         graphics2D.setColor(Color.gray);
-        graphics2D.fillOval(PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
-        graphics2D.drawImage(portraitImage, PADDING, PADDING, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
+        graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
+        graphics2D.drawImage(portraitImage, MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
+    }
+
+    /**
+     * 初始化
+     */
+    private void init() {
+        this.setLayout(null);
+        this.setBounds(0, 0, MainFrame.getMainFrame().getWidth() / 5,
+                MainFrame.getMainFrame().getHeight());
     }
 
     /**
@@ -121,12 +150,13 @@ public class MenuPanel extends JPanel {
         btnSettings = new JLabel();
         btnSkin = new JLabel();
 
-        btnPortfolio.setBounds(PADDING, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, PADDING);
-        btnPicture.setBounds(PADDING, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
-        btnMarketIndex.setBounds(PADDING, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
-        btnHistory.setBounds(PADDING, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, PADDING);
-        btnSettings.setBounds(PADDING, 450, PADDING, PADDING);
-        btnSkin.setBounds(110, 450, PADDING, PADDING);
+        btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT, BUTTON_HEIGHT, BUTTON_HEIGHT);
+        btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, getHeight() - MARGIN - BUTTON_HEIGHT,
+                BUTTON_HEIGHT, BUTTON_HEIGHT);
         btnSettings.setIcon(new ImageIcon(ImageLoader.settings));
         btnSkin.setIcon(new ImageIcon(ImageLoader.skin));
 

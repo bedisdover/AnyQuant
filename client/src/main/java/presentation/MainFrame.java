@@ -58,13 +58,13 @@ public final class MainFrame extends JFrame {
 
     private static void createUIComponents() {
         MenuPanel menuPanel = new MenuPanel();
-        menuPanel.setBounds(0, 0, frame.getWidth() / 4, frame.getHeight());
+        menuPanel.setBounds(0, 0, frame.getWidth() / 5, frame.getHeight());
 
         panel.add(menuPanel);
     }
 
     public void addOperationPanel(OperationPanel operationPanel) {
-        operationPanel.setBounds(frame.getWidth() / 4, 0, frame.getWidth(), frame.getHeight());
+        operationPanel.setBounds(frame.getWidth() / 5, 0, frame.getWidth(), frame.getHeight());
 
         panel.add(operationPanel);
     }
