@@ -1,6 +1,5 @@
-package presentation.panel;
+package presentation.panel.operation;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**

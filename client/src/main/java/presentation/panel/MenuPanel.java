@@ -1,10 +1,13 @@
-package presentation;
+package presentation.panel;
 
-import presentation.panel.HistoryPanel;
-import presentation.panel.MarketIndexPanel;
-import presentation.panel.PicturePanel;
-import presentation.panel.PortfolioPanel;
+import presentation.MainFrame;
+import presentation.panel.operation.HistoryPanel;
+import presentation.panel.operation.MarketIndexPanel;
+import presentation.panel.operation.PicturePanel;
+import presentation.panel.operation.PortfolioPanel;
 import presentation.util.ExampleFileFilter;
+import presentation.util.ImageLoader;
+import presentation.util.Portrait;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -47,6 +50,10 @@ public class MenuPanel extends JPanel {
      */
     private final int BUTTON_HEIGHT;
 
+    /**
+     * 面板透明度
+     */
+    private final float TRANSPARENCY = 0.5f;
 
     /**
      * 头像文件
@@ -123,7 +130,9 @@ public class MenuPanel extends JPanel {
         // 消除锯齿
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //绘制菜单栏
-        graphics2D.drawImage(ImageLoader.menu, 0, 0, this.getWidth(), this.getHeight(), null);
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCY));
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         //绘制头像
         graphics2D.setColor(Color.gray);
         graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
@@ -137,6 +146,7 @@ public class MenuPanel extends JPanel {
         this.setLayout(null);
         this.setBounds(0, 0, MainFrame.getMainFrame().getWidth() / 5,
                 MainFrame.getMainFrame().getHeight());
+        this.setOpaque(false);
     }
 
     /**

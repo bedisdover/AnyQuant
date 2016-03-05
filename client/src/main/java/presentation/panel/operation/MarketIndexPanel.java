@@ -1,6 +1,4 @@
-package presentation.panel;
-
-import javax.swing.*;
+package presentation.panel.operation;
 
 /**
  * Created by song on 16-3-2.

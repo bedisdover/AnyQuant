@@ -1,4 +1,4 @@
-package presentation;
+package presentation.util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,17 +13,17 @@ import java.io.IOException;
 public class ImageLoader {
     private static final String IMAGE_PATH = "client/src/main/resources/images/";
 
-    public static Image menu;
     public static Image settings;
     public static Image skin;
     public static Image icon;
+    public static Image background;
 
     static {
         try {
-            menu = ImageIO.read(new File(IMAGE_PATH + "menu.gif"));
             settings = ImageIO.read(new File(IMAGE_PATH + "settings.png"));
             skin = ImageIO.read(new File(IMAGE_PATH + "skin.png"));
             icon = ImageIO.read(new File(IMAGE_PATH + "icon.png"));
+            background = ImageIO.read(new File(IMAGE_PATH + "bg.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }

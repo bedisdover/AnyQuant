@@ -1,6 +1,10 @@
 package presentation;
 
-import presentation.panel.OperationPanel;
+import presentation.panel.BackgroundPanel;
+import presentation.panel.MenuPanel;
+import presentation.panel.operation.OperationPanel;
+import presentation.panel.operation.PicturePanel;
+import presentation.util.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +35,7 @@ public final class MainFrame extends JFrame {
         height = width * 3 / 4;
 
         frame = new MainFrame();
-        panel = new JPanel();
+        panel = new BackgroundPanel(ImageLoader.background);
 
         init();
         createUIComponents();
@@ -61,9 +65,10 @@ public final class MainFrame extends JFrame {
         menuPanel.setBounds(0, 0, frame.getWidth() / 5, frame.getHeight());
 
         panel.add(menuPanel);
+        addOperationPanel(new OperationPanel());
     }
 
-    public void addOperationPanel(OperationPanel operationPanel) {
+    public static void addOperationPanel(OperationPanel operationPanel) {
         operationPanel.setBounds(frame.getWidth() / 5, 0, frame.getWidth(), frame.getHeight());
 
         panel.add(operationPanel);
