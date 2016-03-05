@@ -41,14 +41,14 @@ public class ReadDataTest {
         return json.toString();
     }
 
-    public String[] parseJson(String jsonStr, String key) {
+    public String[] parseJson(String jsonStr, String key,String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray(key);
         String[] result = new String[jsonArray.size()];
         for (int i = 0; i < jsonArray.size(); i++) {
             System.out.print(jsonArray.getString(i) + " ");
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
-            result[i] = temp.getString("link");
+            result[i] = temp.getString(subKey);
         }
         return result;
     }
@@ -57,7 +57,7 @@ public class ReadDataTest {
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadDataTest rdt = new ReadDataTest();
         String result = rdt.getData(url);
-        String[] info = rdt.parseJson(result, "data");
+        String[] info = rdt.parseJson(result, "data","link");
         for (int i = 0; i < info.length; i++) {
             System.out.println(info[i]);
         }
