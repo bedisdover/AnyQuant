@@ -127,14 +127,11 @@ public class MenuPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
 
-        // 消除锯齿
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //绘制菜单栏
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCY));
-        graphics2D.fillRect(0, 0, getWidth(), getHeight());
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-        //绘制头像
         graphics2D.setColor(Color.gray);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        //绘制头像
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
         graphics2D.drawImage(portraitImage, MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
     }

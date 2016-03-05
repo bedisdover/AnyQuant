@@ -11,10 +11,15 @@ import java.awt.*;
  */
 public class OperationPanel extends JPanel {
 
-    protected final float TRANSPARENCY = 0.5f;
+    protected JButton labelSearch;
 
     public OperationPanel() {
+        setOpaque(false);
+        labelSearch = new JButton("搜索");
 
+        labelSearch.setBounds(100, 100, 100, 100);
+
+        add(labelSearch);
     }
 
     protected void createUICompontents() {
@@ -25,13 +30,13 @@ public class OperationPanel extends JPanel {
 
     }
 
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//        Graphics2D graphics2D = (Graphics2D) g;
-//
-////        graphics2D.setColor(Color.red);
-//        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCY));
-//        graphics2D.fillRect(0, 0, 100, getHeight());
-//    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
+
+        graphics2D.setColor(Color.white);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+    }
 }

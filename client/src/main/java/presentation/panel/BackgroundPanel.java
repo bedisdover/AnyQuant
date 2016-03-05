@@ -16,6 +16,8 @@ public class BackgroundPanel extends JPanel {
      */
     private Image backdrop;
 
+    private final float TRANSPARENCY = 0.5f;
+
     public BackgroundPanel(Image image) {
         this.backdrop = image;
     }
@@ -23,8 +25,11 @@ public class BackgroundPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
 
         g.drawImage(backdrop, 0, 0, getWidth(), getHeight(), null);
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCY));
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
     }
 
     public Image getBackdrop() {
