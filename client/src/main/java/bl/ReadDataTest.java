@@ -40,22 +40,30 @@ public class ReadDataTest {
         System.out.println(json.toString());
         return json.toString();
     }
-    public void parseJson(String jsonStr) throws JSONException,ParseException {
+    public String[] parseJson(String jsonStr) throws JSONException,ParseException {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
+        String[] result = new String[jsonArray.size()];
         for(int i=0;i<jsonArray.size();i++){
             System.out.print(jsonArray.getString(i)+" ");
+            JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
+            result[i] = temp.getString("link");
         }
+        return result;
     }
 
     public static void main(String[] args){
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadDataTest rdt = new ReadDataTest();
         String result = rdt.getData(url);
+        String[] info = null;
         try {
-            rdt.parseJson(result);
+            info = rdt.parseJson(result);
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+        for(int i=0;i<info.length;i++){
+            System.out.println(info[i]);
         }
     }
 }
