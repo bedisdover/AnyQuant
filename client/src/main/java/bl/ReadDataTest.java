@@ -1,5 +1,8 @@
 package bl;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 import net.sf.json.util.JSONTokener;
 
 import java.io.BufferedReader;
@@ -9,12 +12,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 
 /**
  * Created by zcy on 2016/3/3.
  */
 public class ReadDataTest {
-    public void getData(String url) {
+    public String getData(String url) {
         StringBuilder json = new StringBuilder();
         try{
             URL urlObject = new URL(url);
@@ -34,11 +38,24 @@ public class ReadDataTest {
             e.printStackTrace();
         }
         System.out.println(json.toString());
+        return json.toString();
     }
+    public void parseJson(String jsonStr) throws JSONException,ParseException {
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        for(int i=0;i<jsonArray.size();i++){
+            System.out.print(jsonArray.getString(i)+" ");
+        }
+    }
+
     public static void main(String[] args){
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadDataTest rdt = new ReadDataTest();
-        rdt.getData(url);
-//        JSONTokener jsonParser = new JSONTokener(json);
+        String result = rdt.getData(url);
+        try {
+            rdt.parseJson(result);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
