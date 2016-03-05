@@ -7,6 +7,6 @@ import javax.swing.*;
  *
  * 行情面板
  */
-public class PicturePanel extends JPanel {
+public class PicturePanel extends OperationPanel {
 
 }

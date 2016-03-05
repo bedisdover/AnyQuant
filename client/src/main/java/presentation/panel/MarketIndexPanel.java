@@ -7,6 +7,6 @@ import javax.swing.*;
  *
  * 大盘指数面板
  */
-public class MarketIndexPanel extends JPanel {
+public class MarketIndexPanel extends PortfolioPanel {
 
 }

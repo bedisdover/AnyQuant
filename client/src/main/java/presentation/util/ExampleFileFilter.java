@@ -16,7 +16,7 @@ import javax.swing.filechooser.*;
  * image files:
  * 
  * JFileChooser chooser = new JFileChooser(); ExampleFileFilter filter = new
- * ExampleFileFilter( new String[]{"gif", "jpg"}, "JPEG & GIF Images")
+ * ExampleFileFilter( new String[]{"gif", "jpg"}, "JPEG & GIF images")
  * chooser.addChoosableFileFilter(filter); chooser.showOpenDialog(this);
  * 
  * @version 1.8 08/26/98
@@ -50,7 +50,7 @@ public class ExampleFileFilter extends FileFilter {
 
 	/**
 	 * Creates a file filter that accepts the given file type. Example: new
-	 * ExampleFileFilter("jpg", "JPEG Image Images");
+	 * ExampleFileFilter("jpg", "JPEG Image images");
 	 * 
 	 * Note that the "." before the extension is not needed. If provided, it
 	 * will be ignored.addExtension
@@ -76,7 +76,7 @@ public class ExampleFileFilter extends FileFilter {
 	/**
 	 * Creates a file filter from the given string array and description.
 	 * Example: new ExampleFileFilter(String {"gif", "jpg"},
-	 * "Gif and JPG Images");
+	 * "Gif and JPG images");
 	 * 
 	 * Note that the "." before the extension is not needed and will be ignored.addExtension
 	 */
@@ -172,7 +172,7 @@ public class ExampleFileFilter extends FileFilter {
 
 	/**
 	 * Sets the human readable description of this filter. For example:
-	 * filter.setDescription("Gif and JPG Images");
+	 * filter.setDescription("Gif and JPG images");
 	 */
 	public void setDescription(String description) {
 		this.description = description;

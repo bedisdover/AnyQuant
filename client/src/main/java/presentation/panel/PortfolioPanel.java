@@ -7,6 +7,6 @@ import javax.swing.*;
  *
  * 自选面板
  */
-public class PortfolioPanel extends JPanel {
+public class PortfolioPanel extends OperationPanel {
 
 }
