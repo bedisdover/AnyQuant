@@ -11,6 +11,7 @@ import java.awt.*;
 public class HistoryPanel extends OperationPanel {
 
     public HistoryPanel() {
+        setLayout(null);
 
     }
 
