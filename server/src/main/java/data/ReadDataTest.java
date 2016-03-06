@@ -1,5 +1,6 @@
 package data;
 
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
@@ -41,6 +42,23 @@ public class ReadDataTest {
         return json.toString();
     }
 
+    public String parseJSON(String jsonStr,String key){
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        return jsonObject.getString(key);
+    }
+
+    public String[] parseJSON_array(String jsonStr,String key){
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        JSONArray jsonArray = jsonObject.getJSONArray(key);
+        String[] result = new String[jsonArray.size()];
+        for(int i=0;i<result.length;i++){
+            result[i] = jsonArray.getString(i);
+        }
+        return result;
+    }
+    /*
+    第一个key得到的不是array，第二个key得到的是array
+     */
     public String[] parseJson(String jsonStr, String key,String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray(key);
@@ -49,6 +67,21 @@ public class ReadDataTest {
             System.out.print(jsonArray.getString(i) + " ");
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
             result[i] = temp.getString(subKey);
+        }
+        return result;
+    }
+    /*
+    第一个得到的是array，第二个得到的不是array
+    */
+    public String[] parseJson2(String jsonStr,String key,String subKey) {
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        String tradingInfo = jsonObject.getString(key);
+        JSONObject jsonObject1 = JSONObject.fromObject(tradingInfo);
+        JSONArray jsonArray = jsonObject1.getJSONArray(subKey);
+        String[] result = new String[jsonObject1.size()];
+        for(int i=0;i<result.length;i++){
+            JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
+            result[i] = temp.getString("volume");
         }
         return result;
     }
@@ -61,6 +94,22 @@ public class ReadDataTest {
         for (int i = 0; i < info.length; i++) {
             System.out.println(info[i]);
         }
-        rdt.getData(info[0]);
+
+        String[] names = new String[info.length];
+        String[][] volume = null;
+        for(int n=0;n<info.length;n++){
+            String s1 = rdt.getData(info[n]);
+            String s = rdt.parseJSON(s1,"data");
+            String[] sa = rdt.parseJSON_array(s,"trading_info");
+            names[n] = rdt.parseJSON(s1,"name");
+            if(volume==null){
+                volume = new String[info.length][sa.length];
+            }
+            for(int i=0;i<sa.length;i++){
+                volume[n][i] = rdt.parseJSON(sa[i],"volume");
+                System.out.print(volume[n][i]+" ");
+            }
+            System.out.println();
+        }
     }
 }
