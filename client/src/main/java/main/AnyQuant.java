@@ -1,6 +1,6 @@
 package main;
 
-import presentation.MainFrame;
+import presentation.frame.MainFrame;
 
 import javax.swing.*;
 

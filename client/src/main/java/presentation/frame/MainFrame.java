@@ -1,4 +1,4 @@
-package presentation;
+package presentation.frame;
 
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;

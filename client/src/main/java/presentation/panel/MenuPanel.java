@@ -1,5 +1,6 @@
 package presentation.panel;
 
+import presentation.frame.SettingsFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
@@ -17,8 +18,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static presentation.MainFrame.addOperationPanel;
-import static presentation.MainFrame.getMainFrame;
+import static presentation.frame.MainFrame.addOperationPanel;
+import static presentation.frame.MainFrame.getMainFrame;
 
 /**
  * Created by song on 16-3-2.
@@ -219,7 +220,8 @@ public class MenuPanel extends JPanel {
         btnSettings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                new SettingsFrame().setVisible(true);
+                System.out.println(1);
             }
         });
 

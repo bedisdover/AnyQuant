@@ -1,6 +1,6 @@
 package presentation.panel.operation;
 
-import presentation.MainFrame;
+import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 
