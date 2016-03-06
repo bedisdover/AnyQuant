@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class BackgroundPanel extends JPanel {
 
-    /**
+    /**w
      * 背景图片
      */
     private Image backdrop;

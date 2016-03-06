@@ -3,7 +3,6 @@ package presentation;
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;
 import presentation.panel.operation.OperationPanel;
-import presentation.panel.operation.PicturePanel;
 import presentation.util.ImageLoader;
 
 import javax.swing.*;

@@ -1,6 +1,5 @@
 package presentation.panel;
 
-import presentation.MainFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
@@ -17,6 +16,9 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import static presentation.MainFrame.addOperationPanel;
+import static presentation.MainFrame.getMainFrame;
 
 /**
  * Created by song on 16-3-2.
@@ -141,8 +143,8 @@ public class MenuPanel extends JPanel {
      */
     private void init() {
         this.setLayout(null);
-        this.setBounds(0, 0, MainFrame.getMainFrame().getWidth() / 5,
-                MainFrame.getMainFrame().getHeight());
+        this.setBounds(0, 0, getMainFrame().getWidth() / 5,
+                getMainFrame().getHeight());
         this.setOpaque(false);
     }
 
@@ -189,28 +191,28 @@ public class MenuPanel extends JPanel {
         btnPortfolio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+                addOperationPanel(new PortfolioPanel());
             }
         });
 
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new PicturePanel());
+                addOperationPanel(new PicturePanel());
             }
         });
 
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new MarketIndexPanel());
+                addOperationPanel(new MarketIndexPanel());
             }
         });
 
         btnHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new HistoryPanel());
+                addOperationPanel(new HistoryPanel());
             }
         });
 
@@ -251,7 +253,7 @@ public class MenuPanel extends JPanel {
         filter.setDescription("JPG & GIF & PNG Images");
         chooser.setFileFilter(filter);
 
-        int result = chooser.showOpenDialog(MainFrame.getMainFrame());
+        int result = chooser.showOpenDialog(getMainFrame());
 
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
