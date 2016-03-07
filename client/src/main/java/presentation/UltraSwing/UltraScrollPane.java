@@ -1,27 +1,15 @@
 package presentation.UltraSwing;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.geom.RoundRectangle2D;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+
 /**
  * Created by zmj on 2016/3/6.
  */
-public class UltraScrollPane extends  JScrollPane {
+public class UltraScrollPane extends JScrollPane {
 
     private static final long serialVersionUID = 1L;
 

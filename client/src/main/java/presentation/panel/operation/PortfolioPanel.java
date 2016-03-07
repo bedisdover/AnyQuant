@@ -2,6 +2,7 @@ package presentation.panel.operation;
 
 import presentation.util.ImageLoader;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -23,7 +24,10 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     private void createUIComponents() {
+        JTable table = new JTable();
+        table.setBounds(100, 100, 300, 300);
 
+        add(table);
     }
 
     @Override

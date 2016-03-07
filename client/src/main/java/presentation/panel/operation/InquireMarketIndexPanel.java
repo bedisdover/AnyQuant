@@ -1,6 +1,6 @@
 package presentation.panel.operation;
 
-import presentation.MainFrame;
+import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 
@@ -41,9 +41,10 @@ public class InquireMarketIndexPanel extends OperationPanel {
      */
     private static final int MENU_WIDTH = MainFrame.getMainFrame().getWidth() / 5;
 
-
+    private JTextField searchInput;
     private Table table;
     private JLabel title;
+    private JButton search;
     private JButton back;
     private DateChooser dateChooser;
 
