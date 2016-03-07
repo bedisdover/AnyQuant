@@ -1,8 +1,7 @@
 package presentation.panel.operation;
 
-import presentation.UltraSwing.UltraScrollPane;
-
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 public class TableCopy extends JTable {
 
     private Object[][] rowData;
-    public JTable table;
 
     /**
      * 表的列数
@@ -33,22 +31,33 @@ public class TableCopy extends JTable {
      */
     private int currentRow = 0;
 
-    public UltraScrollPane drawTable(String[] name, int[] list) {
+    public TableCopy() {
+        init();
+    }
+
+    private void init() {
+        setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+    }
+
+//    public UltraScrollPane drawTable(String[] columnNames, )
+
+    public JScrollPane drawTable(String[] name, int[] list) {
         /**
-         * list里面参数分别为需要的行数，每一列的宽度,设置第一行字体大小,设置第一行行宽,
-         * 剩下行的行宽,表格setbounds（list[5],list[6], list[7], list[8]）
+         * list里面参数分别为需要的行数，每一列的宽度,设置第一行行宽
          *
          * 调用的时候在你的panel构造函数里 Table table=new Table(); add(table.drawTable(name,
          * list));
          */
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         columnNum = name.length;
         rowNum = list[0];
         rowData = new Object[rowNum][columnNum];
-        table = new JTable(rowData, name);
-        /**
-         * 设置表格不能编辑但能选中一行
-         */
-        // table.setEnabled(false);
+        JTable table = new JTable(rowData, name);
 
 		/*
          * 设置JTable的列默认的宽度和高度
@@ -60,14 +69,12 @@ public class TableCopy extends JTable {
             column = table.getColumnModel().getColumn(i);
 
             // 将每一列的默认宽度设置为
-
             column.setPreferredWidth(list[1]);
         }
 
-        Font fnt2 = new Font("Courier", Font.PLAIN, list[2]);
+        Font fnt2 = new Font("Courier", Font.PLAIN, 16);
         table.getTableHeader().setFont(fnt2);
-        table.getTableHeader().setPreferredSize(new Dimension(table.getTableHeader().getWidth(), list[3]));
-        table.setRowHeight(list[4]);
+        table.setRowHeight(list[2]);
 
 		/*
          * 设置JTable自动调整列表的状态，此处设置为关闭
@@ -82,8 +89,8 @@ public class TableCopy extends JTable {
         /**
          * 用UltraScrollPane装载JTable
          */
-        UltraScrollPane scroll = new UltraScrollPane(table);
-        scroll.setBounds(list[5], list[6], list[7], list[8]);
+        JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         return scroll;
 
     }
@@ -95,7 +102,7 @@ public class TableCopy extends JTable {
     public void setValueAt(int row, String[] values) {
         System.arraycopy(values, 0, rowData[row], 1, values.length);
 
-        if (row != table.getSelectedRow()) {
+        if (row != getSelectedRow()) {
             currentRow++;
         }
 
@@ -107,7 +114,7 @@ public class TableCopy extends JTable {
     }
 
     public int getSelectedRow() {
-        return table.getSelectedRow();
+        return getSelectedRow();
     }
 
     public int numOfEmpty() {
