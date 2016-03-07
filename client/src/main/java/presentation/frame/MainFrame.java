@@ -20,9 +20,7 @@ public final class MainFrame extends JFrame {
 
     private static final MainFrame frame;
 
-    private static final BackgroundPanel panel;
-
-    private static Dimension screen;
+    private static final BackgroundPanel backgroundPanel;
 
     private static OperationPanel operationPanel;
 
@@ -30,13 +28,13 @@ public final class MainFrame extends JFrame {
     }
 
     static {
-        screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
         width = screen.width / 2;
         height = width * 3 / 4;
 
         frame = new MainFrame();
-        panel = new BackgroundPanel(ImageLoader.background);
+        backgroundPanel = new BackgroundPanel(ImageLoader.background);
 
         init();
         createUIComponents();
@@ -54,27 +52,36 @@ public final class MainFrame extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(panel);
+        frame.setContentPane(backgroundPanel);
         frame.setLayout(null);
         frame.setIconImage(ImageLoader.icon);
 
-        panel.setLayout(null);
+        backgroundPanel.setLayout(null);
 
         operationPanel = new OperationPanel();
     }
 
+    /**
+     * 创建组件
+     */
     private static void createUIComponents() {
         MenuPanel menuPanel = new MenuPanel();
-        menuPanel.setBounds(0, 0, frame.getWidth() / 5, frame.getHeight());
-        panel.add(menuPanel);
+        menuPanel.setBounds(0, 0, width / 5, height);
+        backgroundPanel.add(menuPanel);
 
-        operationPanel.setBounds(frame.getWidth() / 5, 0, frame.getWidth(), frame.getHeight());
+        operationPanel.setBounds(width / 5, 0, width, height);
     }
 
-    public void addOperationPanel(OperationPanel o) {
-        panel.remove(operationPanel);
-        operationPanel = o;
-        panel.add(o);
+    /**
+     * 添加操作面板
+     *
+     * @param panel 操作面板
+     */
+    public void addOperationPanel(OperationPanel panel) {
+        backgroundPanel.remove(operationPanel);
+        operationPanel = panel;
+        panel.setBounds(width / 5, 0, width, height);
+        backgroundPanel.add(panel);
 
         repaint();
     }

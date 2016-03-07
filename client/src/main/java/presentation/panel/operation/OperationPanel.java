@@ -15,11 +15,6 @@ public class OperationPanel extends JPanel {
 
     public OperationPanel() {
         setOpaque(false);
-        btnSearch = new JButton("搜索");
-
-//        btnSearch.setBounds(MainFrame.getMainFrame().getWidth() - 300, 50, 50, 100);
-
-        add(btnSearch);
     }
 
 
@@ -32,7 +27,7 @@ public class OperationPanel extends JPanel {
 
     }
 
-    //TODO 不知为何会影响到子类的透明度,并不影响本类组件
+//    TODO 不知为何会影响到子类的透明度,并不影响本类组件
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
