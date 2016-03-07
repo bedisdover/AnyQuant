@@ -1,16 +1,17 @@
 package presentation.panel;
 
-import presentation.frame.SettingsFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
+import presentation.settings.SettingsDialog;
 import presentation.util.ExampleFileFilter;
 import presentation.util.ImageLoader;
 import presentation.util.Portrait;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -143,6 +144,11 @@ public class MenuPanel extends JPanel {
      * 初始化
      */
     private void init() {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         this.setLayout(null);
         this.setBounds(0, 0, getMainFrame().getWidth() / 5,
                 getMainFrame().getHeight());
@@ -220,8 +226,7 @@ public class MenuPanel extends JPanel {
         btnSettings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new SettingsFrame().setVisible(true);
-                System.out.println(1);
+                new SettingsDialog().setVisible(true);
             }
         });
 
