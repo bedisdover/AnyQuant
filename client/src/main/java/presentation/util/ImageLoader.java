@@ -17,6 +17,8 @@ public class ImageLoader {
     public static Image skin;
     public static Image icon;
     public static Image background;
+    public static Image on;
+    public static Image off;
 
     static {
         try {
@@ -24,6 +26,8 @@ public class ImageLoader {
             skin = ImageIO.read(new File(IMAGE_PATH + "skin.png"));
             icon = ImageIO.read(new File(IMAGE_PATH + "icon.png"));
             background = ImageIO.read(new File(IMAGE_PATH + "bg.jpg"));
+            on = ImageIO.read(new File(IMAGE_PATH + "on.png"));
+            off = ImageIO.read(new File(IMAGE_PATH + "off.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
