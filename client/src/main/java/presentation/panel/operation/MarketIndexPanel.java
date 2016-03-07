@@ -5,6 +5,6 @@ package presentation.panel.operation;
  *
  * 大盘指数面板
  */
-public class MarketIndexPanel extends PortfolioPanel {
+public class MarketIndexPanel extends OperationPanel {
 
 }

@@ -19,6 +19,7 @@ public class ImageLoader {
     public static Image background;
     public static Image on;
     public static Image off;
+    public static Image nothing;
 
     static {
         try {
@@ -28,6 +29,7 @@ public class ImageLoader {
             background = ImageIO.read(new File(IMAGE_PATH + "bg.jpg"));
             on = ImageIO.read(new File(IMAGE_PATH + "on.png"));
             off = ImageIO.read(new File(IMAGE_PATH + "off.png"));
+            nothing = ImageIO.read(new File(IMAGE_PATH + "nothing.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

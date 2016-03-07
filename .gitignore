@@ -1,8 +1,5 @@
 .idea/
-AnyQuant.iml
-client/client.iml
-common/common.iml
-server/server.iml
 *.iml
 *.class
 target/
+client/src/main/resources/images/portrait.png

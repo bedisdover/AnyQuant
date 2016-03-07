@@ -19,7 +19,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static presentation.frame.MainFrame.addOperationPanel;
 import static presentation.frame.MainFrame.getMainFrame;
 
 /**
@@ -198,28 +197,28 @@ public class MenuPanel extends JPanel {
         btnPortfolio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                addOperationPanel(new PortfolioPanel());
+                getMainFrame().addOperationPanel(new PortfolioPanel());
             }
         });
 
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                addOperationPanel(new PicturePanel());
+                getMainFrame().addOperationPanel(new PicturePanel());
             }
         });
 
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                addOperationPanel(new MarketIndexPanel());
+                getMainFrame().addOperationPanel(new MarketIndexPanel());
             }
         });
 
         btnHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                addOperationPanel(new HistoryPanel());
+                getMainFrame().addOperationPanel(new HistoryPanel());
             }
         });
 

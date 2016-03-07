@@ -20,9 +20,11 @@ public final class MainFrame extends JFrame {
 
     private static final MainFrame frame;
 
-    private static final JPanel panel;
+    private static final BackgroundPanel panel;
 
     private static Dimension screen;
+
+    private static OperationPanel operationPanel;
 
     private MainFrame() {
     }
@@ -57,20 +59,24 @@ public final class MainFrame extends JFrame {
         frame.setIconImage(ImageLoader.icon);
 
         panel.setLayout(null);
+
+        operationPanel = new OperationPanel();
     }
 
     private static void createUIComponents() {
         MenuPanel menuPanel = new MenuPanel();
         menuPanel.setBounds(0, 0, frame.getWidth() / 5, frame.getHeight());
-
         panel.add(menuPanel);
-        addOperationPanel(new OperationPanel());
+
+        operationPanel.setBounds(frame.getWidth() / 5, 0, frame.getWidth(), frame.getHeight());
     }
 
-    public static void addOperationPanel(OperationPanel operationPanel) {
-        operationPanel.setBounds(frame.getWidth() / 5, 0, frame.getWidth(), frame.getHeight());
+    public void addOperationPanel(OperationPanel o) {
+        panel.remove(operationPanel);
+        operationPanel = o;
+        panel.add(o);
 
-        panel.add(operationPanel);
+        repaint();
     }
 }
 

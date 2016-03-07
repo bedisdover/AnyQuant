@@ -73,6 +73,10 @@ public class SettingsPanel extends JPanel {
             JButton btnUI = new JButton("界面设置");
             btnUI.setFont(Settings.font);
             menuPanel.add(btnUI);
+
+            JButton btnAccount = new JButton("帐号设置");
+            btnAccount.setFont(Settings.font);
+            menuPanel.add(btnAccount);
         }
 
         UISettings uiSettings = new UISettings();
