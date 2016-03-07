@@ -98,18 +98,22 @@ public class ReadDataTest {
         String[] names = new String[info.length];
         String[][] volume = null;
         for(int n=0;n<info.length;n++){
+            if(n==7){
+                continue;
+            }
             String s1 = rdt.getData(info[n]);
             String s = rdt.parseJSON(s1,"data");
-            String[] sa = rdt.parseJSON_array(s,"trading_info");
-            names[n] = rdt.parseJSON(s1,"name");
-            if(volume==null){
-                volume = new String[info.length][sa.length];
-            }
-            for(int i=0;i<sa.length;i++){
-                volume[n][i] = rdt.parseJSON(sa[i],"volume");
-                System.out.print(volume[n][i]+" ");
-            }
-            System.out.println();
+            names[n] = rdt.parseJSON(s,"name");
+            System.out.println(names[n]);
+//            String[] sa = rdt.parseJSON_array(s,"trading_info");
+//            if(volume==null){
+//                volume = new String[info.length][sa.length];
+//            }
+//            for(int i=0;i<sa.length;i++){
+//                volume[n][i] = rdt.parseJSON(sa[i],"volume");
+//                System.out.print(volume[n][i]+" ");
+//            }
+//            System.out.println();
         }
     }
 }
