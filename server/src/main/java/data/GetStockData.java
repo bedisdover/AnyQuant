@@ -20,10 +20,10 @@ public class GetStockData implements GetStockDataService{
         GetStockData getStockData = new GetStockData();
         String d = getStockData.getDateOfLatestData();//获得最新的股票数据对应的日期
         String[] time = d.split("-");
-        Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1]),Integer.parseInt(time[2]));
+        Calendar c = new GregorianCalendar();
+        c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
         c.add(c.DATE,1);
-        Date date1 = c.getTime();
+        Date date1 = c.getTime();System.out.println(date1.toString());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String d1 = simpleDateFormat.format(date1);//得到最新股票数据对应的日期的后一天
 
@@ -87,7 +87,6 @@ public class GetStockData implements GetStockDataService{
 
             spo.add(stockPO);
         }
-        System.out.println(spo.get(0).getVolume()[0]+spo.get(0).getName()+spo.get(0).getAdj_price()[0]);
         return spo;
     }
 
@@ -101,7 +100,6 @@ public class GetStockData implements GetStockDataService{
         String s1 = rdt.getData(url);
         String s2 = rdt.parseJSON(s1,"data");
         String[] dates =rdt.parseJson(s2,"trading_info","date");
-        System.out.println(dates[dates.length-1]);
         return dates[dates.length-1];
     }
 
@@ -111,15 +109,15 @@ public class GetStockData implements GetStockDataService{
 //        rdt.getData(url);
 //        System.out.println();
 
-        GetStockData g = new GetStockData();
+//        GetStockData g = new GetStockData();
 //        g.getDateOfLatestData();
-        g.getStockData_today();
+//        g.getStockData_today();
 
-//        Calendar c = Calendar.getInstance();
-//        c.add(c.DATE,-1);
-//        Date d = c.getTime();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        String s = simpleDateFormat.format(d);
-//        System.out.println(s);
+        Calendar c = Calendar.getInstance();
+        c.add(c.DATE,1);
+        Date d = c.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String s = simpleDateFormat.format(d);
+        System.out.println(s);
     }
 }
