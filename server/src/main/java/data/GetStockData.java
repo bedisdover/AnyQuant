@@ -1,5 +1,6 @@
 package data;
 
+import dataservice.GetStockDataService;
 import net.sf.json.JSONObject;
 import po.StockPO;
 
@@ -9,7 +10,7 @@ import java.util.*;
 /**
  * Created by user on 2016/3/7.
  */
-public class GetStockData {
+public class GetStockData implements GetStockDataService{
     /**
      * 得到当天的所有股票数据
      * @return List<StockPO>
