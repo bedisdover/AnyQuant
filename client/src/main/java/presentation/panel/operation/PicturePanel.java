@@ -1,13 +1,11 @@
 package presentation.panel.operation;
 
 import bl.ShowStockData;
-import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
-import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.awt.event.*;
 
 /**
  * Created by song on 16-3-2.
@@ -15,34 +13,22 @@ import java.util.List;
  * 行情面板
  */
 public class PicturePanel extends OperationPanel {
-    /**
-     * 日期距离菜单栏的位置
-     */
-    private static final int LOCATION_X = 70;
-    /**
-     * 日期距离上边框的距离
-     */
-    private static final int LOCATION_Y = 50;
-    /**
-     * 按钮等组件的宽度
-     */
-    private static final int WIDTH = 100;
-    /**
-     * 按钮等组件的高度
-     */
-    private static final int HEIGHT = 30;
-    /**
-     * 组件之间的距离
-     */
-    private static final int DISTANCE = 10;
-    /**
-     * 菜单栏的宽度
-     */
-    private static final int MENU_WIDTH = MainFrame.getMainFrame().getWidth() / 5;
 
-
+    /**
+     * 搜索框,用于输入股票名称或代码
+     * 无搜索任务时自动隐藏
+     */
     private JTextField searchInput;
+
+    /**
+     * 搜索按钮
+     */
     private JButton search;
+
+    /**
+     * 日期选择框
+     * 通过日期选择框改变日期查看其它日期的数据
+     */
     private DateChooser dateChooser;
 
     public PicturePanel() {
@@ -51,18 +37,79 @@ public class PicturePanel extends OperationPanel {
         addListeners();
     }
 
-    private void init() {
+    protected void init() {
         setLayout(null);
     }
 
-    private void createUIComponents() {
-        List<StockVO> stockVOList = new ShowStockData().getLatestStockData();
-        System.out.println(2);
-        createTable(stockVOList);
+    protected void createUIComponents() {
+        dateChooser = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        search = new JButton("搜索");
+        searchInput = new JTextField();
+
+        search.setBounds(WIDTH - MARGIN - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        searchInput.setBounds(search.getX() - TEXT_FIELD_WIDTH, MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
+
+        add(dateChooser);
+        add(search);
+
+        createTable(new ShowStockData().getLatestStockData());
     }
 
     private void addListeners() {
+        search.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (searchInput.getText().equals("输入股票名称或代码"));
+                if (!searchInput.getText().equals("")) {
+                    searchStock(searchInput.getText());
+                }
+            }
 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                searchInput.setText("输入股票名称或代码");
+                add(searchInput);
+                repaint();
+
+                //显示搜索框后,若点击除搜索框和搜索按钮以外的其他区域,
+                //自动隐藏搜索框
+                addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getSource() != search && e.getSource() != searchInput) {
+                            remove(searchInput);
+                            repaint();
+                        }
+                    }
+                });
+            }
+        });
+
+        searchInput.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                searchInput.setText("");
+            }
+        });
+
+        search.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    searchStock(searchInput.getText());
+                }
+            }
+        });
+
+        searchInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    searchStock(searchInput.getText());
+                }
+            }
+        });
     }
 
     @Override

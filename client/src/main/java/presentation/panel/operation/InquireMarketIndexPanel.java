@@ -54,14 +54,14 @@ public class InquireMarketIndexPanel extends OperationPanel {
         addListeners();
     }
 
-    private void init() {
+    protected void init() {
 
         this.setLayout(null);
         this.setBounds(MENU_WIDTH, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
         this.setOpaque(false);
     }
 
-    private void createUIComponents() {
+    protected void createUIComponents() {
         table = new Table();
         dateChooser = new DateChooser(this, MENU_WIDTH + LOCATION_X, LOCATION_Y, WIDTH, HEIGHT);
         title = new JLabel();
