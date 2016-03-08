@@ -1,5 +1,7 @@
 package presentation.panel.operation;
 
+import presentation.frame.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,12 +13,32 @@ import java.awt.*;
  */
 public class OperationPanel extends JPanel {
 
-    protected JButton btnSearch;
+    /**
+     * 面板宽度,高度(讲道理的话,宽度和高度是不确定的,但为了程序方便,
+     * 而且真实高度和宽度都是根据主界面的宽度和高度确定的,所以这里仅
+     * 简单地计算出宽度和高度)
+     */
+    protected final int WIDTH, HEIGHT;
+
+    /**
+     * 外边距
+     */
+    protected final int MARGIN;
+
+    /**
+     * 内边距
+     */
+    protected final int PADDING;
+
 
     public OperationPanel() {
+        WIDTH = MainFrame.getMainFrame().getWidth() * 4 / 5;
+        HEIGHT = MainFrame.getMainFrame().getHeight();
+        MARGIN = MainFrame.getMainFrame().getWidth() / 25;
+        PADDING = MainFrame.getMainFrame().getWidth() / 20;
+
         setOpaque(false);
     }
-
 
 
     protected void createUICompontents() {
@@ -27,7 +49,6 @@ public class OperationPanel extends JPanel {
 
     }
 
-//    TODO 不知为何会影响到子类的透明度,并不影响本类组件
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

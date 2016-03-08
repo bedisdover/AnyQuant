@@ -22,10 +22,10 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     private void createUIComponents() {
-        String[] columnNames = {"编号", "最新", "涨幅", "最高", "最低", "test", "test1"};
+        String[] columnNames = {"序号", "名称", "最新", "涨幅", "最高", "最低", "今开", "昨收"};
         int[] list = {40, 87, 30};
         JScrollPane scrollPane = new TableCopy().drawTable(columnNames, list);
-        scrollPane.setBounds(10, 30, 500, 300);
+        scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, HEIGHT - MARGIN * 2 - PADDING * 2);
         add(scrollPane);
         repaint();
     }

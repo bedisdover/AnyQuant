@@ -3,7 +3,6 @@ package presentation.panel.operation;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -63,22 +62,19 @@ public class TableCopy extends JTable {
          * 设置JTable的列默认的宽度和高度
 		 */
 
-        TableColumn column;
-        int columns = table.getColumnCount();
-        for (int i = 0; i < columns; i++) {
-            column = table.getColumnModel().getColumn(i);
+//        TableColumn column;
+//        int columns = table.getColumnCount();
+//        for (int i = 0; i < columns; i++) {
+//            column = table.getColumnModel().getColumn(i);
+//
+//            // 将每一列的默认宽度设置为
+//            column.setPreferredWidth(list[1]);
+//        }
 
-            // 将每一列的默认宽度设置为
-            column.setPreferredWidth(list[1]);
-        }
-
-        Font fnt2 = new Font("Courier", Font.PLAIN, 16);
-        table.getTableHeader().setFont(fnt2);
+        Font font = new Font("Courier", Font.PLAIN, 16);
+        table.getTableHeader().setFont(font);
         table.setRowHeight(list[2]);
 
-		/*
-         * 设置JTable自动调整列表的状态，此处设置为关闭
-		 */
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         /**
          * 设置table内容居中
@@ -86,9 +82,7 @@ public class TableCopy extends JTable {
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
         table.setDefaultRenderer(Object.class, tcr);
-        /**
-         * 用UltraScrollPane装载JTable
-         */
+
         JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         return scroll;
