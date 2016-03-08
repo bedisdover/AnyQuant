@@ -1,6 +1,6 @@
 package blservice;
 
-import po.StockPO;
+import vo.StockVO;
 
 import java.util.Iterator;
 
@@ -16,5 +16,5 @@ public interface SelfSelectStockService {
      * 获得关注股票列表的迭代器
      * @return
      */
-    Iterator<StockPO> getFollowed();
+    Iterator<StockVO> getFollowed();
 }

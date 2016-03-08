@@ -1,9 +1,11 @@
 package presentation.panel.operation;
 
 import presentation.frame.MainFrame;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Created by song on 16-3-3.
@@ -47,6 +49,33 @@ public class OperationPanel extends JPanel {
 
     protected void addListener() {
 
+    }
+
+    protected void createTable(List<StockVO> stockList) {
+        Object[][] data = new Object[stockList.size()][];
+
+        String[] columnNames = {
+                "序号", "名称", "成交量", "平均市净率", "最高",
+                "最低", "市盈率", "???", "收盘价", "开盘价", "周转率"
+        };
+
+        StockVO stock;
+        for (int i = 0; i < stockList.size(); ) {
+            stock = stockList.get(i);
+            data[i] = new Object[]{
+                    i++, stock.getName(), stock.getVolume()[0], stock.getPb()[0],
+                    stock.getHigh()[0], stock.getLow()[0], stock.getPe_ttm()[0],
+                    stock.getAdj_price()[0], stock.getClose()[0], stock.getOpen()[0],
+                    stock.getTurnover()[0]
+            };
+        }
+
+        TableCopy table = new TableCopy(data, columnNames);
+
+        JScrollPane scrollPane = table.drawTable();
+        int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
+        scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
+        add(scrollPane);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package data;
 
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
-import net.sf.json.util.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +35,7 @@ public class ReadDataTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+//        System.out.println(json.toString());
         return json.toString();
     }
 
@@ -64,7 +61,7 @@ public class ReadDataTest {
         JSONArray jsonArray = jsonObject.getJSONArray(key);
         String[] result = new String[jsonArray.size()];
         for (int i = 0; i < jsonArray.size(); i++) {
-            System.out.print(jsonArray.getString(i) + " ");
+//            System.out.print(jsonArray.getString(i) + " ");
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
             result[i] = temp.getString(subKey);
         }

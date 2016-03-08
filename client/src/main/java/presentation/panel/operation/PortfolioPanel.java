@@ -1,7 +1,10 @@
 package presentation.panel.operation;
 
-import javax.swing.*;
+import bl.SelfSelectStock;
+import vo.StockVO;
+
 import java.awt.*;
+import java.util.Iterator;
 
 /**
  * Created by song on 16-3-2.
@@ -22,12 +25,10 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     private void createUIComponents() {
-        String[] columnNames = {"序号", "名称", "最新", "涨幅", "最高", "最低", "今开", "昨收"};
-        int[] list = {40, 87, 30};
-        JScrollPane scrollPane = new TableCopy().drawTable(columnNames, list);
-        scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, HEIGHT - MARGIN * 2 - PADDING * 2);
-        add(scrollPane);
-        repaint();
+        Iterator<StockVO> stocks = new SelfSelectStock().getFollowed();
+        if (stocks.hasNext()) {
+//            createTable(stocks);
+        }
     }
 
     @Override

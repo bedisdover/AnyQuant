@@ -1,10 +1,13 @@
 package presentation.panel.operation;
 
+import bl.ShowStockData;
 import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Created by song on 16-3-2.
@@ -49,11 +52,13 @@ public class PicturePanel extends OperationPanel {
     }
 
     private void init() {
-
-        this.setBounds(MENU_WIDTH, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
+        setLayout(null);
     }
 
     private void createUIComponents() {
+        List<StockVO> stockVOList = new ShowStockData().getLatestStockData();
+        System.out.println(2);
+        createTable(stockVOList);
     }
 
     private void addListeners() {
@@ -67,5 +72,4 @@ public class PicturePanel extends OperationPanel {
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
-
 }

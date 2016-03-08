@@ -1,7 +1,7 @@
 package bl;
 
 import blservice.SelfSelectStockService;
-import po.StockPO;
+import vo.StockVO;
 
 import java.util.Iterator;
 
@@ -22,7 +22,7 @@ public class SelfSelectStock implements SelfSelectStockService {
      *
      * @return
      */
-    public Iterator<StockPO> getFollowed() {
+    public Iterator<StockVO> getFollowed() {
         return null;
     }
 }
