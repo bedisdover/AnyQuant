@@ -2,7 +2,7 @@ package presentation.frame;
 
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;
-import presentation.panel.operation.OperationPanel;
+import presentation.panel.operation.PortfolioPanel;
 import presentation.util.ImageLoader;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public final class MainFrame extends JFrame {
 
     private static final BackgroundPanel backgroundPanel;
 
-    private static OperationPanel operationPanel;
+    private static JPanel operationPanel;
 
     private MainFrame() {
     }
@@ -58,7 +58,7 @@ public final class MainFrame extends JFrame {
 
         backgroundPanel.setLayout(null);
 
-        operationPanel = new OperationPanel();
+        operationPanel = new PortfolioPanel();
     }
 
     /**
@@ -77,7 +77,7 @@ public final class MainFrame extends JFrame {
      *
      * @param panel 操作面板
      */
-    public void addOperationPanel(OperationPanel panel) {
+    public void addOperationPanel(JPanel panel) {
         backgroundPanel.remove(operationPanel);
         operationPanel = panel;
         panel.setBounds(width / 5, 0, width, height);
