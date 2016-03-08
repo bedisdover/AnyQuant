@@ -14,7 +14,7 @@ import java.net.URLConnection;
 /**
  * Created by zcy on 2016/3/3.
  */
-public class ReadDataTest {
+public class ReadData {
 
     public String getData(String url) {
         StringBuilder json = new StringBuilder();
@@ -85,7 +85,7 @@ public class ReadDataTest {
 
     public static void main(String[] args) {
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
-        ReadDataTest rdt = new ReadDataTest();
+        ReadData rdt = new ReadData();
         String result = rdt.getData(url);
         String[] info = rdt.parseJson(result, "data","link");
         for (int i = 0; i < info.length; i++) {
