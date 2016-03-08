@@ -13,7 +13,7 @@ import java.util.List;
  * 操作面板,区别于菜单面板
  * 其他面板均为操作面板的超类
  */
-public class OperationPanel extends JPanel {
+public abstract class OperationPanel extends JPanel {
 
     /**
      * 面板宽度,高度(讲道理的话,宽度和高度是不确定的,但为了程序方便,
@@ -32,24 +32,33 @@ public class OperationPanel extends JPanel {
      */
     protected final int PADDING;
 
+    /**
+     * 按钮宽度
+     */
+    protected final int BUTTON_WIDTH;
+
+    /**
+     * 按钮高度
+     */
+    protected final int BUTTON_HEIGHT;
+
+    protected final int TEXT_FIELD_WIDTH;
 
     public OperationPanel() {
         WIDTH = MainFrame.getMainFrame().getWidth() * 4 / 5;
         HEIGHT = MainFrame.getMainFrame().getHeight();
         MARGIN = MainFrame.getMainFrame().getWidth() / 25;
         PADDING = MainFrame.getMainFrame().getWidth() / 20;
+        BUTTON_WIDTH = PADDING + MARGIN;
+        BUTTON_HEIGHT = MARGIN;
+        TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
 
         setOpaque(false);
     }
 
+    protected abstract void init();
 
-    protected void createUICompontents() {
-
-    }
-
-    protected void addListener() {
-
-    }
+    protected abstract void createUIComponents();
 
     protected void createTable(List<StockVO> stockList) {
         Object[][] data = new Object[stockList.size()][];
@@ -76,6 +85,21 @@ public class OperationPanel extends JPanel {
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
         scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
         add(scrollPane);
+    }
+
+    /**
+     * 根据名称搜索股票,高亮搜索结果
+     *
+     * @param name 股票名称
+     * @return 搜索成功返回true, 否则返回false
+     */
+    protected boolean searchStock(String name) {
+        if (name.equals("")) {
+            return false;
+        }
+
+        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "无记录,请确认输入是否正确");
+        return false;
     }
 
     @Override

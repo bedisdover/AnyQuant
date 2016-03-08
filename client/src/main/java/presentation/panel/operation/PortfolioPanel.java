@@ -20,11 +20,11 @@ public class PortfolioPanel extends OperationPanel {
         createUIComponents();
     }
 
-    private void init() {
+    protected void init() {
         setLayout(null);
     }
 
-    private void createUIComponents() {
+    protected void createUIComponents() {
         Iterator<StockVO> stocks = new SelfSelectStock().getFollowed();
         if (stocks.hasNext()) {
 //            createTable(stocks);
