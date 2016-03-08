@@ -9,7 +9,7 @@ import java.awt.event.*;
 
 /**
  * Created by song on 16-3-2.
- *
+ * <p>
  * 行情面板
  */
 public class PicturePanel extends OperationPanel {
@@ -59,15 +59,22 @@ public class PicturePanel extends OperationPanel {
         search.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (searchInput.getText().equals("输入股票名称或代码"));
                 if (!searchInput.getText().equals("")) {
-                    searchStock(searchInput.getText());
+                    int k = table.searchStock(searchInput.getText());
+                    if(k>0){
+                        System.out.println(table.getRowCount());
+//                        table.setRowSelectionInterval(k,k);
+                        System.out.println("PicturePanel.mouseClicked");
+                        System.out.println(k);
+                    }
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                searchInput.setText("输入股票名称或代码");
+                if (searchInput.getText().equals("")){
+                    searchInput.setText("输入股票名称或代码");
+                }
                 add(searchInput);
                 repaint();
 
@@ -97,7 +104,10 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchStock(searchInput.getText());
+                    int k = table.searchStock(searchInput.getText());
+                    if(k>0){
+                        table.setRowSelectionInterval(k,k);
+                    }
                 }
             }
         });
@@ -106,7 +116,10 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchStock(searchInput.getText());
+                    int k = table.searchStock(searchInput.getText());
+                    if(k>0){
+                        table.setRowSelectionInterval(k,k);
+                    }
                 }
             }
         });

@@ -26,9 +26,9 @@ public class PortfolioPanel extends OperationPanel {
 
     protected void createUIComponents() {
         Iterator<StockVO> stocks = new SelfSelectStock().getFollowed();
-        if (stocks.hasNext()) {
+//        if (stocks.hasNext()) {
 //            createTable(stocks);
-        }
+//        }
     }
 
     @Override

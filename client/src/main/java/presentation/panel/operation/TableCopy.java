@@ -1,5 +1,7 @@
 package presentation.panel.operation;
 
+import presentation.frame.MainFrame;
+
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -17,15 +19,6 @@ public class TableCopy extends JTable {
 
     private String[] columnNames;
 
-    /**
-     * 表的列数
-     */
-    private int columnNum = 0;
-
-    /**
-     * 总行数
-     */
-    private int rowNum = 0;
 
     /**
      * 表中最后一行
@@ -88,10 +81,6 @@ public class TableCopy extends JTable {
         return (String) data[r][c];
     }
 
-    public int getSelectedRow() {
-        return getSelectedRow();
-    }
-
     public int numOfEmpty() {
         int count = 0;
         while (data[count][0] != null) {
@@ -100,44 +89,6 @@ public class TableCopy extends JTable {
         return count;
     }
 
-    public ArrayList<String> getValueAt(int r) {
-        ArrayList<String> al = new ArrayList<String>();
-        for (int i = 0; i < columnNum; i++) {
-            if (data[r][i] == null) {
-                return null;
-            }
-            al.add(data[r][i].toString());
-        }
-        return al;
-    }
-
-    public int columnNum() {
-        return columnNum;
-    }
-
-    // 删除某一行
-    public void remove(int r) {
-        for (int i = r; i < rowNum - 1; i++) {
-            for (int j = 0; j < columnNum; j++) {
-                setValueAt(i, j, data[i + 1][j].toString());
-            }
-        }
-        for (int k = 0; k < columnNum; k++) {
-            setValueAt(rowNum - 1, k, "");
-        }
-    }
-
-    public void removeLine(int row) {
-        for (int i = row; i < numOfEmpty(); i++) {
-            for (int j = 0; j < columnNum; j++) {
-                data[i][j] = data[i + 1][j];
-            }
-        }
-
-        currentRow--;
-
-        this.identify();
-    }
 
     /**
      * 判断表中是否已存在指定内容（data）
@@ -174,4 +125,27 @@ public class TableCopy extends JTable {
             }
         }
     }
+
+
+    /**
+     * 根据名称搜索股票,高亮搜索结果
+     *
+     * @param name 股票名称
+     * @return 搜索成功返回true, 否则返回false
+     */
+    protected int searchStock(String name) {
+        for(int i = 0;i<data.length;i++) {
+            if (name.equals(data[i][1])) {
+                this.setRowSelectionInterval(i,i);
+                return i;
+            }
+        }
+        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "无记录,请确认输入是否正确");
+        return -1;
+    }
+
+    public int getRowCount(){
+        return data.length;
+    }
+
 }

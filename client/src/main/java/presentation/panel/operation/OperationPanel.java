@@ -44,6 +44,8 @@ public abstract class OperationPanel extends JPanel {
 
     protected final int TEXT_FIELD_WIDTH;
 
+    protected TableCopy table;
+
     public OperationPanel() {
         WIDTH = MainFrame.getMainFrame().getWidth() * 4 / 5;
         HEIGHT = MainFrame.getMainFrame().getHeight();
@@ -72,14 +74,14 @@ public abstract class OperationPanel extends JPanel {
         for (int i = 0; i < stockList.size(); ) {
             stock = stockList.get(i);
             data[i] = new Object[]{
-                    i++, stock.getName(), stock.getVolume()[0], stock.getPb()[0],
+                    ++i, stock.getName(), stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0], stock.getPe_ttm()[0],
                     stock.getAdj_price()[0], stock.getClose()[0], stock.getOpen()[0],
                     stock.getTurnover()[0]
             };
         }
 
-        TableCopy table = new TableCopy(data, columnNames);
+        table = new TableCopy(data, columnNames);
 
         JScrollPane scrollPane = table.drawTable();
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
@@ -87,20 +89,6 @@ public abstract class OperationPanel extends JPanel {
         add(scrollPane);
     }
 
-    /**
-     * 根据名称搜索股票,高亮搜索结果
-     *
-     * @param name 股票名称
-     * @return 搜索成功返回true, 否则返回false
-     */
-    protected boolean searchStock(String name) {
-        if (name.equals("")) {
-            return false;
-        }
-
-        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "无记录,请确认输入是否正确");
-        return false;
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
