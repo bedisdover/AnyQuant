@@ -58,23 +58,12 @@ public class TableCopy extends JTable {
         rowData = new Object[rowNum][columnNum];
         JTable table = new JTable(rowData, name);
 
-		/*
-         * 设置JTable的列默认的宽度和高度
-		 */
-
-//        TableColumn column;
-//        int columns = table.getColumnCount();
-//        for (int i = 0; i < columns; i++) {
-//            column = table.getColumnModel().getColumn(i);
-//
-//            // 将每一列的默认宽度设置为
-//            column.setPreferredWidth(list[1]);
-//        }
-
         Font font = new Font("Courier", Font.PLAIN, 16);
         table.getTableHeader().setFont(font);
-        table.setRowHeight(list[2]);
-
+        table.setRowHeight(30);
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setDraggedDistance(0);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         /**
          * 设置table内容居中
