@@ -57,7 +57,7 @@ public class ReadDataTest {
         return result;
     }
     /*
-    第一个key得到的不是array，第二个key得到的是array
+    第一个key得到的是array，第二个key得到的不是array
      */
     public String[] parseJson(String jsonStr, String key,String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
@@ -71,7 +71,7 @@ public class ReadDataTest {
         return result;
     }
     /*
-    第一个得到的是array，第二个得到的不是array
+    第一个得到的不是array，第二个得到的不array
     */
     public String[] parseJson2(String jsonStr,String key,String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
@@ -81,7 +81,7 @@ public class ReadDataTest {
         String[] result = new String[jsonObject1.size()];
         for(int i=0;i<result.length;i++){
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
-            result[i] = temp.getString("volume");
+            result[i] = temp.getString("date");
         }
         return result;
     }
