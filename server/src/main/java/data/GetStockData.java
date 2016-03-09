@@ -2,7 +2,6 @@ package data;
 
 import dataservice.GetStockDataService;
 import net.sf.json.JSONObject;
-import net.sf.json.processors.DefaultDefaultValueProcessor;
 import po.StockPO;
 
 import java.text.SimpleDateFormat;
@@ -86,7 +85,7 @@ public class GetStockData implements GetStockDataService{
             turnover[0] = Double.parseDouble(jsonObject.getString("turnover"));
             stockPO.setTurnover(turnover);
 
-            stockPO.setName(rdt.parseJSON(s1,"name"));
+            stockPO.setId(rdt.parseJSON(s1,"name"));
 
             spo.add(stockPO);
         }System.out.println(spo.size());

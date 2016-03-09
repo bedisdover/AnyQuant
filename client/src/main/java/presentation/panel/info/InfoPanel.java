@@ -92,7 +92,7 @@ public abstract class InfoPanel extends OperationPanel {
 
     protected void displayInfo(StockPO stock) {
         Object[][] data = new Object[][] {
-                {"名称", stock.getName(), "成交量", stock.getVolume()[0]},
+                {"名称", stock.getId(), "成交量", stock.getVolume()[0]},
                 {"平均市净率", stock.getPb()[0], "最高", stock.getHigh()[0]},
                 {"最低", stock.getLow()[0], "市盈率", stock.getPe_ttm()[0]},
                 {"?????", stock.getAdj_price()[0], "收盘价", stock.getClose()[0]},

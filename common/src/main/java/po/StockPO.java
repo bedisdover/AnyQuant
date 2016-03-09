@@ -7,7 +7,7 @@ public class StockPO {
     /**
      * 该股票的名称
      */
-    private String name;
+    private String id;
     /**
      * 该股票对应日期内的成交量
      */
@@ -63,8 +63,8 @@ public class StockPO {
     }
 
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setVolume(long[] volume) {
@@ -107,8 +107,8 @@ public class StockPO {
         this.turnover = turnover;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     public long[] getVolume() {

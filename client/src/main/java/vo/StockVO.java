@@ -11,6 +11,10 @@ public class StockVO {
      */
     private String name;
     /**
+     * 该股票的代号
+     */
+    private String id;
+    /**
      * 该股票对应日期内的成交量
      */
     private long[] volume;
@@ -52,7 +56,7 @@ public class StockVO {
     private double[] turnover;
 
     public StockVO(StockPO spo){
-        name = spo.getName();
+        id = spo.getId();
         volume = spo.getVolume();
         pb = spo.getPb();
         high = spo.getHigh();
@@ -65,8 +69,8 @@ public class StockVO {
         turnover = spo.getTurnover();
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     public long[] getVolume() {
@@ -107,5 +111,9 @@ public class StockVO {
 
     public double[] getTurnover() {
         return turnover;
+    }
+
+    public String getName() {
+        return name;
     }
 }

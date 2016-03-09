@@ -79,7 +79,7 @@ public abstract class OperationPanel extends JPanel {
         for (int i = 0; i < stockList.size(); ) {
             stock = stockList.get(i);
             data[i] = new Object[]{
-                    ++i, stock.getName(), stock.getVolume()[0], stock.getPb()[0],
+                    ++i, stock.getId(), stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0], stock.getPe_ttm()[0],
                     stock.getAdj_price()[0], stock.getClose()[0], stock.getOpen()[0],
                     stock.getTurnover()[0]
