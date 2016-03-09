@@ -211,6 +211,7 @@ public class GetStockData implements GetStockDataService{
             turnover[i] = Double.parseDouble(jsonObject.getString("turnover"));
 //            System.out.println(trading_info[i]);
         }
+        stockPO.setId(name);
         stockPO.setVolume(volume);
         stockPO.setPb(pb);
         stockPO.setHigh(high);

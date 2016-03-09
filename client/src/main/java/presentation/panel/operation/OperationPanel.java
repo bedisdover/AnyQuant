@@ -67,7 +67,7 @@ public abstract class OperationPanel extends JPanel {
      *
      * @param stockList 股票列表
      */
-    protected void createTable(List<StockVO> stockList) {
+    protected TableCopy createTable(List<StockVO> stockList) {
         Object[][] data = new Object[stockList.size()][];
 
         String[] columnNames = {
@@ -92,6 +92,7 @@ public abstract class OperationPanel extends JPanel {
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
         scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
         add(scrollPane);
+        return table;
     }
 
     @Override
