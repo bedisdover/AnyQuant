@@ -62,6 +62,11 @@ public abstract class OperationPanel extends JPanel {
 
     protected abstract void createUIComponents();
 
+    /**
+     * 创建表格
+     *
+     * @param stockList 股票列表
+     */
     protected void createTable(List<StockVO> stockList) {
         Object[][] data = new Object[stockList.size()][];
 
@@ -81,14 +86,13 @@ public abstract class OperationPanel extends JPanel {
             };
         }
 
-        table = new TableCopy(data, columnNames);
+        table = new TableCopy(this, data, columnNames);
 
         JScrollPane scrollPane = table.drawTable();
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
         scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
         add(scrollPane);
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {

@@ -60,7 +60,7 @@ public abstract class InfoPanel extends OperationPanel {
 
     protected void createUIComponents() {
         back = new JButton("返回");
-        dateChooser = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        dateChooser = new DateChooser(this, WIDTH - MARGIN - BUTTON_WIDTH - PADDING, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
 
@@ -87,11 +87,11 @@ public abstract class InfoPanel extends OperationPanel {
 
     protected void displayInfo(StockPO stock) {
         Object[][] data = new Object[][] {
-                {"名称", stock.getName(), "成交量", stock.getVolume()[29]},
-                {"平均市净率", stock.getPb()[29], "最高", stock.getHigh()[29]},
-                {"最低", stock.getLow()[29], "市盈率", stock.getPe_ttm()[29]},
-                {"?????", stock.getAdj_price()[29], "收盘价", stock.getClose()[29]},
-                {"开盘价", stock.getOpen()[29], "周转率", stock.getTurnover()[29]}
+                {"名称", stock.getName(), "成交量", stock.getVolume()[0]},
+                {"平均市净率", stock.getPb()[0], "最高", stock.getHigh()[0]},
+                {"最低", stock.getLow()[0], "市盈率", stock.getPe_ttm()[0]},
+                {"?????", stock.getAdj_price()[0], "收盘价", stock.getClose()[0]},
+                {"开盘价", stock.getOpen()[0], "周转率", stock.getTurnover()[0]}
         };
         String[] columnNames = new String[] {
                 "1", "2", "3", "4"
