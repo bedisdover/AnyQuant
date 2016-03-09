@@ -5,7 +5,7 @@ package po;
  */
 public class StockPO {
     /**
-     * 该股票的名称
+     * 该股票的代号
      */
     private String id;
     /**
