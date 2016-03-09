@@ -6,8 +6,7 @@ import presentation.util.Table;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Date;
 
 /**
@@ -48,6 +47,12 @@ public class InquireMarketIndexPanel extends OperationPanel {
     private JButton back;
     private DateChooser dateChooser;
 
+    private PopupMenu popupMenu1;
+    private MenuItem menuItem1;
+    private MenuItem menuItem2;
+    private MenuItem menuItem3;
+    private MenuItem menuItem4;
+
     public InquireMarketIndexPanel() {
         init();
         createUIComponents();
@@ -59,6 +64,20 @@ public class InquireMarketIndexPanel extends OperationPanel {
         this.setLayout(null);
         this.setBounds(MENU_WIDTH, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
         this.setOpaque(false);
+
+        popupMenu1 = new PopupMenu();
+        menuItem1 = new MenuItem();
+        menuItem2 = new MenuItem();
+        menuItem3 = new MenuItem();
+        menuItem4 = new MenuItem();
+        menuItem1.setLabel("显示详细信息");
+        menuItem2.setLabel("显示增幅跌幅");
+        menuItem3.setLabel("添加关注");
+        menuItem4.setLabel("范围查询");
+        popupMenu1.add(menuItem1);
+        popupMenu1.add(menuItem2);
+        popupMenu1.add(menuItem3);
+        popupMenu1.add(menuItem4);
     }
 
     protected void createUIComponents() {
@@ -79,6 +98,10 @@ public class InquireMarketIndexPanel extends OperationPanel {
 
     }
 
+    protected void showMenuList(int x,int y){
+        popupMenu1.show(this,x,y);
+    }
+
     private void addListeners() {
         /**
          * todo
@@ -91,6 +114,48 @@ public class InquireMarketIndexPanel extends OperationPanel {
             }
         });
 
+        /**
+         * todo 给table添加鼠标右键监听
+         */
+        table.table.addMouseListener(new RightClickListener(){
+            public void mousePressed(MouseEvent e){
+                JTable table = (JTable) e.getSource();
+                if((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+                    Point p = e.getPoint();
+                    int row = table.rowAtPoint(p);
+                    int column = table.columnAtPoint(p);
+                    if (!e.isControlDown() & !e.isShiftDown() & row != -1 & column != -1)
+                        table.changeSelection(row, column, e.isControlDown(), e.isShiftDown());
+                }
+            }
+            public void mouseReleased(MouseEvent e) {
+                if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+                    showMenuList(e.getX()+384, e.getY()+126+30);
+                }
+            }
+        });
+
+        //给menuItem添加时间监听
+        menuItem1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
+        menuItem2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
+        menuItem3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
+        menuItem4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
     }
 
     @Override
@@ -99,3 +164,5 @@ public class InquireMarketIndexPanel extends OperationPanel {
 
     }
 }
+
+class RightClickListener extends MouseAdapter{}
