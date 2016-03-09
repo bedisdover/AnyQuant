@@ -11,6 +11,10 @@ import java.util.*;
  * Created by user on 2016/3/7.
  */
 public class GetStockData implements GetStockDataService{
+    StockDataBuffer stockDataBuffer;
+    public GetStockData(){
+        stockDataBuffer = new StockDataBuffer();
+    }
     /**
      * 得到当天的所有上交所股票数据
      * @return List<StockPO>
@@ -85,7 +89,12 @@ public class GetStockData implements GetStockDataService{
             stockPO.setId(rdt.parseJSON(s1,"name"));
 
             spo.add(stockPO);
-        }System.out.println(spo.size());
+
+            stockDataBuffer.stockPOs_sh.add(stockPO);
+            if(i==100||i==info.length){
+                stockDataBuffer.update();
+            }
+        }
         return spo;
     }
 
@@ -197,6 +206,7 @@ public class GetStockData implements GetStockDataService{
         double[] close = new double[30];
         double[] open = new double[30];
         double[] turnover = new double[30];
+
         for(int i=0;i<trading_info.length;i++){
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
@@ -222,7 +232,9 @@ public class GetStockData implements GetStockDataService{
         stockPO.setClose(close);
         stockPO.setOpen(open);
         stockPO.setTurnover(turnover);
-        System.out.println(stockPO.getVolume()[0]);
+
+        JSONObject jsonObject = JSONObject.fromObject(s2);
+        stockPO.setId(jsonObject.getString("name"));
         return stockPO;
     }
     /**
