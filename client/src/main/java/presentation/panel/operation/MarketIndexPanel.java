@@ -111,7 +111,10 @@ public class MarketIndexPanel extends OperationPanel {
     }
     @Override
     public void paint(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
 
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
     }
 }

@@ -114,6 +114,7 @@ public class InquireMarketIndexPanel extends OperationPanel {
             }
         });
 
+        class RightClickListener extends MouseAdapter{}
         /**
          * todo 给table添加鼠标右键监听
          */
@@ -160,9 +161,10 @@ public class InquireMarketIndexPanel extends OperationPanel {
 
     @Override
     public void paint(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
 
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
     }
 }
-
-class RightClickListener extends MouseAdapter{}
