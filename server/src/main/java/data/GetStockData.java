@@ -23,15 +23,18 @@ public class GetStockData implements GetStockDataService{
         Calendar c = new GregorianCalendar();
         c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
         c.add(c.DATE,1);
-        Date date1 = c.getTime();System.out.println(date1.toString());
+        Date date1 = c.getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String d1 = simpleDateFormat.format(date1);//得到最新股票数据对应的日期的后一天
 
         ArrayList<StockPO> spo = new ArrayList<StockPO>();
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
+        String url2 = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sz";
         String result = rdt.getData(url);
-        String[] info = rdt.parseJson(result, "data","link");//info数组存放了所有股票信息的网址
+        String result2 = rdt.getData(url2);
+        String[] info = rdt.parseJson(result, "data","link");//info数组存放了所有上交所股票信息的网址
+        String[] info2 = rdt.parseJson(result2,"data","link");//info2数组存放了所有深交所股票信息的网址
         for(int i=0;i<info.length;i++){
             if(i==7){
                 continue;
@@ -86,7 +89,7 @@ public class GetStockData implements GetStockDataService{
             stockPO.setName(rdt.parseJSON(s1,"name"));
 
             spo.add(stockPO);
-        }
+        }System.out.println(spo.size());
         return spo;
     }
 
@@ -169,9 +172,9 @@ public class GetStockData implements GetStockDataService{
 //        System.out.println();
 
         GetStockData g = new GetStockData();
-        g.getStockData_name("sh600000");
+//        g.getStockData_name("sh600000");
 //        g.getDateOfLatestData();
-//        g.getStockData_today();
+        g.getStockData_today();
 
 //        Calendar c = Calendar.getInstance();
 //        c.add(c.DATE,1);
