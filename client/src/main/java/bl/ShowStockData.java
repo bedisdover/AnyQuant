@@ -15,7 +15,7 @@ public class ShowStockData {
 
     public List<StockVO> getLatestStockData(){
         GetStockDataService getStockDataService = new GetStockData();
-        List<StockPO> a = getStockDataService.getStockData_today();
+        List<StockPO> a = getStockDataService.getStockData_today_sh();
         List<StockVO> stockVOs = new ArrayList<StockVO>();
         for(int i=0;i<a.size();i++){
             StockVO stockVO = new StockVO(a.get(i));
