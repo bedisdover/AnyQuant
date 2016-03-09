@@ -1,5 +1,6 @@
 package presentation.panel.info;
 
+import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
@@ -43,7 +44,11 @@ public abstract class InfoPanel extends OperationPanel {
      */
     private StockPO stock;
 
-    public InfoPanel(JPanel parent, StockPO stock) {
+    protected InfoPanel(JPanel parent, String stockID) {
+        this(parent, new GetStockData().getStockData_name(stockID));
+    }
+
+    protected InfoPanel(JPanel parent, StockPO stock) {
         this.parent = parent;
         this.stock = stock;
 
@@ -69,7 +74,7 @@ public abstract class InfoPanel extends OperationPanel {
     }
 
 
-    private void addListeners() {
+    protected void addListeners() {
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

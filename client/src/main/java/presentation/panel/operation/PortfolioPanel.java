@@ -1,15 +1,18 @@
 package presentation.panel.operation;
 
-import bl.SelfSelectStock_stub;
-import po.StockPO;
+import bl.SelfSelectStock;
+import data.GetStockData;
 import presentation.frame.MainFrame;
-import presentation.panel.info.StockInfoPanel;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by song on 16-3-2.
@@ -18,7 +21,10 @@ import java.util.Iterator;
  */
 public class PortfolioPanel extends OperationPanel {
 
-    private JButton button;
+    /**
+     * 取消关注按钮
+     */
+    private JButton cancel;
 
     public PortfolioPanel() {
         init();
@@ -31,20 +37,37 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     protected void createUIComponents() {
-        button = new JButton("查看");
+        cancel = new JButton("取消关注");
 
-        button.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        cancel.setBounds(WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
 
-        add(button);
+        add(cancel);
+
+        Iterator<String> stockID = new SelfSelectStock().getFollowed();
+        List<StockVO> list = new ArrayList<StockVO>();
+        GetStockData getStockData = new GetStockData();
+        while (stockID.hasNext()) {
+            list.add(new StockVO(getStockData.getStockData_name(stockID.next())));
+        }
+
+        createTable(list);
     }
 
     private void addListeners() {
-        Iterator<StockPO> stocks = new SelfSelectStock_stub().getFollowed();
-        final StockInfoPanel stockInfoPanel = new StockInfoPanel(this, stocks.next());
-        button.addMouseListener(new MouseAdapter() {
+        cancel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                    MainFrame.getMainFrame().addOperationPanel(stockInfoPanel);
+                int line = table.getSelectedRow();
+                if (line != -1) {
+                    try {
+                        new SelfSelectStock().removeStock((String) table.getValueAt(line, 1));
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+                }
             }
         });
     }
