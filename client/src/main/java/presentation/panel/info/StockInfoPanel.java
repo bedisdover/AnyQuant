@@ -1,7 +1,6 @@
-package presentation.panel.operation;
+package presentation.panel.info;
 
-import presentation.panel.info.InfoPanel;
-import vo.StockVO;
+import po.StockPO;
 
 import javax.swing.*;
 
@@ -14,7 +13,7 @@ import javax.swing.*;
  */
 public class StockInfoPanel extends InfoPanel {
 
-    public StockInfoPanel(JPanel parent, StockVO stock) {
+    public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
     }
 }

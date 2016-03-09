@@ -1,6 +1,7 @@
 .idea/
 *.iml
 *.class
+/client/target
 target/
 client/src/main/resources/images/portrait.png
 test/

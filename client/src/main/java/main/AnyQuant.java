@@ -10,7 +10,6 @@ import javax.swing.*;
  * 程序主方法
  */
 public class AnyQuant {
-
     public static void main(String[] args) {
         JFrame mainFrame = MainFrame.getMainFrame();
         mainFrame.setVisible(true);

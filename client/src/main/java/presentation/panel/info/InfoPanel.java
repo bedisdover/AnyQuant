@@ -1,9 +1,9 @@
 package presentation.panel.info;
 
+import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
-import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -40,15 +40,17 @@ public abstract class InfoPanel extends OperationPanel {
     /**
      * 此面板持有的股票值对象
      */
-    private StockVO stock;
+    private StockPO stock;
 
-    public InfoPanel(JPanel parent, StockVO stock) {
+    public InfoPanel(JPanel parent, StockPO stock) {
         this.parent = parent;
         this.stock = stock;
 
         init();
         createUIComponents();
         addListeners();
+
+        displayInfo(stock);
     }
 
     protected void init() {
@@ -82,7 +84,22 @@ public abstract class InfoPanel extends OperationPanel {
         });
     }
 
-    protected void displayInfo(StockVO stock) {
+    protected void displayInfo(StockPO stock) {
+        Object[][] data = new Object[][] {
+                {"名称", stock.getName(), "成交量", stock.getVolume()[29]},
+                {"平均市净率", stock.getPb()[29], "最高", stock.getHigh()[29]},
+                {"最低", stock.getLow()[29], "市盈率", stock.getPe_ttm()[29]},
+                {"?????", stock.getAdj_price()[29], "收盘价", stock.getClose()[29]},
+                {"开盘价", stock.getOpen()[29], "周转率", stock.getTurnover()[29]}
+        };
+        String[] columnNames = new String[] {
+                "1", "2", "3", "4"
+        };
+
+        JTable table = new JTable(data, columnNames);
+        table.setBorder(BorderFactory.createEtchedBorder());
+        table.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, data.length * 30);
+        add(table);
 
     }
 }

@@ -1,9 +1,14 @@
 package presentation.panel.operation;
 
-import bl.SelfSelectStock;
-import vo.StockVO;
+import bl.SelfSelectStock_stub;
+import po.StockPO;
+import presentation.frame.MainFrame;
+import presentation.panel.info.StockInfoPanel;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
 /**
@@ -13,11 +18,12 @@ import java.util.Iterator;
  */
 public class PortfolioPanel extends OperationPanel {
 
-
+    private JButton button;
 
     public PortfolioPanel() {
         init();
         createUIComponents();
+        addListeners();
     }
 
     protected void init() {
@@ -25,10 +31,22 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     protected void createUIComponents() {
-        Iterator<StockVO> stocks = new SelfSelectStock().getFollowed();
-//        if (stocks.hasNext()) {
-//            createTable(stocks);
-//        }
+        button = new JButton("查看");
+
+        button.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        add(button);
+    }
+
+    private void addListeners() {
+        Iterator<StockPO> stocks = new SelfSelectStock_stub().getFollowed();
+        final StockInfoPanel stockInfoPanel = new StockInfoPanel(this, stocks.next());
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    MainFrame.getMainFrame().addOperationPanel(stockInfoPanel);
+            }
+        });
     }
 
     @Override
