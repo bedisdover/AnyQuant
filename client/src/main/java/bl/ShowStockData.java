@@ -24,6 +24,17 @@ public class ShowStockData {
         return stockVOs;
     }
 
+    public List<StockVO> getLatestStockData_sz(){
+        GetStockDataService getStockDataService = new GetStockData();
+        List<StockPO> a = getStockDataService.getStockData_today_sz();
+        List<StockVO> stockVOs = new ArrayList<StockVO>();
+        for(int i=0;i<a.size();i++){
+            StockVO stockVO = new StockVO(a.get(i));
+            stockVOs.add(stockVO);
+        }
+        return stockVOs;
+    }
+
     public static void main(String[] args){
         ShowStockData s = new ShowStockData();
         System.out.println();

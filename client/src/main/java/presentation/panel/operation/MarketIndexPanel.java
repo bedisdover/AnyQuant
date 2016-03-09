@@ -15,7 +15,7 @@ import java.util.Date;
  *
  * 大盘指数面板
  */
-public class MarketIndexPanel extends PortfolioPanel {
+public class MarketIndexPanel extends OperationPanel {
 
     /**
      * 日期距离菜单栏的位置
