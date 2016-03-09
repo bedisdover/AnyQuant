@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by pc on 2016/3/6.
@@ -26,6 +25,8 @@ public class TableCopy extends JTable {
     private int currentRow = 0;
 
     public TableCopy(Object[][] data, String[] columnNames) {
+        super(data, columnNames);
+
         this.data = data;
         this.columnNames = columnNames;
 
@@ -38,28 +39,25 @@ public class TableCopy extends JTable {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        Font font = new Font("微软雅黑", Font.PLAIN, 16);
+        getTableHeader().setFont(font);
 
-        setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-    }
+        setRowHeight(30);
+        getTableHeader().setResizingAllowed(false);
+        getTableHeader().setReorderingAllowed(false);
+        setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-    public JScrollPane drawTable() {
-        JTable table = new JTable(data, columnNames);
-
-        Font font = new Font("Courier", Font.PLAIN, 16);
-        table.getTableHeader().setFont(font);
-        table.setRowHeight(30);
-        table.getTableHeader().setResizingAllowed(false);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         /**
          * 设置table内容居中
          */
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
-        table.setDefaultRenderer(Object.class, tcr);
+        setDefaultRenderer(Object.class, tcr);
+    }
 
-        JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    public JScrollPane drawTable() {
+        JScrollPane scroll = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         return scroll;
     }
 
@@ -77,9 +75,9 @@ public class TableCopy extends JTable {
         this.identify();
     }
 
-    public String getValueAt(int r, int c) {
-        return (String) data[r][c];
-    }
+//    public String getValueAt(int r, int c) {
+//        return (String) data[r][c];
+//    }
 
     public int numOfEmpty() {
         int count = 0;

@@ -3,6 +3,7 @@ package presentation.panel.info;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
+import presentation.panel.operation.TableCopy;
 import presentation.util.DateChooser;
 
 import javax.swing.*;
@@ -96,10 +97,9 @@ public abstract class InfoPanel extends OperationPanel {
                 "1", "2", "3", "4"
         };
 
-        JTable table = new JTable(data, columnNames);
+        TableCopy table = new TableCopy(data, columnNames);
         table.setBorder(BorderFactory.createEtchedBorder());
         table.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, data.length * 30);
         add(table);
-
     }
 }
