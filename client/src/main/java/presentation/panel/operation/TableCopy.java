@@ -181,7 +181,8 @@ public class TableCopy extends JTable {
      * @return 搜索成功返回true, 否则返回false
      */
     protected int searchStock(String name) {
-        for (int i = 0; i < data.length; i++) {
+        System.out.println(this.numOfEmpty());
+        for (int i = 0; i < this.numOfEmpty(); i++) {
             if (name.equals(data[i][1])) {
                 this.setRowSelectionInterval(i, i);
                 return i;

@@ -63,8 +63,7 @@ public class PicturePanel extends OperationPanel {
                     int k = table.searchStock(searchInput.getText());
                     if(k>0){
                         System.out.println(table.getRowCount());
-//                        table.setRowSelectionInterval(k,k);
-                        System.out.println("PicturePanel.mouseClicked");
+                        table.setRowSelectionInterval(k,k);
                         System.out.println(k);
                     }
                 }
