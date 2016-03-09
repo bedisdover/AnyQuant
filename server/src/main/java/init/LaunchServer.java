@@ -10,5 +10,6 @@ public class LaunchServer {
     public static void main(String[] args){
         GetStockDataService getStockDataService = new GetStockData();
         getStockDataService.getStockData_today_sh();
+        getStockDataService.getStockData_today_sz();
     }
 }

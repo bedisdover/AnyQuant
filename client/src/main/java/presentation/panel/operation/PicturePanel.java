@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import bl.ShowStockData;
+import observer.Observer;
 import presentation.util.DateChooser;
 
 import javax.swing.*;
@@ -12,8 +13,8 @@ import java.awt.event.*;
  * <p>
  * 行情面板
  */
-public class PicturePanel extends OperationPanel {
-
+public class PicturePanel extends OperationPanel implements Observer{
+    ShowStockData showStockData = new ShowStockData();
     /**
      * "上证"按钮
      */
@@ -156,7 +157,7 @@ public class PicturePanel extends OperationPanel {
      * 显示"上证"的股票列表
      */
     private void displayBlock_SH() {
-        createTable(new ShowStockData().getLatestStockData());
+        createTable(new ShowStockData().getLatestStockData_sh());
     }
 
     /**
@@ -173,5 +174,10 @@ public class PicturePanel extends OperationPanel {
         Graphics2D graphics2D = (Graphics2D) g;
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+    }
+
+    @Override
+    public void update() {
+        super.createTable(showStockData.getLatestStockData_buffer());
     }
 }
