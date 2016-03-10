@@ -1,6 +1,0 @@
-who: 宋益明, 苏琰梓, 章承尧, 周梦佳
-when: 2016.3.7
-what: 代码分工：界面（zmj， sym）、数据、逻辑（zcy，syz），研究python画图表（syz）。
-	  解决gitlab每次pull commit出现的问题。
-how long: 1h
-arrived solutions:确定下一步任务，并确定下一次开会时间为周四，地点机房。
