@@ -178,6 +178,6 @@ public class PicturePanel extends OperationPanel implements Observer{
 
     @Override
     public void update() {
-        super.createTable(showStockData.getLatestStockData_buffer());
+        System.out.println("oo");
     }
 }
