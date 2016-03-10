@@ -2,6 +2,6 @@
 *.iml
 *.class
 /client/target
+/client/src/main/resources/follow.data
 target/
-client/src/main/resources/images/portrait.png
 test/
