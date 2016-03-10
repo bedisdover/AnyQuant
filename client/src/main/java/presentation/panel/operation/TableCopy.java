@@ -9,8 +9,9 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -74,11 +75,18 @@ public class TableCopy extends JTable {
         setDefaultRenderer(Object.class, tcr);
         //设置table内容不可编辑
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+            public Class<?> getColumnClass(int column) {
+                return getValueAt(0, column).getClass();
+            }
+
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
         setModel(model);
+        //设置表头排序方式
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
+        setRowSorter(sorter);
     }
 
     /**
