@@ -1,19 +1,27 @@
 package presentation.frame;
 
+import bl.ShowStockData;
+import data.GetStockData;
+import data.StockDataBuffer;
+import dataservice.GetStockDataService;
+import observer.Observer;
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;
+import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
 import presentation.util.ImageLoader;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  * Created by song on 16-3-2.
  * <p>
  * 主界面
  */
-public final class MainFrame extends JFrame {
+public final class MainFrame extends JFrame implements Observer{
 
     private static final int width;//683
     private static final int height;//512
@@ -23,6 +31,8 @@ public final class MainFrame extends JFrame {
     private static final BackgroundPanel backgroundPanel;
 
     private static JPanel operationPanel;
+
+    public static java.util.List<StockVO> stockList;
 
     private MainFrame() {
     }
@@ -59,6 +69,8 @@ public final class MainFrame extends JFrame {
         backgroundPanel.setLayout(null);
 
         operationPanel = new PortfolioPanel();
+
+        stockList = new ArrayList<>();
     }
 
     /**
@@ -84,6 +96,19 @@ public final class MainFrame extends JFrame {
         backgroundPanel.add(panel);
 
         repaint();
+    }
+
+    @Override
+    public void updateStock() {
+        ShowStockData showStockData = new ShowStockData();
+        stockList = showStockData.getLatestStockData_buffer();
+
+        operationPanel.repaint();
+    }
+
+    public void getData(){
+        GetStockDataService getStockDataService = new GetStockData();
+        getStockDataService.getStockData_today_sh();
     }
 }
 

@@ -12,7 +12,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="module" module-name="server" />
+    <orderEntry type="library" name="Maven: edu.nju.ultraviolet:server:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: edu.nju.Ultraviolet:common:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.3" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />

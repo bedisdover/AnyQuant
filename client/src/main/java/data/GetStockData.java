@@ -2,7 +2,6 @@ package data;
 
 import dataservice.GetStockDataService;
 import net.sf.json.JSONObject;
-import observer.*;
 import observer.Observable;
 import po.StockPO;
 
@@ -93,8 +92,8 @@ public class GetStockData implements GetStockDataService, Observable {
             spo.add(stockPO);
 
             stockDataBuffer.stockPOs_sh.add(stockPO);
-            if(i%100==0||i==info.length){
-                notify(stockDataBuffer);
+            if(i%50==0||i==info.length-1){
+                notifyUpdate();
             }
         }
         return spo;
@@ -120,7 +119,7 @@ public class GetStockData implements GetStockDataService, Observable {
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sz";
         String result = rdt.getData(url);
         String[] info = rdt.parseJson(result, "data","link");//info数组存放了所有深交所股票信息的网址
-        for(int i=0;i<info.length;i++){
+        for(int i=0;i<5;i++){
 
             String str = info[i]+"/?start="+d+"&end="+d1;
             String stockInfo = rdt.getData(str);
@@ -252,9 +251,9 @@ public class GetStockData implements GetStockDataService, Observable {
         return dates[dates.length-1];
     }
 
-    @Override
-    public void notify(Object o) {
-        stockDataBuffer.update();
+
+    public void notifyUpdate() {
+        stockDataBuffer.updateStock();
     }
 
     public static void main(String[] args){

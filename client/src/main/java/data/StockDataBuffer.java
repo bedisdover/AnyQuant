@@ -22,13 +22,11 @@ public class StockDataBuffer implements Observer, Observable{
     }
 
 
-    @Override
-    public void notify(Object o) {
-        showStockData.update();
+    public void notifyUpdate() {
+        showStockData.updateStock();
     }
 
-    @Override
-    public void update() {
-        notify(showStockData);
+    public void updateStock() {
+        notifyUpdate();
     }
 }

@@ -3,10 +3,10 @@ package bl;
 import data.GetStockData;
 import data.StockDataBuffer;
 import dataservice.GetStockDataService;
-import init.LaunchServer;
 import observer.Observable;
 import observer.Observer;
 import po.StockPO;
+import presentation.frame.MainFrame;
 import presentation.panel.operation.PicturePanel;
 import vo.StockVO;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by user on 2016/3/8. Created by user on 2016/3/8.
  */
 public class ShowStockData implements Observer, Observable{
-    PicturePanel picturePanel = new PicturePanel();
+
     public List<StockVO> getLatestStockData_sh(){
         GetStockDataService getStockDataService = new GetStockData();
         List<StockPO> a = getStockDataService.getStockData_today_sh();
@@ -53,14 +53,14 @@ public class ShowStockData implements Observer, Observable{
 
 
     @Override
-    public void update() {
+    public void updateStock() {
         System.out.println("g");
-        notify(picturePanel);
+        notifyUpdate();
     }
 
-    @Override
-    public void notify(Object o) {
-        picturePanel.update();
+    public void notifyUpdate() {
+        MainFrame.getMainFrame().updateStock();
+//        picturePanel.updateStock();
     }
 
     public static void main(String[] args){
