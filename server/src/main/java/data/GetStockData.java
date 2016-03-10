@@ -231,6 +231,64 @@ public class GetStockData implements GetStockDataService{
     }
 
     /**
+     * 得到指定日期的指定名称的股票数据
+     * @param name
+     * @param dates
+     * @return StockPO
+     */
+    public StockPO getStockData_name(String name,String dates){
+
+        String[] time = dates.split("-");
+        Calendar c = new GregorianCalendar();
+        c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
+        c.add(c.DATE,1);
+        Date date1 = c.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String d = simpleDateFormat.format(date1);//得到指定日期的后1天
+
+        ReadData rdt = new ReadData();
+        String url = "http://121.41.106.89:8010/api/stock/"+name+"/?start="+dates+"&end="+d;
+        String s1 = rdt.getData(url);
+        String s2 = rdt.parseJSON(s1,"data");
+        String[] trading_info = rdt.parseJSON_array(s2,"trading_info");
+        StockPO stockPO = new StockPO(1);
+        long[] volume = new long[1];
+        double[] pb = new double[1];
+        double[] high = new double[1];
+        double[] pe_ttm = new double[1];
+        double[] adj_price = new double[1];
+        double[] low = new double[1];
+        String[] date = new String[1];
+        double[] close = new double[1];
+        double[] open = new double[1];
+        double[] turnover = new double[1];
+        for(int i=0;i<trading_info.length;i++){
+            JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
+            volume[i] = Long.parseLong(jsonObject.getString("volume"));
+            pb[i] = Double.parseDouble(jsonObject.getString("pb"));
+            high[i] = Double.parseDouble(jsonObject.getString("high"));
+            pe_ttm[i] = Double.parseDouble(jsonObject.getString("pe_ttm"));
+            adj_price[i] = Double.parseDouble(jsonObject.getString("adj_price"));
+            low[i] = Double.parseDouble(jsonObject.getString("low"));
+            date[i] = jsonObject.getString("date");
+            close[i] = Double.parseDouble(jsonObject.getString("close"));
+            open[i] = Double.parseDouble(jsonObject.getString("open"));
+            turnover[i] = Double.parseDouble(jsonObject.getString("turnover"));
+        }
+        stockPO.setId(name);
+        stockPO.setVolume(volume);
+        stockPO.setPb(pb);
+        stockPO.setHigh(high);
+        stockPO.setPe_ttm(pe_ttm);
+        stockPO.setAdj_price(adj_price);
+        stockPO.setLow(low);
+        stockPO.setDate(date);
+        stockPO.setClose(close);
+        stockPO.setOpen(open);
+        stockPO.setTurnover(turnover);
+        return stockPO;
+    }
+    /**
      * 得到指定时间段内的指定名称的股票
      * @param name
      * @param date1
@@ -289,11 +347,39 @@ public class GetStockData implements GetStockDataService{
         String[] names = {"sh600000","sh600015","sh600016","sh600036","sh601009","sh601166","sh601169","sh601288","sh601328","sh601398","sh601818","sh601939","sh601988","sh601998","sz000001","sz002142"};
         List<StockPO> stockPOs = new ArrayList<StockPO>();
         for(int i=0;i<names.length;i++){
-            stockPOs.add(getStockData_name(names[i]));System.out.println(stockPOs.get(i).getVolume()[0]);
+            stockPOs.add(getStockData_name(names[i]));
         }
         return stockPOs;
     }
 
+    /**
+     * 得到指定日期的我们感兴趣的所有股票数据
+     * @param dates
+     * @return List<StockPO>
+     */
+    public List<StockPO> getAllInterestedStock(String dates){
+        String[] names = {"sh600000","sh600015","sh600016","sh600036","sh601009","sh601166","sh601169","sh601288","sh601328","sh601398","sh601818","sh601939","sh601988","sh601998","sz000001","sz002142"};
+        List<StockPO> stockPOs = new ArrayList<StockPO>();
+        for(int i=0;i<names.length;i++){
+            stockPOs.add(getStockData_name(names[i],dates));
+        }
+        return stockPOs;
+    }
+
+    /**
+     * 得到指定时间段内的我们感兴趣的所有股票数据
+     * @param date1
+     * @param date2
+     * @return List<StockPO>
+     */
+    public List<StockPO> getAllInterestedStock(String date1,String date2){
+        String[] names = {"sh600000","sh600015","sh600016","sh600036","sh601009","sh601166","sh601169","sh601288","sh601328","sh601398","sh601818","sh601939","sh601988","sh601998","sz000001","sz002142"};
+        List<StockPO> stockPOs = new ArrayList<StockPO>();
+        for(int i=0;i<names.length;i++){
+            stockPOs.add(getStockData_name(names[i],date1,date2));
+        }
+        return stockPOs;
+    }
     /**
      * 获得api中的最新股票数据对应的日期
      * @return String
