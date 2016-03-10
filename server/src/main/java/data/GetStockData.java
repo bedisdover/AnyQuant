@@ -91,9 +91,7 @@ public class GetStockData implements GetStockDataService{
             spo.add(stockPO);
 
             stockDataBuffer.stockPOs_sh.add(stockPO);
-            if(i==100||i==info.length){
-                stockDataBuffer.update();
-            }
+
         }
         return spo;
     }
@@ -170,7 +168,7 @@ public class GetStockData implements GetStockDataService{
             stockPO.setId(rdt.parseJSON(s1,"name"));
 
             spo.add(stockPO);
-        }System.out.println(spo.size());
+        }
         return spo;
     }
 

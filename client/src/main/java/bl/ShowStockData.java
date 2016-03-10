@@ -3,6 +3,7 @@ package bl;
 import data.GetStockData;
 import data.StockDataBuffer;
 import dataservice.GetStockDataService;
+import init.LaunchServer;
 import po.StockPO;
 import presentation.panel.operation.PicturePanel;
 import vo.StockVO;
@@ -14,7 +15,6 @@ import java.util.List;
  * Created by user on 2016/3/8. Created by user on 2016/3/8.
  */
 public class ShowStockData {
-    PicturePanel picturePanel = new PicturePanel();
 
     public List<StockVO> getLatestStockData_sh(){
         GetStockDataService getStockDataService = new GetStockData();
@@ -48,17 +48,11 @@ public class ShowStockData {
         return stockVOs;
     }
 
-    public void notify(Object o) {
-        picturePanel.update();
-    }
 
-    public void update() {
-        notify(picturePanel);
-    }
 
-    public static void main(String[] args){
+    public static void main(String[] args){System.out.println(StockDataBuffer.stockPOs_sh.hashCode());
+//        LaunchServer.init();
         ShowStockData s = new ShowStockData();
-        System.out.println();
-        System.out.println(s.getLatestStockData_sh().get(1).getVolume()[0]);
+        System.out.println(s.getLatestStockData_buffer().get(1).getVolume()[0]);
     }
 }

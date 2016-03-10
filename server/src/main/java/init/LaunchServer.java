@@ -1,6 +1,7 @@
 package init;
 
 import data.GetStockData;
+import data.StockDataBuffer;
 import dataservice.GetStockDataService;
 
 /**
@@ -8,8 +9,15 @@ import dataservice.GetStockDataService;
  */
 public class LaunchServer {
     public static void main(String[] args){
+        System.out.println("Ready..."+ StockDataBuffer.stockPOs_sh.hashCode());
         GetStockDataService getStockDataService = new GetStockData();
         getStockDataService.getStockData_today_sh();
-        getStockDataService.getStockData_today_sz();
+//        getStockDataService.getStockData_today_sz();
+    }
+
+    public static void init(){
+        GetStockDataService getStockDataService = new GetStockData();
+        getStockDataService.getStockData_today_sh();
+//        getStockDataService.getStockData_today_sz();
     }
 }
