@@ -38,7 +38,6 @@ public class UISettings extends JPanel {
 
     private void createUIComponents() {
         JLabel labelBackground = new JLabel("背景图片");
-        labelBackground.setFont(Settings.font);
         labelBackground.setBounds(45, 37, 72, 15);
         add(labelBackground);
 
@@ -47,7 +46,6 @@ public class UISettings extends JPanel {
         add(btnCustom);
 
         JLabel labelTransparency = new JLabel("背景透明度");
-        labelTransparency.setFont(Settings.font);
         labelTransparency.setBounds(45, 88, 72, 15);
         add(labelTransparency);
 
@@ -56,7 +54,6 @@ public class UISettings extends JPanel {
         add(transparency);
 
         JLabel labelLocation = new JLabel("菜单栏位置");
-        labelLocation.setFont(Settings.font);
         labelLocation.setBounds(45, 139, 72, 15);
         add(labelLocation);
 
@@ -66,7 +63,6 @@ public class UISettings extends JPanel {
         add(menuBarLocation);
 
         JLabel labelAutoHide = new JLabel("自动隐藏菜单栏");
-        labelAutoHide.setFont(Settings.font);
         labelAutoHide.setBounds(45, 195, 114, 15);
         add(labelAutoHide);
     }

@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -58,9 +57,6 @@ public class TableCopy extends JTable {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        //表头字体
-        Font font = new Font("微软雅黑", Font.PLAIN, 16);
-        getTableHeader().setFont(font);
         //行宽
         setRowHeight(30);
         //无法修改表头大小

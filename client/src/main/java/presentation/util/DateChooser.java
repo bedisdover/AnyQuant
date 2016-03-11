@@ -1,44 +1,13 @@
 package presentation.util;
 
 import javax.swing.*;
-
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Stroke;
-import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.SwingUtilities;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.List;
 
 
 /**
@@ -61,7 +30,6 @@ public class DateChooser extends JPanel {
     private JP3 jp3;
     @SuppressWarnings("unused")
     private JP4 jp4;
-    private Font font = new Font("宋体", Font.PLAIN, 12);
     private final LabelManager lm = new LabelManager();
     public JTextField showDate;
     private JButton choose;
@@ -331,7 +299,6 @@ public class DateChooser extends JPanel {
         }
 
         protected void paintComponent(Graphics g) {
-            g.setFont(font);
             g.drawString("星期日 星期一 星期二 星期三 星期四 星期五 星期六", 5, 10);
             g.drawLine(0, 15, getWidth(), 15);
         }
@@ -384,7 +351,6 @@ public class DateChooser extends JPanel {
             this.month = month;
             this.addMouseListener(this);
             this.addMouseMotionListener(this);
-            this.setFont(font);
             if (month == select.get(Calendar.MONTH)) {
                 this.setForeground(Color.BLACK);
             } else {

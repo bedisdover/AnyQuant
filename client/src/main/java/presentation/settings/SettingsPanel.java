@@ -77,8 +77,9 @@ public class SettingsPanel extends JPanel {
             e.printStackTrace();
         }
 
+        settings = new UISettings();
+
         addMenuPanel();
-//        addSettingsPanel(new UISettings());
         addButtonPanel();
     }
 
@@ -96,15 +97,12 @@ public class SettingsPanel extends JPanel {
         add(menuPanel);
 
         btnUI = new JButton("界面设置");
-        btnUI.setFont(Settings.font);
         menuPanel.add(btnUI);
 
         btnFont = new JButton("字体设置");
-        btnFont.setFont(Settings.font);
         menuPanel.add(btnFont);
 
         btnAccount = new JButton("帐号设置");
-        btnAccount.setFont(Settings.font);
         menuPanel.add(btnAccount);
     }
 
@@ -112,9 +110,7 @@ public class SettingsPanel extends JPanel {
      * 添加具体的设置面板
      */
     private void addSettingsPanel(JPanel panel) {
-        if (settings != null) {
-            remove(panel);
-        }
+        remove(settings);
         settings = panel;
         settings.setBounds(width / 5, 0, width - getX(), height * 4 / 5);
 
