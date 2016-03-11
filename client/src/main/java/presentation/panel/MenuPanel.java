@@ -246,10 +246,10 @@ public class MenuPanel extends JPanel {
             }
         });
 
-        btnSettings.addMouseListener(new MouseAdapter() {
+        btnSkin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                //TODO 换肤
             }
         });
     }

@@ -31,7 +31,7 @@ public class UISettings extends JPanel {
 
     private void init() {
         setLayout(null);
-        setBorder(new BevelBorder(0));
+        setBorder(new BevelBorder(BevelBorder.LOWERED));
 
         autoHide = false;
     }
@@ -60,8 +60,8 @@ public class UISettings extends JPanel {
         labelLocation.setBounds(45, 139, 72, 15);
         add(labelLocation);
 
-        menuBarLocation = new JComboBox<String>();
-        menuBarLocation.setModel(new DefaultComboBoxModel<String>(new String[]{"左侧", "右侧", "底部", "顶部"}));
+        menuBarLocation = new JComboBox<>();
+        menuBarLocation.setModel(new DefaultComboBoxModel<>(new String[]{"左侧", "右侧", "底部", "顶部"}));
         menuBarLocation.setBounds(219, 134, 100, 28);
         add(menuBarLocation);
 
