@@ -414,8 +414,8 @@ public class GetStockData implements GetStockDataService{
         GetStockData g = new GetStockData();
 //        g.getStockData_name("sh600000");
 //        g.getDateOfLatestData();
-        StockPO stockPO = g.getStockData_name("sh600000");
-        System.out.println(stockPO.getVolume()[0]+" "+stockPO.getPb()[0]+" "+stockPO.getAdj_price()[0]+" "+stockPO.getHigh()[0]+" "+stockPO.getLow()[0]+" "+stockPO.getOpen()[0]+" "+stockPO.getClose()[0]+" "+stockPO.getTurnover()[0]+" "+stockPO.getDate()[0]);
+//        StockPO stockPO = g.getStockData_name("sh600000");
+//        System.out.println(stockPO.getVolume()[0]+" "+stockPO.getPb()[0]+" "+stockPO.getAdj_price()[0]+" "+stockPO.getHigh()[0]+" "+stockPO.getLow()[0]+" "+stockPO.getOpen()[0]+" "+stockPO.getClose()[0]+" "+stockPO.getTurnover()[0]+" "+stockPO.getDate()[0]);
 
 //        Calendar c = Calendar.getInstance();
 //        c.add(c.DATE,1);
