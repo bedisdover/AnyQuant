@@ -134,7 +134,6 @@ public class PortfolioPanel extends OperationPanel {
 
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    System.out.println(e.getX() + "  " + e.getY());
                     showMenuList(e.getX() + MARGIN, e.getY() + MARGIN + PADDING * 2 + 29);
                 }
             }
