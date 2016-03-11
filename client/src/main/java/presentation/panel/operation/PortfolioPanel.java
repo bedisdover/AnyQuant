@@ -17,12 +17,10 @@ import java.util.List;
 
 /**
  * Created by song on 16-3-2.
- *
+ * <p>
  * 自选面板
  */
 public class PortfolioPanel extends OperationPanel {
-
-
 
     /**
      * 取消关注按钮
@@ -37,13 +35,18 @@ public class PortfolioPanel extends OperationPanel {
     private JMenuItem menuItem4;
 
     public PortfolioPanel() {
-
         init();
         createUIComponents();
         addListeners();
     }
 
     protected void init() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         setLayout(null);
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
@@ -65,7 +68,6 @@ public class PortfolioPanel extends OperationPanel {
 
         cancel.setBounds(WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
 
-        add(cancel);
 
         Iterator<String> stockID = new SelfSelectStock().getFollowed();
         List<StockVO> list = new ArrayList<StockVO>();
@@ -76,14 +78,18 @@ public class PortfolioPanel extends OperationPanel {
             list.add(new StockVO(getStockData.getStockData_name(string)));
         }
 
+        //若关注列表为空,不显示"取消关注"按钮
+        if (list.size() != 0) {
+            add(cancel);
+        }
         table = createTable(list);
     }
 
-    protected void showMenuList(int x,int y){
-        popupMenu1.show(this,x,y);
+    protected void showMenuList(int x, int y) {
+        popupMenu1.show(this, x, y);
     }
 
-    private void showDetailedinfo(){
+    private void showDetailedInfo() {
         String name = (String) table.getValueAt(table.getSelectedRow(), 2);
         StockPO stock = new GetStockData().getStockData_name(name);
 
@@ -108,14 +114,15 @@ public class PortfolioPanel extends OperationPanel {
             }
         });
 
-        class RightClickListener extends MouseAdapter{}
+        class RightClickListener extends MouseAdapter {
+        }
         /**
          * todo 给table添加鼠标右键监听
          */
-        table.addMouseListener(new RightClickListener(){
-            public void mousePressed(MouseEvent e){
+        table.addMouseListener(new RightClickListener() {
+            public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
-                if((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+                if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
                     Point p = e.getPoint();
                     int row = table.rowAtPoint(p);
                     int column = table.columnAtPoint(p);
@@ -124,10 +131,11 @@ public class PortfolioPanel extends OperationPanel {
                     }
                 }
             }
+
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    System.out.println(e.getX()+"  "+e.getY());
-                    showMenuList(e.getX()+MARGIN, e.getY()+MARGIN + PADDING * 2+29);
+                    System.out.println(e.getX() + "  " + e.getY());
+                    showMenuList(e.getX() + MARGIN, e.getY() + MARGIN + PADDING * 2 + 29);
                 }
             }
         });
@@ -139,7 +147,7 @@ public class PortfolioPanel extends OperationPanel {
         //显示详细信息
         menuItem1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                showDetailedinfo();
+                showDetailedInfo();
             }
         });
         menuItem2.addActionListener(new ActionListener() {

@@ -63,8 +63,8 @@ public class UltraScrollPane extends JScrollPane {
             // 画滚动条矩形内圈边框
             // g2.setColor(new Color(230, 230, 230));
             // Rectangle bounds = arcRect.getBounds();
-            // g2.drawRoundRect(bounds.x + 1, bounds.y + 1, bounds.width - 2,
-            // bounds.height - 2, (int) ARC_NUMBER, (int) ARC_NUMBER);
+            // g2.drawRoundRect(bounds.x + 1, bounds.y + 1, bounds.DEFAULT_WIDTH - 2,
+            // bounds.MENU_HEIGHT - 2, (int) ARC_NUMBER, (int) ARC_NUMBER);
             //
             // g2.translate(-thumbBounds.x, -thumbBounds.y);
             // g2.setPaint(oldPaint);

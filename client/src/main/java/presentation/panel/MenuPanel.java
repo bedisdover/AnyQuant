@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -169,8 +171,9 @@ public class MenuPanel extends JPanel {
         btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT * 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
-        btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, getHeight() - MARGIN - BUTTON_HEIGHT * 2,
+        btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT,
+                BUTTON_HEIGHT, BUTTON_HEIGHT);
+        btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
         btnSettings.setIcon(new ImageIcon(ImageLoader.settings));
         btnSkin.setIcon(new ImageIcon(ImageLoader.skin));
@@ -184,6 +187,20 @@ public class MenuPanel extends JPanel {
     }
 
     private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT,
+                        BUTTON_HEIGHT, BUTTON_HEIGHT);
+                btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
+                        BUTTON_HEIGHT, BUTTON_HEIGHT);
+            }
+        });
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

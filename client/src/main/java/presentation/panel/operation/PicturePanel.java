@@ -88,11 +88,6 @@ public class PicturePanel extends OperationPanel {
         btnSearch = new JButton("搜索");
         searchInput = new JTextField();
 
-        btnSh.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-        btnSz.setBounds(MARGIN + BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-        btnSearch.setBounds(WIDTH - MARGIN - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-        searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH, MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
-
         add(btnSh);
         add(btnSz);
 //        add(dateChooser);
@@ -100,6 +95,16 @@ public class PicturePanel extends OperationPanel {
     }
 
     private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                btnSh.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnSz.setBounds(MARGIN + BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnSearch.setBounds(WIDTH - MARGIN - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH, MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
+            }
+        });
+
         btnSh.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

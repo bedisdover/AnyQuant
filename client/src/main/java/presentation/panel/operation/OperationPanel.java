@@ -5,6 +5,8 @@ import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 
 /**
@@ -20,49 +22,67 @@ public abstract class OperationPanel extends JPanel {
      * 而且真实高度和宽度都是根据主界面的宽度和高度确定的,所以这里仅
      * 简单地计算出宽度和高度)
      */
-    protected final int WIDTH, HEIGHT;
+    protected int WIDTH, HEIGHT;
 
     /**
      * 外边距
      */
-    protected final int MARGIN;
+    protected int MARGIN;
 
     /**
      * 内边距
      */
-    protected final int PADDING;
+    protected int PADDING;
 
     /**
      * 按钮宽度
      */
-    protected final int BUTTON_WIDTH;
+    protected int BUTTON_WIDTH;
 
     /**
      * 按钮高度
      */
-    protected final int BUTTON_HEIGHT;
+    protected int BUTTON_HEIGHT;
 
-    protected final int TEXT_FIELD_WIDTH;
+    protected int TEXT_FIELD_WIDTH;
 
     protected TableCopy table;
 
     protected JScrollPane scrollPane;
 
     public OperationPanel() {
-        WIDTH = MainFrame.getMainFrame().getWidth() * 4 / 5;
+        setOpaque(false);
+        assignment();
+        addListeners();
+    }
+
+    /**
+     * 各种成员变量赋值
+     */
+    private void assignment() {
+        WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
         HEIGHT = MainFrame.getMainFrame().getHeight();
-        MARGIN = MainFrame.getMainFrame().getWidth() / 25;
-        PADDING = MainFrame.getMainFrame().getWidth() / 20;
+        //初始化时对BUTTON_WIDTH,BUTTON_HEIGHT及TEXT_FIELD_WIDTH赋值
+        //当界面大小改变时,无需再次赋值
+        MARGIN = MainFrame.DEFAULT_WIDTH / 25;
+        PADDING = MainFrame.DEFAULT_WIDTH / 20;
         BUTTON_WIDTH = PADDING + MARGIN;
         BUTTON_HEIGHT = MARGIN;
         TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
-
-        setOpaque(false);
     }
 
     protected abstract void init();
 
     protected abstract void createUIComponents();
+
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                assignment();
+            }
+        });
+    }
 
     /**
      * 创建表格
@@ -95,7 +115,10 @@ public abstract class OperationPanel extends JPanel {
         scrollPane = table.drawTable();
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
         scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
-        add(scrollPane);
+        if (data.length != 0) {
+            add(scrollPane);
+        }
+
         return table;
     }
 
