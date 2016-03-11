@@ -87,7 +87,7 @@ public class GetIndexData implements GetIndexDataService{
 //        String[] info = rdt.parseJson(result,"data","link");
 //        String str = info[0];
         GetIndexData getIndexData = new GetIndexData();
-        System.out.println(getIndexData.getLatestIndexData().getName());
+        System.out.println(getIndexData.getLatestIndexData().getName()+" "+getIndexData.getLatestIndexData().getVolume()[0]+" "+getIndexData.getLatestIndexData().getAdj_price()[0]+" "+getIndexData.getLatestIndexData().getHigh()[0]+" "+getIndexData.getLatestIndexData().getLow()[0]+" "+getIndexData.getLatestIndexData().getOpen()[0]+" "+getIndexData.getLatestIndexData().getClose()[0]+" "+getIndexData.getLatestIndexData().getDate()[0]);
 
     }
 }
