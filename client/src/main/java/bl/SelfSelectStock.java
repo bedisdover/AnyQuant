@@ -38,10 +38,13 @@ public class SelfSelectStock implements SelfSelectStockService {
      * @param id 股票代码
      * @return 若关注成功, 返回true, 否则返回false
      */
-    public void addStock(String id) throws IOException {
+    public boolean addStock(String id) throws IOException {
         if (!exist(id)) {
             list.add(id);
             store();
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -50,10 +53,13 @@ public class SelfSelectStock implements SelfSelectStockService {
      *
      * @param id 股票代码
      */
-    public void removeStock(String id) throws IOException {
+    public boolean removeStock(String id) throws IOException {
         if (exist(id)) {
             list.remove(id);
             store();
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -114,4 +120,11 @@ public class SelfSelectStock implements SelfSelectStockService {
 
         writer.close();
     }
+
+
+    public static void main(String[] args){
+        SelfSelectStock selfSelectStock=new SelfSelectStock();
+        selfSelectStock.exist("");
+    }
 }
+

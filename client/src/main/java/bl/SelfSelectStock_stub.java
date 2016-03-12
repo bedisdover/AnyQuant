@@ -18,8 +18,8 @@ public class SelfSelectStock_stub implements SelfSelectStockService {
      *
      * @param id 股票代码
      */
-    public void addStock(String id) {
-
+    public boolean addStock(String id) {
+return true;
     }
 
     /**
@@ -27,8 +27,8 @@ public class SelfSelectStock_stub implements SelfSelectStockService {
      *
      * @param id 股票代码
      */
-    public void removeStock(String id) {
-
+    public boolean removeStock(String id) {
+return false;
     }
 
     /**
