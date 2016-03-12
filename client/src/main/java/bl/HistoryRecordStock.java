@@ -18,7 +18,9 @@ public class HistoryRecordStock implements HistoryRecordStockService {
 
     public HistoryRecordStock() {
         file = new File("client/src/main/resources/historyRecord.data");
-        list = new ArrayList<String>();
+        list = new ArrayList<>();
+
+        load();
     }
 
     @Override
@@ -39,6 +41,7 @@ public class HistoryRecordStock implements HistoryRecordStockService {
 
     @Override
     public Iterator<String> getRecord() {
+        System.out.println(list);
         return list.iterator();
     }
 

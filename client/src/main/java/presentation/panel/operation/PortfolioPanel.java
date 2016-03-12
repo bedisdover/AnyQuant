@@ -1,5 +1,6 @@
 package presentation.panel.operation;
 
+import bl.HistoryRecordStock;
 import bl.SelfSelectStock;
 import data.GetStockData;
 import po.StockPO;
@@ -70,11 +71,10 @@ public class PortfolioPanel extends OperationPanel {
 
 
         Iterator<String> stockID = new SelfSelectStock().getFollowed();
-        List<StockVO> list = new ArrayList<StockVO>();
+        List<StockVO> list = new ArrayList<>();
         GetStockData getStockData = new GetStockData();
         while (stockID.hasNext()) {
             String string = stockID.next();
-            System.out.println(string);
             list.add(new StockVO(getStockData.getStockData_name(string)));
         }
 
@@ -104,7 +104,8 @@ public class PortfolioPanel extends OperationPanel {
                 if (line != -1) {
                     try {
                         new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
-                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!");
+                        new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -161,7 +162,8 @@ public class PortfolioPanel extends OperationPanel {
                 if (line != -1) {
                     try {
                         new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
-                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!");
+                        new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
