@@ -1,0 +1,23 @@
+who：苏琰梓
+when：2016-03-12
+what：完成界面层、逻辑层自己负责的部分，完成《计划文档》、部分单元测试
+problem：gitlab同步时冲突，写代码效率不高
+todo：预计下周完成迭代二准备工作与Python制表工作的研究
+
+who：周梦佳
+when：2016-03-12
+what：
+problem：
+todo：
+
+who : 章承尧
+when : 2016-03-12
+what : 
+problem : 
+todo : 
+
+who : 宋益明
+when : 2016-03-12
+what : 
+problem : 
+todo : 

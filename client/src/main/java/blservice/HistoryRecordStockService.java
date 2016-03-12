@@ -29,7 +29,7 @@ public interface HistoryRecordStockService {
      *
      * @return 股票代码列表的迭代器
      */
-    Iterator<String> getFollowed();
+    Iterator<String> getRecord();
 
     /**
      * 判断是否已在历史关注列表中

@@ -1,5 +1,6 @@
 package presentation.panel.operation;
 
+import bl.HistoryRecordStock;
 import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by song on 16-3-2.
@@ -43,7 +45,7 @@ public class HistoryPanel extends OperationPanel {
 
 
     private JTextField searchInput;
-    private Table table;
+    private TableCopy table;
     private JButton search;
     private DateChooser dateChooser;
 
@@ -62,7 +64,6 @@ public class HistoryPanel extends OperationPanel {
 
     protected void createUIComponents() {
         searchInput = new JTextField("啊啊啊");
-        table = new Table();
         search = new JButton("搜索");
         dateChooser = new DateChooser(this, MENU_WIDTH + LOCATION_X, LOCATION_Y, WIDTH, HEIGHT);
 
@@ -74,9 +75,13 @@ public class HistoryPanel extends OperationPanel {
         this.add(search);
         this.add(dateChooser);
 
-        String[] columnNames = {"", "最新", "涨幅", "最高", "最低"};
-        int[] list = {40, 87, 14, 30, 27, MENU_WIDTH - WIDTH, LOCATION_Y + HEIGHT + DISTANCE * 3, WIDTH * 7, HEIGHT * 10};
-        add(table.drawTable(columnNames, list));
+//        String[] columnNames = {"", "最新", "涨幅", "最高", "最低"};
+//        int[] list = {40, 87, 14, 30, 27, MENU_WIDTH - WIDTH, LOCATION_Y + HEIGHT + DISTANCE * 3, WIDTH * 7, HEIGHT * 10};
+//        add(table.drawTable(columnNames, list));
+
+        Iterator<String> stockid = new HistoryRecordStock().getFollowed();
+//        table = createTable()
+
     }
 
     private void addListeners() {

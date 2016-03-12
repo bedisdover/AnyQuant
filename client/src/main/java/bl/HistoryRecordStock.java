@@ -38,7 +38,7 @@ public class HistoryRecordStock implements HistoryRecordStockService {
     }
 
     @Override
-    public Iterator<String> getFollowed() {
+    public Iterator<String> getRecord() {
         return list.iterator();
     }
 
