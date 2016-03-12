@@ -26,7 +26,9 @@ static SelfSelectStock selfSelectStock=new SelfSelectStock();
 
     @Test
     public void testGetFollowed() throws Exception {
-
+    while(selfSelectStock.getFollowed().hasNext()){
+        assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
+    }
 
     }
 
