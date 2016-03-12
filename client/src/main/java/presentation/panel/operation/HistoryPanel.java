@@ -1,16 +1,13 @@
 package presentation.panel.operation;
 
-import bl.HistoryRecordStock;
 import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
-import presentation.util.Table;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
-import java.util.Iterator;
 
 /**
  * Created by song on 16-3-2.
@@ -79,7 +76,7 @@ public class HistoryPanel extends OperationPanel {
 //        int[] list = {40, 87, 14, 30, 27, MENU_WIDTH - WIDTH, LOCATION_Y + HEIGHT + DISTANCE * 3, WIDTH * 7, HEIGHT * 10};
 //        add(table.drawTable(columnNames, list));
 
-        Iterator<String> stockid = new HistoryRecordStock().getFollowed();
+//        Iterator<String> stockid = new HistoryRecordStock().getFollowed();
 //        table = createTable()
 
     }

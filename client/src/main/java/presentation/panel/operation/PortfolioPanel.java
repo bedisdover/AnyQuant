@@ -66,9 +66,6 @@ public class PortfolioPanel extends OperationPanel {
     protected void createUIComponents() {
         cancel = new JButton("取消关注");
 
-        cancel.setBounds(WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-
-
         Iterator<String> stockID = new SelfSelectStock().getFollowed();
         List<StockVO> list = new ArrayList<StockVO>();
         GetStockData getStockData = new GetStockData();
@@ -97,6 +94,13 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                cancel.setBounds(WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+            }
+        });
+
         cancel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
