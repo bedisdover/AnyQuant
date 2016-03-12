@@ -188,7 +188,7 @@ public class PicturePanel extends OperationPanel {
     }
 
     /**
-     * 显示"上证"的股票列表
+     * 显示"沪市"的股票列表
      */
     private void displayBlock_SH() {
         if (scrollPane != null) {
@@ -201,7 +201,7 @@ public class PicturePanel extends OperationPanel {
     }
 
     /**
-     * 显示"深证"的股票列表
+     * 显示"深市"的股票列表
      */
     private void displayBlock_SZ() {
         if (scrollPane != null) {
@@ -257,8 +257,13 @@ public class PicturePanel extends OperationPanel {
                 int line = table.getSelectedRow();
                 if (line != -1) {
                     try {
-                        new SelfSelectStock().addStock((String) table.getValueAt(line, 2));
-                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "添加关注成功!");
+                        boolean exist = new SelfSelectStock().addStock((String) table.getValueAt(line, 2));
+                        if(exist) {
+                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "添加关注成功!");
+                        }else{
+                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),"提示",
+                                    "您添加的股票已在自选列表中",JOptionPane.WARNING_MESSAGE);
+                        }
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

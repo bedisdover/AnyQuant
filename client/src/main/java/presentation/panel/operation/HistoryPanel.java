@@ -42,7 +42,6 @@ public class HistoryPanel extends OperationPanel {
         System.out.println("history");
         while (stockID.hasNext()) {
             String string = stockID.next();
-            System.out.println(string+"wuwuwu");
             list.add(new StockVO(getStockData.getStockData_name(string)));
         }
 
