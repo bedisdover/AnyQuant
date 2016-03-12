@@ -16,14 +16,14 @@ public interface SelfSelectStockService {
      *
      * @param id 股票代码
      */
-    void addStock(String id) throws IOException;
+    boolean addStock(String id) throws IOException;
 
     /**
      * 取消关注
      *
      * @param id 股票代码
      */
-    void removeStock(String id) throws IOException;
+    boolean removeStock(String id) throws IOException;
 
     /**
      * 获得关注股票列表

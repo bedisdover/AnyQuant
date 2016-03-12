@@ -50,25 +50,50 @@ public abstract class OperationPanel extends JPanel {
 
     protected JScrollPane scrollPane;
 
+    protected Object[][] data;
+
     public OperationPanel() {
         setOpaque(false);
+
+        {   //以下各值均为常量
+            //当界面大小改变时,无需再次赋值
+            MARGIN = MainFrame.DEFAULT_WIDTH / 25;
+            PADDING = MainFrame.DEFAULT_WIDTH / 20;
+            BUTTON_WIDTH = PADDING + MARGIN;
+            BUTTON_HEIGHT = MARGIN;
+            TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
+        }
+
         assignment();
         addListeners();
     }
 
     /**
-     * 各种成员变量赋值
+     * 界面大小发生变化时，对各种组件大小赋值
      */
     private void assignment() {
         WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
         HEIGHT = MainFrame.getMainFrame().getHeight();
-        //初始化时对BUTTON_WIDTH,BUTTON_HEIGHT及TEXT_FIELD_WIDTH赋值
-        //当界面大小改变时,无需再次赋值
-        MARGIN = MainFrame.DEFAULT_WIDTH / 25;
-        PADDING = MainFrame.DEFAULT_WIDTH / 20;
-        BUTTON_WIDTH = PADDING + MARGIN;
-        BUTTON_HEIGHT = MARGIN;
-        TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
+
+        if (data != null) {
+            int tableHeight = Math.min(
+                    (data.length + 1) * table.getRowHeight(),
+                    HEIGHT - MARGIN * 2 - PADDING * 2
+            );
+            int tableWidth = table.getWidth() + scrollPane.getVerticalScrollBarPolicy();
+
+            //若界面宽度超过表格宽度(包含外间距)
+            //表格居中显示
+            if (WIDTH > MARGIN * 2 + tableWidth) {
+                scrollPane.setBounds(
+                        (WIDTH - table.getWidth()) / 2, MARGIN + PADDING * 2,
+                        tableWidth, tableHeight
+                );
+            } else {
+                scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN,
+                        tableHeight);
+            }
+        }
     }
 
     protected abstract void init();
@@ -90,7 +115,7 @@ public abstract class OperationPanel extends JPanel {
      * @param stockList 股票列表
      */
     protected TableCopy createTable(List<StockVO> stockList) {
-        Object[][] data = new Object[stockList.size()][];
+        data = new Object[stockList.size()][];
 
         String[] columnNames = {
                 "序号", "名称", "代码", "成交量", "市净率", "最高",
@@ -113,8 +138,7 @@ public abstract class OperationPanel extends JPanel {
         table = new TableCopy(this, data, columnNames);
 
         scrollPane = table.drawTable();
-        int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
-        scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN, tableHeight);
+
         if (data.length != 0) {
             add(scrollPane);
         }
