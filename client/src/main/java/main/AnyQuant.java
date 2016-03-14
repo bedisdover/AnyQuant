@@ -1,5 +1,7 @@
 package main;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import presentation.frame.MainFrame;
 
 import javax.swing.*;
@@ -12,8 +14,14 @@ import java.util.Enumeration;
  * <p>
  * 程序主方法
  */
-public class AnyQuant {
+public class AnyQuant extends Application {
+
     public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         JFrame mainFrame = MainFrame.getMainFrame();
         mainFrame.setVisible(true);
     }
