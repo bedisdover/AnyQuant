@@ -17,7 +17,9 @@ public class FrameConfigTest {
 
     static {
         try {
-            frameConfig = new SystemConfig().getFrameConfig();
+            SystemConfig systemConfig = new SystemConfig();
+            systemConfig.test = true;
+            frameConfig = systemConfig.getFrameConfig();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -40,8 +42,8 @@ public class FrameConfigTest {
     @Test
     public void testGetLastBounds() throws Exception {
         Rectangle lastBounds = frameConfig.getLastBounds();
-        assertEquals(0.0, lastBounds.getX(), 0);
-        assertEquals(0.0, lastBounds.getY(), 0);
+        assertEquals(342, lastBounds.getX(), 0);
+        assertEquals(140, lastBounds.getY(), 0);
         assertEquals(683, lastBounds.getWidth(), 0);
         assertEquals(512, lastBounds.getHeight(), 0);
     }

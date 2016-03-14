@@ -10,6 +10,10 @@ import java.awt.*;
  * 窗体配置类
  */
 public class FrameConfig {
+
+    /**
+     * mainFrame节点
+     */
     private Element element;
 
     /**
@@ -90,6 +94,12 @@ public class FrameConfig {
      * @param bounds 关闭程序时,窗体的边界
      */
     public void storeBounds(Rectangle bounds) {
+        Element lastBounds = element.element("last");
+        lastBounds.addAttribute("x", "0");
+        lastBounds.addAttribute("y", bounds.getY() + "");
+        lastBounds.addAttribute("width", bounds.getWidth() + "");
+        lastBounds.addAttribute("height", bounds.getHeight() + "");
+
 
     }
 }

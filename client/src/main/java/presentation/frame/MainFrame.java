@@ -63,6 +63,7 @@ public final class MainFrame extends JFrame {
 
         init();
         createUIComponents();
+        addListeners();
     }
 
     public static MainFrame getMainFrame() {
@@ -107,7 +108,7 @@ public final class MainFrame extends JFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-
+                frameConfig.storeBounds(frame.getBounds());
             }
         });
     }
