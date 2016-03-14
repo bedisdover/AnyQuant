@@ -15,7 +15,7 @@ public class SystemConfig {
 
     private void init() throws DocumentException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read("src/main/resources/config.xml");
+        Document document = reader.read("client/src/main/resources/config.xml");
         root = document.getRootElement();
     }
 
