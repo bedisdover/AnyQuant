@@ -1,6 +1,5 @@
 package presentation;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -686,9 +685,8 @@ class JGroupPanel extends JPanel {
         JFrame frame = new JFrame("JGroupPanel Demo");
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(new JGroupPanel(), BorderLayout.CENTER);
-        frame.setSize(150, 600);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(d.width - frame.getSize().width - 10, 10);
+        frame.setSize(300, 600);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
