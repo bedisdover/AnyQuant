@@ -7,6 +7,7 @@ import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.info.StockInfoPanel;
 import presentation.util.DateChooser;
+import presentation.util.Table;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +51,7 @@ public class PicturePanel extends OperationPanel {
     /**
      * 获取table
      */
-    private TableCopy table;
+    private Table table;
 
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;

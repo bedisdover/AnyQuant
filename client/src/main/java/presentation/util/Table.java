@@ -1,179 +1,150 @@
 package presentation.util;
 
-import presentation.UltraSwing.UltraScrollPane;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.util.ArrayList;
+import data.GetStockData;
+import po.StockPO;
+import presentation.frame.MainFrame;
+import presentation.panel.info.StockInfoPanel;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import static java.awt.event.InputEvent.BUTTON3_MASK;
+
 /**
  * Created by pc on 2016/3/6.
+ * <p>
+ * 列表测试类
  */
 public class Table extends JTable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1302577670244342772L;
+    private Object[][] data;
 
-    private Object[][] rowData;
-    public JTable table;
+    private String[] columnNames;
 
     /**
-     * 表的列数
+     * table所在面板
      */
-    private int columnNum = 0;
-
-    /**
-     * 总行数
-     */
-    private int rowNum = 0;
+    private JPanel parent;
 
     /**
      * 表中最后一行
      */
     private int currentRow = 0;
 
-    public UltraScrollPane drawTable(String[] name, int[] list) {
-        /**
-         * list里面参数分别为需要的行数，每一列的宽度,设置第一行字体大小,设置第一行行宽,
-         * 剩下行的行宽,表格setbounds（list[5],list[6], list[7], list[8]）
-         *
-         * 调用的时候在你的panel构造函数里 Table table=new Table(); add(table.drawTable(name,
-         * list));
-         */
+    public Table(Object[][] data, String[] columnNames) {
+        this(null, data, columnNames);
+    }
 
-        columnNum = name.length;
-        rowNum = list[0];
-        rowData = new Object[rowNum][columnNum];
-        table = new JTable(rowData, name);
-        /**
-         * 设置表格不能编辑但能选中一行
-         */
-        // table.setEnabled(false);
+    public Table(JPanel parent, Object[][] data, String[] columnNames) {
+        super(data, columnNames);
 
-		/*
-		 * 设置JTable的列默认的宽度和高度
-		 */
+        this.data = data;
+        this.columnNames = columnNames;
+        this.parent = parent;
 
-        TableColumn column = null;
-        int colunms = table.getColumnCount();
-        for (int i = 0; i < colunms; i++) {
-            column = table.getColumnModel().getColumn(i);
+        init();
+    }
 
-            // 将每一列的默认宽度设置为
-
-            column.setPreferredWidth(list[1]);
+    private void init() {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
         }
-
-        Font fnt2 = new Font("Courier", Font.PLAIN, list[2]);
-        table.getTableHeader().setFont(fnt2);
-        table.getTableHeader().setPreferredSize(new Dimension(table.getTableHeader().getWidth(), list[3]));
-        table.setRowHeight(list[4]);
-
-		/*
-		 * 设置JTable自动调整列表的状态，此处设置为关闭
-		 */
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        /**
-         * 设置table内容居中
-         */
+        //行宽
+        setRowHeight(30);
+        //无法修改表头大小
+        getTableHeader().setResizingAllowed(false);
+        //无法拖动表头
+        getTableHeader().setReorderingAllowed(false);
+        //取消自动调整大小
+        setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        //设置table内容居中
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-        tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
-        table.setDefaultRenderer(Object.class, tcr);
-        /**
-         * 用UltraScrollPane装载JTable
-         */
-        UltraScrollPane scroll = new UltraScrollPane(table);
-        scroll.setBounds(list[5], list[6], list[7], list[8]);
-        return scroll;
+        tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        setDefaultRenderer(Object.class, tcr);
+        //设置table内容不可编辑
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+            public Class<?> getColumnClass(int column) {
+                return getValueAt(0, column).getClass();
+            }
 
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        setModel(model);
+        //设置表头排序方式
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
+        setRowSorter(sorter);
+    }
+
+    /**
+     * 添加监听事件
+     * 双击跳转到详细信息界面
+     */
+    private void addListeners() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && BUTTON3_MASK != 0) {
+                    String name = (String) getValueAt(getSelectedRow(), 2);
+                    StockPO stock = new GetStockData().getStockData_name(name);
+                    MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+                }
+            }
+        });
+    }
+
+    /**
+     * 用JScrollPane装载表格
+     * 装载表格后显示所有信息,故添加监听事件,可通过双击访问详细信息;
+     * 详细面板中的表格无需表头,所以无需装载,同样不需要添加监听事件
+     *
+     * @return 装载table的JScrollPane
+     */
+    public JScrollPane drawTable() {
+        JScrollPane scroll = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        addListeners();
+        return scroll;
     }
 
     public void setValueAt(int r, int c, String value) {
-        rowData[r][c] = value;
+        data[r][c] = value;
     }
 
     public void setValueAt(int row, String[] values) {
-        for (int column = 0; column < values.length; column++) {
-            rowData[row][column + 1] = values[column];
-        }
+        System.arraycopy(values, 0, data[row], 1, values.length);
 
-        if (row != table.getSelectedRow()) {
+        if (row != getSelectedRow()) {
             currentRow++;
         }
 
         this.identify();
     }
 
-    public String getValueAt(int r, int c) {
-        return (String) rowData[r][c];
-    }
+//    public String getValueAt(int r, int c) {
+//        return (String) data[r][c];
+//    }
 
-    public int getSelectedRow() {
-        return table.getSelectedRow();
-    }
-
-    public int numOfEmpty() {
-        int count = 0;
-        while (rowData[count][0] != null) {
-            count++;
-        }
-        return count;
-    }
-
-    public ArrayList<String> getValueAt(int r) {
-        ArrayList<String> al = new ArrayList<String>();
-        for (int i = 0; i < columnNum; i++) {
-            if (rowData[r][i] == null) {
-                return null;
-            }
-            al.add(rowData[r][i].toString());
-        }
-        return al;
-    }
-
-    public int columnNum() {
-        return columnNum;
-    }
-
-    // 删除某一行
-    public void remove(int r) {
-        for (int i = r; i < rowNum - 1; i++) {
-            for (int j = 0; j < columnNum; j++) {
-                setValueAt(i, j, rowData[i + 1][j].toString());
-            }
-        }
-        for (int k = 0; k < columnNum; k++) {
-            setValueAt(rowNum - 1, k, "");
-        }
-    }
-
-    public void removeLine(int row) {
-        for (int i = row; i < numOfEmpty(); i++) {
-            for (int j = 0; j < columnNum; j++) {
-                rowData[i][j] = rowData[i + 1][j];
-            }
-        }
-
-        currentRow--;
-
-        this.identify();
-    }
 
     /**
      * 判断表中是否已存在指定内容（data）
      *
      * @param column 列数（参数中从1开始计数）
-     * @param data 指定内容
+     * @param data   指定内容
      * @return 返回指定内容所在行数，若不存在，返回-1
      */
     public int alreadyExisted(int column, String data) {
         for (int i = 0; i < currentRow; i++) {
-            if (rowData[i][column - 1].toString().equals(data)) {
+            if (this.data[i][column - 1].toString().equals(data)) {
                 return i;
             }
         }
@@ -185,7 +156,7 @@ public class Table extends JTable {
      */
     private void identify() {
         for (int i = 0; i < currentRow; i++) {
-            rowData[i][0] = i + 1;
+            data[i][0] = i + 1;
         }
     }
 
@@ -193,10 +164,34 @@ public class Table extends JTable {
      * 清空表
      */
     public void clean() {
-        for (int i = 0; i < rowData.length; i++) {
-            for (int j = 0; j < rowData[0].length; j++) {
-                rowData[i][j] = null;
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[0].length; j++) {
+                data[i][j] = null;
             }
         }
     }
+
+
+    /**
+     * 根据名称搜索股票,高亮搜索结果
+     *
+     * @param name 股票名称
+     * @return 搜索成功返回true, 否则返回false
+     */
+    public int searchStock(String name) {
+        for (int i = 0; i < data.length; i++) {
+            if (name.equals(data[i][2])) {
+                System.out.println(i);
+                this.setRowSelectionInterval(i, i);
+                return i;
+            }
+        }
+        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "无记录,请确认输入是否正确");
+        return -1;
+    }
+
+    public int getRowCount() {
+        return data.length;
+    }
+
 }

@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import presentation.frame.MainFrame;
+import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public abstract class OperationPanel extends JPanel {
 
     protected int TEXT_FIELD_WIDTH;
 
-    protected TableCopy table;
+    protected Table table;
 
     protected JScrollPane scrollPane;
 
@@ -114,7 +115,7 @@ public abstract class OperationPanel extends JPanel {
      *
      * @param stockList 股票列表
      */
-    protected TableCopy createTable(List<StockVO> stockList) {
+    protected Table createTable(List<StockVO> stockList) {
         data = new Object[stockList.size()][];
 
         String[] columnNames = {
@@ -135,7 +136,7 @@ public abstract class OperationPanel extends JPanel {
             };
         }
 
-        table = new TableCopy(this, data, columnNames);
+        table = new Table(this, data, columnNames);
 
         scrollPane = table.drawTable();
 

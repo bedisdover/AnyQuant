@@ -6,6 +6,7 @@ import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.info.StockInfoPanel;
+import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class PortfolioPanel extends OperationPanel {
      */
     private JButton cancel;
 
-    private TableCopy table;
+    private Table table;
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;

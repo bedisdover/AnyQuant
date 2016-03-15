@@ -2,6 +2,7 @@ package presentation.panel.operation;
 
 import bl.HistoryRecordStock;
 import data.GetStockData;
+import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ import java.util.List;
 public class HistoryPanel extends OperationPanel {
 
 
-    private TableCopy table;
+    private Table table;
 
     public HistoryPanel() {
         init();

@@ -4,7 +4,7 @@ import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
-import presentation.panel.operation.TableCopy;
+import presentation.util.Table;
 import presentation.util.DateChooser;
 
 import javax.swing.*;
@@ -112,7 +112,7 @@ public abstract class InfoPanel extends OperationPanel {
             };
         }
 
-        TableCopy table = new TableCopy(data, columnNames);
+        Table table = new Table(data, columnNames);
         JScrollPane scrollPane = table.drawTable();
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
         scrollPane.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING, WIDTH - 2 * MARGIN, tableHeight);

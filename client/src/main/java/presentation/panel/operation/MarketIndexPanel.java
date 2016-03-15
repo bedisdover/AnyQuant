@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import bl.ShowIndexData;
+import presentation.util.Table;
 import vo.IndexVO;
 
 import javax.swing.*;
@@ -104,7 +105,7 @@ public class MarketIndexPanel extends OperationPanel {
             };
         }
 
-        TableCopy table = new TableCopy(data, columnNames);
+        Table table = new Table(data, columnNames);
         JScrollPane scrollPane = table.drawTable();
         int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING);
         scrollPane.setBounds(MARGIN, MARGIN, WIDTH - 2 * MARGIN, tableHeight);
