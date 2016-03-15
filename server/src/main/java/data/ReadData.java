@@ -35,48 +35,51 @@ public class ReadData {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println(json.toString());
+
         return json.toString();
     }
 
-    public String parseJSON(String jsonStr,String key){
+    public String parseJSON(String jsonStr, String key) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         return jsonObject.getString(key);
     }
 
-    public String[] parseJSON_array(String jsonStr,String key){
+    public String[] parseJSON_array(String jsonStr, String key) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray(key);
         String[] result = new String[jsonArray.size()];
-        for(int i=0;i<result.length;i++){
+        for (int i = 0; i < result.length; i++) {
             result[i] = jsonArray.getString(i);
         }
         return result;
     }
-    /*
-    第一个key得到的是array，第二个key得到的不是array
+
+    /**
+     * 第一个key得到的是array，第二个key得到的不是array
      */
-    public String[] parseJson(String jsonStr, String key,String subKey) {
+    public String[] parseJson(String jsonStr, String key, String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         JSONArray jsonArray = jsonObject.getJSONArray(key);
         String[] result = new String[jsonArray.size()];
+
         for (int i = 0; i < jsonArray.size(); i++) {
-//            System.out.print(jsonArray.getString(i) + " ");
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
             result[i] = temp.getString(subKey);
         }
+
         return result;
     }
+
     /*
     第一个得到的不是array，第二个得到的不array
     */
-    public String[] parseJson2(String jsonStr,String key,String subKey) {
+    public String[] parseJson2(String jsonStr, String key, String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         String tradingInfo = jsonObject.getString(key);
         JSONObject jsonObject1 = JSONObject.fromObject(tradingInfo);
         JSONArray jsonArray = jsonObject1.getJSONArray(subKey);
         String[] result = new String[jsonObject1.size()];
-        for(int i=0;i<result.length;i++){
+        for (int i = 0; i < result.length; i++) {
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
             result[i] = temp.getString("date");
         }
@@ -87,20 +90,20 @@ public class ReadData {
         String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadData rdt = new ReadData();
         String result = rdt.getData(url);
-        String[] info = rdt.parseJson(result, "data","link");
+        String[] info = rdt.parseJson(result, "data", "link");
         for (int i = 0; i < info.length; i++) {
             System.out.println(info[i]);
         }
 
         String[] names = new String[info.length];
         String[][] volume = null;
-        for(int n=0;n<info.length;n++){
-            if(n==7){
+        for (int n = 0; n < info.length; n++) {
+            if (n == 7) {
                 continue;
             }
             String s1 = rdt.getData(info[n]);
-            String s = rdt.parseJSON(s1,"data");
-            names[n] = rdt.parseJSON(s,"name");
+            String s = rdt.parseJSON(s1, "data");
+            names[n] = rdt.parseJSON(s, "name");
             System.out.println(names[n]);
 //            String[] sa = rdt.parseJSON_array(s,"trading_info");
 //            if(volume==null){

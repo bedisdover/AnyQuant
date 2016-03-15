@@ -58,12 +58,12 @@ public class FrameTest extends JFrame {
         this.add(pCenter, "Center");
         this.add(pSouth, "South");
 
-        this.setVisible(true);
         this.setSize(500, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        this.setVisible(true);
     }
 
     private class ActionHandler implements ActionListener {
@@ -103,8 +103,6 @@ public class FrameTest extends JFrame {
     }
 
     public static void main(String[] args) {
-
         new FrameTest();
     }
-
 }

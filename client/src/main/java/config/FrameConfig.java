@@ -1,8 +1,11 @@
 package config;
 
+import org.dom4j.Attribute;
 import org.dom4j.Element;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 宋益明 on 16-3-6.
@@ -95,11 +98,23 @@ public class FrameConfig {
      */
     public void storeBounds(Rectangle bounds) {
         Element lastBounds = element.element("last");
-        lastBounds.addAttribute("x", "0");
-        lastBounds.addAttribute("y", bounds.getY() + "");
-        lastBounds.addAttribute("width", bounds.getWidth() + "");
-        lastBounds.addAttribute("height", bounds.getHeight() + "");
+        Attribute x = lastBounds.attribute("x");
+        Attribute y = lastBounds.attribute("y");
+        Attribute width = lastBounds.attribute("width");
+        Attribute height = lastBounds.attribute("height");
 
+        x.setValue(bounds.getX() + "");
+        y.setValue(bounds.getY() + "");
+        width.setValue(bounds.getWidth() + "");
+        height.setValue(bounds.getHeight() + "");
 
+        List<Attribute> list = new ArrayList<>();
+
+        list.add(x);
+        list.add(y);
+        list.add(width);
+        list.add(height);
+
+        lastBounds.setAttributes(list);
     }
 }

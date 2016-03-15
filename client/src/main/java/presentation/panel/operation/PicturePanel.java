@@ -194,7 +194,9 @@ public class PicturePanel extends OperationPanel {
         if (scrollPane != null) {
             remove(scrollPane);
         }
+
         repaint();
+
         table = createTable(new ShowStockData().getLatestStockData());
 
         addTableListener();
@@ -212,15 +214,16 @@ public class PicturePanel extends OperationPanel {
         addTableListener();
     }
 
-    private void addTableListener(){
-        class RightClickListener extends MouseAdapter{}
+    private void addTableListener() {
+        class RightClickListener extends MouseAdapter {
+        }
         /**
          * todo 给table添加鼠标右键监听
          */
-        table.addMouseListener(new RightClickListener(){
-            public void mousePressed(MouseEvent e){
+        table.addMouseListener(new RightClickListener() {
+            public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
-                if((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+                if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
                     Point p = e.getPoint();
                     int row = table.rowAtPoint(p);
                     int column = table.columnAtPoint(p);
@@ -229,10 +232,11 @@ public class PicturePanel extends OperationPanel {
                     }
                 }
             }
+
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    System.out.println(e.getX()+"  "+e.getY());
-                    showMenuList(e.getX()+MARGIN, e.getY()+MARGIN + PADDING * 2+29);
+                    System.out.println(e.getX() + "  " + e.getY());
+                    showMenuList(e.getX() + MARGIN, e.getY() + MARGIN + PADDING * 2 + 29);
                 }
             }
         });
@@ -243,7 +247,7 @@ public class PicturePanel extends OperationPanel {
         //显示详细信息
         menuItem1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                showDetailedinfo();
+                showDetailedInfo();
             }
         });
         menuItem2.addActionListener(new ActionListener() {
@@ -258,11 +262,11 @@ public class PicturePanel extends OperationPanel {
                 if (line != -1) {
                     try {
                         boolean exist = new SelfSelectStock().addStock((String) table.getValueAt(line, 2));
-                        if(exist) {
+                        if (exist) {
                             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "添加关注成功!");
-                        }else{
-                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),"提示",
-                                    "您添加的股票已在自选列表中",JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "提示",
+                                    "您添加的股票已在自选列表中", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();
@@ -277,11 +281,11 @@ public class PicturePanel extends OperationPanel {
         });
     }
 
-    private void showMenuList(int x,int y){
-        popupMenu1.show(this,x,y);
+    private void showMenuList(int x, int y) {
+        popupMenu1.show(this, x, y);
     }
 
-    private void showDetailedinfo(){
+    private void showDetailedInfo() {
         String name = (String) table.getValueAt(table.getSelectedRow(), 2);
         StockPO stock = new GetStockData().getStockData_name(name);
 
