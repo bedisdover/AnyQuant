@@ -210,8 +210,11 @@ public class PicturePanel extends OperationPanel {
         if (scrollPane != null) {
             remove(scrollPane);
         }
+
         repaint();
+
         table = createTable(new ShowStockData().getLatestStockData_sz());
+
         addTableListener();
     }
 

@@ -110,7 +110,7 @@ public class Table extends JTable {
      * @return 装载table的JScrollPane
      */
     public JScrollPane drawTable() {
-        JScrollPane scroll = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane scroll = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         addListeners();
         return scroll;
