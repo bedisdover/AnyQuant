@@ -12,7 +12,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by song on 16-3-2.
+ * Created by 宋益明 on 16-3-2.
  * <p>
  * 头像选择器类
  * 实现选择头像功能

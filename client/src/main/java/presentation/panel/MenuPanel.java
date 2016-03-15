@@ -24,7 +24,7 @@ import java.io.IOException;
 import static presentation.frame.MainFrame.getMainFrame;
 
 /**
- * Created by song on 16-3-2.
+ * Created by 宋益明 on 16-3-2.
  * <p>
  * 菜单面板
  */

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by song on 16-3-3.
+ * Created by 宋益明 on 16-3-3.
  * <p>
  * 图片加载类,负责所有图片的加载
  */

@@ -14,7 +14,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 /**
- * Created by song on 16-3-2.
+ * Created by 宋益明 on 16-3-2.
  * <p>
  * 行情面板
  */

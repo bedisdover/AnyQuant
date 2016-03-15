@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by song on 16-3-2.
+ * Created by 宋益明 on 16-3-2.
  *
  * 大盘指数面板
  */

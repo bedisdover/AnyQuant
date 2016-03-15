@@ -10,7 +10,7 @@ import java.awt.event.ComponentEvent;
 import java.util.List;
 
 /**
- * Created by song on 16-3-3.
+ * Created by 宋益明 on 16-3-3.
  * <p>
  * 操作面板,区别于菜单面板
  * 其他面板均为操作面板的超类

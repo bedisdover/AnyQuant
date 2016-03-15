@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.Enumeration;
 
 /**
- * Created by song on 16-3-1.
+ * Created by 宋益明 on 16-3-1.
  * <p>
  * 程序主方法
  */

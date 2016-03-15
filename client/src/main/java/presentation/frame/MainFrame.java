@@ -16,7 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created by song on 16-3-2.
+ * Created by 宋益明 on 16-3-2.
  * <p>
  * 主界面
  */
