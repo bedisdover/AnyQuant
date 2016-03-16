@@ -80,8 +80,8 @@ public class PicturePanel extends OperationPanel {
 
         listPanel = new ListPanel();
 
-        add(listPanel);
         add(btnSearch);
+        add(listPanel);
     }
 
     private void addListeners() {
@@ -92,8 +92,8 @@ public class PicturePanel extends OperationPanel {
                         MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
                 searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH,
                         MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
-                listPanel.setBounds(0, MARGIN + BUTTON_HEIGHT + PADDING / 2,
-                        PANEL_WIDTH, PANEL_HEIGHT - listPanel.getY());
+                listPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT);
             }
         });
 
@@ -287,6 +287,13 @@ public class PicturePanel extends OperationPanel {
     class ListPanel extends JScrollPane {
 
         /**
+         * 中心面板
+         * 放置所有榜单
+         * 为了能够显示滚动条,添加中心面板,否则无法正常显示滚动条
+         */
+        private JPanel centerPanel;
+
+        /**
          * 涨幅榜,跌幅榜,成交额榜,换手率榜 对应的label
          */
         private JLabel labelIncrease, labelDecrease, labelTurnVolume, labelTurnOverRate;
@@ -325,16 +332,19 @@ public class PicturePanel extends OperationPanel {
          * 初始化
          */
         protected void init() {
-            setLayout(null);
-//            setBorder(new BevelBorder(BevelBorder.LOWERED));
-            setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+//            setLayout(new FlowLayout());
+            setBorder(new BevelBorder(BevelBorder.LOWERED));
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
         }
 
         /**
          * 创建组件
          */
         protected void createUIComponents() {
+            centerPanel = new JPanel();
+            centerPanel.setLayout(null);
+
             labelIncrease = new JLabel("↓  涨幅榜");
             labelDecrease = new JLabel("↓  跌幅榜");
             labelTurnVolume = new JLabel("↓  成交量榜");
@@ -348,19 +358,21 @@ public class PicturePanel extends OperationPanel {
                     VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollTurnOverRate = new JScrollPane(null,
                     VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
             scrollIncrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
             scrollDecrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
             scrollTurnVolume.setBorder(new BevelBorder(BevelBorder.LOWERED));
             scrollTurnOverRate.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
-            add(labelIncrease);
-            add(labelDecrease);
-            add(labelTurnVolume);
-            add(labelTurnOverRate);
-            add(scrollIncrease);
-            add(scrollDecrease);
-            add(scrollTurnVolume);
-            add(scrollTurnOverRate);
+            centerPanel.add(labelIncrease);
+            centerPanel.add(labelDecrease);
+            centerPanel.add(labelTurnVolume);
+            centerPanel.add(labelTurnOverRate);
+            centerPanel.add(scrollIncrease);
+            centerPanel.add(scrollDecrease);
+            centerPanel.add(scrollTurnVolume);
+            centerPanel.add(scrollTurnOverRate);
+            getViewport().add(centerPanel);
 
             expand = new HashMap<>();
             expand.put(scrollIncrease, true);
@@ -380,17 +392,9 @@ public class PicturePanel extends OperationPanel {
                 }
             });
 
-            addContainerListener(new ContainerAdapter() {
-                @Override
-                public void componentAdded(ContainerEvent e) {
+            getVerticalScrollBar().addAdjustmentListener(e -> repaint());
 
-                }
-
-                @Override
-                public void componentRemoved(ContainerEvent e) {
-
-                }
-            });
+            getHorizontalScrollBar().addAdjustmentListener(e -> repaint());
 
             labelIncrease.addMouseListener(new MouseAdapter() {
                 @Override
@@ -429,34 +433,37 @@ public class PicturePanel extends OperationPanel {
          * 界面大小发生变化时,对所有组件的位置进行重新赋值
          */
         private void assignment() {
+            int temp = 0;//记录展开的榜单数量
             {
                 labelIncrease.setBounds(MARGIN, PADDING / 2, LABEL_WIDTH, BUTTON_HEIGHT);
                 scrollIncrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
             }
 
             {
                 if (expand.get(scrollIncrease)) {
                     labelDecrease.setBounds(MARGIN, scrollIncrease.getY() + scrollIncrease.getHeight(),
                             LABEL_WIDTH, BUTTON_HEIGHT);
+                    temp++;
                 } else {
                     labelDecrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
                             LABEL_WIDTH, BUTTON_HEIGHT);
                 }
                 scrollDecrease.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
             }
 
             {
                 if (expand.get(scrollDecrease)) {
                     labelTurnVolume.setBounds(MARGIN, scrollDecrease.getY() + scrollDecrease.getHeight(),
                             LABEL_WIDTH, BUTTON_HEIGHT);
+                    temp++;
                 } else {
                     labelTurnVolume.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
                             LABEL_WIDTH, BUTTON_HEIGHT);
                 }
                 scrollTurnVolume.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
             }
 
             {
@@ -464,15 +471,19 @@ public class PicturePanel extends OperationPanel {
                     labelTurnOverRate.setBounds(MARGIN,
                             scrollTurnVolume.getY() + scrollTurnVolume.getHeight(),
                             LABEL_WIDTH, BUTTON_HEIGHT);
+                    temp++;
                 } else {
                     labelTurnOverRate.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
                             LABEL_WIDTH, BUTTON_HEIGHT);
                 }
                 if (expand.get(scrollTurnOverRate)) {
                     scrollTurnOverRate.setBounds(MARGIN, labelTurnOverRate.getY() + BUTTON_HEIGHT,
-                            PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+                            PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
+                    temp++;
                 }
             }
+
+            centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH - 4 * PADDING, temp * SCROLL_HEIGHT + 5 * BUTTON_HEIGHT));
 
             repaint();
         }
@@ -482,10 +493,10 @@ public class PicturePanel extends OperationPanel {
          */
         private void increaseOperation() {
             if (changeText(labelIncrease)) {
-                add(scrollIncrease);
+                centerPanel.add(scrollIncrease);
                 expand.put(scrollIncrease, true);
             } else {
-                remove(scrollIncrease);
+                centerPanel.remove(scrollIncrease);
                 expand.put(scrollIncrease, false);
             }
         }
@@ -495,10 +506,10 @@ public class PicturePanel extends OperationPanel {
          */
         private void decreaseOperation() {
             if (changeText(labelDecrease)) {
-                add(scrollDecrease);
+                centerPanel.add(scrollDecrease);
                 expand.put(scrollDecrease, true);
             } else {
-                remove(scrollDecrease);
+                centerPanel.remove(scrollDecrease);
                 expand.put(scrollDecrease, false);
             }
         }
@@ -508,10 +519,10 @@ public class PicturePanel extends OperationPanel {
          */
         private void turnVolumeOperation() {
             if (changeText(labelTurnVolume)) {
-                add(scrollTurnVolume);
+                centerPanel.add(scrollTurnVolume);
                 expand.put(scrollTurnVolume, true);
             } else {
-                remove(scrollTurnVolume);
+                centerPanel.remove(scrollTurnVolume);
                 expand.put(scrollTurnVolume, false);
             }
         }
@@ -521,10 +532,10 @@ public class PicturePanel extends OperationPanel {
          */
         private void turnOverRateOperation() {
             if (changeText(labelTurnOverRate)) {
-                add(scrollTurnOverRate);
+                centerPanel.add(scrollTurnOverRate);
                 expand.put(scrollTurnOverRate, true);
             } else {
-                remove(scrollTurnOverRate);
+                centerPanel.remove(scrollTurnOverRate);
                 expand.put(scrollTurnOverRate, false);
             }
         }
