@@ -65,7 +65,7 @@ public abstract class InfoPanel extends OperationPanel {
 
     protected void createUIComponents() {
         back = new JButton("返回");
-        dateChooser = new DateChooser(this, WIDTH - MARGIN - BUTTON_WIDTH - PADDING, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        dateChooser = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
 
@@ -114,8 +114,8 @@ public abstract class InfoPanel extends OperationPanel {
 
         Table table = new Table(data, columnNames);
         JScrollPane scrollPane = table.drawTable();
-        int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING * 2);
-        scrollPane.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING, WIDTH - 2 * MARGIN, tableHeight);
+        int tableHeight = Math.min(data.length * 30 + 60, PANEL_HEIGHT - MARGIN * 2 - PADDING * 2);
+        scrollPane.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING, PANEL_WIDTH - 2 * MARGIN, tableHeight);
         add(scrollPane);
     }
 }

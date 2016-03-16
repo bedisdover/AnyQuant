@@ -23,7 +23,7 @@ public abstract class OperationPanel extends JPanel {
      * 而且真实高度和宽度都是根据主界面的宽度和高度确定的,所以这里仅
      * 简单地计算出宽度和高度)
      */
-    protected int WIDTH, HEIGHT;
+    protected int PANEL_WIDTH, PANEL_HEIGHT;
 
     /**
      * 外边距
@@ -73,13 +73,13 @@ public abstract class OperationPanel extends JPanel {
      * 界面大小发生变化时，对各种组件大小赋值
      */
     private void assignment() {
-        WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
-        HEIGHT = MainFrame.getMainFrame().getHeight();
+        PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
+        PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
         if (data != null) {
             int tableHeight = Math.min(
                     (data.length + 1) * table.getRowHeight(),
-                    HEIGHT - MARGIN * 2 - PADDING * 2
+                    PANEL_HEIGHT - MARGIN * 2 - PADDING * 2
             );
             int tableWidth =
                     table.getColumnModel().getTotalColumnWidth()
@@ -87,13 +87,13 @@ public abstract class OperationPanel extends JPanel {
 
             //若界面宽度超过表格宽度(包含外间距)
             //表格居中显示
-            if (WIDTH > MARGIN * 2 + tableWidth) {
+            if (PANEL_WIDTH > MARGIN * 2 + tableWidth) {
                 scrollPane.setBounds(
-                        (WIDTH - table.getWidth()) / 2, MARGIN + PADDING * 2,
+                        (PANEL_WIDTH - table.getWidth()) / 2, MARGIN + PADDING * 2,
                         tableWidth, tableHeight
                 );
             } else {
-                scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, WIDTH - 2 * MARGIN,
+                scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, PANEL_WIDTH - 2 * MARGIN,
                         tableHeight);
             }
         }

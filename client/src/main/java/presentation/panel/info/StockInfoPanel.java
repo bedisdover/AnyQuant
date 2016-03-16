@@ -41,7 +41,7 @@ public class StockInfoPanel extends InfoPanel {
 
         follow = new JButton("关注");
 
-        follow.setBounds(WIDTH / 2, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        follow.setBounds(PANEL_WIDTH / 2, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         add(follow);
     }

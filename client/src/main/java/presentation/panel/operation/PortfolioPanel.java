@@ -98,7 +98,7 @@ public class PortfolioPanel extends OperationPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                cancel.setBounds(WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+                cancel.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
             }
         });
 

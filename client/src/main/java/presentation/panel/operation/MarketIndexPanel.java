@@ -25,11 +25,11 @@ public class MarketIndexPanel extends OperationPanel {
 //    /**
 //     * 按钮等组件的宽度
 //     */
-//    private static final int WIDTH=100;
+//    private static final int PANEL_WIDTH=100;
 //    /**
 //     * 按钮等组件的高度
 //     */
-//    private static final int HEIGHT=30;
+//    private static final int PANEL_HEIGHT=30;
 //    /**
 //     * 组件之间的距离
 //     */
@@ -61,14 +61,14 @@ public class MarketIndexPanel extends OperationPanel {
 //        search=new JButton("搜索");
 //        more=new JButton("更多");
 //        comboBox=new JComboBox();
-//        dateChooser=new DateChooser(this,DEFAULT_WIDTH+LOCATION_X,LOCATION_Y, WIDTH,HEIGHT);
+//        dateChooser=new DateChooser(this,DEFAULT_WIDTH+LOCATION_X,LOCATION_Y, PANEL_WIDTH,PANEL_HEIGHT);
 //
-//        searchInput.setBounds(DEFAULT_WIDTH+LOCATION_X+WIDTH+DISTANCE*3,LOCATION_Y,WIDTH,HEIGHT);
-//        search.setBounds(DEFAULT_WIDTH+LOCATION_X+WIDTH*2+DISTANCE*4,LOCATION_Y,WIDTH/2,HEIGHT);
-//        comboBox.setBounds(DEFAULT_WIDTH+LOCATION_X+WIDTH+DISTANCE,LOCATION_Y*2,WIDTH,HEIGHT);
+//        searchInput.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+DISTANCE*3,LOCATION_Y,PANEL_WIDTH,PANEL_HEIGHT);
+//        search.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH*2+DISTANCE*4,LOCATION_Y,PANEL_WIDTH/2,PANEL_HEIGHT);
+//        comboBox.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+DISTANCE,LOCATION_Y*2,PANEL_WIDTH,PANEL_HEIGHT);
 //        comboBox.addItem("涨幅榜");
 //        comboBox.addItem("跌幅榜");
-//        more.setBounds(DEFAULT_WIDTH+LOCATION_X+WIDTH+HEIGHT,LOCATION_Y*3,WIDTH,HEIGHT);
+//        more.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+PANEL_HEIGHT,LOCATION_Y*3,PANEL_WIDTH,PANEL_HEIGHT);
 //        this.add(searchInput);
 //        this.add(table);
 //        this.add(search);
@@ -77,7 +77,7 @@ public class MarketIndexPanel extends OperationPanel {
 //        this.add(more);
 //
 //        String[] columnNames = { "", "最新", "涨幅", "最高", "最低" };
-//        int[] list = { 40, 87, 14, 30,27, DEFAULT_WIDTH-WIDTH,LOCATION_Y+HEIGHT+DISTANCE*3,  WIDTH*7, HEIGHT*10 };
+//        int[] list = { 40, 87, 14, 30,27, DEFAULT_WIDTH-PANEL_WIDTH,LOCATION_Y+PANEL_HEIGHT+DISTANCE*3,  PANEL_WIDTH*7, PANEL_HEIGHT*10 };
 //        add(table.drawTable(columnNames, list));
 //
 
@@ -107,8 +107,8 @@ public class MarketIndexPanel extends OperationPanel {
 
         Table table = new Table(data, columnNames);
         JScrollPane scrollPane = table.drawTable();
-        int tableHeight = Math.min(data.length * 30 + 60, HEIGHT - MARGIN * 2 - PADDING);
-        scrollPane.setBounds(MARGIN, MARGIN, WIDTH - 2 * MARGIN, tableHeight);
+        int tableHeight = Math.min(data.length * 30 + 60, PANEL_HEIGHT - MARGIN * 2 - PADDING);
+        scrollPane.setBounds(MARGIN, MARGIN, PANEL_WIDTH - 2 * MARGIN, tableHeight);
         add(scrollPane);
     }
 //    private void addListeners(){

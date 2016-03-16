@@ -59,7 +59,6 @@ public class FrameTest extends JFrame {
         this.add(pSouth, "South");
 
         this.setSize(500, 600);
-        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

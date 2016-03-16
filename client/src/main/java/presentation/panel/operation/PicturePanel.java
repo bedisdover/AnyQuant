@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -86,9 +88,12 @@ public class PicturePanel extends OperationPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnSearch.setBounds(WIDTH - MARGIN - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-                searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH, MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
-                listPanel.setBounds(0, MARGIN + BUTTON_HEIGHT + PADDING, WIDTH, HEIGHT - listPanel.getY());
+                btnSearch.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+                        MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH,
+                        MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
+                listPanel.setBounds(0, MARGIN + BUTTON_HEIGHT + PADDING / 2,
+                        PANEL_WIDTH, PANEL_HEIGHT - listPanel.getY());
             }
         });
 
@@ -274,135 +279,284 @@ public class PicturePanel extends OperationPanel {
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
-}
-
-/**
- * 各种榜单面板
- * 位于行情面板中央位置
- */
-class ListPanel extends OperationPanel {
 
     /**
-     * 日期选择框
-     * 通过日期选择框改变日期查看其它日期的数据
+     * 各种榜单面板
+     * 位于行情面板中央位置
      */
-    private DateChooser dateChooser;
+    class ListPanel extends JScrollPane {
 
-    /**
-     * 涨幅榜,跌幅榜,成交额榜,换手率榜
-     */
-    private JLabel labelIncrease, labelDecrease, labelTurnVolume, labelTurnOverRate;
+        /**
+         * 涨幅榜,跌幅榜,成交额榜,换手率榜 对应的label
+         */
+        private JLabel labelIncrease, labelDecrease, labelTurnVolume, labelTurnOverRate;
 
-    private JPanel pNorth, pSouth, subMenuContainer;
-    private JScrollPane pCenter;
+        /**
+         * label的宽度
+         */
+        private final int LABEL_WIDTH = BUTTON_WIDTH + PADDING;
 
-    private static boolean expand = false;
+        /**
+         * 涨幅榜,跌幅榜,成交额榜,换手率榜
+         */
+        private JScrollPane scrollIncrease, scrollDecrease, scrollTurnVolume, scrollTurnOverRate;
 
-    public ListPanel() {
-        init();
-        createUIComponents();
-        addListeners();
-    }
+        /**
+         * 单个榜单的高度
+         */
+        private final int SCROLL_HEIGHT = 200;
 
-    /**
-     * 初始化
-     */
-    protected void init() {
-        setLayout(new BorderLayout());
-        setBorder(new BevelBorder(BevelBorder.LOWERED));
-    }
+        /**
+         * 榜单状态Map
+         * 记录 涨幅榜,跌幅榜,成交额榜,换手率榜 是否处于展开状态
+         * 若处于展开状态, 对应值为true, 否则为false
+         */
+        private Map<JScrollPane, Boolean> expand;
 
-    /**
-     * 创建组件
-     */
-    protected void createUIComponents() {
-        labelIncrease = new JLabel("涨幅榜");
-        labelDecrease = new JLabel("跌幅榜");
-        labelTurnVolume = new JLabel("成交量榜");
-        labelTurnOverRate = new JLabel("转手率榜");
+        public ListPanel() {
+            super();
 
-        pNorth = new JPanel();
-        pNorth.setLayout(new GridLayout(1, 1));
-        pNorth.add(labelIncrease);
-
-        pSouth = new JPanel();
-        pSouth.setLayout(new GridLayout(3, 1));
-        pSouth.add(labelDecrease);
-        pSouth.add(labelTurnVolume);
-        pSouth.add(labelTurnOverRate);
-
-        subMenuContainer = new JPanel();
-        subMenuContainer.setLayout(new GridLayout(1, 1));
-
-
-        pCenter = new JScrollPane(subMenuContainer);
-
-        add(pNorth, "North");
-        add(pCenter, "Center");
-        add(pSouth, "South");
-    }
-
-    private class ActionHandler implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
+            init();
+            createUIComponents();
+            addListeners();
         }
 
-    }
+        /**
+         * 初始化
+         */
+        protected void init() {
+            setLayout(null);
+//            setBorder(new BevelBorder(BevelBorder.LOWERED));
+            setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+            setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        }
 
-    /**
-     * 添加事件监听器
-     */
-    private void addListeners() {
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                repaint();
+        /**
+         * 创建组件
+         */
+        protected void createUIComponents() {
+            labelIncrease = new JLabel("↓  涨幅榜");
+            labelDecrease = new JLabel("↓  跌幅榜");
+            labelTurnVolume = new JLabel("↓  成交量榜");
+            labelTurnOverRate = new JLabel("↓  转手率榜");
+
+            scrollIncrease = new JScrollPane(null,
+                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollDecrease = new JScrollPane(null,
+                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollTurnVolume = new JScrollPane(null,
+                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollTurnOverRate = new JScrollPane(null,
+                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollIncrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
+            scrollDecrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
+            scrollTurnVolume.setBorder(new BevelBorder(BevelBorder.LOWERED));
+            scrollTurnOverRate.setBorder(new BevelBorder(BevelBorder.LOWERED));
+
+            add(labelIncrease);
+            add(labelDecrease);
+            add(labelTurnVolume);
+            add(labelTurnOverRate);
+            add(scrollIncrease);
+            add(scrollDecrease);
+            add(scrollTurnVolume);
+            add(scrollTurnOverRate);
+
+            expand = new HashMap<>();
+            expand.put(scrollIncrease, true);
+            expand.put(scrollDecrease, true);
+            expand.put(scrollTurnVolume, true);
+            expand.put(scrollTurnOverRate, true);
+        }
+
+        /**
+         * 添加事件监听器
+         */
+        private void addListeners() {
+            addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    assignment();
+                }
+            });
+
+            addContainerListener(new ContainerAdapter() {
+                @Override
+                public void componentAdded(ContainerEvent e) {
+
+                }
+
+                @Override
+                public void componentRemoved(ContainerEvent e) {
+
+                }
+            });
+
+            labelIncrease.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    increaseOperation();
+                    assignment();
+                }
+            });
+
+            labelDecrease.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    decreaseOperation();
+                    assignment();
+                }
+            });
+
+            labelTurnVolume.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    turnVolumeOperation();
+                    assignment();
+                }
+            });
+
+            labelTurnOverRate.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    turnOverRateOperation();
+                    assignment();
+                }
+            });
+        }
+
+        /**
+         * 界面大小发生变化时,对所有组件的位置进行重新赋值
+         */
+        private void assignment() {
+            {
+                labelIncrease.setBounds(MARGIN, PADDING / 2, LABEL_WIDTH, BUTTON_HEIGHT);
+                scrollIncrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
+                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
             }
-        });
 
+            {
+                if (expand.get(scrollIncrease)) {
+                    labelDecrease.setBounds(MARGIN, scrollIncrease.getY() + scrollIncrease.getHeight(),
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                } else {
+                    labelDecrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                }
+                scrollDecrease.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
+                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+            }
 
-        labelIncrease.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (expand) {//折叠
-                    remove(pCenter);
-                    pNorth.setLayout(new GridLayout(4, 1));
-                    pNorth.add(labelDecrease);
-                    pNorth.add(labelTurnVolume);
-                    pNorth.add(labelTurnOverRate);
+            {
+                if (expand.get(scrollDecrease)) {
+                    labelTurnVolume.setBounds(MARGIN, scrollDecrease.getY() + scrollDecrease.getHeight(),
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                } else {
+                    labelTurnVolume.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                }
+                scrollTurnVolume.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
+                        PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
+            }
 
-                    pSouth.removeAll();
-                    validate();
-                    repaint();
-                    expand = false;
-                } else {//展开
-                    pNorth.removeAll();
-                    pNorth.setLayout(new GridLayout(1, 1));
-                    pNorth.add(labelIncrease);
-                    add(pCenter, "Center");
-
-                    pSouth.removeAll();
-                    pSouth.add(labelDecrease);
-                    pSouth.add(labelTurnVolume);
-                    pSouth.add(labelTurnOverRate);
-
-                    pNorth.repaint();
-                    pCenter.repaint();
-                    pSouth.repaint();
-                    validate();
-                    repaint();
-                    expand = true;
+            {
+                if (expand.get(scrollTurnVolume)) {
+                    labelTurnOverRate.setBounds(MARGIN,
+                            scrollTurnVolume.getY() + scrollTurnVolume.getHeight(),
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                } else {
+                    labelTurnOverRate.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
+                            LABEL_WIDTH, BUTTON_HEIGHT);
+                }
+                if (expand.get(scrollTurnOverRate)) {
+                    scrollTurnOverRate.setBounds(MARGIN, labelTurnOverRate.getY() + BUTTON_HEIGHT,
+                            PANEL_WIDTH - MARGIN * 2, SCROLL_HEIGHT);
                 }
             }
-        });
+
+            repaint();
+        }
+
+        /**
+         * '涨幅榜'单击后的操作
+         */
+        private void increaseOperation() {
+            if (changeText(labelIncrease)) {
+                add(scrollIncrease);
+                expand.put(scrollIncrease, true);
+            } else {
+                remove(scrollIncrease);
+                expand.put(scrollIncrease, false);
+            }
+        }
+
+        /**
+         * '跌幅榜'单击后的操作
+         */
+        private void decreaseOperation() {
+            if (changeText(labelDecrease)) {
+                add(scrollDecrease);
+                expand.put(scrollDecrease, true);
+            } else {
+                remove(scrollDecrease);
+                expand.put(scrollDecrease, false);
+            }
+        }
+
+        /**
+         * '成交量榜'单击后的操作
+         */
+        private void turnVolumeOperation() {
+            if (changeText(labelTurnVolume)) {
+                add(scrollTurnVolume);
+                expand.put(scrollTurnVolume, true);
+            } else {
+                remove(scrollTurnVolume);
+                expand.put(scrollTurnVolume, false);
+            }
+        }
+
+        /**
+         * '转手率榜'单击后的操作
+         */
+        private void turnOverRateOperation() {
+            if (changeText(labelTurnOverRate)) {
+                add(scrollTurnOverRate);
+                expand.put(scrollTurnOverRate, true);
+            } else {
+                remove(scrollTurnOverRate);
+                expand.put(scrollTurnOverRate, false);
+            }
+        }
+
+        /**
+         * 单击label后,修改label显示的文字
+         * 将'→'与'↓'互换
+         *
+         * @return 若单击后对应榜单处于展开状态, 返回true, 否则返回false
+         */
+        private boolean changeText(JLabel label) {
+            String text = label.getText();
+            if (text.startsWith("↓")) {
+                text = text.replace('↓', '→');
+                label.setText(text);
+
+                return false;
+            } else {
+                text = text.replace('→', '↓');
+                label.setText(text);
+            }
+
+            return true;
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D graphics2D = (Graphics2D) g;
+
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D graphics2D = (Graphics2D) g;
-
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-    }
 }
