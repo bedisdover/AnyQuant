@@ -296,7 +296,6 @@ class ListPanel extends OperationPanel {
     private JPanel pNorth, pSouth, subMenuContainer;
     private JScrollPane pCenter;
 
-    private JButton[] btn = null;
     private static boolean expand = false;
 
     public ListPanel() {
@@ -341,7 +340,6 @@ class ListPanel extends OperationPanel {
         add(pNorth, "North");
         add(pCenter, "Center");
         add(pSouth, "South");
-
     }
 
     private class ActionHandler implements ActionListener {
@@ -368,16 +366,27 @@ class ListPanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (expand) {//折叠
-                    pNorth.setLayout(new GridLayout(2, 1));
-                    pNorth.remove(labelDecrease);
-                    pSouth.add(labelDecrease);
+                    remove(pCenter);
+                    pNorth.setLayout(new GridLayout(4, 1));
+                    pNorth.add(labelDecrease);
+                    pNorth.add(labelTurnVolume);
+                    pNorth.add(labelTurnOverRate);
+
+                    pSouth.removeAll();
                     validate();
                     repaint();
                     expand = false;
                 } else {//展开
+                    pNorth.removeAll();
+                    pNorth.setLayout(new GridLayout(1, 1));
+                    pNorth.add(labelIncrease);
+                    add(pCenter, "Center");
+
                     pSouth.removeAll();
-                    pNorth.setLayout(new GridLayout(5, 1));
-                    pNorth.add(labelDecrease);
+                    pSouth.add(labelDecrease);
+                    pSouth.add(labelTurnVolume);
+                    pSouth.add(labelTurnOverRate);
+
                     pNorth.repaint();
                     pCenter.repaint();
                     pSouth.repaint();
