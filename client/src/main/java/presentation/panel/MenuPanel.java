@@ -2,7 +2,7 @@ package presentation.panel;
 
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
-import presentation.panel.operation.PictureTest;
+import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
 import presentation.settings.SettingsDialog;
 import presentation.util.ExampleFileFilter;
@@ -221,9 +221,7 @@ public class MenuPanel extends JPanel {
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                getMainFrame().addOperationPanel(new PicturePanel());
-                //TODO test
-                getMainFrame().addOperationPanel(new PictureTest());
+                getMainFrame().addOperationPanel(new PicturePanel());
             }
         });
 
