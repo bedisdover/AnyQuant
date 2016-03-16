@@ -5,10 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by zmj on 2016/3/12.
+ * Created by pc on 2016/3/16.
  */
 public class SelfSelectStockTest {
-static SelfSelectStock selfSelectStock=new SelfSelectStock();
+
+    static SelfSelectStock selfSelectStock=new SelfSelectStock();
 
     @Test
     public void testAddStock() throws Exception {
@@ -26,9 +27,9 @@ static SelfSelectStock selfSelectStock=new SelfSelectStock();
 
     @Test
     public void testGetFollowed() throws Exception {
-    while(selfSelectStock.getFollowed().hasNext()){
-        assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
-    }
+        while(selfSelectStock.getFollowed().hasNext()){
+            assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
+        }
 
     }
 
