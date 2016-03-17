@@ -32,7 +32,7 @@ public class StockVO {
      */
     private double[] pe_ttm;
     /**
-     * 该股票对应日期内的？
+     * 该股票对应日期内的后复权价
      */
     private double[] adj_price;
     /**
