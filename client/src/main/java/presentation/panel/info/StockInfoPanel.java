@@ -33,6 +33,7 @@ public class StockInfoPanel extends InfoPanel {
 
     public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
+        this.stockID = stock.getId();
     }
 
     @Override
@@ -67,8 +68,12 @@ public class StockInfoPanel extends InfoPanel {
         SelfSelectStockService selfSelect = new SelfSelectStock();
 
         try {
-            selfSelect.addStock(name);
-            JOptionPane.showMessageDialog(this, "添加成功!");
+            boolean exist = selfSelect.addStock(name);
+            if(exist) {
+                JOptionPane.showMessageDialog(this, "添加成功!");
+            }else{
+                JOptionPane.showMessageDialog(this, "您添加的股票已在关注列表中");
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "呀!出错啦...");
         }
