@@ -49,7 +49,7 @@ public class StockPO {
      */
     private double[] turnover;
 
-    public StockPO(int numberOfDays){
+    public StockPO(int numberOfDays) {
         volume = new long[numberOfDays];
         pb = new double[numberOfDays];
         high = new double[numberOfDays];

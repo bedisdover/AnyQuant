@@ -13,7 +13,7 @@ public class IndexPO {
     private double[] close;
     private double[] open;
 
-    public IndexPO(int numberOfDays){
+    public IndexPO(int numberOfDays) {
         volume = new long[numberOfDays];
         high = new double[numberOfDays];
         adj_price = new double[numberOfDays];

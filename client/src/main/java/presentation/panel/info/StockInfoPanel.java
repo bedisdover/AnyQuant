@@ -5,6 +5,8 @@ import blservice.SelfSelectStockService;
 import po.StockPO;
 
 import javax.swing.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -42,14 +44,20 @@ public class StockInfoPanel extends InfoPanel {
 
         follow = new JButton("关注");
 
-        follow.setBounds(PANEL_WIDTH / 2, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-
         add(follow);
     }
 
     @Override
     protected void addListeners() {
         super.addListeners();
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+                        MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+            }
+        });
 
         follow.addMouseListener(new MouseAdapter() {
             @Override

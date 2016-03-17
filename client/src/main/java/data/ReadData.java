@@ -38,11 +38,11 @@ public class ReadData {
         return json.toString();
     }
 
-    public String getCurrentData(String url){
+    public String getCurrentData(String url) {
         StringBuilder json = new StringBuilder();
         try {
             URL urlObject = new URL(url);
-            HttpURLConnection httpUrl = (HttpURLConnection)urlObject.openConnection();
+            HttpURLConnection httpUrl = (HttpURLConnection) urlObject.openConnection();
             httpUrl.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
             String inputLine = "";
@@ -134,7 +134,7 @@ public class ReadData {
 //            }
 //            System.out.println();
 //        }
-       String str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        String str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
         String[] s = str.split(",");
         System.out.println(s[3]);
     }

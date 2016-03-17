@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * public DateChooser(JPanel panel,int x,int y) panel为当前panel; (x,y)为组件嵌入位置
  */
+
 /**
  * Created by zmj on 2016/3/6.
  */
@@ -63,24 +64,22 @@ public class DateChooser extends JPanel {
 
     }
 
-    public DateChooser(JPanel panel, int x, int y,int w,int h) {
-
-        this(new Date(), panel, x, y,w,h);
+    public DateChooser(JPanel panel, int x, int y, int w, int h) {
+        this(new Date(), panel, x, y, w, h);
     }
 
-    public DateChooser(Date date, JPanel panel, int x, int y,int w,int h) {
+    public DateChooser(Date date, JPanel panel, int x, int y, int w, int h) {
         this.panel = panel;
         this.x = x;
         this.y = y;
-        this.width=w;
-        this.length=h;
+        this.width = w;
+        this.length = h;
         initDate = date;
         select = Calendar.getInstance();
         select.setTime(initDate);
         initPanel();
         initLabel();
         panel.add(showDate);
-
     }
 
     public void setEnabled(boolean b) {
@@ -404,7 +403,7 @@ public class DateChooser extends JPanel {
             }
             if (isSelected) {// 如果被选中了就画出一个虚线框出来
                 Stroke s = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL, 1.0f,
-                        new float[] { 2.0f, 2.0f }, 1.0f);
+                        new float[]{2.0f, 2.0f}, 1.0f);
                 Graphics2D gd = (Graphics2D) g;
                 gd.setStroke(s);
                 gd.setColor(Color.BLACK);
@@ -592,12 +591,12 @@ public class DateChooser extends JPanel {
         new DateChooser(time, this.panel, this.x, this.y);
     }
 
-    public void setWidth(int w){
-        this.width=x;
+    public void setWidth(int w) {
+        this.width = x;
     }
 
-    public void setHeight(int h){
-        this.length=h;
+    public void setHeight(int h) {
+        this.length = h;
     }
 
 }

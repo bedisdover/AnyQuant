@@ -3,7 +3,6 @@ package data;
 import dataservice.GetStockDataService;
 import net.sf.json.JSONObject;
 import po.StockPO;
-import po.Transfer;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.util.*;
 /**
  * Created by user on 2016/3/7.
  */
-public class GetStockData implements GetStockDataService{
+public class GetStockData implements GetStockDataService {
     /**
      * 得到当天的所有上交所股票数据
      * @return List<StockPO>
@@ -86,7 +85,7 @@ public class GetStockData implements GetStockDataService{
 //
 //            stockPO.setId(rdt.parseJSON(s1,"name"));
 
-            //TODO 待检验
+    //TODO 待检验
 //            System.out.println(stockPO.getId());
 //            if (Transfer.getName(stockPO.getId())!=null) {
 //                spo.add(stockPO);
@@ -174,10 +173,11 @@ public class GetStockData implements GetStockDataService{
 
     /**
      * 根据股票的名称得到这支股票的数据（默认为近一个月的）
+     *
      * @param name
      * @return StockPO
      */
-    public StockPO getStockData_name(String name){
+    public StockPO getStockData_name(String name) {
 //        GetStockData getStockData = new GetStockData();
 //        String d = getStockData.getDateOfLatestData();//获得最新的股票数据对应的日期
 //        String[] time = d.split("-");
@@ -189,10 +189,10 @@ public class GetStockData implements GetStockDataService{
 //        String d1 = simpleDateFormat.format(date1);//得到最新股票数据对应的日期的前30天
 
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/"+name;
+        String url = "http://121.41.106.89:8010/api/stock/" + name;
         String s1 = rdt.getData(url);
-        String s2 = rdt.parseJSON(s1,"data");
-        String[] trading_info = rdt.parseJSON_array(s2,"trading_info");
+        String s2 = rdt.parseJSON(s1, "data");
+        String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
         StockPO stockPO = new StockPO(trading_info.length);
         long[] volume = new long[trading_info.length];
         double[] pb = new double[trading_info.length];
@@ -204,7 +204,7 @@ public class GetStockData implements GetStockDataService{
         double[] close = new double[trading_info.length];
         double[] open = new double[trading_info.length];
         double[] turnover = new double[trading_info.length];
-        for(int i=0;i<trading_info.length;i++){
+        for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
             pb[i] = Double.parseDouble(jsonObject.getString("pb"));
@@ -233,25 +233,26 @@ public class GetStockData implements GetStockDataService{
 
     /**
      * 得到指定日期的指定名称的股票数据
+     *
      * @param name
      * @param dates
      * @return StockPO
      */
-    public StockPO getStockData_name(String name,String dates){
+    public StockPO getStockData_name(String name, String dates) {
 
         String[] time = dates.split("-");
         Calendar c = new GregorianCalendar();
-        c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
-        c.add(c.DATE,1);
+        c.set(Integer.parseInt(time[0]), Integer.parseInt(time[1]) - 1, Integer.parseInt(time[2]));
+        c.add(c.DATE, 1);
         Date date1 = c.getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String d = simpleDateFormat.format(date1);//得到指定日期的后1天
 
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/"+name+"/?start="+dates+"&end="+d;
+        String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + dates + "&end=" + d;
         String s1 = rdt.getData(url);
-        String s2 = rdt.parseJSON(s1,"data");
-        String[] trading_info = rdt.parseJSON_array(s2,"trading_info");
+        String s2 = rdt.parseJSON(s1, "data");
+        String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
         StockPO stockPO = new StockPO(1);
         long[] volume = new long[1];
         double[] pb = new double[1];
@@ -263,7 +264,7 @@ public class GetStockData implements GetStockDataService{
         double[] close = new double[1];
         double[] open = new double[1];
         double[] turnover = new double[1];
-        for(int i=0;i<trading_info.length;i++){
+        for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
             pb[i] = Double.parseDouble(jsonObject.getString("pb"));
@@ -292,18 +293,19 @@ public class GetStockData implements GetStockDataService{
 
     /**
      * 得到指定时间段内的指定名称的股票
+     *
      * @param name
      * @param date1
      * @param date2
      * @return StockPO
      */
-    public StockPO getStockData_name(String name,String date1,String date2){
-        int interval = intervalBetweenTwoDates(date1,date2);
+    public StockPO getStockData_name(String name, String date1, String date2) {
+        int interval = intervalBetweenTwoDates(date1, date2);
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/"+name+"/?start="+date1+"&end="+date2;
+        String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
         String s1 = rdt.getData(url);
-        String s2 = rdt.parseJSON(s1,"data");
-        String[] trading_info = rdt.parseJSON_array(s2,"trading_info");
+        String s2 = rdt.parseJSON(s1, "data");
+        String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
         StockPO stockPO = new StockPO(interval);
         long[] volume = new long[interval];
         double[] pb = new double[interval];
@@ -315,7 +317,7 @@ public class GetStockData implements GetStockDataService{
         double[] close = new double[interval];
         double[] open = new double[interval];
         double[] turnover = new double[interval];
-        for(int i=0;i<trading_info.length;i++){
+        for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
             pb[i] = Double.parseDouble(jsonObject.getString("pb"));
@@ -344,13 +346,14 @@ public class GetStockData implements GetStockDataService{
 
     /**
      * 得到所有我们感兴趣的股票数据（默认为近一个月的）
+     *
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock(){
+    public List<StockPO> getAllInterestedStock() {
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
         List<StockPO> stockPOs = new ArrayList<StockPO>();
-        for(int i=0;i<names.length;i++){
+        for (int i = 0; i < names.length; i++) {
             stockPOs.add(getStockData_name(names[i]));
         }
         return stockPOs;
@@ -358,65 +361,70 @@ public class GetStockData implements GetStockDataService{
 
     /**
      * 得到指定日期的我们感兴趣的所有股票数据
+     *
      * @param dates
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock(String dates){
+    public List<StockPO> getAllInterestedStock(String dates) {
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
         List<StockPO> stockPOs = new ArrayList<StockPO>();
-        for(int i=0;i<names.length;i++){
-            stockPOs.add(getStockData_name(names[i],dates));
+        for (int i = 0; i < names.length; i++) {
+            stockPOs.add(getStockData_name(names[i], dates));
         }
         return stockPOs;
     }
 
     /**
      * 得到指定时间段内的我们感兴趣的所有股票数据
+     *
      * @param date1
      * @param date2
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock(String date1,String date2){
+    public List<StockPO> getAllInterestedStock(String date1, String date2) {
 
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
         List<StockPO> stockPOs = new ArrayList<StockPO>();
-        for(int i=0;i<names.length;i++){
-            stockPOs.add(getStockData_name(names[i],date1,date2));
+        for (int i = 0; i < names.length; i++) {
+            stockPOs.add(getStockData_name(names[i], date1, date2));
         }
         return stockPOs;
     }
+
     /**
      * 获得api中的最新股票数据对应的日期
+     *
      * @return String
      */
-    private String getDateOfLatestData(){
+    private String getDateOfLatestData() {
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stock/sh600000";
         String s1 = rdt.getData(url);
-        String s2 = rdt.parseJSON(s1,"data");
-        String[] dates =rdt.parseJson(s2,"trading_info","date");
-        return dates[dates.length-1];
+        String s2 = rdt.parseJSON(s1, "data");
+        String[] dates = rdt.parseJson(s2, "trading_info", "date");
+        return dates[dates.length - 1];
     }
 
-    private int intervalBetweenTwoDates(String d1,String d2){
+    private int intervalBetweenTwoDates(String d1, String d2) {
         String[] date1 = d1.split("-");
         String[] date2 = d2.split("-");
         Calendar c1 = new GregorianCalendar();
-        c1.set(Integer.parseInt(date1[0]),Integer.parseInt(date1[1])-1,Integer.parseInt(date1[2]));
+        c1.set(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]) - 1, Integer.parseInt(date1[2]));
         Calendar c2 = new GregorianCalendar();
-        c2.set(Integer.parseInt(date2[0]),Integer.parseInt(date2[1])-1,Integer.parseInt(date2[2]));
+        c2.set(Integer.parseInt(date2[0]), Integer.parseInt(date2[1]) - 1, Integer.parseInt(date2[2]));
         long t1 = c1.getTimeInMillis();
         long t2 = c2.getTimeInMillis();
-        return (int)((t2-t1)/(1000*3600*24));
+        return (int) ((t2 - t1) / (1000 * 3600 * 24));
     }
 
     /**
      * 从文件中读取所有银行股的代号
+     *
      * @return String
      */
-    private String getID_BankStocks(){
+    private String getID_BankStocks() {
         String stocks = "";
         try {
             File file = new File("client\\src\\main\\resources\\Stocks_Bank.txt");
@@ -432,7 +440,7 @@ public class GetStockData implements GetStockDataService{
         return stocks;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //        ReadData rdt = new ReadData();
 //        String url = "http://121.41.106.89:8010/api/stock/sh600000/?start=2016-02-25&end=2016-02-26";
 //        rdt.getData(url);
@@ -450,6 +458,6 @@ public class GetStockData implements GetStockDataService{
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        String s = simpleDateFormat.format(d);
 //        System.out.println(s);
-        System.out.println(g.getAllInterestedStock().get(0).getDate()[g.getAllInterestedStock().get(0).getDate().length-1]);
+        System.out.println(g.getAllInterestedStock().get(0).getDate()[g.getAllInterestedStock().get(0).getDate().length - 1]);
     }
 }

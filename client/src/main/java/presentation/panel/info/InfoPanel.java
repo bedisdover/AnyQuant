@@ -4,14 +4,10 @@ import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
-import presentation.util.Table;
-import presentation.util.DateChooser;
+import vo.StockVO;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * Created by 宋益明 on 16-3-8.
@@ -31,7 +27,7 @@ public abstract class InfoPanel extends OperationPanel {
      * 日期选择框
      * 通过日期选择框改变日期查看其它日期的数据
      */
-    private DateChooser dateChooser;
+//    private DateChooser dateChooser;
 
     /**
      * 返回按钮
@@ -65,16 +61,21 @@ public abstract class InfoPanel extends OperationPanel {
 
     protected void createUIComponents() {
         back = new JButton("返回");
-        dateChooser = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
-        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-
-        add(dateChooser);
         add(back);
+        assignment();
+//        add(dateChooser);
     }
 
 
     protected void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                assignment();
+            }
+        });
+
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -90,32 +91,22 @@ public abstract class InfoPanel extends OperationPanel {
         });
     }
 
+
+    private void assignment() {
+//        if (dateChooser != null) {
+//            dateChooser.setEnabled(false);
+//        }
+//
+//        dateChooser = new DateChooser(this,
+//                PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING,
+//                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+
+        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        repaint();
+    }
+
     protected void displayInfo(StockPO stock) {
-        Object[][] data = new Object[stock.getDate().length][];
-        String[] columnNames = new String[]{
-                "日期", "成交量", "市净率", "最高", "最低", "市盈率", "最新", "收盘价", "开盘价", "周转率"
-
-        };
-
-        for (int i = 0; i < data.length; i++) {
-            data[i] = new Object[]{
-                    stock.getDate()[i],
-                    stock.getVolume()[i],
-                    stock.getPb()[i],
-                    stock.getHigh()[i],
-                    stock.getLow()[i],
-                    stock.getPe_ttm()[i],
-                    stock.getAdj_price()[i],
-                    stock.getClose()[i],
-                    stock.getOpen()[i],
-                    stock.getTurnover()[i]
-            };
-        }
-
-        Table table = new Table(data, columnNames);
-        JScrollPane scrollPane = table.drawTable();
-        int tableHeight = Math.min(data.length * 30 + 60, PANEL_HEIGHT - MARGIN * 2 - PADDING * 2);
-        scrollPane.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING, PANEL_WIDTH - 2 * MARGIN, tableHeight);
-        add(scrollPane);
+        createTable(new StockVO(stock));
     }
 }

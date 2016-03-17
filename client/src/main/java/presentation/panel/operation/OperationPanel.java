@@ -2,11 +2,13 @@ package presentation.panel.operation;
 
 import presentation.frame.MainFrame;
 import presentation.util.Table;
+import vo.IndexVO;
 import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 
 /**
@@ -79,7 +81,7 @@ public abstract class OperationPanel extends JPanel {
             int tableHeight = Math.min(
                     (data.length + 1) * table.getRowHeight()
                             + scrollPane.getHorizontalScrollBar().getHeight(),
-                    PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT
+                    PANEL_HEIGHT - MARGIN * 3 - PADDING - BUTTON_HEIGHT
             );
             int tableWidth =
                     table.getColumnModel().getTotalColumnWidth()
@@ -88,7 +90,7 @@ public abstract class OperationPanel extends JPanel {
             //若界面高度超过表格高度(包含间距)
             //此时无需垂直滚动条,tableWidth需减去滚动条的宽度
             //至于为什么要加6,我也不知道.....
-            if (PANEL_HEIGHT > MARGIN * 2 + PADDING + BUTTON_HEIGHT + tableHeight) {
+            if (PANEL_HEIGHT > MARGIN * 3 + PADDING + BUTTON_HEIGHT + tableHeight) {
                 tableWidth -= scrollPane.getVerticalScrollBar().getWidth();
                 tableWidth += 6;
             }
@@ -120,6 +122,19 @@ public abstract class OperationPanel extends JPanel {
         });
     }
 
+    private Table createTable(JPanel parent, String[] columnNames) {
+        table = new Table(parent, data, columnNames);
+
+        scrollPane = table.drawTable();
+
+        if (data.length != 0) {
+            assignment();
+            add(scrollPane);
+        }
+
+        return table;
+    }
+
     /**
      * 创建表格
      *
@@ -146,16 +161,52 @@ public abstract class OperationPanel extends JPanel {
             };
         }
 
-        table = new Table(this, data, columnNames);
+        return createTable(this, columnNames);
+    }
 
-        scrollPane = table.drawTable();
+    protected Table createTable(IndexVO index) {
+        data = new Object[index.getDate().length][];
+        String[] columnNames = new String[]{
+                "日期", "成交量", "最高", "最低", "最新", "收盘价", "开盘价"
+        };
 
-        if (data.length != 0) {
-            assignment();
-            add(scrollPane);
+        for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[]{
+                    index.getDate()[i],
+                    index.getVolume()[i],
+                    index.getHigh()[i],
+                    index.getLow()[i],
+                    index.getAdj_price()[i],
+                    index.getClose()[i],
+                    index.getOpen()[i],
+            };
         }
 
-        return table;
+        return createTable(this, columnNames);
+    }
+
+    protected Table createTable(StockVO stock) {
+        data = new Object[stock.getDate().length][];
+        String[] columnNames = new String[]{
+                "日期", "成交量", "市净率", "最高", "最低", "市盈率", "最新", "收盘价", "开盘价", "周转率"
+        };
+
+        for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[]{
+                    stock.getDate()[i],
+                    stock.getVolume()[i],
+                    stock.getPb()[i],
+                    stock.getHigh()[i],
+                    stock.getLow()[i],
+                    stock.getPe_ttm()[i],
+                    stock.getAdj_price()[i],
+                    stock.getClose()[i],
+                    stock.getOpen()[i],
+                    stock.getTurnover()[i]
+            };
+        }
+
+        return createTable(this, columnNames);
     }
 
     @Override

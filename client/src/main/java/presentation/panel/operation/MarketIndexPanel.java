@@ -1,117 +1,58 @@
 package presentation.panel.operation;
 
 import bl.ShowIndexData;
-import presentation.util.Table;
+import presentation.util.DateChooser;
 import vo.IndexVO;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by 宋益明 on 16-3-2.
- *
+ * <p>
  * 大盘指数面板
  */
 public class MarketIndexPanel extends OperationPanel {
 
-//    /**
-//     * 日期距离菜单栏的位置
-//     */
-//    private static final int LOCATION_X=70;
-//    /**
-//     * 日期距离上边框的距离
-//     */
-//    private static final int LOCATION_Y=50;
-//    /**
-//     * 按钮等组件的宽度
-//     */
-//    private static final int PANEL_WIDTH=100;
-//    /**
-//     * 按钮等组件的高度
-//     */
-//    private static final int PANEL_HEIGHT=30;
-//    /**
-//     * 组件之间的距离
-//     */
-//    private static final int DISTANCE=10;
-//    /**
-//     * 菜单栏的宽度
-//     */
-//    private static final int DEFAULT_WIDTH= MainFrame.getMainFrame().getWidth() / 5;
-//
-//
-//    private JTextField searchInput;
-//    private Table table;
-//    private JButton search;
-//    private JButton more;
-//    private DateChooser dateChooser;
-//    private JComboBox comboBox;
+    private DateChooser dateChooser;
 
     public MarketIndexPanel() {
         init();
         createUIComponents();
 //        addListeners();
     }
-    protected void init(){
+
+    protected void init() {
 
         this.setLayout(null);
     }
+
     protected void createUIComponents() {
-//        table=new Table();
-//        search=new JButton("搜索");
-//        more=new JButton("更多");
-//        comboBox=new JComboBox();
-//        dateChooser=new DateChooser(this,DEFAULT_WIDTH+LOCATION_X,LOCATION_Y, PANEL_WIDTH,PANEL_HEIGHT);
-//
-//        searchInput.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+DISTANCE*3,LOCATION_Y,PANEL_WIDTH,PANEL_HEIGHT);
-//        search.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH*2+DISTANCE*4,LOCATION_Y,PANEL_WIDTH/2,PANEL_HEIGHT);
-//        comboBox.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+DISTANCE,LOCATION_Y*2,PANEL_WIDTH,PANEL_HEIGHT);
-//        comboBox.addItem("涨幅榜");
-//        comboBox.addItem("跌幅榜");
-//        more.setBounds(DEFAULT_WIDTH+LOCATION_X+PANEL_WIDTH+PANEL_HEIGHT,LOCATION_Y*3,PANEL_WIDTH,PANEL_HEIGHT);
-//        this.add(searchInput);
-//        this.add(table);
-//        this.add(search);
-//        this.add(dateChooser);
-//        this.add(comboBox);
-//        this.add(more);
-//
-//        String[] columnNames = { "", "最新", "涨幅", "最高", "最低" };
-//        int[] list = { 40, 87, 14, 30,27, DEFAULT_WIDTH-PANEL_WIDTH,LOCATION_Y+PANEL_HEIGHT+DISTANCE*3,  PANEL_WIDTH*7, PANEL_HEIGHT*10 };
-//        add(table.drawTable(columnNames, list));
-//
+//        dateChooser=new DateChooser(this,MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
         IndexVO index = new ShowIndexData().getLatestIndexData();
-        displayInfo(index);
-        System.out.println(index.getDate()[1]);
-
+        createTable(index);
     }
 
-    protected void displayInfo(IndexVO index) {
-        Object[][] data = new Object[index.getDate().length][];
-        String[] columnNames = new String[] {
-                "日期", "成交量","最高","最低","最新","收盘价","开盘价"
-        };
+//    private void addListeners() {
+//        addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+//                int tableHeight = Math.min((data.length + 1) * table.getRowHeight()
+//                                + scrollPane.getHorizontalScrollBar().getHeight(),
+//                        PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT);
+//                int tableWidth = Math.min(table.getColumnModel().getTotalColumnWidth()
+//                                + scrollPane.getVerticalScrollBar().getWidth(),
+//                        PANEL_WIDTH - MARGIN * 2);
+//
+//                if (tableWidth == PANEL_WIDTH - MARGIN * 2) {
+//                    scrollPane.setBounds(MARGIN, MARGIN + PADDING, PANEL_WIDTH - 2 * MARGIN, tableHeight);
+//                } else {
+//
+//                }
+//            }
+//        });
 
-        for(int i = 0;i<data.length;i++){
-            data[i] = new Object[]{
-                    index.getDate()[i],
-                    index.getVolume()[i],
-                    index.getHigh()[i],
-                    index.getLow()[i],
-                    index.getAdj_price()[i],
-                    index.getClose()[i],
-                    index.getOpen()[i],
-            };
-        }
 
-        Table table = new Table(data, columnNames);
-        JScrollPane scrollPane = table.drawTable();
-        int tableHeight = Math.min(data.length * 30 + 60, PANEL_HEIGHT - MARGIN * 2 - PADDING);
-        scrollPane.setBounds(MARGIN, MARGIN, PANEL_WIDTH - 2 * MARGIN, tableHeight);
-        add(scrollPane);
-    }
-//    private void addListeners(){
 //        /**
 //         * todo
 //         */
@@ -133,6 +74,7 @@ public class MarketIndexPanel extends OperationPanel {
 //            }
 //        });
 //    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
