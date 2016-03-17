@@ -1,5 +1,6 @@
 package presentation.panel.operation;
 
+import presentation.UltraSwing.UltraButton;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 
@@ -26,7 +27,7 @@ public class PicturePanel extends OperationPanel {
     /**
      * 搜索按钮
      */
-    private JButton btnSearch;
+    private UltraButton btnSearch;
 
     /**
      * 日期选择框
@@ -75,7 +76,7 @@ public class PicturePanel extends OperationPanel {
 
     protected void createUIComponents() {
         dateChooser = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-        btnSearch = new JButton("搜索");
+        btnSearch = new UltraButton("搜索");
         searchInput = new JTextField();
 
         listPanel = new ListPanel();
@@ -88,8 +89,8 @@ public class PicturePanel extends OperationPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnSearch.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
-                        MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnSearch.setBounds(PANEL_WIDTH - MARGIN - btnSearch.width,
+                        MARGIN, btnSearch.width, btnSearch.height);
                 searchInput.setBounds(btnSearch.getX() - TEXT_FIELD_WIDTH,
                         MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
                 listPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
@@ -314,6 +315,11 @@ public class PicturePanel extends OperationPanel {
         private final int SCROLL_HEIGHT = 200;
 
         /**
+         * 自定义按钮
+         */
+        private UltraButton btnCustom;
+
+        /**
          * 榜单状态Map
          * 记录 涨幅榜,跌幅榜,成交额榜,换手率榜 是否处于展开状态
          * 若处于展开状态, 对应值为true, 否则为false
@@ -332,23 +338,44 @@ public class PicturePanel extends OperationPanel {
          * 初始化
          */
         protected void init() {
-//            setLayout(new FlowLayout());
             setBorder(new BevelBorder(BevelBorder.LOWERED));
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+//      todo 滚动条
+//     setVerticalScrollBar();
         }
 
         /**
          * 创建组件
          */
         protected void createUIComponents() {
-            centerPanel = new JPanel();
+            centerPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D graphics2D = (Graphics2D) g;
+
+                    graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }
+
+                @Override
+                protected void paintChildren(Graphics g) {
+                    super.paintChildren(g);
+                    Graphics2D graphics2D = (Graphics2D) g;
+
+                    graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+                }
+            };
             centerPanel.setLayout(null);
+            centerPanel.setOpaque(false);
 
             labelIncrease = new JLabel("↓  涨幅榜");
             labelDecrease = new JLabel("↓  跌幅榜");
             labelTurnVolume = new JLabel("↓  成交量榜");
             labelTurnOverRate = new JLabel("↓  转手率榜");
+
+            btnCustom = new UltraButton("自定义");
+            btnCustom.setToolTipText("自定义股票列表");
 
             scrollIncrease = new JScrollPane(null,
                     VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -372,6 +399,7 @@ public class PicturePanel extends OperationPanel {
             centerPanel.add(scrollDecrease);
             centerPanel.add(scrollTurnVolume);
             centerPanel.add(scrollTurnOverRate);
+            centerPanel.add(btnCustom);
             getViewport().add(centerPanel);
 
             expand = new HashMap<>();
@@ -483,7 +511,12 @@ public class PicturePanel extends OperationPanel {
                 }
             }
 
-            centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH - 4 * PADDING, temp * SCROLL_HEIGHT + 5 * BUTTON_HEIGHT));
+            btnCustom.setBounds(getWidth() - MARGIN - btnCustom.width, labelIncrease.getY() / 2,
+                    btnCustom.width, btnCustom.height);
+
+            centerPanel.setPreferredSize(
+                    new Dimension(
+                            PANEL_WIDTH - 4 * PADDING, temp * SCROLL_HEIGHT + 5 * BUTTON_HEIGHT));
 
             repaint();
         }
@@ -567,6 +600,14 @@ public class PicturePanel extends OperationPanel {
             Graphics2D graphics2D = (Graphics2D) g;
 
             graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
+
+        @Override
+        public void paintChildren(Graphics g) {
+            super.paintChildren(g);
+            Graphics2D graphics2D = (Graphics2D) g;
+
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         }
     }
 
