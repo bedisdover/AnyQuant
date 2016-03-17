@@ -27,11 +27,6 @@ public class SettingsPanel extends JPanel {
     private JButton btnFont;
 
     /**
-     * 账户设置
-     */
-    private JButton btnAccount;
-
-    /**
      * 确认按钮
      */
     private JButton btnOK;
@@ -101,9 +96,6 @@ public class SettingsPanel extends JPanel {
 
         btnFont = new JButton("字体设置");
         menuPanel.add(btnFont);
-
-        btnAccount = new JButton("帐号设置");
-        menuPanel.add(btnAccount);
     }
 
     /**
@@ -147,11 +139,11 @@ public class SettingsPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getSource() == btnOK) {
-                    OKOperation();
+                    onOk();
                 } else if (e.getSource() == btnApply) {
-                    applyOperation();
+                    onApply();
                 } else if (e.getSource() == btnCancel) {
-                    cancelOperation();
+                    onCancel();
                 }
             }
         });
@@ -169,32 +161,25 @@ public class SettingsPanel extends JPanel {
                 addSettingsPanel(new FontSettings());
             }
         });
-
-        btnAccount.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
     }
 
     /**
      * 确认按钮按下的操作
      */
-    private void OKOperation() {
+    private void onOk() {
     }
 
     /**
      * 应用按钮按下的操作
      */
-    private void applyOperation() {
+    private void onApply() {
 
     }
 
     /**
      * 取消按钮按下的操作
      */
-    private void cancelOperation() {
+    private void onCancel() {
 
     }
 }

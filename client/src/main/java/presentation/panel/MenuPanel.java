@@ -174,7 +174,7 @@ public class MenuPanel extends JPanel {
         btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT,
+        btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
         btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
@@ -197,7 +197,7 @@ public class MenuPanel extends JPanel {
                 btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnSettings.setBounds(MARGIN, getHeight() - MARGIN - BUTTON_HEIGHT,
+                btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
                 btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
