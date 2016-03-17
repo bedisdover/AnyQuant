@@ -167,6 +167,9 @@ public class MenuPanel extends JPanel {
         btnSettings = new JLabel();
         btnSkin = new JLabel();
 
+        btnSettings.setToolTipText("系统设置");
+        btnSkin.setToolTipText("更换皮肤");
+
         btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);

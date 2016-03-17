@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import presentation.UltraSwing.UltraButton;
+import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
@@ -9,8 +10,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -308,7 +310,7 @@ public class PicturePanel extends OperationPanel {
         /**
          * 涨幅榜,跌幅榜,成交额榜,换手率榜
          */
-        private JScrollPane scrollIncrease, scrollDecrease, scrollTurnVolume, scrollTurnOverRate;
+        private UltraScrollPane scrollIncrease, scrollDecrease, scrollTurnVolume, scrollTurnOverRate;
 
         /**
          * 单个榜单的高度
@@ -339,37 +341,20 @@ public class PicturePanel extends OperationPanel {
          * 初始化
          */
         protected void init() {
-            setBorder(new BevelBorder(BevelBorder.LOWERED));
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
-//            todo 滚动条
-//            setVerticalScrollBar();
+
+            setBackground(new Color(0, 0, 0, 0));
         }
 
         /**
          * 创建组件
-         * TODO panel透明
          */
         protected void createUIComponents() {
-            centerPanel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    Graphics2D graphics2D = (Graphics2D) g;
+            centerPanel = new JPanel();
 
-                    graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }
-
-                @Override
-                protected void paintChildren(Graphics g) {
-                    super.paintChildren(g);
-                    Graphics2D graphics2D = (Graphics2D) g;
-
-                    graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-                }
-            };
             centerPanel.setLayout(null);
-            centerPanel.setOpaque(false);
+            centerPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelIncrease = new JLabel("↓  涨幅榜");
             labelDecrease = new JLabel("↓  跌幅榜");
@@ -379,19 +364,10 @@ public class PicturePanel extends OperationPanel {
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
 
-            scrollIncrease = new JScrollPane(null,
-                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollDecrease = new JScrollPane(null,
-                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollTurnVolume = new JScrollPane(null,
-                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollTurnOverRate = new JScrollPane(null,
-                    VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-            scrollIncrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
-            scrollDecrease.setBorder(new BevelBorder(BevelBorder.LOWERED));
-            scrollTurnVolume.setBorder(new BevelBorder(BevelBorder.LOWERED));
-            scrollTurnOverRate.setBorder(new BevelBorder(BevelBorder.LOWERED));
+            scrollIncrease = new UltraScrollPane(null);
+            scrollDecrease = new UltraScrollPane(null);
+            scrollTurnVolume = new UltraScrollPane(null);
+            scrollTurnOverRate = new UltraScrollPane(null);
 
             centerPanel.add(labelIncrease);
             centerPanel.add(labelDecrease);
@@ -532,13 +508,9 @@ public class PicturePanel extends OperationPanel {
 
         /**
          * 显示自定义对话框
-         * todo 完善对话框
          */
         private void showCustomDialog() {
-            JDialog dialog = new JDialog(MainFrame.getMainFrame(), "自定义股票列表", true);
-
-            dialog.setSize(new Dimension(300, 300));
-            dialog.setLocationRelativeTo(MainFrame.getMainFrame());
+            JDialog dialog = new CustomDialog();
             dialog.setVisible(true);
         }
 
@@ -614,22 +586,161 @@ public class PicturePanel extends OperationPanel {
 
             return true;
         }
-
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D graphics2D = (Graphics2D) g;
-
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        }
-
-        @Override
-        public void paintChildren(Graphics g) {
-            super.paintChildren(g);
-            Graphics2D graphics2D = (Graphics2D) g;
-
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-        }
     }
 
+    class CustomDialog extends JDialog {
+
+        private final String FILE_NAME = "client/src/main/resources/bank.txt";
+
+        /**
+         * 主面板
+         */
+        private JPanel contentPane;
+
+        /**
+         * 确认按钮
+         */
+        private JButton btnOK;
+
+        /**
+         * 应用按钮
+         */
+        private JButton btnApply;
+
+        /**
+         * 取消按钮
+         */
+        private JButton btnCancel;
+
+
+        private CustomDialog() {
+            super(MainFrame.getMainFrame(), "自定义股票列表", true);
+
+            init();
+            createUIComponents();
+            addListeners();
+        }
+
+        /**
+         * 初始化
+         */
+        private void init() {
+            setSize(new Dimension(400, 300));
+            setLocationRelativeTo(MainFrame.getMainFrame());
+            setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+            setModal(true);
+        }
+
+        /**
+         * 创建组件
+         */
+        private void createUIComponents() {
+            contentPane = new JPanel();
+            contentPane.setLayout(null);
+
+            setContentPane(contentPane);
+
+            addStockPanel();
+            addButtonPanel();
+        }
+
+        /**
+         * 添加股票列表面板
+         */
+        private void addStockPanel() {
+
+        }
+
+        /**
+         * 添加按钮面板
+         */
+        private void addButtonPanel() {
+            btnOK = new JButton("确 认");
+            btnApply = new JButton("应 用");
+            btnCancel = new JButton("取 消");
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            buttonPanel.setBackground(Color.lightGray);
+            buttonPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+            buttonPanel.setBounds(0, getHeight() - 45,
+                    getWidth(), 45);
+
+            contentPane.add(buttonPanel);
+
+            buttonPanel.add(btnOK);
+            buttonPanel.add(btnApply);
+            buttonPanel.add(btnCancel);
+
+            getRootPane().setDefaultButton(btnOK);
+        }
+
+        /**
+         * 加载股票列表
+         *
+         * @return 股票列表
+         */
+        private List<String> loadStockList() {
+            List<String> stockList = new ArrayList<>();
+            try {
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(FILE_NAME)));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stockList.add(line);
+                }
+
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return stockList;
+        }
+
+        /**
+         * 添加时间监听器
+         */
+        private void addListeners() {
+            btnOK.addActionListener(e -> onOK());
+
+            btnApply.addActionListener(e -> onApply());
+
+            btnCancel.addActionListener(e -> onCancel());
+
+            addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    onCancel();
+                }
+            });
+
+            contentPane.registerKeyboardAction(e -> onCancel(),
+                    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                    JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        }
+
+        /**
+         * 确认操作
+         */
+        private void onOK() {
+            onApply();
+
+            dispose();
+        }
+
+        /**
+         * 应用操作
+         */
+        private void onApply() {
+
+        }
+
+        /**
+         * 取消操作
+         */
+        private void onCancel() {
+            dispose();
+        }
+    }
 }
