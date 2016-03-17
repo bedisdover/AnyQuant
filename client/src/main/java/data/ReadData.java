@@ -38,6 +38,27 @@ public class ReadData {
         return json.toString();
     }
 
+    public String getCurrentData(){
+        StringBuilder json = new StringBuilder();
+        try {
+            URL urlObject = new URL("http://hq.sinajs.cn/list=sh600000");
+            HttpURLConnection httpUrl = (HttpURLConnection)urlObject.openConnection();
+            httpUrl.connect();
+            BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
+            String inputLine = "";
+            while ((inputLine = br.readLine()) != null) {
+                json.append(inputLine);
+            }
+            br.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(json.toString());
+        return json.toString();
+    }
+
     public String parseJSON(String jsonStr, String key) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
         return jsonObject.getString(key);
@@ -85,24 +106,24 @@ public class ReadData {
     }
 
     public static void main(String[] args) {
-        String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
+//        String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
         ReadData rdt = new ReadData();
-        String result = rdt.getData(url);
-        String[] info = rdt.parseJson(result, "data", "link");
-        for (int i = 0; i < info.length; i++) {
-            System.out.println(info[i]);
-        }
-
-        String[] names = new String[info.length];
-        String[][] volume = null;
-        for (int n = 0; n < info.length; n++) {
-            if (n == 7) {
-                continue;
-            }
-            String s1 = rdt.getData(info[n]);
-            String s = rdt.parseJSON(s1, "data");
-            names[n] = rdt.parseJSON(s, "name");
-            System.out.println(names[n]);
+//        String result = rdt.getData(url);
+//        String[] info = rdt.parseJson(result, "data", "link");
+//        for (int i = 0; i < info.length; i++) {
+//            System.out.println(info[i]);
+//        }
+//
+//        String[] names = new String[info.length];
+//        String[][] volume = null;
+//        for (int n = 0; n < info.length; n++) {
+//            if (n == 7) {
+//                continue;
+//            }
+//            String s1 = rdt.getData(info[n]);
+//            String s = rdt.parseJSON(s1, "data");
+//            names[n] = rdt.parseJSON(s, "name");
+//            System.out.println(names[n]);
 //            String[] sa = rdt.parseJSON_array(s,"trading_info");
 //            if(volume==null){
 //                volume = new String[info.length][sa.length];
@@ -112,6 +133,7 @@ public class ReadData {
 //                System.out.print(volume[n][i]+" ");
 //            }
 //            System.out.println();
-        }
+//        }
+        rdt.getCurrentData();
     }
 }
