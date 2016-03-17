@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import presentation.UltraSwing.UltraButton;
+import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 
@@ -424,6 +425,13 @@ public class PicturePanel extends OperationPanel {
 
             getHorizontalScrollBar().addAdjustmentListener(e -> repaint());
 
+            btnCustom.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showCustomDialog();
+                }
+            });
+
             labelIncrease.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -519,6 +527,18 @@ public class PicturePanel extends OperationPanel {
                             PANEL_WIDTH - 4 * PADDING, temp * SCROLL_HEIGHT + 5 * BUTTON_HEIGHT));
 
             repaint();
+        }
+
+        /**
+         * 显示自定义对话框
+         * todo 完善对话框
+         */
+        private void showCustomDialog() {
+            JDialog dialog = new JDialog(MainFrame.getMainFrame(), "自定义股票列表", true);
+
+            dialog.setSize(new Dimension(300, 300));
+            dialog.setLocationRelativeTo(MainFrame.getMainFrame());
+            dialog.setVisible(true);
         }
 
         /**

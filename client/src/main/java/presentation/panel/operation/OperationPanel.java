@@ -78,12 +78,13 @@ public abstract class OperationPanel extends JPanel {
 
         if (data != null) {
             int tableHeight = Math.min(
-                    (data.length + 1) * table.getRowHeight(),
+                    (data.length + 1) * table.getRowHeight()
+                            + scrollPane.getHorizontalScrollBar().getHeight(),
                     PANEL_HEIGHT - MARGIN * 2 - PADDING * 2
             );
             int tableWidth =
                     table.getColumnModel().getTotalColumnWidth()
-                            + scrollPane.getVerticalScrollBarPolicy();
+                            + scrollPane.getVerticalScrollBar().getWidth();
 
             //若界面宽度超过表格宽度(包含外间距)
             //表格居中显示

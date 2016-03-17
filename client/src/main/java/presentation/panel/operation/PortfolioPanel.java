@@ -43,13 +43,8 @@ public class PortfolioPanel extends OperationPanel {
     }
 
     protected void init() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         setLayout(null);
+
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -150,33 +145,29 @@ public class PortfolioPanel extends OperationPanel {
          * todo 给JMenuItem添加事件监听
          */
         //显示详细信息
-        menuItem1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                showDetailedInfo();
-            }
-        });
+        menuItem1.addActionListener(e -> showDetailedInfo());
+
         menuItem2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
         //取消关注
-        menuItem3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                int line = table.getSelectedRow();
-                if (line != -1) {
-                    try {
-                        new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
-                        new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
-                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-                    MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+        menuItem3.addActionListener(e -> {
+            int line = table.getSelectedRow();
+            if (line != -1) {
+                try {
+                    new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
+                    new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
+
+                MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
             }
         });
+
         menuItem4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -187,9 +178,7 @@ public class PortfolioPanel extends OperationPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         Graphics2D graphics2D = (Graphics2D) g;
-//        graphics2D.drawImage(ImageLoader.nothing, 0, 0, getWidth() * 4 / 5, getHeight(), null);
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
