@@ -76,26 +76,32 @@ public abstract class OperationPanel extends JPanel {
         PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
         PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
-        if (data != null) {
+        if (data != null) {//TODO 判断是否显示滚动条
             int tableHeight = Math.min(
                     (data.length + 1) * table.getRowHeight()
                             + scrollPane.getHorizontalScrollBar().getHeight(),
-                    PANEL_HEIGHT - MARGIN * 2 - PADDING * 2
+                    PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT
             );
             int tableWidth =
                     table.getColumnModel().getTotalColumnWidth()
                             + scrollPane.getVerticalScrollBar().getWidth();
 
+            //若界面高度超过表格高度(包含间距)
+            //此时无需垂直滚动条,tableWidth需减去滚动条的宽度
+            if (PANEL_HEIGHT > MARGIN * 2 + PADDING + BUTTON_HEIGHT + tableHeight) {
+                tableWidth -= scrollPane.getVerticalScrollBar().getWidth();
+            }
+
             //若界面宽度超过表格宽度(包含外间距)
-            //表格居中显示
+            //表格居中显示,此时无需平行滚动条,tableHeight需减去滚动条的高度
             if (PANEL_WIDTH > MARGIN * 2 + tableWidth) {
                 scrollPane.setBounds(
-                        (PANEL_WIDTH - table.getWidth()) / 2, MARGIN + PADDING * 2,
-                        tableWidth, tableHeight
+                        (PANEL_WIDTH - table.getWidth()) / 2, MARGIN + PADDING + BUTTON_HEIGHT,
+                        table.getWidth(), tableHeight - scrollPane.getHorizontalScrollBar().getHeight()
                 );
             } else {
-                scrollPane.setBounds(MARGIN, MARGIN + PADDING * 2, PANEL_WIDTH - 2 * MARGIN,
-                        tableHeight);
+                scrollPane.setBounds(MARGIN, MARGIN + PADDING + BUTTON_HEIGHT,
+                        PANEL_WIDTH - 2 * MARGIN, tableHeight);
             }
         }
     }

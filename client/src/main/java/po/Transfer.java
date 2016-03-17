@@ -32,8 +32,8 @@ public class Transfer {
         SH_SET = name_ID_sh.entrySet();
         SZ_SET = name_ID_sz.entrySet();
 
-        SH_FILE = new File("common/src/main/resources/sh.txt");
-        SZ_FILE = new File("common/src/main/resources/sz.txt");
+        SH_FILE = new File("client/src/main/resources/sh.txt");
+        SZ_FILE = new File("client/src/main/resources/sz.txt");
 
         init();
     }

@@ -348,6 +348,7 @@ public class PicturePanel extends OperationPanel {
 
         /**
          * 创建组件
+         * TODO panel透明
          */
         protected void createUIComponents() {
             centerPanel = new JPanel() {
