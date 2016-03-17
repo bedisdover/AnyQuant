@@ -3,7 +3,7 @@ package data;
 import org.junit.Test;
 import po.StockPO;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by user on 2016/3/12.
