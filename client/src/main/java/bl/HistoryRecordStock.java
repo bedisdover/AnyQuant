@@ -41,7 +41,6 @@ public class HistoryRecordStock implements HistoryRecordStockService {
 
     @Override
     public Iterator<String> getRecord() {
-        System.out.println(list);
         return list.iterator();
     }
 

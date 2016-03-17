@@ -6,6 +6,7 @@ import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +29,7 @@ public class HistoryPanel extends OperationPanel {
 
     protected void init() {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +41,7 @@ public class HistoryPanel extends OperationPanel {
         Iterator<String> stockID = new HistoryRecordStock().getRecord();
         List<StockVO> list = new ArrayList<>();
         GetStockData getStockData = new GetStockData();
-        System.out.println("history");
+
         while (stockID.hasNext()) {
             String string = stockID.next();
             list.add(new StockVO(getStockData.getStockData_name(string)));
@@ -53,9 +54,7 @@ public class HistoryPanel extends OperationPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         Graphics2D graphics2D = (Graphics2D) g;
-//        graphics2D.drawImage(ImageLoader.nothing, 0, 0, getWidth() * 4 / 5, getHeight(), null);
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
