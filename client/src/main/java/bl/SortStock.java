@@ -13,4 +13,6 @@ public class SortStock {
         List<StockVO> stockVOs1 = new ArrayList<StockVO>();
         return stockVOs1;
     }
+
+//    private calculate
 }

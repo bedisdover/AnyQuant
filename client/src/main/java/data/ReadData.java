@@ -38,10 +38,10 @@ public class ReadData {
         return json.toString();
     }
 
-    public String getCurrentData(){
+    public String getCurrentData(String url){
         StringBuilder json = new StringBuilder();
         try {
-            URL urlObject = new URL("http://hq.sinajs.cn/list=sh600000");
+            URL urlObject = new URL(url);
             HttpURLConnection httpUrl = (HttpURLConnection)urlObject.openConnection();
             httpUrl.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
@@ -134,6 +134,8 @@ public class ReadData {
 //            }
 //            System.out.println();
 //        }
-        rdt.getCurrentData();
+       String str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        String[] s = str.split(",");
+        System.out.println(s[3]);
     }
 }
