@@ -76,7 +76,7 @@ public abstract class OperationPanel extends JPanel {
         PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
         PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
-        if (data != null) {//TODO 判断是否显示滚动条
+        if (data != null) {
             int tableHeight = Math.min(
                     (data.length + 1) * table.getRowHeight()
                             + scrollPane.getHorizontalScrollBar().getHeight(),
@@ -88,8 +88,10 @@ public abstract class OperationPanel extends JPanel {
 
             //若界面高度超过表格高度(包含间距)
             //此时无需垂直滚动条,tableWidth需减去滚动条的宽度
+            //至于为什么要加6,我也不知道.....
             if (PANEL_HEIGHT > MARGIN * 2 + PADDING + BUTTON_HEIGHT + tableHeight) {
                 tableWidth -= scrollPane.getVerticalScrollBar().getWidth();
+                tableWidth += 6;
             }
 
             //若界面宽度超过表格宽度(包含外间距)
@@ -97,7 +99,7 @@ public abstract class OperationPanel extends JPanel {
             if (PANEL_WIDTH > MARGIN * 2 + tableWidth) {
                 scrollPane.setBounds(
                         (PANEL_WIDTH - table.getWidth()) / 2, MARGIN + PADDING + BUTTON_HEIGHT,
-                        table.getWidth(), tableHeight - scrollPane.getHorizontalScrollBar().getHeight()
+                        tableWidth, tableHeight - scrollPane.getHorizontalScrollBar().getHeight()
                 );
             } else {
                 scrollPane.setBounds(MARGIN, MARGIN + PADDING + BUTTON_HEIGHT,

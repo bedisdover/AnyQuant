@@ -342,8 +342,8 @@ public class PicturePanel extends OperationPanel {
             setBorder(new BevelBorder(BevelBorder.LOWERED));
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
-//      todo 滚动条
-//     setVerticalScrollBar();
+//            todo 滚动条
+//            setVerticalScrollBar();
         }
 
         /**
