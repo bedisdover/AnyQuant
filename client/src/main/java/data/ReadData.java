@@ -35,7 +35,6 @@ public class ReadData {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return json.toString();
     }
 
@@ -66,12 +65,11 @@ public class ReadData {
             JSONObject temp = JSONObject.fromObject(jsonArray.getString(i));
             result[i] = temp.getString(subKey);
         }
-
         return result;
     }
 
     /*
-    第一个得到的不是array，第二个得到的不array
+    第一个得到的不是array，第二个得到的是array
     */
     public String[] parseJson2(String jsonStr, String key, String subKey) {
         JSONObject jsonObject = JSONObject.fromObject(jsonStr);
