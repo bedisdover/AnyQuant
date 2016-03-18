@@ -57,7 +57,7 @@ public final class MainFrame extends JFrame {
         backgroundPanel = new BackgroundPanel(ImageLoader.background);
 
         try {
-            frameConfig = new SystemConfig().getFrameConfig();
+            frameConfig = SystemConfig.getFrameConfig();
         } catch (DocumentException | MalformedURLException e) {
             e.printStackTrace();
         }
@@ -75,9 +75,8 @@ public final class MainFrame extends JFrame {
      * 初始化窗体
      */
     private static void init() {
-        frame.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         frame.setMinimumSize(frameConfig.getMinimumSize());
-        frame.setLocationRelativeTo(null);
+        frame.setBounds(frameConfig.getLastBounds());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(backgroundPanel);
         frame.setLayout(null);

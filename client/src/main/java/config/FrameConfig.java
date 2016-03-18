@@ -85,7 +85,9 @@ public class FrameConfig {
             width = Integer.parseInt(minimumSize.attributeValue("width"));
             height = Integer.parseInt(minimumSize.attributeValue("height"));
         } catch (NumberFormatException e) {
-            return new Dimension(683, 512);
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+            return new Dimension(screen.width * 2 / 3, screen.height * 2 / 3);
         }
 
         return new Dimension(width, height);
@@ -103,10 +105,10 @@ public class FrameConfig {
         Attribute width = lastBounds.attribute("width");
         Attribute height = lastBounds.attribute("height");
 
-        x.setValue(bounds.getX() + "");
-        y.setValue(bounds.getY() + "");
-        width.setValue(bounds.getWidth() + "");
-        height.setValue(bounds.getHeight() + "");
+        x.setValue(bounds.x + "");
+        y.setValue(bounds.y + "");
+        width.setValue(bounds.width + "");
+        height.setValue(bounds.height + "");
 
         List<Attribute> list = new ArrayList<>();
 
@@ -116,5 +118,7 @@ public class FrameConfig {
         list.add(height);
 
         lastBounds.setAttributes(list);
+
+        SystemConfig.storeXML();
     }
 }

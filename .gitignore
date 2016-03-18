@@ -1,7 +1,8 @@
 .idea/
 *.iml
 *.class
-/client/target
 target/
+/client/target
+/client/src/main/resources/config.xml
 /client/src/main/resources/follow.data
 /client/src/main/resources/historyRecord.data

@@ -4,8 +4,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.net.MalformedURLException;
 
 /**
@@ -30,21 +32,27 @@ public class SystemConfig {
     /**
      * 强行加上去的变量
      */
-    boolean test = false;
+    public static boolean test = false;
+
+    /**
+     * config.xml对应的document对象
+     */
+    private static Document document;
 
     /**
      * 根节点
      */
     private static Element root;
 
+    private SystemConfig() {}
+
     /**
      * 初始化
      *
      * @throws DocumentException
      */
-    private void init() throws DocumentException, MalformedURLException {
+    private static void init() throws DocumentException, MalformedURLException {
         SAXReader reader = new SAXReader();
-        Document document;
         if (test) {
             document = reader.read(TEST_FILE);
         } else {
@@ -60,12 +68,26 @@ public class SystemConfig {
      * @return 主界面配置领域对象
      * @throws DocumentException
      */
-    public FrameConfig getFrameConfig() throws DocumentException, MalformedURLException {
+    public static FrameConfig getFrameConfig() throws DocumentException, MalformedURLException {
         init();
 
         Element presentation = root.element("presentation");
         Element mainFrame = presentation.element("mainFrame");
 
         return new FrameConfig(mainFrame);
+    }
+
+    /**
+     * 存储各种配置
+     */
+    public static void storeXML() {
+        try {
+            FileWriter newFile = new FileWriter(FILE_NAME);
+            XMLWriter newWriter = new XMLWriter(newFile);
+            newWriter.write(document);
+            newWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

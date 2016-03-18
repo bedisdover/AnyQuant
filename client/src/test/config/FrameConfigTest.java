@@ -18,9 +18,8 @@ public class FrameConfigTest {
 
     static {
         try {
-            SystemConfig systemConfig = new SystemConfig();
-            systemConfig.test = true;
-            frameConfig = systemConfig.getFrameConfig();
+            SystemConfig.test = true;
+            frameConfig = SystemConfig.getFrameConfig();
         } catch (DocumentException | MalformedURLException e) {
             e.printStackTrace();
         }
