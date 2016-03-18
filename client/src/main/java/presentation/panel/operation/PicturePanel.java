@@ -1,5 +1,6 @@
 package presentation.panel.operation;
 
+import bl.SortStock;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
@@ -364,7 +365,8 @@ public class PicturePanel extends OperationPanel {
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
 
-            scrollIncrease = new UltraScrollPane(null);
+            SortStock sortStock = new SortStock();
+            scrollIncrease = new UltraScrollPane(createTable(sortStock.increase_sort()));
             scrollDecrease = new UltraScrollPane(null);
             scrollTurnVolume = new UltraScrollPane(null);
             scrollTurnOverRate = new UltraScrollPane(null);

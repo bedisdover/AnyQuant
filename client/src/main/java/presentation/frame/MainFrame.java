@@ -5,7 +5,7 @@ import config.SystemConfig;
 import org.dom4j.DocumentException;
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;
-import presentation.panel.operation.PicturePanel;
+import presentation.panel.operation.PortfolioPanel;
 import presentation.util.ImageLoader;
 
 import javax.swing.*;
@@ -85,7 +85,7 @@ public final class MainFrame extends JFrame {
 
         backgroundPanel.setLayout(null);
 
-        operationPanel = new PicturePanel();
+        operationPanel = new PortfolioPanel();
     }
 
     /**

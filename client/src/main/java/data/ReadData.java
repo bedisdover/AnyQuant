@@ -45,17 +45,19 @@ public class ReadData {
             HttpURLConnection httpUrl = (HttpURLConnection) urlObject.openConnection();
             httpUrl.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
-            String inputLine = "";
+            String inputLine;
+
             while ((inputLine = br.readLine()) != null) {
                 json.append(inputLine);
             }
+
             br.close();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+
         return json.toString();
     }
 

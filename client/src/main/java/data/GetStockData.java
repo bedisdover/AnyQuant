@@ -427,7 +427,7 @@ public class GetStockData implements GetStockDataService {
     private String getID_BankStocks() {
         String stocks = "";
         try {
-            File file = new File("client\\src\\main\\resources\\Stocks_Bank.txt");
+            File file = new File("client/src/main/resources/Stocks_Bank.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             stocks = bufferedReader.readLine();
