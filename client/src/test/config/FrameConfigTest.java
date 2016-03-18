@@ -4,6 +4,7 @@ import org.dom4j.DocumentException;
 import org.junit.Test;
 
 import java.awt.*;
+import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +21,7 @@ public class FrameConfigTest {
             SystemConfig systemConfig = new SystemConfig();
             systemConfig.test = true;
             frameConfig = systemConfig.getFrameConfig();
-        } catch (DocumentException e) {
+        } catch (DocumentException | MalformedURLException e) {
             e.printStackTrace();
         }
     }

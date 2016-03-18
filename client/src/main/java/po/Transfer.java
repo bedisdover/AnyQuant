@@ -3,7 +3,6 @@ package po;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -14,79 +13,65 @@ import java.util.StringTokenizer;
  */
 public class Transfer {
 
-    private static Map<String, String> name_ID_sh;
+    /**
+     * 代码-名称对应表
+     */
+    private static Map<String, String> name_ID;
 
-    private static Map<String, String> name_ID_sz;
+    /**
+     * 文件路径
+     */
+    private static final File FILE_NAME;
 
+    /**
+     * 见SystemConfig.TEST_FILE
+     */
+    private static final File TEST_FILE;
 
-    private static final File SH_FILE;
-
-    private static final File SZ_FILE;
-
-    private static final Set<Map.Entry<String, String>> SH_SET;
-    private static final Set<Map.Entry<String, String>> SZ_SET;
+    /**
+     * 见SystemConfig.test
+     */
+    private static boolean test = false;
 
     static {
-        name_ID_sh = new HashMap<>();
-        name_ID_sz = new HashMap<>();
-        SH_SET = name_ID_sh.entrySet();
-        SZ_SET = name_ID_sz.entrySet();
+        name_ID = new HashMap<>();
 
-        SH_FILE = new File("client/src/main/resources/sh.txt");
-        SZ_FILE = new File("client/src/main/resources/sz.txt");
+        FILE_NAME = new File("client/src/main/resources/bank_stock.txt");
+        TEST_FILE = new File("src/main/resources/bank_stock.txt");
 
         init();
     }
 
     private static void init() {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(SH_FILE)));
+            FileInputStream fileInputStream;
+
+            if (test) {
+                fileInputStream = new FileInputStream(TEST_FILE);
+            } else {
+                fileInputStream = new FileInputStream(FILE_NAME);
+            }
+
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(fileInputStream));
+
             String line;
             StringTokenizer tokenizer;
             while ((line = reader.readLine()) != null) {
                 tokenizer = new StringTokenizer(line);
                 while (tokenizer.hasMoreTokens()) {
-                    name_ID_sh.put(tokenizer.nextToken(), tokenizer.nextToken());
+                    name_ID.put(tokenizer.nextToken(), tokenizer.nextToken());
                 }
             }
 
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(SZ_FILE)));
-
-            while ((line = reader.readLine()) != null) {
-                tokenizer = new StringTokenizer(line);
-                while (tokenizer.hasMoreTokens()) {
-                    name_ID_sz.put(tokenizer.nextToken(), tokenizer.nextToken());
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            fileInputStream.close();
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static String getName(String stockID) {
-        if (stockID.startsWith("sh")) {
-            stockID = stockID.substring(2);
-            for (Map.Entry<String, String> entry : SH_SET) {
-                if (entry.getValue().equals(stockID)) {
-                    return entry.getKey();
-                }
-            }
-        }
-        if (stockID.startsWith("sz")) {
-            stockID = stockID.substring(2);
-            for (Map.Entry<String, String> entry : SZ_SET) {
-                if (entry.getValue().equals(stockID)) {
-                    return entry.getKey();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getName("sh603008"));
+        return name_ID.get(stockID);
     }
 }

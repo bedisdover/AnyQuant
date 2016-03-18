@@ -352,7 +352,7 @@ public class GetStockData implements GetStockDataService {
     public List<StockPO> getAllInterestedStock() {
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
-        List<StockPO> stockPOs = new ArrayList<StockPO>();
+        List<StockPO> stockPOs = new ArrayList<>();
         for (int i = 0; i < names.length; i++) {
             stockPOs.add(getStockData_name(names[i]));
         }

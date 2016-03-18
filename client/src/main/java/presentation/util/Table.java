@@ -57,7 +57,7 @@ public class Table extends JTable {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        //行宽
+        // TODO 行宽
         setRowHeight(30);
         //无法修改表头大小
         getTableHeader().setResizingAllowed(false);

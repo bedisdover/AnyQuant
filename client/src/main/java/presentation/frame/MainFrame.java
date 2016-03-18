@@ -14,6 +14,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -57,7 +58,7 @@ public final class MainFrame extends JFrame {
 
         try {
             frameConfig = new SystemConfig().getFrameConfig();
-        } catch (DocumentException e) {
+        } catch (DocumentException | MalformedURLException e) {
             e.printStackTrace();
         }
 

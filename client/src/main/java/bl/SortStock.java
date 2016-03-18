@@ -1,6 +1,8 @@
 package bl;
 
+import data.GetStockData;
 import data.ReadData;
+import po.StockPO;
 import vo.StockVO;
 
 import java.util.ArrayList;
@@ -10,14 +12,39 @@ import java.util.List;
  * Created by user on 2016/3/17.
  */
 public class SortStock {
+
+    /**
+     * 股票列表
+     */
+    private List<StockVO> stockVOs;
+
+    public SortStock() {
+        stockVOs = new ArrayList<>();
+
+        loadStockList();
+    }
+
+    /**
+     * 加载股票列表
+     */
+    private void loadStockList() {
+        List<StockPO> stockPOs = new GetStockData().getAllInterestedStock();
+
+        for (StockPO stockPO : stockPOs) {
+            stockVOs.add(new StockVO(stockPO));
+        }
+    }
+
+    public List<StockVO> getStockVOs() {
+        return stockVOs;
+    }
+
     /**
      * 将股票按涨幅从大到小排列
      *
-     * @param stockVOs
      * @return List<StockVO>
      */
-    public List<StockVO> increase_sort(List<StockVO> stockVOs) {
-        List<StockVO> stockVOs1 = new ArrayList<StockVO>();
+    public List<StockVO> increase_sort() {
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
             increaseRate[i] = calculateIncreaseRate(stockVOs.get(i).getId());
@@ -29,20 +56,18 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs1.add(stockVOs.get(k));
+            stockVOs.add(stockVOs.get(k));
             increaseRate[k] = -999;
         }
-        return stockVOs1;
+        return stockVOs;
     }
 
     /**
      * 将股票按跌幅从大到小排列
      *
-     * @param stockVOs
      * @return List<StockVO>
      */
-    public List<StockVO> decrease_sort(List<StockVO> stockVOs) {
-        List<StockVO> stockVOs1 = new ArrayList<StockVO>();
+    public List<StockVO> decrease_sort() {
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
             increaseRate[i] = calculateIncreaseRate(stockVOs.get(i).getId());
@@ -54,20 +79,18 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs1.add(stockVOs.get(k));
+            stockVOs.add(stockVOs.get(k));
             increaseRate[k] = 999;
         }
-        return stockVOs1;
+        return stockVOs;
     }
 
     /**
      * 将股票按成交量从大到小排列
      *
-     * @param stockVOs
      * @return List<StockVO>
      */
-    public List<StockVO> volume_sort(List<StockVO> stockVOs) {
-        List<StockVO> stockVOs1 = new ArrayList<StockVO>();
+    public List<StockVO> volume_sort() {
         double[] volume = new double[stockVOs.size()];
         for (int i = 0; i < volume.length; i++) {
             volume[i] = calculateVolume(stockVOs.get(i).getId());
@@ -79,10 +102,10 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs1.add(stockVOs.get(k));
+            stockVOs.add(stockVOs.get(k));
             volume[k] = -1;
         }
-        return stockVOs1;
+        return stockVOs;
     }
 
     private double calculateIncreaseRate(String stockID) {
