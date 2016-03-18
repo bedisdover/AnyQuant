@@ -7,6 +7,7 @@ import presentation.panel.operation.PortfolioPanel;
 import presentation.settings.SettingsDialog;
 import presentation.util.ExampleFileFilter;
 import presentation.util.ImageLoader;
+import presentation.util.NetWorkState;
 import presentation.util.Portrait;
 
 import javax.imageio.ImageIO;
@@ -112,6 +113,8 @@ public class MenuPanel extends JPanel {
      */
     private Portrait portrait;
 
+    private boolean netState;
+
     public MenuPanel() {
         init();
 
@@ -123,22 +126,6 @@ public class MenuPanel extends JPanel {
 
         createUIComponents();
         addListeners();
-
-        loadPortrait();
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D graphics2D = (Graphics2D) g;
-
-        //绘制菜单栏
-        graphics2D.setColor(Color.gray);
-        graphics2D.fillRect(0, 0, getWidth(), getHeight());
-        //绘制头像
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-        graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
-        graphics2D.drawImage(portraitImage, MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
     }
 
     /**
@@ -150,10 +137,14 @@ public class MenuPanel extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
         this.setLayout(null);
         this.setBounds(0, 0, getMainFrame().getWidth() / 5,
                 getMainFrame().getHeight());
         this.setOpaque(false);
+
+        loadPortrait();
+        netConnect();
     }
 
     /**
@@ -258,6 +249,45 @@ public class MenuPanel extends JPanel {
     }
 
     /**
+     * 加载当前头像
+     */
+    private void loadPortrait() {
+        try {
+            portraitImage = ImageIO.read(PORTRAIT);
+        } catch (IOException e) {
+            portraitImage = null;
+        }
+    }
+
+    /**
+     * 检查网络连接
+     */
+    private void netConnect() {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        boolean temp = NetWorkState.netConnect();
+
+                        if (temp != netState) {
+                            netState = temp;
+                            repaint();
+                        }
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
+    }
+
+    /**
      * 选择原始图片
      */
     private void chooseImage() {
@@ -307,16 +337,6 @@ public class MenuPanel extends JPanel {
         repaint();
     }
 
-    /**
-     * 加载当前头像
-     */
-    private void loadPortrait() {
-        try {
-            portraitImage = ImageIO.read(PORTRAIT);
-        } catch (IOException e) {
-            portraitImage = null;
-        }
-    }
 
     /**
      * 存储更改后头像
@@ -329,6 +349,27 @@ public class MenuPanel extends JPanel {
             ImageIO.write(portraitImage, "png", PORTRAIT);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics2D = (Graphics2D) g;
+
+        //绘制菜单栏
+        graphics2D.setColor(Color.gray);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        //绘制头像
+        graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        graphics2D.drawImage(portraitImage, MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER, null);
+
+        if (!netState) {//若当前未连接互联网，绘制黑色遮罩头像
+            graphics2D.setColor(Color.black);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+            graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
         }
     }
 }

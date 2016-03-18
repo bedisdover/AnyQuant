@@ -22,6 +22,10 @@ public class NetWorkState {
 
         String line = reader.readLine();
 
-        return line.equals("");
+        if (line == null) {
+            return false;
+        }
+
+        return !line.equals("");
     }
 }
