@@ -60,6 +60,10 @@ public class StockVO {
      * 该股票当前的涨跌幅
      */
     private double increase_decreaseRate;
+    /**
+     * 该股票当前的涨跌额
+     */
+    private double increase_decreaseNum;
 
     public StockVO(StockPO spo){
         id = spo.getId();
@@ -75,6 +79,7 @@ public class StockVO {
         open = spo.getOpen();
         turnover = spo.getTurnover();
         increase_decreaseRate = new GetStockData().getIncrease_decreaseRate(id);
+        increase_decreaseNum = new GetStockData().getIncrease_decreaseNum(id);
     }
 
     public String getId() {
@@ -126,6 +131,10 @@ public class StockVO {
     }
 
     public double getIncrease_decreaseRate() {
-        return increase_decreaseRate;
+        return Math.round(increase_decreaseRate*10000)/10000;
+    }
+
+    public double getIncrease_decreaseNum() {
+        return increase_decreaseNum;
     }
 }
