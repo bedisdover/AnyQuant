@@ -1,1 +1,1 @@
-java -jar AnyQuant.jar
+java -Dfile.encoding=utf-8 -jar AnyQuant.jar
