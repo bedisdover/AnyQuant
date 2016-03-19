@@ -5,7 +5,6 @@ import config.SystemConfig;
 import org.dom4j.DocumentException;
 import presentation.panel.BackgroundPanel;
 import presentation.panel.MenuPanel;
-import presentation.panel.operation.PortfolioPanel;
 import presentation.util.ImageLoader;
 
 import javax.swing.*;
@@ -24,9 +23,9 @@ import java.net.MalformedURLException;
 public final class MainFrame extends JFrame {
 
     /**
-     * 窗体默认宽度,高度
+     * 窗体默认宽度
      */
-    public static final int DEFAULT_WIDTH, DEFAULT_HEIGHT;
+    public static final int DEFAULT_WIDTH;
 
     /**
      * 菜单栏宽度固定
@@ -49,9 +48,7 @@ public final class MainFrame extends JFrame {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
         DEFAULT_WIDTH = screen.width / 2;
-        DEFAULT_HEIGHT = DEFAULT_WIDTH * 3 / 4;
 
-        MENU_WIDTH = DEFAULT_WIDTH / 5;
 
         frame = new MainFrame();
         backgroundPanel = new BackgroundPanel(ImageLoader.background);
@@ -61,6 +58,8 @@ public final class MainFrame extends JFrame {
         } catch (DocumentException | MalformedURLException e) {
             e.printStackTrace();
         }
+
+        MENU_WIDTH = (int) (frameConfig.getDefaultBounds().getWidth() / 5);
 
         init();
         createUIComponents();
@@ -83,8 +82,6 @@ public final class MainFrame extends JFrame {
         frame.setIconImage(ImageLoader.icon);
 
         backgroundPanel.setLayout(null);
-
-        operationPanel = new PortfolioPanel();
     }
 
     /**
@@ -98,8 +95,11 @@ public final class MainFrame extends JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 menuPanel.setBounds(0, 0, MENU_WIDTH, frame.getHeight());
-                operationPanel.setBounds(MENU_WIDTH, 0,
-                        frame.getWidth() - MENU_WIDTH, frame.getHeight());
+
+                if (operationPanel != null) {
+                    operationPanel.setBounds(MENU_WIDTH, 0,
+                            frame.getWidth() - MENU_WIDTH, frame.getHeight());
+                }
             }
         });
     }
@@ -119,7 +119,10 @@ public final class MainFrame extends JFrame {
      * @param panel 操作面板
      */
     public void addOperationPanel(JPanel panel) {
-        backgroundPanel.remove(operationPanel);
+        if (operationPanel != null) {
+            backgroundPanel.remove(operationPanel);
+        }
+
         operationPanel = panel;
         panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
         backgroundPanel.add(panel);

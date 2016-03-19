@@ -6,6 +6,7 @@ import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.util.DateChooser;
 import presentation.util.Table;
+import vo.StockVO;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -366,9 +367,9 @@ public class PicturePanel extends OperationPanel {
             btnCustom.setToolTipText("自定义股票列表");
 
             SortStock sortStock = new SortStock();
-            scrollIncrease = new UltraScrollPane(createTable(sortStock.increase_sort()));
-            scrollDecrease = new UltraScrollPane(null);
-            scrollTurnVolume = new UltraScrollPane(null);
+            scrollIncrease = createRankingList(sortStock.increase_sort());
+            scrollDecrease = createRankingList(sortStock.decrease_sort());
+            scrollTurnVolume = createRankingList(sortStock.volume_sort());
             scrollTurnOverRate = new UltraScrollPane(null);
 
             centerPanel.add(labelIncrease);
@@ -442,6 +443,38 @@ public class PicturePanel extends OperationPanel {
                     assignment();
                 }
             });
+        }
+
+        /**
+         * 创建榜单
+         *
+         * @param stockList 股票列表
+         * @return 目标榜单
+         */
+        private UltraScrollPane createRankingList(List<StockVO> stockList) {
+            data = new Object[stockList.size()][];
+
+            String[] columnNames = {
+                    "序号", "名称", "代码", "成交量", "市净率", "最高",
+                    "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
+            };
+
+            StockVO stock;
+            for (int i = 0; i < stockList.size(); ) {
+                stock = stockList.get(i);
+                data[i] = new Object[]{
+                        ++i, stock.getName(), stock.getId(),
+                        stock.getVolume()[0], stock.getPb()[0],
+                        stock.getHigh()[0], stock.getLow()[0],
+                        stock.getPe_ttm()[0], stock.getAdj_price()[0],
+                        stock.getClose()[0], stock.getOpen()[0],
+                        stock.getTurnover()[0]
+                };
+            }
+
+            Table table = new Table(data, columnNames);
+
+            return new UltraScrollPane(table);
         }
 
         /**

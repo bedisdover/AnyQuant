@@ -77,7 +77,7 @@ public abstract class OperationPanel extends JPanel {
         PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
         PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
-        if (data != null) {
+        if (data != null && table != null) {
             int tableHeight = Math.min(
                     (data.length + 1) * table.getRowHeight()
                             + scrollPane.getHorizontalScrollBar().getHeight(),
@@ -145,7 +145,7 @@ public abstract class OperationPanel extends JPanel {
 
         String[] columnNames = {
                 "序号", "名称", "代码", "成交量", "市净率", "最高",
-                "最低", "市盈率", "最新", "收盘价", "开盘价", "周转率"
+                "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
         };
 
         StockVO stock;
