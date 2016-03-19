@@ -45,6 +45,7 @@ public class SortStock {
      * @return List<StockVO>
      */
     public List<StockVO> increase_sort() {
+        List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
             increaseRate[i] = calculateIncreaseRate(stockVOs.get(i).getId());
@@ -56,10 +57,10 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs.add(stockVOs.get(k));
+            list.add(stockVOs.get(k));
             increaseRate[k] = -999;
         }
-        return stockVOs;
+        return list;
     }
 
     /**
@@ -68,6 +69,7 @@ public class SortStock {
      * @return List<StockVO>
      */
     public List<StockVO> decrease_sort() {
+        List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
             increaseRate[i] = calculateIncreaseRate(stockVOs.get(i).getId());
@@ -79,10 +81,10 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs.add(stockVOs.get(k));
+            list.add(stockVOs.get(k));
             increaseRate[k] = 999;
         }
-        return stockVOs;
+        return list;
     }
 
     /**
@@ -91,6 +93,7 @@ public class SortStock {
      * @return List<StockVO>
      */
     public List<StockVO> volume_sort() {
+        List<StockVO> list = new ArrayList<StockVO>();
         double[] volume = new double[stockVOs.size()];
         for (int i = 0; i < volume.length; i++) {
             volume[i] = calculateVolume(stockVOs.get(i).getId());
@@ -102,15 +105,15 @@ public class SortStock {
                     k = j;
                 }
             }
-            stockVOs.add(stockVOs.get(k));
+           list.add(stockVOs.get(k));
             volume[k] = -1;
         }
-        return stockVOs;
+        return list;
     }
 
     private double calculateIncreaseRate(String stockID) {
         ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list" + stockID);
+        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
         double close_yesterday = Double.parseDouble(strings[2]);
         double currentPrice = Double.parseDouble(strings[3]);
@@ -119,8 +122,13 @@ public class SortStock {
 
     private double calculateVolume(String stockID) {
         ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list" + stockID);
+        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
         return Double.parseDouble(strings[8]) / 100;
+    }
+
+    public static void main(String[] args){
+        SortStock sortStock = new SortStock();
+        sortStock.increase_sort();
     }
 }
