@@ -119,7 +119,10 @@ public final class MainFrame extends JFrame {
      * @param panel 操作面板
      */
     public void addOperationPanel(JPanel panel) {
-        backgroundPanel.remove(operationPanel);
+        if (operationPanel != null) {
+            backgroundPanel.remove(operationPanel);
+        }
+
         operationPanel = panel;
         panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
         backgroundPanel.add(panel);

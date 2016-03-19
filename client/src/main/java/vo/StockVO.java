@@ -1,5 +1,6 @@
 package vo;
 
+import data.GetStockData;
 import po.StockPO;
 import po.Transfer;
 
@@ -55,6 +56,10 @@ public class StockVO {
      * 该股票对应日期内的周转率
      */
     private double[] turnover;
+    /**
+     * 该股票当前的涨跌幅
+     */
+    private double increase_decreaseRate;
 
     public StockVO(StockPO spo){
         id = spo.getId();
@@ -69,6 +74,7 @@ public class StockVO {
         close = spo.getClose();
         open = spo.getOpen();
         turnover = spo.getTurnover();
+        increase_decreaseRate = new GetStockData().getIncrease_decreaseRate(id);
     }
 
     public String getId() {
@@ -117,5 +123,9 @@ public class StockVO {
 
     public String getName() {
         return name;
+    }
+
+    public double getIncrease_decreaseRate() {
+        return increase_decreaseRate;
     }
 }
