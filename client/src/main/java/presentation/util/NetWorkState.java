@@ -3,6 +3,7 @@ package presentation.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 
 /**
  * Created by 宋益明 on 16-3-18.
@@ -26,6 +27,12 @@ public class NetWorkState {
             return false;
         }
 
-        return !line.equals("");
+        String osName = (String) System.getProperties().get("os.name");
+
+        if (osName.toUpperCase().contains("WINDOWS")) {
+            return line.equals("");
+        }
+
+        return line.equals("");
     }
 }
