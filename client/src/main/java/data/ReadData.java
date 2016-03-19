@@ -1,5 +1,6 @@
 package data;
 
+import dataservice.ReadDataService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -14,49 +15,39 @@ import java.net.URLConnection;
 /**
  * Created by zcy on 2016/3/3.
  */
-public class ReadData {
+public class ReadData implements ReadDataService {
 
-    public String getData(String url) {
+    public String getData(String url) throws IOException {
         StringBuilder json = new StringBuilder();
-        try {
-            URL urlObject = new URL(url);
-            URLConnection uc = urlObject.openConnection();
-            HttpURLConnection httpURLConnection = (HttpURLConnection) uc;
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setRequestProperty("X-Auth-Code", "868f903da1795d23fd59e58707b7f6fa");
-            BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-            String inputLine;
-            while ((inputLine = br.readLine()) != null) {
-                json.append(inputLine);
-            }
-            br.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        URL urlObject = new URL(url);
+        URLConnection uc = urlObject.openConnection();
+        HttpURLConnection httpURLConnection = (HttpURLConnection) uc;
+        httpURLConnection.setRequestMethod("GET");
+        httpURLConnection.setRequestProperty("X-Auth-Code", "868f903da1795d23fd59e58707b7f6fa");
+        BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+        String inputLine;
+        while ((inputLine = br.readLine()) != null) {
+            json.append(inputLine);
         }
+        br.close();
+
         return json.toString();
     }
 
-    public String getCurrentData(String url) {
+    public String getCurrentData(String url) throws IOException {
         StringBuilder json = new StringBuilder();
-        try {
-            URL urlObject = new URL(url);
-            HttpURLConnection httpUrl = (HttpURLConnection) urlObject.openConnection();
-            httpUrl.connect();
-            BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
-            String inputLine;
 
-            while ((inputLine = br.readLine()) != null) {
-                json.append(inputLine);
-            }
+        URL urlObject = new URL(url);
+        HttpURLConnection httpUrl = (HttpURLConnection) urlObject.openConnection();
+        httpUrl.connect();
+        BufferedReader br = new BufferedReader(new InputStreamReader(httpUrl.getInputStream()));
+        String inputLine;
 
-            br.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while ((inputLine = br.readLine()) != null) {
+            json.append(inputLine);
         }
+
+        br.close();
 
         return json.toString();
     }
@@ -136,7 +127,12 @@ public class ReadData {
 //            }
 //            System.out.println();
 //        }
-        String str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        String str = null;
+        try {
+            str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String[] s = str.split(",");
         System.out.println(s[3]);
     }

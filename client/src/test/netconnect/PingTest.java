@@ -23,7 +23,7 @@ public class PingTest {
 
         System.out.println(returnMsg + "....");
 
-        if (returnMsg.equals("")) {
+        if (!returnMsg.equals("")) {
             System.out.println("与 " + address + " 连接不畅通.");
         } else {
             System.out.println("与 " + address + " 连接畅通.");

@@ -27,7 +27,7 @@ public class StockInfoPanel extends InfoPanel {
 
     private String stockID;
 
-    public StockInfoPanel(JPanel parent, String stockID) {
+    public StockInfoPanel(JPanel parent, String stockID) throws IOException {
         super(parent, stockID);
 
         this.stockID = stockID;
