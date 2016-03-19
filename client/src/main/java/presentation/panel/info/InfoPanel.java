@@ -8,6 +8,7 @@ import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-8.
@@ -40,7 +41,7 @@ public abstract class InfoPanel extends OperationPanel {
      */
     private StockPO stock;
 
-    protected InfoPanel(JPanel parent, String stockID) {
+    protected InfoPanel(JPanel parent, String stockID) throws IOException {
         this(parent, new GetStockData().getStockData_name(stockID));
     }
 
@@ -107,6 +108,10 @@ public abstract class InfoPanel extends OperationPanel {
     }
 
     protected void displayInfo(StockPO stock) {
-        createTable(new StockVO(stock));
+        try {
+            createTable(new StockVO(stock));
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(InfoPanel.this,"请检查网络连接！");
+        }
     }
 }

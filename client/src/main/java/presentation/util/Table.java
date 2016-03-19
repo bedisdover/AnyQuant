@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import static java.awt.event.InputEvent.BUTTON3_MASK;
 
@@ -97,7 +98,12 @@ public class Table extends JTable {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && BUTTON3_MASK != 0) {
                     String name = (String) getValueAt(getSelectedRow(), 2);
-                    StockPO stock = new GetStockData().getStockData_name(name);
+                    StockPO stock = null;
+                    try {
+                        stock = new GetStockData().getStockData_name(name);
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(Table.this,"请检查网络连接！");
+                    }
                     MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
                 }
             }

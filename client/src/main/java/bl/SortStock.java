@@ -5,6 +5,7 @@ import data.ReadData;
 import po.StockPO;
 import vo.StockVO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class SortStock {
      */
     private List<StockVO> stockVOs;
 
-    public SortStock() {
+    public SortStock() throws IOException {
         stockVOs = new ArrayList<>();
 
         loadStockList();
@@ -27,7 +28,7 @@ public class SortStock {
     /**
      * 加载股票列表
      */
-    private void loadStockList() {
+    private void loadStockList() throws IOException {
         List<StockPO> stockPOs = new GetStockData().getAllInterestedStock();
 
         for (StockPO stockPO : stockPOs) {
@@ -44,7 +45,7 @@ public class SortStock {
      *
      * @return List<StockVO>
      */
-    public List<StockVO> increase_sort() {
+    public List<StockVO> increase_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
@@ -68,7 +69,7 @@ public class SortStock {
      *
      * @return List<StockVO>
      */
-    public List<StockVO> decrease_sort() {
+    public List<StockVO> decrease_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
         for (int i = 0; i < increaseRate.length; i++) {
@@ -92,7 +93,7 @@ public class SortStock {
      *
      * @return List<StockVO>
      */
-    public List<StockVO> volume_sort() {
+    public List<StockVO> volume_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] volume = new double[stockVOs.size()];
         for (int i = 0; i < volume.length; i++) {
@@ -111,7 +112,7 @@ public class SortStock {
         return list;
     }
 
-    private double calculateIncreaseRate(String stockID) {
+    private double calculateIncreaseRate(String stockID) throws IOException {
         ReadData readData = new ReadData();
         String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
@@ -120,7 +121,7 @@ public class SortStock {
         return (currentPrice - close_yesterday) / close_yesterday;
     }
 
-    private double calculateVolume(String stockID) {
+    private double calculateVolume(String stockID) throws IOException {
         ReadData readData = new ReadData();
         String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
@@ -128,7 +129,12 @@ public class SortStock {
     }
 
     public static void main(String[] args){
-        SortStock sortStock = new SortStock();
-        sortStock.increase_sort();
+        SortStock sortStock = null;
+        try {
+            sortStock = new SortStock();
+            sortStock.increase_sort();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

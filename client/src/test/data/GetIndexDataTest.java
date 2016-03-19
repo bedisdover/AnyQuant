@@ -3,6 +3,8 @@ package data;
 import org.junit.Test;
 import po.IndexPO;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -10,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class GetIndexDataTest {
     @Test
-    public void getLatestIndexDataTest(){
+    public void getLatestIndexDataTest() throws IOException {
         GetIndexData getIndexData = new GetIndexData();
         IndexPO indexPO = getIndexData.getLatestIndexData();
         assertEquals("hs300",indexPO.getName());

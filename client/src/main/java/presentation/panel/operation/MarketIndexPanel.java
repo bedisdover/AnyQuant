@@ -4,7 +4,9 @@ import bl.ShowIndexData;
 import presentation.util.DateChooser;
 import vo.IndexVO;
 
+import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -29,7 +31,12 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
 //        dateChooser=new DateChooser(this,MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
-        IndexVO index = new ShowIndexData().getLatestIndexData();
+        IndexVO index = null;
+        try {
+            index = new ShowIndexData().getLatestIndexData();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(MarketIndexPanel.this,"请检查网络连接！");
+        }
         createTable(index);
     }
 
