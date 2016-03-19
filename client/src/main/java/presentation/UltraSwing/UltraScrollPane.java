@@ -32,6 +32,6 @@ public class UltraScrollPane extends JScrollPane {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
 
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
 }

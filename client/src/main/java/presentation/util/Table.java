@@ -65,9 +65,11 @@ public class Table extends JTable {
         getTableHeader().setReorderingAllowed(false);
         //取消自动调整大小
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        //设置table内容居中
+        //设置table表头居中
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        getTableHeader().setDefaultRenderer(tcr);
+        //设置table内容居中
         setDefaultRenderer(Object.class, tcr);
         //设置table内容不可编辑
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {

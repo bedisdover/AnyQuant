@@ -401,6 +401,15 @@ public class GetStockData implements GetStockDataService {
         double currentPrice = Double.parseDouble(strings[3]);
         return (currentPrice - close_yesterday) / close_yesterday;
     }
+
+    public double getIncrease_decreaseNum(String stockID){
+        ReadData readData = new ReadData();
+        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
+        String[] strings = s.split(",");
+        double close_yesterday = Double.parseDouble(strings[2]);
+        double currentPrice = Double.parseDouble(strings[3]);
+        return (currentPrice - close_yesterday);
+    }
     /**
      * 获得api中的最新股票数据对应的日期
      *

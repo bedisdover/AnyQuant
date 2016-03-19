@@ -3,7 +3,9 @@
     <presentation>
         <mainFrame>
             <default x="342" y="140" width="683" height="512"/>
-            <last x="273" y="144" width="711" height="535"/>
+
+            <last x="273" y="233" width="823" height="535"/>
+
             <minimumSize width="683" height="512"/>
         </mainFrame>
     </presentation>
