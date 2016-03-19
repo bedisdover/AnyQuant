@@ -483,7 +483,14 @@ public class PicturePanel extends OperationPanel {
 
             Table table = new Table(data, columnNames);
 
-            return new UltraScrollPane(table);
+            UltraScrollPane resultScrollPane = new UltraScrollPane(table);
+
+            resultScrollPane.setPreferredSize(new Dimension(
+                    table.getColumnModel().getTotalColumnWidth()
+                            + resultScrollPane.getVerticalScrollBar().getWidth(),
+                    SCROLL_HEIGHT));
+
+            return resultScrollPane;
         }
 
         /**
@@ -491,10 +498,14 @@ public class PicturePanel extends OperationPanel {
          */
         private void assignment() {
             int temp = 0;//记录展开的榜单数量
+            int width = PANEL_WIDTH - MARGIN * 2;//榜单面板宽度
+            //单个榜单的宽度,
+            int scrollPane_width = (int) Math.min(width - MARGIN * 2,
+                    scrollIncrease.getPreferredSize().getWidth());
             {
                 labelIncrease.setBounds(MARGIN, PADDING / 2, LABEL_WIDTH, BUTTON_HEIGHT);
-                scrollIncrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
+                scrollIncrease.setBounds((PANEL_WIDTH - scrollPane_width - 2 * MARGIN) / 2, labelIncrease.getY() + BUTTON_HEIGHT,
+                        scrollPane_width, SCROLL_HEIGHT);
             }
 
             {
