@@ -11,8 +11,13 @@ import java.awt.*;
  * 可调节透明度
  */
 public class UltraScrollPane extends JScrollPane {
+
+    private Component view;
+
     public UltraScrollPane(Component view) {
         super(view);
+
+        this.view = view;
 
         init();
     }
@@ -25,6 +30,7 @@ public class UltraScrollPane extends JScrollPane {
         setBorder(new BevelBorder(BevelBorder.LOWERED));
         setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
         setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+        setSize(view.getSize());
     }
 
     @Override

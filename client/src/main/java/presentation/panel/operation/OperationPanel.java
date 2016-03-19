@@ -144,7 +144,7 @@ public abstract class OperationPanel extends JPanel {
         data = new Object[stockList.size()][];
 
         String[] columnNames = {
-                "序号", "名称", "代码", "成交量", "市净率", "最高",
+                "序号", "名称", "代码", "涨跌额", "涨跌幅", "成交量", "市净率", "最高",
                 "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
         };
 
@@ -153,6 +153,8 @@ public abstract class OperationPanel extends JPanel {
             stock = stockList.get(i);
             data[i] = new Object[]{
                     ++i, stock.getName(), stock.getId(),
+                    stock.getIncrease_decreaseNum(),
+                    stock.getIncrease_decreaseRate() * 100 + "%",
                     stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0],
                     stock.getPe_ttm()[0], stock.getAdj_price()[0],
