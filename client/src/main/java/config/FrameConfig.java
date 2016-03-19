@@ -67,7 +67,7 @@ public class FrameConfig {
             width = Integer.parseInt(lastBounds.attributeValue("width"));
             height = Integer.parseInt(lastBounds.attributeValue("height"));
         } catch (NumberFormatException e) {
-            return new Rectangle(getMinimumSize());
+            return new Rectangle(getDefaultBounds());
         }
 
         return new Rectangle(x, y, width, height);

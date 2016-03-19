@@ -1,5 +1,6 @@
 package presentation.panel;
 
+import presentation.frame.MainFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
@@ -139,7 +140,7 @@ public class MenuPanel extends JPanel {
         }
 
         this.setLayout(null);
-        this.setBounds(0, 0, getMainFrame().getWidth() / 5,
+        this.setBounds(0, 0, MainFrame.MENU_WIDTH,
                 getMainFrame().getHeight());
         this.setOpaque(false);
 
