@@ -50,6 +50,7 @@ public class Table extends JTable {
         this.parent = parent;
 
         init();
+        addListeners();
     }
 
     private void init() {

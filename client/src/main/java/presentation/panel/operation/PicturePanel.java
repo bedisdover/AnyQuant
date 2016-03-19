@@ -287,6 +287,47 @@ public class PicturePanel extends OperationPanel {
     }
 
     /**
+     * 创建榜单
+     *
+     * @param stockList 股票列表
+     * @return 目标榜单
+     */
+    private UltraScrollPane createRankingList(List<StockVO> stockList) {
+        data = new Object[stockList.size()][];
+
+        String[] columnNames = {
+                "序号", "名称", "代码", "涨跌额", "涨跌幅", "成交量", "市净率", "最高",
+                "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
+        };
+
+        StockVO stock;
+        for (int i = 0; i < stockList.size(); ) {
+            stock = stockList.get(i);
+            data[i] = new Object[]{
+                    ++i, stock.getName(), stock.getId(),
+                    stock.getIncrease_decreaseNum(),
+                    stock.getIncrease_decreaseRate() * 100 + "%",
+                    stock.getVolume()[0], stock.getPb()[0],
+                    stock.getHigh()[0], stock.getLow()[0],
+                    stock.getPe_ttm()[0], stock.getAdj_price()[0],
+                    stock.getClose()[0], stock.getOpen()[0],
+                    stock.getTurnover()[0]
+            };
+        }
+
+        Table table = new Table(this, data, columnNames);
+
+        UltraScrollPane resultScrollPane = new UltraScrollPane(table);
+
+        resultScrollPane.setPreferredSize(new Dimension(
+                table.getColumnModel().getTotalColumnWidth()
+                        + resultScrollPane.getVerticalScrollBar().getWidth(),
+                table.getRowHeight() * table.getRowCount() ));
+
+        return resultScrollPane;
+    }
+
+    /**
      * 各种榜单面板
      * 位于行情面板中央位置
      */
@@ -453,58 +494,18 @@ public class PicturePanel extends OperationPanel {
         }
 
         /**
-         * 创建榜单
-         *
-         * @param stockList 股票列表
-         * @return 目标榜单
-         */
-        private UltraScrollPane createRankingList(List<StockVO> stockList) {
-            data = new Object[stockList.size()][];
-
-            String[] columnNames = {
-                    "序号", "名称", "代码", "涨跌额", "涨跌幅", "成交量", "市净率", "最高",
-                    "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
-            };
-
-            StockVO stock;
-            for (int i = 0; i < stockList.size(); ) {
-                stock = stockList.get(i);
-                data[i] = new Object[]{
-                        ++i, stock.getName(), stock.getId(),
-                        stock.getIncrease_decreaseNum(),
-                        stock.getIncrease_decreaseRate() * 100 + "%",
-                        stock.getVolume()[0], stock.getPb()[0],
-                        stock.getHigh()[0], stock.getLow()[0],
-                        stock.getPe_ttm()[0], stock.getAdj_price()[0],
-                        stock.getClose()[0], stock.getOpen()[0],
-                        stock.getTurnover()[0]
-                };
-            }
-
-            Table table = new Table(data, columnNames);
-
-            UltraScrollPane resultScrollPane = new UltraScrollPane(table);
-
-            resultScrollPane.setPreferredSize(new Dimension(
-                    table.getColumnModel().getTotalColumnWidth()
-                            + resultScrollPane.getVerticalScrollBar().getWidth(),
-                    SCROLL_HEIGHT));
-
-            return resultScrollPane;
-        }
-
-        /**
          * 界面大小发生变化时,对所有组件的位置进行重新赋值
          */
         private void assignment() {
             int temp = 0;//记录展开的榜单数量
             int width = PANEL_WIDTH - MARGIN * 2;//榜单面板宽度
-            //单个榜单的宽度,
+            //单个榜单的宽度
             int scrollPane_width = (int) Math.min(width - MARGIN * 2,
                     scrollIncrease.getPreferredSize().getWidth());
             {
                 labelIncrease.setBounds(MARGIN, PADDING / 2, LABEL_WIDTH, BUTTON_HEIGHT);
-                scrollIncrease.setBounds((PANEL_WIDTH - scrollPane_width - 2 * MARGIN) / 2, labelIncrease.getY() + BUTTON_HEIGHT,
+                scrollIncrease.setBounds(
+                        (width - scrollPane_width) / 2, labelIncrease.getY() + BUTTON_HEIGHT,
                         scrollPane_width, SCROLL_HEIGHT);
             }
 
@@ -517,8 +518,9 @@ public class PicturePanel extends OperationPanel {
                     labelDecrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
                             LABEL_WIDTH, BUTTON_HEIGHT);
                 }
-                scrollDecrease.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
+                scrollDecrease.setBounds(
+                        (width - scrollPane_width) / 2, labelDecrease.getY() + BUTTON_HEIGHT,
+                        scrollPane_width, SCROLL_HEIGHT);
             }
 
             {
@@ -530,8 +532,9 @@ public class PicturePanel extends OperationPanel {
                     labelTurnVolume.setBounds(MARGIN, labelDecrease.getY() + BUTTON_HEIGHT,
                             LABEL_WIDTH, BUTTON_HEIGHT);
                 }
-                scrollTurnVolume.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
+                scrollTurnVolume.setBounds(
+                        (width - scrollPane_width) / 2, labelTurnVolume.getY() + BUTTON_HEIGHT,
+                        scrollPane_width, SCROLL_HEIGHT);
             }
 
             {

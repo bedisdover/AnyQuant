@@ -37,7 +37,7 @@ public final class MainFrame extends JFrame {
 
     private static final BackgroundPanel backgroundPanel;
 
-    private static JPanel operationPanel;
+    public static JPanel operationPanel;
 
     private static FrameConfig frameConfig;
 
