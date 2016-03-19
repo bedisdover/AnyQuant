@@ -3,12 +3,12 @@ package presentation.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 
 /**
  * Created by 宋益明 on 16-3-18.
  * <p>
  * 检查网络连接是否正常
+ * 各个系统的检查方式稍有不同
  */
 public class NetWorkState {
     private NetWorkState() {}
@@ -31,6 +31,8 @@ public class NetWorkState {
 
         if (osName.toUpperCase().contains("WINDOWS")) {
             return line.equals("");
+        } else if (osName.toUpperCase().contains("LINUX")) {
+            return !line.equals("");
         }
 
         return line.equals("");

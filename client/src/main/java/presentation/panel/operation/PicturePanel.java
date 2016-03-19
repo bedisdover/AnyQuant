@@ -368,13 +368,6 @@ public class PicturePanel extends OperationPanel {
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
 
-<<<<<<< HEAD
-            SortStock sortStock = new SortStock();
-            scrollIncrease = createRankingList(sortStock.increase_sort());
-            scrollDecrease = createRankingList(sortStock.decrease_sort());
-            scrollTurnVolume = createRankingList(sortStock.volume_sort());
-//            scrollTurnOverRate = new UltraScrollPane(null);
-=======
             SortStock sortStock = null;
             try {
                 sortStock = new SortStock();
@@ -384,8 +377,7 @@ public class PicturePanel extends OperationPanel {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(PicturePanel.this,"请检查网络连接！");
             }
-            scrollTurnOverRate = new UltraScrollPane(null);
->>>>>>> c04538350ae331c4c504aa0bac0038b37a56a7c5
+//            scrollTurnOverRate = new UltraScrollPane(null);
 
             centerPanel.add(labelIncrease);
             centerPanel.add(labelDecrease);
@@ -501,7 +493,6 @@ public class PicturePanel extends OperationPanel {
             int temp = 0;//记录展开的榜单数量
             {
                 labelIncrease.setBounds(MARGIN, PADDING / 2, LABEL_WIDTH, BUTTON_HEIGHT);
-                System.out.println(scrollIncrease.getHeight());
                 scrollIncrease.setBounds(MARGIN, labelIncrease.getY() + BUTTON_HEIGHT,
                         PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
             }
