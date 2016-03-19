@@ -408,7 +408,7 @@ public class GetStockData implements GetStockDataService {
         String[] strings = s.split(",");
         double close_yesterday = Double.parseDouble(strings[2]);
         double currentPrice = Double.parseDouble(strings[3]);
-        return (currentPrice - close_yesterday);
+        return Math.round((currentPrice - close_yesterday)*100)/100;
     }
     /**
      * 获得api中的最新股票数据对应的日期
