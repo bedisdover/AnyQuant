@@ -1,5 +1,6 @@
 package bl;
 
+import blservice.SortStockService;
 import data.GetStockData;
 import data.ReadData;
 import po.StockPO;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by user on 2016/3/17.
  */
-public class SortStock {
+public class SortStock implements SortStockService{
 
     /**
      * 股票列表

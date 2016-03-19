@@ -1,5 +1,6 @@
 package bl;
 
+import blservice.ShowIndexDataService;
 import data.GetIndexData;
 import dataservice.GetIndexDataService;
 import po.IndexPO;
@@ -10,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by user on 2016/3/9.
  */
-public class ShowIndexData {
+public class ShowIndexData implements ShowIndexDataService{
 
     public IndexVO getLatestIndexData() throws IOException {
         GetIndexDataService getIndexDataService = new GetIndexData();
