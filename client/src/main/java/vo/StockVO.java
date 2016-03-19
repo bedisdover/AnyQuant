@@ -4,6 +4,8 @@ import data.GetStockData;
 import po.StockPO;
 import po.Transfer;
 
+import java.io.IOException;
+
 /**
  * Created by zcy on 2016/3/8.
  */
@@ -65,7 +67,7 @@ public class StockVO {
      */
     private double increase_decreaseNum;
 
-    public StockVO(StockPO spo){
+    public StockVO(StockPO spo) throws IOException {
         id = spo.getId();
         name = Transfer.getName(id);
         volume = spo.getVolume();

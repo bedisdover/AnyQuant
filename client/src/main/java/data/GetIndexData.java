@@ -4,6 +4,8 @@ import dataservice.GetIndexDataService;
 import net.sf.json.JSONObject;
 import po.IndexPO;
 
+import java.io.IOException;
+
 /**
  * Created by user on 2016/3/9.
  */
@@ -14,7 +16,7 @@ public class GetIndexData implements GetIndexDataService {
      *
      * @return IndexPO
      */
-    public IndexPO getLatestIndexData() {
+    public IndexPO getLatestIndexData() throws IOException {
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/benchmark/hs300";
         String result = rdt.getData(url);
@@ -65,7 +67,7 @@ public class GetIndexData implements GetIndexDataService {
      *
      * @return String
      */
-    private String getDateOfLatestData() {
+    private String getDateOfLatestData() throws IOException {
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/benchmark/all";
         String s1 = rdt.getData(url);
@@ -83,8 +85,8 @@ public class GetIndexData implements GetIndexDataService {
 //        String result = rdt.getData(url);System.out.println(result);
 //        String[] info = rdt.parseJson(result,"data","link");
 //        String str = info[0];
-        GetIndexData getIndexData = new GetIndexData();
-        System.out.println(getIndexData.getLatestIndexData().getName() + " " + getIndexData.getLatestIndexData().getVolume()[0] + " " + getIndexData.getLatestIndexData().getAdj_price()[0] + " " + getIndexData.getLatestIndexData().getHigh()[0] + " " + getIndexData.getLatestIndexData().getLow()[0] + " " + getIndexData.getLatestIndexData().getOpen()[0] + " " + getIndexData.getLatestIndexData().getClose()[0] + " " + getIndexData.getLatestIndexData().getDate()[0]);
+//        GetIndexData getIndexData = new GetIndexData();
+//        System.out.println(getIndexData.getLatestIndexData().getName() + " " + getIndexData.getLatestIndexData().getVolume()[0] + " " + getIndexData.getLatestIndexData().getAdj_price()[0] + " " + getIndexData.getLatestIndexData().getHigh()[0] + " " + getIndexData.getLatestIndexData().getLow()[0] + " " + getIndexData.getLatestIndexData().getOpen()[0] + " " + getIndexData.getLatestIndexData().getClose()[0] + " " + getIndexData.getLatestIndexData().getDate()[0]);
 
     }
 }

@@ -68,7 +68,11 @@ public class PortfolioPanel extends OperationPanel {
         GetStockData getStockData = new GetStockData();
         while (stockID.hasNext()) {
             String string = stockID.next();
-            list.add(new StockVO(getStockData.getStockData_name(string)));
+            try {
+                list.add(new StockVO(getStockData.getStockData_name(string)));
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
+            }
         }
 
         //若关注列表为空,不显示"取消关注"按钮
@@ -84,7 +88,12 @@ public class PortfolioPanel extends OperationPanel {
 
     private void showDetailedInfo() {
         String name = (String) table.getValueAt(table.getSelectedRow(), 2);
-        StockPO stock = new GetStockData().getStockData_name(name);
+        StockPO stock = null;
+        try {
+            stock = new GetStockData().getStockData_name(name);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
+        }
 
         MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
     }

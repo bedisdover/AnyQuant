@@ -3,6 +3,8 @@ package data;
 import org.junit.Test;
 import po.StockPO;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -10,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class GetStockDataTest {
     @Test
-    public void getStockData_nameTest(){
+    public void getStockData_nameTest() throws IOException {
         GetStockData getStockData = new GetStockData();
         String name = "sh600000";
         StockPO stockPO = getStockData.getStockData_name(name);

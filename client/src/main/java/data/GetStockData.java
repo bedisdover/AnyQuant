@@ -177,7 +177,7 @@ public class GetStockData implements GetStockDataService {
      * @param name
      * @return StockPO
      */
-    public StockPO getStockData_name(String name) {
+    public StockPO getStockData_name(String name) throws IOException {
 //        GetStockData getStockData = new GetStockData();
 //        String d = getStockData.getDateOfLatestData();//获得最新的股票数据对应的日期
 //        String[] time = d.split("-");
@@ -238,7 +238,7 @@ public class GetStockData implements GetStockDataService {
      * @param dates
      * @return StockPO
      */
-    public StockPO getStockData_name(String name, String dates) {
+    public StockPO getStockData_name(String name, String dates) throws IOException {
 
         String[] time = dates.split("-");
         Calendar c = new GregorianCalendar();
@@ -299,7 +299,7 @@ public class GetStockData implements GetStockDataService {
      * @param date2
      * @return StockPO
      */
-    public StockPO getStockData_name(String name, String date1, String date2) {
+    public StockPO getStockData_name(String name, String date1, String date2) throws IOException {
         int interval = intervalBetweenTwoDates(date1, date2);
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
@@ -349,7 +349,7 @@ public class GetStockData implements GetStockDataService {
      *
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock() {
+    public List<StockPO> getAllInterestedStock() throws IOException {
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
         List<StockPO> stockPOs = new ArrayList<>();
@@ -365,7 +365,7 @@ public class GetStockData implements GetStockDataService {
      * @param dates
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock(String dates) {
+    public List<StockPO> getAllInterestedStock(String dates) throws IOException {
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
         List<StockPO> stockPOs = new ArrayList<StockPO>();
@@ -382,7 +382,7 @@ public class GetStockData implements GetStockDataService {
      * @param date2
      * @return List<StockPO>
      */
-    public List<StockPO> getAllInterestedStock(String date1, String date2) {
+    public List<StockPO> getAllInterestedStock(String date1, String date2) throws IOException {
 
         String stocks = getID_BankStocks();
         String[] names = stocks.split(" ");
@@ -393,7 +393,7 @@ public class GetStockData implements GetStockDataService {
         return stockPOs;
     }
 
-    public double getIncrease_decreaseRate(String stockID){
+    public double getIncrease_decreaseRate(String stockID) throws IOException {
         ReadData readData = new ReadData();
         String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
@@ -402,7 +402,7 @@ public class GetStockData implements GetStockDataService {
         return (currentPrice - close_yesterday) / close_yesterday;
     }
 
-    public double getIncrease_decreaseNum(String stockID){
+    public double getIncrease_decreaseNum(String stockID) throws IOException {
         ReadData readData = new ReadData();
         String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
         String[] strings = s.split(",");
@@ -415,7 +415,7 @@ public class GetStockData implements GetStockDataService {
      *
      * @return String
      */
-    private String getDateOfLatestData() {
+    private String getDateOfLatestData() throws IOException {
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stock/sh600000";
         String s1 = rdt.getData(url);
@@ -457,7 +457,7 @@ public class GetStockData implements GetStockDataService {
         return stocks;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        ReadData rdt = new ReadData();
 //        String url = "http://121.41.106.89:8010/api/stock/sh600000/?start=2016-02-25&end=2016-02-26";
 //        rdt.getData(url);

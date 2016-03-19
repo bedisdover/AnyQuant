@@ -5,12 +5,14 @@ import dataservice.GetIndexDataService;
 import po.IndexPO;
 import vo.IndexVO;
 
+import java.io.IOException;
+
 /**
  * Created by user on 2016/3/9.
  */
 public class ShowIndexData {
 
-    public IndexVO getLatestIndexData(){
+    public IndexVO getLatestIndexData() throws IOException {
         GetIndexDataService getIndexDataService = new GetIndexData();
         IndexPO indexPO = getIndexDataService.getLatestIndexData();
         IndexVO indexVO = new IndexVO(indexPO);
@@ -18,7 +20,7 @@ public class ShowIndexData {
     }
 
     public static void main(String[] args){
-        ShowIndexData s = new ShowIndexData();
-        System.out.println(s.getLatestIndexData().getDate().length);
+//        ShowIndexData s = new ShowIndexData();
+//        System.out.println(s.getLatestIndexData().getDate().length);
     }
 }

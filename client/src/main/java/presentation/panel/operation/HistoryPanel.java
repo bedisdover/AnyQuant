@@ -8,6 +8,7 @@ import vo.StockVO;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +45,11 @@ public class HistoryPanel extends OperationPanel {
 
         while (stockID.hasNext()) {
             String string = stockID.next();
-            list.add(new StockVO(getStockData.getStockData_name(string)));
+            try {
+                list.add(new StockVO(getStockData.getStockData_name(string)));
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(HistoryPanel.this,"请检查网络连接！");
+            }
         }
 
         table = createTable(list);

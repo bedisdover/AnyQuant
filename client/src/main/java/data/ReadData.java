@@ -16,9 +16,9 @@ import java.net.URLConnection;
  */
 public class ReadData {
 
-    public String getData(String url) {
+    public String getData(String url) throws IOException {
         StringBuilder json = new StringBuilder();
-        try {
+
             URL urlObject = new URL(url);
             URLConnection uc = urlObject.openConnection();
             HttpURLConnection httpURLConnection = (HttpURLConnection) uc;
@@ -30,17 +30,13 @@ public class ReadData {
                 json.append(inputLine);
             }
             br.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return json.toString();
     }
 
-    public String getCurrentData(String url) {
+    public String getCurrentData(String url) throws IOException {
         StringBuilder json = new StringBuilder();
-        try {
+
             URL urlObject = new URL(url);
             HttpURLConnection httpUrl = (HttpURLConnection) urlObject.openConnection();
             httpUrl.connect();
@@ -52,11 +48,7 @@ public class ReadData {
             }
 
             br.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         return json.toString();
     }
@@ -136,7 +128,12 @@ public class ReadData {
 //            }
 //            System.out.println();
 //        }
-        String str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        String str = null;
+        try {
+            str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String[] s = str.split(",");
         System.out.println(s[3]);
     }
