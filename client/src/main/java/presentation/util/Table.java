@@ -98,13 +98,18 @@ public class Table extends JTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && BUTTON3_MASK != 0) {
-                    String name = (String) getValueAt(getSelectedRow(), 2);
                     StockPO stock = null;
                     try {
+                        String name = (String) getValueAt(getSelectedRow(), 2);
                         stock = new GetStockData().getStockData_name(name);
+                    } catch (ClassCastException e1) {
+                        //若某表格第2项不是字符串,捕获此异常
+                        //此时无需显示详细信息
+                        return;
                     } catch (IOException e1) {
-                        JOptionPane.showMessageDialog(Table.this,"请检查网络连接！");
+                        JOptionPane.showMessageDialog(Table.this, "请检查网络连接！");
                     }
+
                     MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
                 }
             }
