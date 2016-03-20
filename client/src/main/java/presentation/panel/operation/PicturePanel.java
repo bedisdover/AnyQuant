@@ -117,12 +117,7 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!searchInput.getText().equals("")) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        System.out.println(table.getRowCount());
-                        table.setRowSelectionInterval(k, k);
-                        System.out.println(k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
 
@@ -159,10 +154,7 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        table.setRowSelectionInterval(k, k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
         });
@@ -171,10 +163,7 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        table.setRowSelectionInterval(k, k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
         });

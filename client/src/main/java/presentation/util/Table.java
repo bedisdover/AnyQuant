@@ -192,16 +192,15 @@ public class Table extends JTable {
      * @param name 股票名称
      * @return 搜索成功返回true, 否则返回false
      */
-    public int searchStock(String name) {
+    public void searchStock(String name) {
         for (int i = 0; i < data.length; i++) {
             if (name.equals(data[i][2])) {
                 System.out.println(i);
                 this.setRowSelectionInterval(i, i);
-                return i;
+                return;
             }
         }
         JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "无记录,请确认输入是否正确");
-        return -1;
     }
 
     public int getRowCount() {
