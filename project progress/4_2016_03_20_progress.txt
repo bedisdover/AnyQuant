@@ -1,8 +1,8 @@
 who：苏琰梓
 when：2016-03-20
 what：完成测试文档的编写整合。
-problem：无。
-todo：
+problem：编程效率不高。
+todo：研究K线图的画法。
 
 who：周梦佳
 when：2016-03-20
