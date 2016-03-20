@@ -38,10 +38,6 @@ public class Table extends JTable {
      */
     private int currentRow = 0;
 
-    public Table(Object[][] data, String[] columnNames) {
-        this(null, data, columnNames);
-    }
-
     public Table(JPanel parent, Object[][] data, String[] columnNames) {
         super(data, columnNames);
 
