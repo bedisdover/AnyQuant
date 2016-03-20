@@ -58,12 +58,16 @@ public class PicturePanel extends OperationPanel {
      * 获取table
      */
     private Table table;
+    private Table table1;
+    private Table table2;
+    private Table table3;
 
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem4;
+    private MainFrame mainFrame;
 
     public PicturePanel() {
         init();
@@ -116,12 +120,7 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!searchInput.getText().equals("")) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        System.out.println(table.getRowCount());
-                        table.setRowSelectionInterval(k, k);
-                        System.out.println(k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
 
@@ -158,10 +157,7 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        table.setRowSelectionInterval(k, k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
         });
@@ -170,22 +166,17 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int k = table.searchStock(searchInput.getText());
-                    if (k > 0) {
-                        table.setRowSelectionInterval(k, k);
-                    }
+                    table.searchStock(searchInput.getText());
                 }
             }
         });
     }
 
-    private void addTableListener() {
-        class RightClickListener extends MouseAdapter {
-        }
+    private void addTableListener(Table t) {
         /**
          * todo 给table添加鼠标右键监听
          */
-        table.addMouseListener(new RightClickListener() {
+        t.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
@@ -200,8 +191,7 @@ public class PicturePanel extends OperationPanel {
 
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    System.out.println(e.getX() + "  " + e.getY());
-                    showMenuList(e.getX() + MARGIN, e.getY() + MARGIN + PADDING * 2 + 29);
+                    showMenuList(e.getXOnScreen(), e.getYOnScreen());
                 }
             }
         });
@@ -241,13 +231,14 @@ public class PicturePanel extends OperationPanel {
         });
         menuItem4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-
+                System.out.println("hhhhhhhh");
             }
         });
     }
 
     private void showMenuList(int x, int y) {
-        popupMenu1.show(this, x, y);
+        mainFrame = MainFrame.getMainFrame();
+        popupMenu1.show(mainFrame, x-mainFrame.getX(), y-mainFrame.getY());
     }
 
     private void showDetailedInfo() {
@@ -300,7 +291,7 @@ public class PicturePanel extends OperationPanel {
         }
 
         table = new Table(this, data, columnNames);
-        addTableListener();
+        addTableListener(table);
 
         UltraScrollPane resultScrollPane = new UltraScrollPane(table);
 
@@ -387,8 +378,11 @@ public class PicturePanel extends OperationPanel {
             centerPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelIncrease = new JLabel("↓  涨幅榜");
+            table1 = table;
             labelDecrease = new JLabel("↓  跌幅榜");
+            table2 = table;
             labelTurnVolume = new JLabel("↓  成交量榜");
+            table3 = table;
 //            labelTurnOverRate = new JLabel("↓  转手率榜");
 
             btnCustom = new UltraButton("自定义");
