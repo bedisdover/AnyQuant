@@ -58,6 +58,9 @@ public class PicturePanel extends OperationPanel {
      * 获取table
      */
     private Table table;
+    private Table table1;
+    private Table table2;
+    private Table table3;
 
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
@@ -169,13 +172,11 @@ public class PicturePanel extends OperationPanel {
         });
     }
 
-    private void addTableListener() {
-        class RightClickListener extends MouseAdapter{
-        }
+    private void addTableListener(Table t) {
         /**
          * todo 给table添加鼠标右键监听
          */
-        table.addMouseListener(new RightClickListener() {
+        t.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
@@ -290,7 +291,7 @@ public class PicturePanel extends OperationPanel {
         }
 
         table = new Table(this, data, columnNames);
-        addTableListener();
+        addTableListener(table);
 
         UltraScrollPane resultScrollPane = new UltraScrollPane(table);
 
@@ -377,8 +378,11 @@ public class PicturePanel extends OperationPanel {
             centerPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelIncrease = new JLabel("↓  涨幅榜");
+            table1 = table;
             labelDecrease = new JLabel("↓  跌幅榜");
+            table2 = table;
             labelTurnVolume = new JLabel("↓  成交量榜");
+            table3 = table;
 //            labelTurnOverRate = new JLabel("↓  转手率榜");
 
             btnCustom = new UltraButton("自定义");
