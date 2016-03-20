@@ -64,6 +64,7 @@ public class PicturePanel extends OperationPanel {
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem4;
+    private MainFrame mainFrame;
 
     public PicturePanel() {
         init();
@@ -180,7 +181,7 @@ public class PicturePanel extends OperationPanel {
     }
 
     private void addTableListener() {
-        class RightClickListener extends MouseAdapter {
+        class RightClickListener extends MouseAdapter{
         }
         /**
          * todo 给table添加鼠标右键监听
@@ -200,8 +201,7 @@ public class PicturePanel extends OperationPanel {
 
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    System.out.println(e.getX() + "  " + e.getY());
-                    showMenuList(e.getX() + MARGIN, e.getY() + MARGIN + PADDING * 2 + 29);
+                    showMenuList(e.getXOnScreen(), e.getYOnScreen());
                 }
             }
         });
@@ -241,13 +241,14 @@ public class PicturePanel extends OperationPanel {
         });
         menuItem4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-
+                System.out.println("hhhhhhhh");
             }
         });
     }
 
     private void showMenuList(int x, int y) {
-        popupMenu1.show(this, x, y);
+        mainFrame = MainFrame.getMainFrame();
+        popupMenu1.show(mainFrame, x-mainFrame.getX(), y-mainFrame.getY());
     }
 
     private void showDetailedInfo() {
