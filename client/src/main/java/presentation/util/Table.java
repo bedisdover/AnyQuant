@@ -110,7 +110,9 @@ public class Table extends JTable {
                         JOptionPane.showMessageDialog(Table.this, "请检查网络连接！");
                     }
 
-                    MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+                    if (parent != null) {
+                        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+                    }
                 }
             }
         });

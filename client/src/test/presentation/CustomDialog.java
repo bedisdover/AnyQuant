@@ -7,13 +7,8 @@ import presentation.util.Table;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +41,16 @@ public class CustomDialog extends JDialog {
      */
     private JButton btnCancel;
 
+    /**
+     * 表格对象
+     */
+    private Table table;
+
+    /**
+     * 股票列表
+     */
+    private List<StockID> stockList;
+
     private CustomDialog() {
         super(MainFrame.getMainFrame(), "自定义股票列表", true);
 
@@ -58,10 +63,9 @@ public class CustomDialog extends JDialog {
      * 初始化
      */
     private void init() {
-        setSize(new Dimension(400, 300));
+        setSize(new Dimension(250, 400));
+        setResizable(false);
         setLocationRelativeTo(MainFrame.getMainFrame());
-        //TODO 关闭事件
-//            setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         setModal(true);
@@ -76,22 +80,20 @@ public class CustomDialog extends JDialog {
 
         setContentPane(contentPane);
 
-        addStockPanel();
+        addStockList();
         addButtonPanel();
     }
 
     /**
-     * 添加股票列表面板
+     * 添加股票列表
      */
-    private void addStockPanel() {
-        JPanel stockPanel = new JPanel();
-        stockPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        stockPanel.setBounds(0, 0, getWidth(), getHeight() - 45);
-
+    private void addStockList() {
         String[] columnNames = new String[]{"名称", "代码", "显示"};
-        Table table = new Table(this, loadStockList(), columnNames);
+        table = new Table(loadStockList(), columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
 
-        contentPane.add(stockPanel);
+        scrollPane.setBounds(0, 0, getWidth(), getHeight() - 45);
+        contentPane.add(scrollPane);
     }
 
     /**
@@ -119,40 +121,6 @@ public class CustomDialog extends JDialog {
     }
 
     /**
-     * 加载股票列表
-     *
-     * @return 股票列表
-     */
-    private Object[][] loadStockList() {
-        List<StockID> stockIDs = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(FILE_NAME)));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stockIDs.add(new StockID(line));
-            }
-
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Object[][] stockList = new Object[stockIDs.size()][];
-
-        for (int i = 0; i < stockIDs.size(); i++) {
-            stockList[i] = new Object[]{
-                    stockIDs.get(i).getName(),
-                    stockIDs.get(i).getId(),
-                    stockIDs.get(i).isDisplay()
-            };
-        }
-
-        return stockList;
-    }
-
-    /**
      * 添加时间监听器
      */
     private void addListeners() {
@@ -171,6 +139,13 @@ public class CustomDialog extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                changeDisplay();
+            }
+        });
     }
 
     /**
@@ -178,7 +153,6 @@ public class CustomDialog extends JDialog {
      */
     private void onOK() {
         onApply();
-
         dispose();
     }
 
@@ -186,7 +160,7 @@ public class CustomDialog extends JDialog {
      * 应用操作
      */
     private void onApply() {
-
+        storeStockList();
     }
 
     /**
@@ -194,6 +168,80 @@ public class CustomDialog extends JDialog {
      */
     private void onCancel() {
         dispose();
+    }
+
+    /**
+     * 单击表格中的某只股票时,改变其"显示"状态
+     */
+    private void changeDisplay() {
+        int lineNum = table.getSelectedRow();
+
+        String name = (String) table.getValueAt(lineNum, 0);
+        boolean display = (boolean) table.getValueAt(lineNum, 2);
+
+        table.setValueAt(!display, lineNum, 2);
+
+        for (StockID temp : stockList) {
+            if (temp.getName().equals(name)) {
+                temp.exchangeDisplay();
+            }
+        }
+
+        repaint();
+    }
+
+    /**
+     * 加载股票列表
+     *
+     * @return 股票列表
+     */
+    private Object[][] loadStockList() {
+        stockList = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(FILE_NAME)));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stockList.add(new StockID(line));
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Object[][] data = new Object[stockList.size()][];
+
+        for (int i = 0; i < stockList.size(); i++) {
+            data[i] = new Object[]{
+                    stockList.get(i).getName(),
+                    stockList.get(i).getId(),
+                    stockList.get(i).isDisplay()
+            };
+        }
+
+        return data;
+    }
+
+    /**
+     * 存储股票列表
+     */
+    private void storeStockList() {
+        try {
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream(FILE_NAME, false)));
+
+            for (int i = 0; i < stockList.size(); i++) {
+                writer.write(stockList.get(i).toString());
+            }
+
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

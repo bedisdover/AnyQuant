@@ -51,7 +51,15 @@ public class StockID {
         return display;
     }
 
-    public void setDisplay(boolean display) {
-        this.display = display;
+    /**
+     * 改变显示状态
+     */
+    public void exchangeDisplay() {
+        this.display = !display;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + display + "\n";
     }
 }
