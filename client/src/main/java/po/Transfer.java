@@ -60,7 +60,11 @@ public class Transfer {
             while ((line = reader.readLine()) != null) {
                 tokenizer = new StringTokenizer(line);
                 while (tokenizer.hasMoreTokens()) {
+                    //股票代码-名称对应列表中每只股票记录三个信息
+                    //代码 名称 榜单是否显示
+                    //此处仅需要代码-名称
                     name_ID.put(tokenizer.nextToken(), tokenizer.nextToken());
+                    tokenizer.nextToken();
                 }
             }
 

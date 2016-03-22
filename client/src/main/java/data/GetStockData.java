@@ -441,7 +441,7 @@ public class GetStockData implements GetStockDataService {
      *
      * @return String
      */
-    private String getID_BankStocks() {
+    public String getID_BankStocks() {
         String stocks = "";
         try {
             File file = new File("client/src/main/resources/Stocks_Bank.txt");

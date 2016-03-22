@@ -20,10 +20,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -648,7 +646,6 @@ public class PicturePanel extends OperationPanel {
          * 取消按钮
          */
         private JButton btnCancel;
-
 
         private CustomDialog() {
             super(MainFrame.getMainFrame(), "自定义股票列表", true);
