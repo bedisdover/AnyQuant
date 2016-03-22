@@ -114,6 +114,9 @@ public class MenuPanel extends JPanel {
      */
     private Portrait portrait;
 
+    /**
+     * 网络状态
+     */
     private boolean netState;
 
     public MenuPanel() {
@@ -139,9 +142,8 @@ public class MenuPanel extends JPanel {
             e.printStackTrace();
         }
 
+        this.setBounds(0, 0, MainFrame.MENU_WIDTH, getMainFrame().getHeight());
         this.setLayout(null);
-        this.setBounds(0, 0, MainFrame.MENU_WIDTH,
-                getMainFrame().getHeight());
         this.setOpaque(false);
 
         loadPortrait();
@@ -185,10 +187,14 @@ public class MenuPanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2,
+                        BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2,
+                        BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2,
+                        BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
+                        BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
                 btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),

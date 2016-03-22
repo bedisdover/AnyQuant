@@ -15,6 +15,7 @@ import vo.StockVO;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -386,6 +387,7 @@ public class PicturePanel extends OperationPanel {
 
             SortStock sortStock;
             try {
+                //TODO 重新加载股票
                 sortStock = new SortStock();
                 scrollIncrease = createRankingList(sortStock.increase_sort());
                 scrollDecrease = createRankingList(sortStock.decrease_sort());
@@ -679,6 +681,12 @@ public class PicturePanel extends OperationPanel {
             setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
             setModal(true);
+
+            try {
+                UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            } catch (UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
         }
 
         /**

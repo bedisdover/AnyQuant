@@ -80,8 +80,6 @@ public final class MainFrame extends JFrame {
         frame.setContentPane(backgroundPanel);
         frame.setLayout(null);
         frame.setIconImage(ImageLoader.icon);
-
-        backgroundPanel.setLayout(null);
     }
 
     /**

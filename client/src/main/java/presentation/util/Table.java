@@ -33,11 +33,6 @@ public class Table extends JTable {
      */
     private JPanel parent;
 
-    /**
-     * 表中最后一行
-     */
-    private int currentRow = 0;
-
     public Table(Object[][] data, String[] columnNames) {
         this(null, data, columnNames);
     }
@@ -132,62 +127,6 @@ public class Table extends JTable {
         return scroll;
     }
 
-    public void setValueAt(int r, int c, String value) {
-        data[r][c] = value;
-    }
-
-    public void setValueAt(int row, String[] values) {
-        System.arraycopy(values, 0, data[row], 1, values.length);
-
-        if (row != getSelectedRow()) {
-            currentRow++;
-        }
-
-        this.identify();
-    }
-
-//    public String getValueAt(int r, int c) {
-//        return (String) data[r][c];
-//    }
-
-
-    /**
-     * 判断表中是否已存在指定内容（data）
-     *
-     * @param column 列数（参数中从1开始计数）
-     * @param data   指定内容
-     * @return 返回指定内容所在行数，若不存在，返回-1
-     */
-    public int alreadyExisted(int column, String data) {
-        for (int i = 0; i < currentRow; i++) {
-            if (this.data[i][column - 1].toString().equals(data)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * 给表格中的项编号
-     */
-    private void identify() {
-        for (int i = 0; i < currentRow; i++) {
-            data[i][0] = i + 1;
-        }
-    }
-
-    /**
-     * 清空表
-     */
-    public void clean() {
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data[0].length; j++) {
-                data[i][j] = null;
-            }
-        }
-    }
-
-
     /**
      * 根据名称搜索股票,高亮搜索结果
      *
@@ -208,5 +147,4 @@ public class Table extends JTable {
     public int getRowCount() {
         return data.length;
     }
-
 }
