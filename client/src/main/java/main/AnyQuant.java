@@ -1,5 +1,6 @@
 package main;
 
+import config.SystemConfig;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import presentation.frame.MainFrame;
@@ -22,6 +23,9 @@ public class AnyQuant extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //设置全局字体
+        initGlobalFontSetting(SystemConfig.getFontConfig().getFontInfo());
+
         JFrame mainFrame = MainFrame.getMainFrame();
         mainFrame.setVisible(true);
     }
@@ -31,8 +35,9 @@ public class AnyQuant extends Application {
         for (Enumeration keys = UIManager.getDefaults().keys(); keys.hasMoreElements(); ) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
-            if (value instanceof FontUIResource)
+            if (value instanceof FontUIResource) {
                 UIManager.put(key, fontRes);
+            }
         }
     }
 }

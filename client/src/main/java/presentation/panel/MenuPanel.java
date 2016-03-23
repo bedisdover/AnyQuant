@@ -116,16 +116,20 @@ public class MenuPanel extends JPanel {
 
     /**
      * 网络状态
+     * 连接正常为true,无法连接到互联网为false
      */
     private boolean netState;
 
     public MenuPanel() {
+        //各种数值均由Panel的宽高决定
+        //故先进行初始化,设置Panel的Bounds
         init();
 
-        PORTRAIT_DIAMETER = getWidth() / 2;
-        BUTTON_WIDTH = getWidth() * 2 / 3;
+        int temp = Math.min(getWidth(), getHeight());
+        PORTRAIT_DIAMETER = temp / 2;
+        BUTTON_WIDTH = temp * 2 / 3;
         BUTTON_HEIGHT = BUTTON_WIDTH / 3;
-        MARGIN = (getWidth() - BUTTON_WIDTH) / 2;
+        MARGIN = (temp - BUTTON_WIDTH) / 2;
         PADDING = BUTTON_HEIGHT;
 
         createUIComponents();

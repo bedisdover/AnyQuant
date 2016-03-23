@@ -77,15 +77,26 @@ public class SystemConfig {
         return new FrameConfig(mainFrame);
     }
 
+    public static FontConfig getFontConfig() throws MalformedURLException, DocumentException {
+        init();
+
+        Element presentation = root.element("presentation");
+        Element font = presentation.element("font");
+
+        return new FontConfig(font);
+    }
+
     /**
      * 存储各种配置
      */
     public static void storeXML() {
         try {
-            FileWriter newFile = new FileWriter(FILE_NAME);
-            XMLWriter newWriter = new XMLWriter(newFile);
-            newWriter.write(document);
-            newWriter.close();
+            FileWriter file = new FileWriter(FILE_NAME);
+            XMLWriter writer = new XMLWriter(file);
+
+            writer.write(document);
+
+            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

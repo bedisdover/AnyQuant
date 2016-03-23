@@ -1,4 +1,4 @@
-package presentation;
+package font;
 
 import java.awt.*;
 
@@ -9,8 +9,10 @@ import java.awt.*;
  */
 public class FontTest {
 
+    /**
+     * 获取系统所有字体
+     */
     public static void getFonts() {
-
         String[] fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment()
                 .getAvailableFontFamilyNames();//获得当前系统字体
 

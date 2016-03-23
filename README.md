@@ -13,7 +13,7 @@
 一、项目概述
 	本项目由Ultraviolet团队开发, 希望能够通过本项目为用户制定策略时提供一定的参考。本项目产品为java Applet，可跨平台运行。
 二、项目背景
-    1.本项目使用maven进行配置管理，全程使用Intellj Idea开发。
+    1.本项目使用maven进行配置管理，全程使用IntelliJ Idea开发。
     2.本项目使用Jenkins进行持续集成。
     
 	

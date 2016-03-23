@@ -1,10 +1,14 @@
 package presentation.settings;
 
+import config.SystemConfig;
+import org.dom4j.DocumentException;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.net.MalformedURLException;
 
 /**
  * Created by 宋益明 on 16-3-11.
@@ -30,6 +34,11 @@ public class FontSettings extends JPanel {
      */
     private JTextArea preview;
 
+    /**
+     * 当前字体
+     */
+    private Font font;
+
     FontSettings() {
         init();
         createUIComponents();
@@ -42,6 +51,14 @@ public class FontSettings extends JPanel {
     private void init() {
         setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
+
+        try {
+            font = SystemConfig.getFontConfig().getFontInfo();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -64,18 +81,15 @@ public class FontSettings extends JPanel {
         fontSize.setBounds(260, 20, 80, 30);
         scrollPane.setBounds(20, 80, 320, 180);
 
-        //TODO 字体
-        fontList.setSelectedItem("Courier 10 Pitch");
-        fontSize.setText("16");
+        fontList.setSelectedItem(font.getName());
+        fontSize.setText(font.getSize() + "");
 
         preview.setText(
-                "我希望每天早晨叫我起床的不是闹钟而是梦想\n" +
-                        "---------------------------------\n" +
-                        "努力不是因为性格使然而是因为以前装过的B\n\n" +
+                "做一个安静的软件工程师\n" +
+                        "---------------------------------\n\n" +
                         "abcdefghijklmnopqrstuvwxyz 0123456789 (){}[]\n" +
                         "ABCDEFGHIJKLMNOPQRSTUVWXYZ +-*/= .,;:!? #&$%@|^\n\n"
         );
-
 
         add(labelName);
         add(labelSize);
@@ -115,9 +129,18 @@ public class FontSettings extends JPanel {
     private void changeFont() {
         try {
             int size = Integer.parseInt(fontSize.getText());
-            preview.setFont(new Font((String) fontList.getSelectedItem(),
-                    Font.PLAIN, size));
-        } catch (NumberFormatException e){
+
+            font = new Font((String) fontList.getSelectedItem(),
+                    Font.PLAIN, size);
+
+            preview.setFont(font);
+
+            SystemConfig.getFontConfig().changeFont(font);
+        } catch (NumberFormatException e) {
+            //若size输入非法值,不做任何处理
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
             e.printStackTrace();
         }
 

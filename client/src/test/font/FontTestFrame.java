@@ -1,4 +1,4 @@
-package presentation;
+package font;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
