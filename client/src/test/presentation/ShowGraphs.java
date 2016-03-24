@@ -3,9 +3,11 @@ package presentation;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 
+import com.sun.javafx.charts.Legend;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.ui.Drawable;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -34,6 +36,8 @@ public class ShowGraphs {
         XYPlot plot = timeSeriesChart.getXYPlot();
         setXYPolt(plot);
         panel = new ChartPanel(timeSeriesChart,true);
+        LegendTitle legendTitle = timeSeriesChart.getLegend();
+        legendTitle.setVisible(false);
 //        ChartFrame frame = new ChartFrame("Test", timeSeriesChart);
 //        frame.pack();
 //        frame.setVisible(true);
@@ -46,6 +50,7 @@ public class ShowGraphs {
         Hour hour10 = new Hour(10, day);
 
         TimeSeries timeSeries1 = new TimeSeries("", Minute.class);
+
         timeSeries1.add(new Minute(30, hour9), 12.80);
         timeSeries1.add(new Minute(35, hour9), 12.59);
         timeSeries1.add(new Minute(40, hour9), 12.38);
