@@ -22,6 +22,7 @@ public class GetIndexData implements GetIndexDataService {
         String result = rdt.getData(url);
         String s1 = rdt.parseJSON(result, "data");
         String[] trading_info = rdt.parseJSON_array(s1, "trading_info");
+
         long[] volume = new long[trading_info.length];
         double[] high = new double[trading_info.length];
         double[] adj_price = new double[trading_info.length];
@@ -85,8 +86,17 @@ public class GetIndexData implements GetIndexDataService {
 //        String result = rdt.getData(url);System.out.println(result);
 //        String[] info = rdt.parseJson(result,"data","link");
 //        String str = info[0];
-//        GetIndexData getIndexData = new GetIndexData();
-//        System.out.println(getIndexData.getLatestIndexData().getName() + " " + getIndexData.getLatestIndexData().getVolume()[0] + " " + getIndexData.getLatestIndexData().getAdj_price()[0] + " " + getIndexData.getLatestIndexData().getHigh()[0] + " " + getIndexData.getLatestIndexData().getLow()[0] + " " + getIndexData.getLatestIndexData().getOpen()[0] + " " + getIndexData.getLatestIndexData().getClose()[0] + " " + getIndexData.getLatestIndexData().getDate()[0]);
+        GetIndexData getIndexData = new GetIndexData();
+        try {
+            getIndexData.getLatestIndexData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(getIndexData.getLatestIndexData().getName() + " " + getIndexData.getLatestIndexData().getVolume()[0] + " " + getIndexData.getLatestIndexData().getAdj_price()[0] + " " + getIndexData.getLatestIndexData().getHigh()[0] + " " + getIndexData.getLatestIndexData().getLow()[0] + " " + getIndexData.getLatestIndexData().getOpen()[0] + " " + getIndexData.getLatestIndexData().getClose()[0] + " " + getIndexData.getLatestIndexData().getDate()[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
