@@ -20,6 +20,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by user on 2016/3/26.
@@ -95,7 +98,15 @@ public class IndexKLine {
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
         x1Axis.setAutoRange(false);// 设置不采用自动设置时间范围
         try{
-            x1Axis.setRange(dateFormat.parse(indexVO.getDate()[num-90]),dateFormat.parse(indexVO.getDate()[num-1]));// 设置时间范围，注意时间的最大值要比已有的时间最大值要多一天
+            Calendar c = new GregorianCalendar();
+            String[] time = indexVO.getDate()[num-1].split("-");
+            c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
+            c.add(c.DATE,1);
+            Date date1 = c.getTime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String d = simpleDateFormat.format(date1);
+            System.out.println(d);
+            x1Axis.setRange(dateFormat.parse(indexVO.getDate()[num-90]),dateFormat.parse(d));// 设置时间范围，注意时间的最大值要比已有的时间最大值要多一天
         }catch(Exception e){
             e.printStackTrace();
         }
