@@ -235,7 +235,7 @@ public class PicturePanel extends OperationPanel {
 
     private void showMenuList(int x, int y) {
         mainFrame = MainFrame.getMainFrame();
-        popupMenu1.show(mainFrame, x-mainFrame.getX(), y-mainFrame.getY());
+        popupMenu1.show(mainFrame, x - mainFrame.getX(), y - mainFrame.getY());
     }
 
     private void showDetailedInfo() {
@@ -243,11 +243,16 @@ public class PicturePanel extends OperationPanel {
         StockPO stock = null;
         try {
             stock = new GetStockData().getStockData_name(name);
+        } catch (ClassCastException e1) {
+            //若某表格第2项不是字符串,捕获此异常
+            //此时无需显示详细信息
+            return;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
         MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
+
     }
 
     @Override
