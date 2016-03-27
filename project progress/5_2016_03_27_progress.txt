@@ -4,11 +4,11 @@ what : 初步绘制大盘的k线图。
 problem: 图表绘制工作进行得比较缓慢。
 todo : 进一步研究k线图的绘制。
 
-who :
-when :
-what :
-problem:
-todo :
+who :周梦佳
+when :2016-03-27
+what :绘制折线图。
+problem:进度太缓慢，感觉花的时间不多。
+todo :完成所有的折线图的绘制，研究交互。
 
 who :
 when :
