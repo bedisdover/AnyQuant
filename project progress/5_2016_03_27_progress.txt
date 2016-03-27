@@ -1,0 +1,23 @@
+who : 章承尧
+when : 2016-03-27
+what : 初步绘制大盘的k线图。
+problem: 图表绘制工作进行得比较缓慢。
+todo : 进一步研究k线图的绘制。
+
+who :
+when :
+what :
+problem:
+todo :
+
+who :
+when :
+what :
+problem:
+todo :
+
+who :
+when :
+what :
+problem:
+todo :
