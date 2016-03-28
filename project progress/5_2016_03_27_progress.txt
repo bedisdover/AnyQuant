@@ -16,8 +16,8 @@ what :初步绘制大盘的k线图。
 problem:图表绘制工作还有许多要研究的地方。
 todo :研究K线图的交互。
 
-who :
-when :
-what :
-problem:
-todo :
+who : 宋益明
+when : 2016-03-27
+what :重新组织界面
+problem:电脑重装了n次系统，每次都是第一时间下git和idea，但还是浪费了太多时间
+todo :分析数据，组织界面
