@@ -69,6 +69,14 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
         timeSeriesCollection.addSeries(series2);
 
+        TimeSeries seriesPMA5 = new TimeSeries("");
+        for(int i=num-1;i>=num-90;i--){
+            String[] days = indexVO.getDate()[i].split("-");
+            seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getClose()[i]);
+        }
+        TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();
+        timeSeriesCollectionPMA5.addSeries(seriesPMA5);
+
         // 获取K线数据的最高值和最低值
         int seriesCount = seriesCollection.getSeriesCount();// 一共有多少个序列，目前为一个
         for (int i = 0; i < seriesCount; i++) {
