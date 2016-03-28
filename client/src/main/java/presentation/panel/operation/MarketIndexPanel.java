@@ -1,12 +1,16 @@
 package presentation.panel.operation;
 
-import bl.ShowIndexData;
+import presentation.UltraSwing.UltraButton;
+import presentation.frame.MainFrame;
+import presentation.panel.info.IndexInfoPanel;
 import presentation.util.DateChooser;
-import vo.IndexVO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -15,72 +19,57 @@ import java.io.IOException;
  */
 public class MarketIndexPanel extends OperationPanel {
 
-    private DateChooser dateChooser;
+    /**
+     * 显示详细数据按钮
+     */
+    private UltraButton btnData;
+
+    /**
+     * 图表面板
+     */
+    private JPanel chartPanel;
 
     public MarketIndexPanel() {
         init();
         createUIComponents();
-//        addListeners();
+        addListeners();
     }
 
     protected void init() {
-
         this.setLayout(null);
     }
 
     protected void createUIComponents() {
-//        dateChooser=new DateChooser(this,MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
-        IndexVO index = null;
-        try {
-            index = new ShowIndexData().getLatestIndexData();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(MarketIndexPanel.this,"请检查网络连接！");
-        }
-        createTable(index);
+        chartPanel = new JPanel();
+        btnData = new UltraButton("详细数据");
+
+        add(chartPanel);
+        add(btnData);
     }
 
-//    private void addListeners() {
-//        addComponentListener(new ComponentAdapter() {
-//            @Override
-//            public void componentResized(ComponentEvent e) {
-//                int tableHeight = Math.min((data.length + 1) * table.getRowHeight()
-//                                + scrollPane.getHorizontalScrollBar().getHeight(),
-//                        PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT);
-//                int tableWidth = Math.min(table.getColumnModel().getTotalColumnWidth()
-//                                + scrollPane.getVerticalScrollBar().getWidth(),
-//                        PANEL_WIDTH - MARGIN * 2);
-//
-//                if (tableWidth == PANEL_WIDTH - MARGIN * 2) {
-//                    scrollPane.setBounds(MARGIN, MARGIN + PADDING, PANEL_WIDTH - 2 * MARGIN, tableHeight);
-//                } else {
-//
-//                }
-//            }
-//        });
+    /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
+                        BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+                chartPanel.setBounds(0, MARGIN + BUTTON_HEIGHT,
+                        PANEL_WIDTH, PANEL_HEIGHT - MARGIN - BUTTON_HEIGHT);
+            }
+        });
 
-
-//        /**
-//         * todo
-//         */
-//        search.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                String text=searchInput.getText();
-//                Date date=dateChooser.getDate();
-//
-//            }
-//        });
-//        /**
-//         * todo
-//         */
-//        more.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                String text=searchInput.getText();
-//                Date date=dateChooser.getDate();
-//
-//            }
-//        });
-//    }
+        btnData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(new IndexInfoPanel(MarketIndexPanel.this));
+            }
+        });
+    }
 
     @Override
     public void paint(Graphics g) {

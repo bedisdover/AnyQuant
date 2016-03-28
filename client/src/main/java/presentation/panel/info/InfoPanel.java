@@ -1,14 +1,11 @@
 package presentation.panel.info;
 
-import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
-import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-8.
@@ -41,19 +38,22 @@ public abstract class InfoPanel extends OperationPanel {
      */
     private StockPO stock;
 
-    protected InfoPanel(JPanel parent, String stockID) throws IOException {
-        this(parent, new GetStockData().getStockData_name(stockID));
+    InfoPanel(JPanel parent) {
+        this.parent = parent;
+        this.stock = null;
+
+        init();
+        createUIComponents();
+        addListeners();
     }
 
-    protected InfoPanel(JPanel parent, StockPO stock) {
+    InfoPanel(JPanel parent, StockPO stock) {
         this.parent = parent;
         this.stock = stock;
 
         init();
         createUIComponents();
         addListeners();
-
-        displayInfo(stock);
     }
 
     protected void init() {
@@ -105,13 +105,5 @@ public abstract class InfoPanel extends OperationPanel {
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         repaint();
-    }
-
-    protected void displayInfo(StockPO stock) {
-        try {
-            createTable(new StockVO(stock));
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(InfoPanel.this,"请检查网络连接！");
-        }
     }
 }

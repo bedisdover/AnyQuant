@@ -3,6 +3,7 @@ package presentation.panel.info;
 import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
 import po.StockPO;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.event.ComponentAdapter;
@@ -25,17 +26,16 @@ public class StockInfoPanel extends InfoPanel {
      */
     private JButton follow;
 
+    /**
+     * 股票ID
+     */
     private String stockID;
-
-    public StockInfoPanel(JPanel parent, String stockID) throws IOException {
-        super(parent, stockID);
-
-        this.stockID = stockID;
-    }
 
     public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
         this.stockID = stock.getId();
+
+        displayInfo(stock);
     }
 
     @Override
@@ -67,6 +67,14 @@ public class StockInfoPanel extends InfoPanel {
         });
     }
 
+    private void displayInfo(StockPO stock) {
+        try {
+            createTable(new StockVO(stock));
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
+        }
+    }
+
     /**
      * 关注股票
      *
@@ -77,9 +85,9 @@ public class StockInfoPanel extends InfoPanel {
 
         try {
             boolean exist = selfSelect.addStock(name);
-            if(exist) {
+            if (exist) {
                 JOptionPane.showMessageDialog(this, "添加成功!");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "您添加的股票已在关注列表中");
             }
         } catch (IOException e) {
