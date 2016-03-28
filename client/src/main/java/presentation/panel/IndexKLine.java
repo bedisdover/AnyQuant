@@ -3,6 +3,7 @@ package presentation.panel;
 import bl.ShowIndexData;
 import data.GetIndexData;
 import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
@@ -28,7 +29,13 @@ import java.util.GregorianCalendar;
  * Created by user on 2016/3/26.
  */
 public class IndexKLine {
-    public static void main(String[] args) {
+    ChartPanel chartPanel;
+
+    public IndexKLine(){
+        createChart();
+    }
+
+    public  void createChart() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
         double highValue = Double.MIN_VALUE;// 设置K线数据当中的最大值
         double minValue = Double.MAX_VALUE;// 设置K线数据当中的最小值
@@ -105,7 +112,7 @@ public class IndexKLine {
             Date date1 = c.getTime();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String d = simpleDateFormat.format(date1);
-            System.out.println(d);
+
             x1Axis.setRange(dateFormat.parse(indexVO.getDate()[num-90]),dateFormat.parse(d));// 设置时间范围，注意时间的最大值要比已有的时间最大值要多一天
         }catch(Exception e){
             e.printStackTrace();
@@ -142,8 +149,20 @@ public class IndexKLine {
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(10);// 设置两个图形区域对象之间的间隔空间
         JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
-        ChartFrame frame = new ChartFrame("沪深300", chart);
-        frame.pack();
-        frame.setVisible(true);
+        chartPanel = new ChartPanel(chart,true);
+//        ChartFrame frame = new ChartFrame("沪深300", chart);
+//        frame.pack();
+//        frame.setVisible(true);
+    }
+
+    public ChartPanel getChartPanel(){
+        return chartPanel;
+    }
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+        jFrame.add(new IndexKLine().getChartPanel());
+        jFrame.setBounds(50, 50, 1024, 768);
+        jFrame.setVisible(true);
+        IndexKLine g = new IndexKLine();
     }
 }
