@@ -1,8 +1,6 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
-import data.GetIndexData;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
@@ -29,10 +27,10 @@ import java.util.GregorianCalendar;
 /**
  * Created by user on 2016/3/26.
  */
-public class IndexKLine {
+public class IndexKLine_Daily {
     ChartPanel chartPanel;
 
-    public IndexKLine() throws IOException {
+    public IndexKLine_Daily() throws IOException {
         createChart();
     }
 
@@ -259,13 +257,14 @@ public class IndexKLine {
     public ChartPanel getChartPanel(){
         return chartPanel;
     }
+
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {
-            jFrame.add(new IndexKLine().getChartPanel());
+            jFrame.add(new IndexKLine_Daily().getChartPanel());
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
-            IndexKLine g = new IndexKLine();
+            IndexKLine_Daily g = new IndexKLine_Daily();
         } catch (IOException e) {
             e.printStackTrace();
         }
