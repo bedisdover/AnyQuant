@@ -10,6 +10,7 @@ import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -31,11 +32,11 @@ import java.util.GregorianCalendar;
 public class IndexKLine {
     ChartPanel chartPanel;
 
-    public IndexKLine(){
+    public IndexKLine() throws IOException {
         createChart();
     }
 
-    public  void createChart() {
+    public  void createChart() throws IOException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
         double highValue = Double.MIN_VALUE;// 设置K线数据当中的最大值
         double minValue = Double.MAX_VALUE;// 设置K线数据当中的最小值
@@ -44,14 +45,11 @@ public class IndexKLine {
         ShowIndexData getIndexData = new ShowIndexData();
         int num = 0;
         IndexVO indexVO = null;
-        try {
-            indexVO = getIndexData.getLatestIndexData();
-            num = indexVO.getDate().length;
-        } catch (IOException e) {
-//            JOptionPane.showMessageDialog(IndexKLine.this,"请检查网络连接！");
-            System.out.println("gg");
-        }
+
+        indexVO = getIndexData.getLatestIndexData();
+        num = indexVO.getDate().length;
         System.out.println(num);
+
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
         for(int i=num-1;i>=num-90;i--){
             String[] days = indexVO.getDate()[i].split("-");
@@ -65,7 +63,6 @@ public class IndexKLine {
             String[] days = indexVO.getDate()[i].split("-");
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
         }
-
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
         timeSeriesCollection.addSeries(series2);
 
@@ -74,7 +71,7 @@ public class IndexKLine {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getClose()[i]);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();
+        TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();//保留五日均线数据的集合
         timeSeriesCollectionPMA5.addSeries(seriesPMA5);
 
         // 获取K线数据的最高值和最低值
@@ -137,6 +134,12 @@ public class IndexKLine {
         y1Axis.setTickUnit(new NumberTickUnit((highValue*1.1-minValue*0.9)/10));// 设置刻度显示的密度
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
 
+        XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer.setSeriesPaint(0,Color.BLACK);
+        plot1.setDataset(1,timeSeriesCollectionPMA5);
+        plot1.setRenderer(1,xyLineAndShapeRenderer);//在第一块画布中加入五日均线
+
         XYBarRenderer xyBarRender=new XYBarRenderer(){
             private static final long serialVersionUID = 1L;// 为了避免出现警告消息，特设定此值
             public Paint getItemPaint(int i, int j){// 匿名内部类用来处理当日的成交量柱形图的颜色与K线图的颜色保持一致
@@ -168,9 +171,13 @@ public class IndexKLine {
     }
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
-        jFrame.add(new IndexKLine().getChartPanel());
-        jFrame.setBounds(50, 50, 1024, 768);
-        jFrame.setVisible(true);
-        IndexKLine g = new IndexKLine();
+        try {
+            jFrame.add(new IndexKLine().getChartPanel());
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
+            IndexKLine g = new IndexKLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
