@@ -66,7 +66,7 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
         timeSeriesCollection.addSeries(series2);
 
-        TimeSeries seriesPMA5 = new TimeSeries("");
+        TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
         for(int i=num-1;i>=num-90;i--){
             double pma5 = 0;
             for(int j=i;j>i-5;j--){
@@ -79,7 +79,7 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();//保留五日均线数据的集合
         timeSeriesCollectionPMA5.addSeries(seriesPMA5);
 
-        TimeSeries seriesPMA10 = new TimeSeries("");
+        TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
         for(int i=num-1;i>=num-90;i--){
             double pma10 = 0;
             for(int j=i;j>i-10;j--){
@@ -92,7 +92,7 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollectionPMA10 = new TimeSeriesCollection();//保留十日均线数据的集合
         timeSeriesCollectionPMA10.addSeries(seriesPMA10);
 
-        TimeSeries seriesPMA20 = new TimeSeries("");
+        TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
         for(int i=num-1;i>=num-90;i--){
             double pma20 = 0;
             for(int j=i;j>i-20;j--){
@@ -105,7 +105,7 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollectionPMA20 = new TimeSeriesCollection();//保留二十日均线数据的集合
         timeSeriesCollectionPMA20.addSeries(seriesPMA20);
 
-        TimeSeries seriesPMA30 = new TimeSeries("");
+        TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
         for(int i=num-1;i>=num-90;i--){
             double pma30 = 0;
             for(int j=i;j>i-30;j--){
@@ -118,7 +118,7 @@ public class IndexKLine {
         TimeSeriesCollection timeSeriesCollectionPMA30 = new TimeSeriesCollection();//保留三十日均线数据的集合
         timeSeriesCollectionPMA30.addSeries(seriesPMA30);
 
-        TimeSeries seriesPMA60 = new TimeSeries("");
+        TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
         for(int i=num-1;i>=num-90;i--){
             double pma60 = 0;
             for(int j=i;j>i-60;j--){
@@ -143,7 +143,6 @@ public class IndexKLine {
                     minValue = seriesCollection.getLowValue(i, j);
                 }
             }
-
         }
         // 获取最高值和最低值
         int seriesCount2 = timeSeriesCollection.getSeriesCount();// 一共有多少个序列，目前为一个
