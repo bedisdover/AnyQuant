@@ -68,11 +68,68 @@ public class IndexKLine {
 
         TimeSeries seriesPMA5 = new TimeSeries("");
         for(int i=num-1;i>=num-90;i--){
+            double pma5 = 0;
+            for(int j=i;j>i-5;j--){
+                pma5 += indexVO.getClose()[j];
+            }
+            pma5 /= 5;
             String[] days = indexVO.getDate()[i].split("-");
-            seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getClose()[i]);
+            seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma5);
         }
         TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();//保留五日均线数据的集合
         timeSeriesCollectionPMA5.addSeries(seriesPMA5);
+
+        TimeSeries seriesPMA10 = new TimeSeries("");
+        for(int i=num-1;i>=num-90;i--){
+            double pma10 = 0;
+            for(int j=i;j>i-10;j--){
+                pma10 += indexVO.getClose()[j];
+            }
+            pma10 /= 10;
+            String[] days = indexVO.getDate()[i].split("-");
+            seriesPMA10.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma10);
+        }
+        TimeSeriesCollection timeSeriesCollectionPMA10 = new TimeSeriesCollection();//保留十日均线数据的集合
+        timeSeriesCollectionPMA10.addSeries(seriesPMA10);
+
+        TimeSeries seriesPMA20 = new TimeSeries("");
+        for(int i=num-1;i>=num-90;i--){
+            double pma20 = 0;
+            for(int j=i;j>i-20;j--){
+                pma20 += indexVO.getClose()[j];
+            }
+            pma20 /= 20;
+            String[] days = indexVO.getDate()[i].split("-");
+            seriesPMA20.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma20);
+        }
+        TimeSeriesCollection timeSeriesCollectionPMA20 = new TimeSeriesCollection();//保留二十日均线数据的集合
+        timeSeriesCollectionPMA20.addSeries(seriesPMA20);
+
+        TimeSeries seriesPMA30 = new TimeSeries("");
+        for(int i=num-1;i>=num-90;i--){
+            double pma30 = 0;
+            for(int j=i;j>i-30;j--){
+                pma30 += indexVO.getClose()[j];
+            }
+            pma30 /= 30;
+            String[] days = indexVO.getDate()[i].split("-");
+            seriesPMA30.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma30);
+        }
+        TimeSeriesCollection timeSeriesCollectionPMA30 = new TimeSeriesCollection();//保留三十日均线数据的集合
+        timeSeriesCollectionPMA30.addSeries(seriesPMA30);
+
+        TimeSeries seriesPMA60 = new TimeSeries("");
+        for(int i=num-1;i>=num-90;i--){
+            double pma60 = 0;
+            for(int j=i;j>i-60;j--){
+                pma60 += indexVO.getClose()[j];
+            }
+            pma60 /= 60;
+            String[] days = indexVO.getDate()[i].split("-");
+            seriesPMA60.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma60);
+        }
+        TimeSeriesCollection timeSeriesCollectionPMA60 = new TimeSeriesCollection();//保留六十日均线数据的集合
+        timeSeriesCollectionPMA60.addSeries(seriesPMA60);
 
         // 获取K线数据的最高值和最低值
         int seriesCount = seriesCollection.getSeriesCount();// 一共有多少个序列，目前为一个
@@ -130,15 +187,49 @@ public class IndexKLine {
         x1Axis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         y1Axis.setAutoRange(false);// 不使用自动设定范围
-        y1Axis.setRange(minValue*0.9, highValue*1.1);// 设定y轴值的范围，比最低值要低一些，比最大值要大一些，这样图形看起来会美观些
-        y1Axis.setTickUnit(new NumberTickUnit((highValue*1.1-minValue*0.9)/10));// 设置刻度显示的密度
+        y1Axis.setRange(minValue*0.95, highValue*1.05);// 设定y轴值的范围，比最低值要低一些，比最大值要大一些，这样图形看起来会美观些
+        y1Axis.setTickUnit(new NumberTickUnit((highValue*1.05-minValue*0.95)/10));// 设置刻度显示的密度
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
 
         XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
         xyLineAndShapeRenderer.setBaseLinesVisible(true);
-        xyLineAndShapeRenderer.setSeriesPaint(0,Color.BLACK);
+        xyLineAndShapeRenderer.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer.setSeriesPaint(0,Color.ORANGE);
+        xyLineAndShapeRenderer.setSeriesStroke(0,new BasicStroke(2.0f));
         plot1.setDataset(1,timeSeriesCollectionPMA5);
         plot1.setRenderer(1,xyLineAndShapeRenderer);//在第一块画布中加入五日均线
+
+        XYLineAndShapeRenderer xyLineAndShapeRenderer1 = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer1.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer1.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer1.setSeriesPaint(0,Color.MAGENTA);
+        xyLineAndShapeRenderer1.setSeriesStroke(0,new BasicStroke(2.0f));
+        plot1.setDataset(2,timeSeriesCollectionPMA10);
+        plot1.setRenderer(2,xyLineAndShapeRenderer1);//在第一块画布中加入十日均线
+
+        XYLineAndShapeRenderer xyLineAndShapeRenderer2 = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer2.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer2.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer2.setSeriesPaint(0,Color.CYAN);
+        xyLineAndShapeRenderer2.setSeriesStroke(0,new BasicStroke(2.0f));
+        plot1.setDataset(3,timeSeriesCollectionPMA20);
+        plot1.setRenderer(3,xyLineAndShapeRenderer2);//在第一块画布中加入二十日均线
+
+        XYLineAndShapeRenderer xyLineAndShapeRenderer3 = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer3.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer3.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer3.setSeriesPaint(0,Color.GREEN);
+        xyLineAndShapeRenderer3.setSeriesStroke(0,new BasicStroke(2.0f));
+        plot1.setDataset(4,timeSeriesCollectionPMA30);
+        plot1.setRenderer(4,xyLineAndShapeRenderer3);//在第一块画布中加入三十日均线
+
+        XYLineAndShapeRenderer xyLineAndShapeRenderer4 = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer4.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer4.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer4.setSeriesPaint(0,Color.BLUE);
+        xyLineAndShapeRenderer4.setSeriesStroke(0,new BasicStroke(2.0f));
+        plot1.setDataset(5,timeSeriesCollectionPMA60);
+        plot1.setRenderer(5,xyLineAndShapeRenderer4);//在第一块画布中加入六十日均线
 
         XYBarRenderer xyBarRender=new XYBarRenderer(){
             private static final long serialVersionUID = 1L;// 为了避免出现警告消息，特设定此值
