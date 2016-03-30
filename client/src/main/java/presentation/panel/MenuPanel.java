@@ -274,7 +274,7 @@ public class MenuPanel extends JPanel {
      * 检查网络连接
      */
     private void netConnect() {
-        Thread thread = new Thread(){
+        Thread thread = new Thread() {
             @Override
             public void run() {
                 try {

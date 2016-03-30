@@ -3,6 +3,8 @@ package presentation.panel.info;
 import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
 import po.StockPO;
+import presentation.UltraSwing.UltraButton;
+import presentation.frame.MainFrame;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -24,7 +26,17 @@ public class StockInfoPanel extends InfoPanel {
     /**
      * 关注按钮
      */
-    private JButton follow;
+    private JButton btnFollow;
+
+    /**
+     * 详细数据按钮
+     */
+    private UltraButton btnInfo;
+
+    /**
+     * 股票持久化对象
+     */
+    private StockPO stock;
 
     /**
      * 股票ID
@@ -33,18 +45,19 @@ public class StockInfoPanel extends InfoPanel {
 
     public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
+        this.stock = stock;
         this.stockID = stock.getId();
-
-        displayInfo(stock);
     }
 
     @Override
     protected void createUIComponents() {
         super.createUIComponents();
 
-        follow = new JButton("关注");
+        btnFollow = new JButton("关注");
+        btnInfo = new UltraButton("详细数据");
 
-        add(follow);
+        add(btnFollow);
+        add(btnInfo);
     }
 
     @Override
@@ -54,25 +67,27 @@ public class StockInfoPanel extends InfoPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+                btnFollow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
                         MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
+                        BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
             }
         });
 
-        follow.addMouseListener(new MouseAdapter() {
+        btnFollow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 follow(stockID);
             }
         });
-    }
 
-    private void displayInfo(StockPO stock) {
-        try {
-            createTable(new StockVO(stock));
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
-        }
+        btnInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(
+                        new DataPanel(StockInfoPanel.this, stock));
+            }
+        });
     }
 
     /**
@@ -92,6 +107,53 @@ public class StockInfoPanel extends InfoPanel {
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "呀!出错啦...");
+        }
+    }
+
+    /**
+     * 股票详细数据面板
+     */
+    class DataPanel extends InfoPanel {
+
+        /**
+         * 关注按钮
+         * 无法直接复用StockInfoPanel中的关注按钮
+         * 只能再重新写一遍了。。。。。
+         */
+        private JButton follow;
+
+        DataPanel(JPanel parent, StockPO stock) {
+            super(parent);
+
+            follow = new JButton("关注");
+            add(follow);
+
+            displayInfo(stock);
+
+            super.addListeners();
+
+            follow.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    follow(stockID);
+                }
+            });
+
+            addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+                            MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+                }
+            });
+        }
+
+        private void displayInfo(StockPO stock) {
+            try {
+                createTable(new StockVO(stock));
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
+            }
         }
     }
 }

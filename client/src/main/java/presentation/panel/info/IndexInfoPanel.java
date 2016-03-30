@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-28.
- *
+ * <p>
  * 大盘指数面板
  * 用于展示大盘指数的详细信息
  */
@@ -25,7 +25,7 @@ public class IndexInfoPanel extends InfoPanel {
         try {
             index = new ShowIndexData().getLatestIndexData();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(IndexInfoPanel.this,"请检查网络连接！");
+            JOptionPane.showMessageDialog(IndexInfoPanel.this, "请检查网络连接！");
         }
         createTable(index);
     }
