@@ -2,6 +2,7 @@ package presentation.panel.operation;
 
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
+import presentation.graphs.LineChartMarketIndex;
 import presentation.panel.info.IndexInfoPanel;
 import presentation.util.DateChooser;
 
@@ -11,6 +12,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -42,7 +44,11 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
-        chartPanel = new JPanel();
+        try {
+            chartPanel = new LineChartMarketIndex().getChartPanel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         btnData = new UltraButton("详细数据");
 
         add(chartPanel);
@@ -58,8 +64,8 @@ public class MarketIndexPanel extends OperationPanel {
             public void componentResized(ComponentEvent e) {
                 btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
                         BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-                chartPanel.setBounds(0, MARGIN + BUTTON_HEIGHT,
-                        PANEL_WIDTH, PANEL_HEIGHT - MARGIN - BUTTON_HEIGHT);
+                chartPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING,
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
             }
         });
 

@@ -5,21 +5,20 @@ package presentation.graphs;
  */
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-
-import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.LegendTitle;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.data.time.*;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import vo.IndexVO;
 
@@ -71,7 +70,7 @@ public class LineChartMarketIndex {
         // 设置网格横线颜色
         plot.setRangeGridlinePaint(Color.pink);
         //设置日期显示格式
-        DateAxis dateaxiss=(DateAxis)plot.getDomainAxis();
+        DateAxis dateaxiss = (DateAxis) plot.getDomainAxis();
         SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
     }
 
@@ -111,9 +110,8 @@ public class LineChartMarketIndex {
         JFrame jFrame = new JFrame();
         jFrame.add(new LineChartMarketIndex().getChartPanel());
         jFrame.setBounds(50, 50, 800, 600);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         LineChartMarketIndex g = new LineChartMarketIndex();
     }
-
-
 }
