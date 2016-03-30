@@ -56,18 +56,22 @@ public class Table extends JTable {
         }
         // TODO 行宽
         setRowHeight(30);
+
         //无法修改表头大小
         getTableHeader().setResizingAllowed(false);
         //无法拖动表头
         getTableHeader().setReorderingAllowed(false);
         //取消自动调整大小
+        //设置每列的宽度
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        //设置table表头居中
-        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-        tcr.setHorizontalAlignment(SwingConstants.CENTER);
-        getTableHeader().setDefaultRenderer(tcr);
-        //设置table内容居中
-        setDefaultRenderer(Object.class, tcr);
+        {
+            //设置table表头居中
+            DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+            tcr.setHorizontalAlignment(SwingConstants.CENTER);
+            getTableHeader().setDefaultRenderer(tcr);
+            //设置table内容居中
+            setDefaultRenderer(Object.class, tcr);
+        }
         //设置table内容不可编辑
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             public Class<?> getColumnClass(int column) {

@@ -47,7 +47,7 @@ public class MarketIndexPanel extends OperationPanel {
         try {
             chartPanel = new LineChartMarketIndex().getChartPanel();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接!");
         }
         btnData = new UltraButton("详细数据");
 
