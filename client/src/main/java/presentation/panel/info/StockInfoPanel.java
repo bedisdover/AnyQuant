@@ -5,6 +5,7 @@ import blservice.SelfSelectStockService;
 import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
+import presentation.panel.IndexKLine_Daily;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -34,6 +35,11 @@ public class StockInfoPanel extends InfoPanel {
     private UltraButton btnInfo;
 
     /**
+     * k-线图面板
+     */
+    private JPanel k_line;
+
+    /**
      * 股票持久化对象
      */
     private StockPO stock;
@@ -56,8 +62,15 @@ public class StockInfoPanel extends InfoPanel {
         btnFollow = new JButton("关注");
         btnInfo = new UltraButton("详细数据");
 
+        try {
+            k_line = new IndexKLine_Daily().getChartPanel();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+        }
+
         add(btnFollow);
         add(btnInfo);
+        add(k_line);
     }
 
     @Override
@@ -71,6 +84,9 @@ public class StockInfoPanel extends InfoPanel {
                         MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
                         BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
+                //TODO 位置
+                k_line.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING,
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getY() - MARGIN);
             }
         });
 
