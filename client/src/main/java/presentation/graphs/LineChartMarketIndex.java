@@ -30,7 +30,7 @@ import java.awt.geom.Arc2D;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
-public class LineChartMarketIndex  {
+public class LineChartMarketIndex extends LineChartParent {
    public static  LineChartParent lineChartParent;
 public LineChartMarketIndex(){
     String name[]={"日期","成交量","大盘指数"};

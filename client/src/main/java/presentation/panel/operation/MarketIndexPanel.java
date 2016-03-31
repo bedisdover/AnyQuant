@@ -44,11 +44,7 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
-        try {
-            chartPanel = new LineChartMarketIndex().getChartPanel();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接!");
-        }
+        chartPanel = new LineChartMarketIndex().getChartPanel();
         btnData = new UltraButton("详细数据");
 
         add(chartPanel);
