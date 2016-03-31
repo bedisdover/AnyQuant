@@ -86,7 +86,7 @@ public class StockInfoPanel extends InfoPanel {
                         BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
                 //TODO 位置
                 k_line.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING,
-                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getY() - MARGIN);
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - BUTTON_HEIGHT - PADDING - MARGIN * 2);
             }
         });
 

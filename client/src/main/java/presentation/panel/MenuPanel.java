@@ -219,28 +219,44 @@ public class MenuPanel extends JPanel {
         btnPortfolio.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getMainFrame().addOperationPanel(new PortfolioPanel());
+                if (netState) {
+                    getMainFrame().addOperationPanel(new PortfolioPanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
             }
         });
 
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getMainFrame().addOperationPanel(new PicturePanel());
+                if (netState) {
+                    getMainFrame().addOperationPanel(new PicturePanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
             }
         });
 
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getMainFrame().addOperationPanel(new MarketIndexPanel());
+                if (netState) {
+                    getMainFrame().addOperationPanel(new MarketIndexPanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
             }
         });
 
         btnHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                getMainFrame().addOperationPanel(new HistoryPanel());
+                if (netState) {
+                    getMainFrame().addOperationPanel(new HistoryPanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
             }
         });
 
