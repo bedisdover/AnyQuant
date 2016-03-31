@@ -1,6 +1,7 @@
 package presentation.panel.info;
 
 import bl.ShowIndexData;
+import presentation.util.Table;
 import vo.IndexVO;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class IndexDataPanel extends DataPanel {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(IndexDataPanel.this, "请检查网络连接！");
         }
-        createTable(index);
+       createTable(index);
+
     }
 }
