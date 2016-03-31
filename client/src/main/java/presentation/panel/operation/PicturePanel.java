@@ -8,7 +8,7 @@ import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
-import presentation.panel.info.StockDataPanel;
+import presentation.panel.info.StockInfoPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 import vo.StockVO;
@@ -251,7 +251,7 @@ public class PicturePanel extends OperationPanel {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
-        MainFrame.getMainFrame().addOperationPanel(new StockDataPanel(this, stock));
+        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
 
     }
 

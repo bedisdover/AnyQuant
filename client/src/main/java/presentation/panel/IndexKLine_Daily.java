@@ -19,6 +19,7 @@ import vo.IndexVO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -161,8 +162,10 @@ public class IndexKLine_Daily {
         candlestickRender.setAutoWidthGap(0.001);// 设置各个K线图之间的间隔
         candlestickRender.setUpPaint(Color.RED);// 设置股票上涨的K线图颜色
         candlestickRender.setDownPaint(Color.GREEN);// 设置股票下跌的K线图颜色
+
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
         x1Axis.setAutoRange(false);// 设置不采用自动设置时间范围
+
         try{
             Calendar c = new GregorianCalendar();
             String[] time = indexVO.getDate()[num-1].split("-");
@@ -180,12 +183,15 @@ public class IndexKLine_Daily {
         x1Axis.setAutoTickUnitSelection(false);// 设置不采用自动选择刻度值
         x1Axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);// 设置标记的位置
         x1Axis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
-        x1Axis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,7));// 设置时间刻度的间隔，一般以周为单位
+        x1Axis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,7));// 设置时间刻度的间隔，一般以周为单位
         x1Axis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
+        x1Axis.setVisible(true);
+
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         y1Axis.setAutoRange(false);// 不使用自动设定范围
         y1Axis.setRange(minValue*0.95, highValue*1.05);// 设定y轴值的范围，比最低值要低一些，比最大值要大一些，这样图形看起来会美观些
         y1Axis.setTickUnit(new NumberTickUnit((highValue*1.05-minValue*0.95)/10));// 设置刻度显示的密度
+
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
 
         XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
@@ -246,7 +252,7 @@ public class IndexKLine_Daily {
         CombinedDomainXYPlot combineddomainxyplot = new CombinedDomainXYPlot(x1Axis);// 建立一个恰当的联合图形区域对象，以x轴为共享轴
         combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
-        combineddomainxyplot.setGap(10);// 设置两个图形区域对象之间的间隔空间
+        combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
         JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
         chartPanel = new ChartPanel(chart,true);
 //        ChartFrame frame = new ChartFrame("沪深300", chart);

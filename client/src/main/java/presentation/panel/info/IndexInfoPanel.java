@@ -13,9 +13,9 @@ import java.io.IOException;
  * 大盘指数面板
  * 用于展示大盘指数的详细数据
  */
-public class IndexDataPanel extends DataPanel {
+public class IndexInfoPanel extends InfoPanel {
 
-    public IndexDataPanel(JPanel parent) {
+    public IndexInfoPanel(JPanel parent) {
         super(parent);
 
         showData();
@@ -26,7 +26,7 @@ public class IndexDataPanel extends DataPanel {
         try {
             index = new ShowIndexData().getLatestIndexData();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(IndexDataPanel.this, "请检查网络连接！");
+            JOptionPane.showMessageDialog(IndexInfoPanel.this, "请检查网络连接！");
         }
        createTable(index);
 
