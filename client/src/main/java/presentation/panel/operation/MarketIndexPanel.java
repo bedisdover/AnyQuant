@@ -3,7 +3,7 @@ package presentation.panel.operation;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
 import presentation.graphs.LineChartMarketIndex;
-import presentation.panel.info.IndexInfoPanel;
+import presentation.panel.info.IndexDataPanel;
 import presentation.util.DateChooser;
 
 import javax.swing.*;
@@ -72,7 +72,7 @@ public class MarketIndexPanel extends OperationPanel {
         btnData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new IndexInfoPanel(MarketIndexPanel.this));
+                MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel(MarketIndexPanel.this));
             }
         });
     }

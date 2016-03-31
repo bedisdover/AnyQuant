@@ -5,7 +5,7 @@ import bl.SelfSelectStock;
 import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
-import presentation.panel.info.StockInfoPanel;
+import presentation.panel.info.StockDataPanel;
 import presentation.util.Table;
 import vo.StockVO;
 
@@ -95,7 +95,7 @@ public class PortfolioPanel extends OperationPanel {
             JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
         }
 
-        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
+        MainFrame.getMainFrame().addOperationPanel(new StockDataPanel(this, stock));
     }
 
     private void addListeners() {

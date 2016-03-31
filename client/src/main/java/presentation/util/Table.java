@@ -3,7 +3,7 @@ package presentation.util;
 import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
-import presentation.panel.info.StockInfoPanel;
+import presentation.panel.info.StockDataPanel;
 
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -110,7 +110,7 @@ public class Table extends JTable {
                     }
 
                     if (parent != null) {
-                        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+                        MainFrame.getMainFrame().addOperationPanel(new StockDataPanel(parent, stock));
                     }
                 }
             }

@@ -15,7 +15,7 @@ import java.awt.event.*;
  * 以无表头表格展示详细信息
  * 以图标展示变化情况
  */
-public abstract class InfoPanel extends OperationPanel {
+public abstract class DataPanel extends OperationPanel {
     /**
      * 父面板(前一个面板)
      */
@@ -38,7 +38,7 @@ public abstract class InfoPanel extends OperationPanel {
      */
     private StockPO stock;
 
-    InfoPanel(JPanel parent) {
+    DataPanel(JPanel parent) {
         this.parent = parent;
         this.stock = null;
 
@@ -47,7 +47,7 @@ public abstract class InfoPanel extends OperationPanel {
         addListeners();
     }
 
-    InfoPanel(JPanel parent, StockPO stock) {
+    DataPanel(JPanel parent, StockPO stock) {
         this.parent = parent;
         this.stock = stock;
 
