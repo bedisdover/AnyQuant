@@ -7,7 +7,6 @@ package presentation.graphs;
 import bl.ShowIndexData;
 import org.jfree.chart.ChartPanel;
 import vo.IndexVO;
-
 import javax.swing.*;
 import java.io.IOException;
 
@@ -30,22 +29,9 @@ public  LineChartMarketIndex(){
     } catch (IOException e) {
         e.printStackTrace();
     }
-
-
 }
-
     public ChartPanel getChartPanel() {
         return lineChartParent.getChartPanel();
     }
 
-
-
-
-    public static void main(String[] args) throws IOException {
-        JFrame jFrame = new JFrame();
-        jFrame.add(new LineChartMarketIndex().getChartPanel());
-        jFrame.setBounds(50, 50, 800, 600);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setVisible(true);
-    }
 }
