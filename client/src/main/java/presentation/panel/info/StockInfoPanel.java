@@ -22,7 +22,7 @@ import java.io.IOException;
  * 通过表格展现股票的所有信息
  * 通过图表展示数据变化情况
  */
-public class StockDataPanel extends DataPanel {
+public class StockInfoPanel extends InfoPanel {
 
     /**
      * 关注按钮
@@ -49,7 +49,7 @@ public class StockDataPanel extends DataPanel {
      */
     private String stockID;
 
-    public StockDataPanel(JPanel parent, StockPO stock) {
+    public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
         this.stock = stock;
         this.stockID = stock.getId();
@@ -101,7 +101,7 @@ public class StockDataPanel extends DataPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new DetailedDataPanel(StockDataPanel.this, stock));
+                        new DetailedInfoPanel(StockInfoPanel.this, stock));
             }
         });
     }
@@ -129,7 +129,7 @@ public class StockDataPanel extends DataPanel {
     /**
      * 股票详细数据面板
      */
-    class DetailedDataPanel extends DataPanel {
+    class DetailedInfoPanel extends InfoPanel {
 
         /**
          * 关注按钮
@@ -138,7 +138,7 @@ public class StockDataPanel extends DataPanel {
          */
         private JButton follow;
 
-        DetailedDataPanel(JPanel parent, StockPO stock) {
+        DetailedInfoPanel(JPanel parent, StockPO stock) {
             super(parent);
 
             follow = new JButton("关注");
@@ -168,7 +168,7 @@ public class StockDataPanel extends DataPanel {
             try {
                 createTable(new StockVO(stock));
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(StockDataPanel.this, "请检查网络连接！");
+                JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
             }
         }
     }
