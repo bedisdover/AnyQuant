@@ -21,7 +21,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import presentation.frame.MainFrame;
-import presentation.panel.info.IndexDataPanel;
+import presentation.panel.info.IndexInfoPanel;
 import vo.IndexVO;
 
 import javax.swing.*;

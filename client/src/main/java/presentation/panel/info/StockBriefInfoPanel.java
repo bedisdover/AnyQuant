@@ -60,6 +60,10 @@ public class StockBriefInfoPanel extends JPanel {
 
     public StockBriefInfoPanel(StockVO stock) {
         this.stock = stock;
+
+        init();
+        createUIComponents();
+        setText();
     }
 
     /**
@@ -72,10 +76,12 @@ public class StockBriefInfoPanel extends JPanel {
     }
 
     /**
-     * 创建组建
+     * 创建组件
      */
     private void createUIComponents() {
         StockNamePanel namePanel = new StockNamePanel(stock.getName(), stock.getId());
+        namePanel.setBounds(0, 0, 100, 100);
+
         labelPrice = new JLabel();
         labelIncrease = new JLabel();
         labelOpen = new JLabel();
@@ -84,9 +90,6 @@ public class StockBriefInfoPanel extends JPanel {
         labelLow = new JLabel();
         labelVolume = new JLabel();
         labelNumber = new JLabel();
-
-
-        namePanel.setBounds(0, 0, 100, 100);
 
         add(namePanel);
     }
@@ -111,8 +114,22 @@ public class StockBriefInfoPanel extends JPanel {
         labelNumber.setText("成交额：" + stock.getTurnover()[0] + "");
 
         if (stock.getIncrease_decreaseNum() > 0) {
-            //TODO Color
+            setTextColor(Color.red);
+        } else if (stock.getIncrease_decreaseNum() < 0) {
+            setTextColor(Color.green);
+        } else {
+            setTextColor(Color.black);
         }
+    }
+
+    /**
+     * 设置文本颜色
+     *
+     * @param color 颜色
+     */
+    private void setTextColor(Color color) {
+        labelPrice.setForeground(color);
+        labelIncrease.setForeground(color);
     }
 }
 

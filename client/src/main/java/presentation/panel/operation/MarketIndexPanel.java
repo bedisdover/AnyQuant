@@ -12,7 +12,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -44,11 +43,7 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
-        try {
-            chartPanel = new LineChartMarketIndex().getChartPanel();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接!");
-        }
+        chartPanel = new LineChartMarketIndex().getChartPanel();
         btnData = new UltraButton("详细数据");
 
         add(chartPanel);
