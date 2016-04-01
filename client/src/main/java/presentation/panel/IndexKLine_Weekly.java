@@ -2,6 +2,10 @@ package presentation.panel;
 
 import bl.ShowIndexData;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -80,6 +84,18 @@ public class IndexKLine_Weekly {
                 }
             }
         }
+
+        final CandlestickRenderer candlestickRender=new CandlestickRenderer();// 设置K线图的画图器，必须申明为final，后面要在匿名内部类里面用到
+        drawKLineHelper.setCandlestickRenderer(candlestickRender);
+
+        DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
+        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-180],getLatestFriday());
+
+        NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
+        drawKLineHelper.setYAxis(y1Axis,minValue*0.95,highValue*1.05);
+
+        XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
+        drawKLineHelper.setXYPlot();
     }
     private String getLatestFriday(){
         Calendar calendar = Calendar.getInstance();

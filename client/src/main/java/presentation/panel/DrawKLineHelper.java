@@ -1,18 +1,32 @@
 package presentation.panel;
 
-import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.*;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import vo.IndexVO;
 
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by user on 2016/4/1.
  */
 public class DrawKLineHelper {
+    TimeSeriesCollection timeSeriesCollectionPMA5;
+    TimeSeriesCollection timeSeriesCollectionPMA10;
+    TimeSeriesCollection timeSeriesCollectionPMA20;
+    TimeSeriesCollection timeSeriesCollectionPMA30;
+    TimeSeriesCollection timeSeriesCollectionPMA60;
+
+    public DrawKLineHelper(){
+        timeSeriesCollectionPMA5 = new TimeSeriesCollection();
+        timeSeriesCollectionPMA10 = new TimeSeriesCollection();
+    }
     public void addPMA(IndexVO indexVO){
         int num = indexVO.getDate().length;
         TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
@@ -89,7 +103,38 @@ public class DrawKLineHelper {
         candlestickRenderer.setDownPaint(Color.GREEN);// 设置股票下跌的K线图颜色
     }
 
-    public void setXAxis(DateAxis dateAxis){
-
+    public void setXAxis(DateAxis dateAxis,String date1,String date2){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateAxis.setAutoRange(false);
+        try {
+            dateAxis.setRange(simpleDateFormat.parse(date1),simpleDateFormat.parse(date2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dateAxis.setTimeline(SegmentedTimeline.newMondayThroughFridayTimeline());// 设置时间线显示的规则，用这个方法就摒除掉了周六和周日这些没有交易的日期(很多人都不知道有此方法)，使图形看上去连续
+        dateAxis.setAutoTickUnitSelection(false);// 设置不采用自动选择刻度值
+        dateAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);// 设置标记的位置
+        dateAxis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
+        dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,7));// 设置时间刻度的间隔，一般以周为单位
+        dateAxis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
+        dateAxis.setVisible(true);
     }
+
+    public void setYAxis(NumberAxis numberAxis,double min,double max){
+        numberAxis.setAutoRange(false);// 不使用自动设定范围
+        numberAxis.setRange(min, max);// 设定y轴值的范围，比最低值要低一些，比最大值要大一些，这样图形看起来会美观些
+        numberAxis.setTickUnit(new NumberTickUnit((max-min)/10));// 设置刻度显示的密度
+    }
+
+    public void setXYPlot(int i, XYPlot xyPlot,TimeSeriesCollection timeSeries){
+        XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
+        xyLineAndShapeRenderer.setBaseLinesVisible(true);
+        xyLineAndShapeRenderer.setBaseShapesVisible(false);
+        xyLineAndShapeRenderer.setSeriesPaint(0,Color.ORANGE);
+        xyLineAndShapeRenderer.setSeriesStroke(0,new BasicStroke(2.0f));
+        xyPlot.setDataset(i,timeSeries);
+        xyPlot.setRenderer(i,xyLineAndShapeRenderer);
+    }
+
+
 }
