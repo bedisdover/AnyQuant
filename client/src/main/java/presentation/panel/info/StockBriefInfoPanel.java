@@ -113,9 +113,9 @@ public class StockBriefInfoPanel extends JPanel {
         labelVolume.setText("成交量：" + stock.getVolume()[0] + "");
         labelNumber.setText("成交额：" + stock.getTurnover()[0] + "");
 
-        if (stock.getIncrease_decreaseNum() > 0) {
+        if (stock.getIncrease_decreaseNum()[0] > 0) {
             setTextColor(Color.red);
-        } else if (stock.getIncrease_decreaseNum() < 0) {
+        } else if (stock.getIncrease_decreaseNum()[0] < 0) {
             setTextColor(Color.green);
         } else {
             setTextColor(Color.black);

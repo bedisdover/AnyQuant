@@ -317,6 +317,8 @@ public class GetStockData implements GetStockDataService {
         double[] close = new double[interval];
         double[] open = new double[interval];
         double[] turnover = new double[interval];
+        double[] increase_decreaseRate = new double[interval];
+        double[] increase_decreaseNum = new double[interval];
         for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
@@ -329,6 +331,16 @@ public class GetStockData implements GetStockDataService {
             close[i] = Double.parseDouble(jsonObject.getString("close"));
             open[i] = Double.parseDouble(jsonObject.getString("open"));
             turnover[i] = Double.parseDouble(jsonObject.getString("turnover"));
+            if(i>=1){
+                if(i!=trading_info.length-1){
+                    increase_decreaseRate[i] = (close[i]-close[i-1])/close[i-1];
+                    increase_decreaseNum[i] = close[i]-close[i-1];
+                }
+                else{
+                    increase_decreaseRate[i] = getIncrease_decreaseRate(name);
+                    increase_decreaseNum[i] = getIncrease_decreaseNum(name);
+                }
+            }
         }
         stockPO.setId(name);
         stockPO.setVolume(volume);
@@ -341,6 +353,8 @@ public class GetStockData implements GetStockDataService {
         stockPO.setClose(close);
         stockPO.setOpen(open);
         stockPO.setTurnover(turnover);
+        stockPO.setIncrease_decreaseRate(increase_decreaseRate);
+        stockPO.setIncrease_decreaseNum(increase_decreaseNum);
         return stockPO;
     }
 

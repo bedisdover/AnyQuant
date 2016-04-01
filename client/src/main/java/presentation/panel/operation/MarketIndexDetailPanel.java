@@ -11,7 +11,6 @@ import java.io.IOException;
  * Created by pc on 2016/3/31.
  */
 public class MarketIndexDetailPanel extends JPanel {
-    MainFrame mainFrame;
     private JTabbedPane tabbedPane;
     private JPanel lineChartMarketIndex ;
     public MarketIndexDetailPanel() throws IOException{

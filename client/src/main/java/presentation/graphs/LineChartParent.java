@@ -1,6 +1,5 @@
 package presentation.graphs;
 
-import bl.ShowIndexData;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -16,12 +15,10 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import vo.IndexVO;
 
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 /**
  * Created by pc on 2016/3/31.
@@ -29,11 +26,11 @@ import java.util.ArrayList;
 public class LineChartParent {
     ChartPanel panel;
     TimeSeries timeSeries1 = new TimeSeries("", Day.class);
-    public LineChartParent(String name[],double x[],double y[]) throws IOException {
+    public LineChartParent(String name[],String x[],double y[]) throws IOException {
         createTimeSeriesChart(name,x,y);
     }
 
-    public void createTimeSeriesChart(String name[],double x[],double y[]) throws IOException {
+    public void createTimeSeriesChart(String name[],String x[],double y[]) throws IOException {
         JFreeChart timeSeriesChart = ChartFactory.createTimeSeriesChart("", name[0], name[1], createDataset(x,y), true, true, false);
         timeSeriesChart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = timeSeriesChart.getXYPlot();
@@ -72,18 +69,16 @@ public class LineChartParent {
         SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
     }
 
-    public XYDataset createDataset(double date[],double data[]) throws IOException {
+    public XYDataset createDataset(String date[],double data[]) throws IOException {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
 
         int length = date.length;
-        String dateString[]=new String[length];
 
         for (int i = 1; i <= length; i++) {
-       dateString[i]=date[i]+"";
-            int year = Integer.parseInt(dateString[length - i].substring(0, 4));
-            int month = Integer.parseInt(dateString[length - i].substring(5, 7));
-            int day = Integer.parseInt(dateString[length - i].substring(8, 10));
+            int year = Integer.parseInt(date[length - i].substring(0, 4));
+            int month = Integer.parseInt(date[length - i].substring(5, 7));
+            int day = Integer.parseInt(date[length - i].substring(8, 10));
             Day d = new Day(day, month, year);
             timeSeries1.add(d, data[length - i]);
 
