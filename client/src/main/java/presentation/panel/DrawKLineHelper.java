@@ -26,7 +26,11 @@ public class DrawKLineHelper {
     public DrawKLineHelper(){
         timeSeriesCollectionPMA5 = new TimeSeriesCollection();
         timeSeriesCollectionPMA10 = new TimeSeriesCollection();
+        timeSeriesCollectionPMA20 = new TimeSeriesCollection();
+        timeSeriesCollectionPMA30 = new TimeSeriesCollection();
+        timeSeriesCollectionPMA60 = new TimeSeriesCollection();
     }
+
     public void addPMA(IndexVO indexVO){
         int num = indexVO.getDate().length;
         TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
@@ -39,8 +43,8 @@ public class DrawKLineHelper {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma5);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA5 = new TimeSeriesCollection();//保留五日均线数据的集合
-        timeSeriesCollectionPMA5.addSeries(seriesPMA5);
+        timeSeriesCollectionPMA5.addSeries(seriesPMA5);//保留五日均线数据的集合
+
 
         TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
         for(int i=num-1;i>=num-90;i--){
@@ -52,8 +56,8 @@ public class DrawKLineHelper {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA10.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma10);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA10 = new TimeSeriesCollection();//保留十日均线数据的集合
-        timeSeriesCollectionPMA10.addSeries(seriesPMA10);
+        timeSeriesCollectionPMA10.addSeries(seriesPMA10);//保留十日均线数据的集合
+
 
         TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
         for(int i=num-1;i>=num-90;i--){
@@ -65,8 +69,8 @@ public class DrawKLineHelper {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA20.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma20);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA20 = new TimeSeriesCollection();//保留二十日均线数据的集合
-        timeSeriesCollectionPMA20.addSeries(seriesPMA20);
+        timeSeriesCollectionPMA20.addSeries(seriesPMA20);//保留二十日均线数据的集合
+
 
         TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
         for(int i=num-1;i>=num-90;i--){
@@ -78,8 +82,8 @@ public class DrawKLineHelper {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA30.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma30);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA30 = new TimeSeriesCollection();//保留三十日均线数据的集合
-        timeSeriesCollectionPMA30.addSeries(seriesPMA30);
+        timeSeriesCollectionPMA30.addSeries(seriesPMA30);//保留三十日均线数据的集合
+
 
         TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
         for(int i=num-1;i>=num-90;i--){
@@ -91,8 +95,8 @@ public class DrawKLineHelper {
             String[] days = indexVO.getDate()[i].split("-");
             seriesPMA60.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma60);
         }
-        TimeSeriesCollection timeSeriesCollectionPMA60 = new TimeSeriesCollection();//保留六十日均线数据的集合
-        timeSeriesCollectionPMA60.addSeries(seriesPMA60);
+        timeSeriesCollectionPMA60.addSeries(seriesPMA60);//保留六十日均线数据的集合
+
     }
 
     public void setCandlestickRenderer(CandlestickRenderer candlestickRenderer){
@@ -120,10 +124,16 @@ public class DrawKLineHelper {
         dateAxis.setVisible(true);
     }
 
-    public void setYAxis(NumberAxis numberAxis,double min,double max){
+    public void setY1Axis(NumberAxis numberAxis,double min,double max){
         numberAxis.setAutoRange(false);// 不使用自动设定范围
         numberAxis.setRange(min, max);// 设定y轴值的范围，比最低值要低一些，比最大值要大一些，这样图形看起来会美观些
         numberAxis.setTickUnit(new NumberTickUnit((max-min)/10));// 设置刻度显示的密度
+    }
+
+    public void setY2Axis(NumberAxis numberAxis,double min,double max){
+        numberAxis.setAutoRange(false);
+        numberAxis.setRange(min, max);
+        numberAxis.setTickUnit(new NumberTickUnit((max-min)/4));
     }
 
     public void setXYPlot(int i, XYPlot xyPlot,TimeSeriesCollection timeSeries){

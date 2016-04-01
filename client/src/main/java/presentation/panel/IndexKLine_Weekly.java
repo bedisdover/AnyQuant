@@ -2,10 +2,13 @@ package presentation.panel;
 
 import bl.ShowIndexData;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -13,6 +16,8 @@ import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 import vo.IndexVO;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,6 +46,8 @@ public class IndexKLine_Weekly {
         int num = 0;
         IndexVO indexVO = getIndexData.getLatestIndexData();
         num = indexVO.getDate().length;
+
+        drawKLineHelper.addPMA(indexVO);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
         for(int i=num-1;i>=num-90;i--){
@@ -85,6 +92,7 @@ public class IndexKLine_Weekly {
             }
         }
 
+
         final CandlestickRenderer candlestickRender=new CandlestickRenderer();// 设置K线图的画图器，必须申明为final，后面要在匿名内部类里面用到
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
@@ -92,11 +100,43 @@ public class IndexKLine_Weekly {
         drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-180],getLatestFriday());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
-        drawKLineHelper.setYAxis(y1Axis,minValue*0.95,highValue*1.05);
+        drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
 
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
-        drawKLineHelper.setXYPlot();
+        drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5);
+        drawKLineHelper.setXYPlot(2,plot1,drawKLineHelper.timeSeriesCollectionPMA10);
+        drawKLineHelper.setXYPlot(3,plot1,drawKLineHelper.timeSeriesCollectionPMA20);
+        drawKLineHelper.setXYPlot(4,plot1,drawKLineHelper.timeSeriesCollectionPMA30);
+        drawKLineHelper.setXYPlot(5,plot1,drawKLineHelper.timeSeriesCollectionPMA60);
+
+        XYBarRenderer xyBarRender=new XYBarRenderer(){
+            private static final long serialVersionUID = 1L;// 为了避免出现警告消息，特设定此值
+            public Paint getItemPaint(int i, int j){// 匿名内部类用来处理当日的成交量柱形图的颜色与K线图的颜色保持一致
+                if(seriesCollection.getCloseValue(i,j)>seriesCollection.getOpenValue(i,j)){// 收盘价高于开盘价，股票上涨，选用股票上涨的颜色
+                    return candlestickRender.getUpPaint();
+                }else{
+                    return candlestickRender.getDownPaint();
+                }
+            }};
+        xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
+
+        NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
+        drawKLineHelper.setY2Axis(y2Axis,minValue*0.9,highValue*1.1);
+
+        XYPlot plot2=new XYPlot(timeSeriesCollection,null,y2Axis,xyBarRender);// 建立第二个画图区域对象，主要此时的x轴设为了null值，因为要与第一个画图区域对象共享x轴
+        CombinedDomainXYPlot combineddomainxyplot = new CombinedDomainXYPlot(x1Axis);// 建立一个恰当的联合图形区域对象，以x轴为共享轴
+        combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
+        combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
+        combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
+        JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        chartPanel = new ChartPanel(chart,true);
     }
+
+    public ChartPanel getChartPanel(){
+        return chartPanel;
+    }
+
+
     private String getLatestFriday(){
         Calendar calendar = Calendar.getInstance();
         Date d = calendar.getTime();
@@ -113,10 +153,11 @@ public class IndexKLine_Weekly {
         return s;
     }
     public static void main(String[] args){
-        IndexKLine_Weekly indexKLine_weekly = null;
+        JFrame jFrame = new JFrame();
         try {
-            indexKLine_weekly = new IndexKLine_Weekly();
-            indexKLine_weekly.getLatestFriday();
+            jFrame.add(new IndexKLine_Weekly().getChartPanel());
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
