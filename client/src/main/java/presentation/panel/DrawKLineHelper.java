@@ -31,10 +31,10 @@ public class DrawKLineHelper {
         timeSeriesCollectionPMA60 = new TimeSeriesCollection();
     }
 
-    public void addPMA(IndexVO indexVO){
+    public void addPMA(IndexVO indexVO,int n){
         int num = indexVO.getDate().length;
         TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-n;i--){
             double pma5 = 0;
             for(int j=i;j>i-5;j--){
                 pma5 += indexVO.getClose()[j];
@@ -47,7 +47,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-n;i--){
             double pma10 = 0;
             for(int j=i;j>i-10;j--){
                 pma10 += indexVO.getClose()[j];
@@ -60,7 +60,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-n;i--){
             double pma20 = 0;
             for(int j=i;j>i-20;j--){
                 pma20 += indexVO.getClose()[j];
@@ -73,7 +73,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-n;i--){
             double pma30 = 0;
             for(int j=i;j>i-30;j--){
                 pma30 += indexVO.getClose()[j];
@@ -86,7 +86,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-n;i--){
             double pma60 = 0;
             for(int j=i;j>i-60;j--){
                 pma60 += indexVO.getClose()[j];
@@ -121,7 +121,7 @@ public class DrawKLineHelper {
         dateAxis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
         dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,7));// 设置时间刻度的间隔，一般以周为单位
         dateAxis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
-        dateAxis.setVisible(true);
+        dateAxis.setVisible(false);
     }
 
     public void setY1Axis(NumberAxis numberAxis,double min,double max){
@@ -136,11 +136,11 @@ public class DrawKLineHelper {
         numberAxis.setTickUnit(new NumberTickUnit((max-min)/4));
     }
 
-    public void setXYPlot(int i, XYPlot xyPlot,TimeSeriesCollection timeSeries){
+    public void setXYPlot(int i, XYPlot xyPlot,TimeSeriesCollection timeSeries,Color color){
         XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
         xyLineAndShapeRenderer.setBaseLinesVisible(true);
         xyLineAndShapeRenderer.setBaseShapesVisible(false);
-        xyLineAndShapeRenderer.setSeriesPaint(0,Color.ORANGE);
+        xyLineAndShapeRenderer.setSeriesPaint(0,color);
         xyLineAndShapeRenderer.setSeriesStroke(0,new BasicStroke(2.0f));
         xyPlot.setDataset(i,timeSeries);
         xyPlot.setRenderer(i,xyLineAndShapeRenderer);

@@ -47,10 +47,10 @@ public class IndexKLine_Weekly {
         IndexVO indexVO = getIndexData.getLatestIndexData();
         num = indexVO.getDate().length;
 
-        drawKLineHelper.addPMA(indexVO);
+        drawKLineHelper.addPMA(indexVO,180);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-180;i--){
             String[] days = indexVO.getDate()[i].split("-");
             series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
         }
@@ -58,7 +58,7 @@ public class IndexKLine_Weekly {
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-180;i--){
             String[] days = indexVO.getDate()[i].split("-");
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
         }
@@ -103,11 +103,11 @@ public class IndexKLine_Weekly {
         drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
 
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
-        drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5);
-        drawKLineHelper.setXYPlot(2,plot1,drawKLineHelper.timeSeriesCollectionPMA10);
-        drawKLineHelper.setXYPlot(3,plot1,drawKLineHelper.timeSeriesCollectionPMA20);
-        drawKLineHelper.setXYPlot(4,plot1,drawKLineHelper.timeSeriesCollectionPMA30);
-        drawKLineHelper.setXYPlot(5,plot1,drawKLineHelper.timeSeriesCollectionPMA60);
+        drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5,Color.ORANGE);
+        drawKLineHelper.setXYPlot(2,plot1,drawKLineHelper.timeSeriesCollectionPMA10,Color.MAGENTA);
+        drawKLineHelper.setXYPlot(3,plot1,drawKLineHelper.timeSeriesCollectionPMA20,Color.CYAN);
+        drawKLineHelper.setXYPlot(4,plot1,drawKLineHelper.timeSeriesCollectionPMA30,Color.GREEN);
+        drawKLineHelper.setXYPlot(5,plot1,drawKLineHelper.timeSeriesCollectionPMA60,Color.BLUE);
 
         XYBarRenderer xyBarRender=new XYBarRenderer(){
             private static final long serialVersionUID = 1L;// 为了避免出现警告消息，特设定此值
@@ -121,7 +121,7 @@ public class IndexKLine_Weekly {
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
 
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
-        drawKLineHelper.setY2Axis(y2Axis,minValue*0.9,highValue*1.1);
+        drawKLineHelper.setY2Axis(y2Axis,volumeMinValue*0.9,volumeHighValue*1.1);
 
         XYPlot plot2=new XYPlot(timeSeriesCollection,null,y2Axis,xyBarRender);// 建立第二个画图区域对象，主要此时的x轴设为了null值，因为要与第一个画图区域对象共享x轴
         CombinedDomainXYPlot combineddomainxyplot = new CombinedDomainXYPlot(x1Axis);// 建立一个恰当的联合图形区域对象，以x轴为共享轴
