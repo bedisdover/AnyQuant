@@ -105,6 +105,7 @@ public class DrawKLineHelper {
         candlestickRenderer.setAutoWidthGap(0.001);// 设置各个K线图之间的间隔
         candlestickRenderer.setUpPaint(Color.RED);// 设置股票上涨的K线图颜色
         candlestickRenderer.setDownPaint(Color.GREEN);// 设置股票下跌的K线图颜色
+        candlestickRenderer.setCandleWidth(6);
     }
 
     public void setXAxis(DateAxis dateAxis,String date1,String date2){
@@ -119,9 +120,9 @@ public class DrawKLineHelper {
         dateAxis.setAutoTickUnitSelection(false);// 设置不采用自动选择刻度值
         dateAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);// 设置标记的位置
         dateAxis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
-        dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,7));// 设置时间刻度的间隔，一般以周为单位
+        dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,90));// 设置时间刻度的间隔，一般以周为单位
         dateAxis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
-        dateAxis.setVisible(false);
+        dateAxis.setVisible(true);
     }
 
     public void setY1Axis(NumberAxis numberAxis,double min,double max){

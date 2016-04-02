@@ -7,6 +7,7 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.time.Day;
@@ -117,6 +118,7 @@ public class IndexKLine_Weekly {
                     return candlestickRender.getDownPaint();
                 }
             }};
+
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
 
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
