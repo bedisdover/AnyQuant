@@ -1,11 +1,5 @@
 package presentation.settings;
 
-/**
- * Created by 宋益明 on 16-3-7.
- * <p>
- * 界面设置面板
- */
-
 import presentation.util.ExampleFileFilter;
 import presentation.util.ImageLoader;
 
@@ -17,6 +11,11 @@ import java.awt.event.MouseEvent;
 
 import static presentation.frame.MainFrame.getMainFrame;
 
+/**
+ * Created by 宋益明 on 16-3-7.
+ * <p>
+ * 界面设置面板
+ */
 public class UISettings extends JPanel {
     private JButton btnCustom;
     private JSlider transparency;

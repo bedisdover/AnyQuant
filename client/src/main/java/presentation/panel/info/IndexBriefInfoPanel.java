@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public class IndexBriefInfoPanel extends JPanel {
 
+    private final int LABEL_WIDTH = 100;
+
     /**
      * 大盘指数值对象
      */
@@ -84,7 +86,7 @@ public class IndexBriefInfoPanel extends JPanel {
     private void createUIComponents() {
         //TODO id
         IndexNamePanel namePanel = new IndexNamePanel("沪深300", "1B0300");
-        namePanel.setBounds(0, 0, 100, 100);
+        namePanel.setBounds(0, 0, LABEL_WIDTH, 100);
 
         labelPrice = new JLabel();
         labelIncrease = new JLabel();
@@ -134,7 +136,7 @@ public class IndexBriefInfoPanel extends JPanel {
 class IndexNamePanel extends JPanel {
     IndexNamePanel(String name, String id) {
         setBackground(new Color(140, 175, 146, 58));
-        setLayout(null);
+        setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         setBorder(new BevelBorder(BevelBorder.RAISED));
 
         createUIComponents(name, id);
@@ -144,7 +146,8 @@ class IndexNamePanel extends JPanel {
         JLabel labelName = new JLabel(name);
         JLabel labelID = new JLabel(id);
 
-        labelName.setBounds(10, 10, 60, 20);
+        labelName.setBounds(25, 10, 60, 20);
+        labelID.setBounds(25, 30, 60, 20);
 
         add(labelName);
         add(labelID);
