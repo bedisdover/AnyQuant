@@ -31,10 +31,10 @@ public class DrawKLineHelper {
         timeSeriesCollectionPMA60 = new TimeSeriesCollection();
     }
 
-    public void addPMA(IndexVO indexVO,int n){
+    public void addPMA(IndexVO indexVO,int n,int gap){
         int num = indexVO.getDate().length;
         TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
-        for(int i=num-1;i>=num-n;i--){
+        for(int i=num-1;i>=num-n;i-=gap){
             double pma5 = 0;
             for(int j=i;j>i-5;j--){
                 pma5 += indexVO.getClose()[j];
@@ -47,7 +47,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
-        for(int i=num-1;i>=num-n;i--){
+        for(int i=num-1;i>=num-n;i-=gap){
             double pma10 = 0;
             for(int j=i;j>i-10;j--){
                 pma10 += indexVO.getClose()[j];
@@ -60,7 +60,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
-        for(int i=num-1;i>=num-n;i--){
+        for(int i=num-1;i>=num-n;i-=gap){
             double pma20 = 0;
             for(int j=i;j>i-20;j--){
                 pma20 += indexVO.getClose()[j];
@@ -73,7 +73,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
-        for(int i=num-1;i>=num-n;i--){
+        for(int i=num-1;i>=num-n;i-=gap){
             double pma30 = 0;
             for(int j=i;j>i-30;j--){
                 pma30 += indexVO.getClose()[j];
@@ -86,7 +86,7 @@ public class DrawKLineHelper {
 
 
         TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
-        for(int i=num-1;i>=num-n;i--){
+        for(int i=num-1;i>=num-n;i-=gap){
             double pma60 = 0;
             for(int j=i;j>i-60;j--){
                 pma60 += indexVO.getClose()[j];

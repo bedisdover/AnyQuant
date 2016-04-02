@@ -43,14 +43,13 @@ public class IndexKLine_Weekly {
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
         ShowIndexData getIndexData = new ShowIndexData();
-        int num = 0;
         IndexVO indexVO = getIndexData.getLatestIndexData();
-        num = indexVO.getDate().length;
+        int num = indexVO.getDate().length;
 
-        drawKLineHelper.addPMA(indexVO,180);
+        drawKLineHelper.addPMA(indexVO,300,5);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
-        for(int i=num-1;i>=num-180;i--){
+        for(int i=num-1;i>=num-300;i-=5){
             String[] days = indexVO.getDate()[i].split("-");
             series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
         }
@@ -58,7 +57,7 @@ public class IndexKLine_Weekly {
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
-        for(int i=num-1;i>=num-180;i--){
+        for(int i=num-1;i>=num-300;i-=5){
             String[] days = indexVO.getDate()[i].split("-");
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
         }
@@ -97,7 +96,7 @@ public class IndexKLine_Weekly {
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
-        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-180],getLatestFriday());
+        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-300],getLatestFriday());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
