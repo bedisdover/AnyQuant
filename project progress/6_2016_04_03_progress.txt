@@ -10,11 +10,11 @@ what : 折线图绘制。
 problem :交互还未完成。
 todo : 研究折线图的交互部分。
 
-who : 
-when : 
-what : 
-problem :
-todo : 
+who : 宋益明
+when : 2016-04-03
+what : 继续写界面
+problem : 效率不够高
+todo : 写出牛逼闪闪的界面
 
 who : 
 when : 
