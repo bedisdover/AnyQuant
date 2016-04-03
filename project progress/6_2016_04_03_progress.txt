@@ -1,0 +1,23 @@
+who : 章承尧
+when : 2016-04-03
+what : 日k、周k、月k图表绘制。
+problem : 分时图的数据还没有找到。
+todo : 画分时图，k线图优化一下。
+
+who : 
+when : 
+what : 
+problem :
+todo : 
+
+who : 
+when : 
+what : 
+problem :
+todo : 
+
+who : 
+when : 
+what : 
+problem :
+todo : 
