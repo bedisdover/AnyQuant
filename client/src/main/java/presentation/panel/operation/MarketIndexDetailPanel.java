@@ -24,7 +24,7 @@ public class MarketIndexDetailPanel extends JPanel {
 
     public MarketIndexDetailPanel() throws IOException {
         this.setLayout(new BorderLayout());
-        this.setBounds(0, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
+//        this.setBounds(0, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
         init();
         initComponents();
     }

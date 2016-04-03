@@ -5,6 +5,8 @@ import vo.IndexVO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * Created by 宋益明 on 16-3-31.
@@ -101,11 +103,53 @@ public class IndexBriefInfoPanel extends JPanel {
     }
 
     /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                assignment();
+            }
+        });
+    }
+
+    /**
+     * 为组件赋值
+     */
+    private void assignment() {
+        labelIncrease = new JLabel();
+        labelOpen = new JLabel();
+        labelClose = new JLabel();
+        labelHigh = new JLabel();
+        labelLow = new JLabel();
+        labelVolume = new JLabel();
+        labelNumber = new JLabel();
+
+        labelPrice.setBounds(100, 40, 50, 30);
+//        labelIncrease.setBounds();
+    }
+
+    /**
      * 设置各种label的文本及颜色
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
+        //TODO high
+        labelPrice.setText(index.getHigh()[0] + "");
+        labelIncrease.setText(index.getHigh()
+                + "(" + index.getHigh() + ")");
 
+        labelPrice.setToolTipText("当前股价");
+        labelIncrease.setToolTipText("涨跌额（涨跌幅）");
+
+        labelOpen.setText("今开：" + index.getOpen()[0] + "");
+        labelClose.setText("昨收：" + index.getClose() + "");
+        labelHigh.setText("最高：" + index.getHigh()[0] + "");
+        labelLow.setText("最低：" + index.getLow()[0] + "");
+        labelVolume.setText("成交量：" + index.getVolume()[0] + "");
+        //TODO VOLUME
+        labelNumber.setText("成交额：" + index.getVolume()[0] + "");
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 

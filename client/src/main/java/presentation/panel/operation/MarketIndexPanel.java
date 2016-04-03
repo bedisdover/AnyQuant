@@ -15,6 +15,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -55,11 +56,16 @@ public class MarketIndexPanel extends OperationPanel {
         new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 
         briefInfoPanel = new IndexBriefInfoPanel(new IndexVO(new IndexPO(3)));
-//        chartPanel = new LineChartMarketIndex().getChartPanel();
+        try {
+            chartPanel = new MarketIndexDetailPanel();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
+        }
         btnData = new UltraButton("详细数据");
 
         add(briefInfoPanel);
-//        add(chartPanel);
+        add(chartPanel);
         add(btnData);
     }
 
@@ -74,8 +80,8 @@ public class MarketIndexPanel extends OperationPanel {
                         BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
                 briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                         PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
-//                chartPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING,
-//                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
+                chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
             }
         });
 

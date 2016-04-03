@@ -46,6 +46,9 @@ public abstract class OperationPanel extends JPanel {
      */
     protected int BUTTON_HEIGHT;
 
+    /**
+     * 搜索框宽度
+     */
     protected int TEXT_FIELD_WIDTH;
 
     protected Table table;
