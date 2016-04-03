@@ -16,6 +16,7 @@ import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 import vo.IndexVO;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -40,15 +41,13 @@ public class IndexKLine_Monthly {
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
         ShowIndexData getIndexData = new ShowIndexData();
-        int num = 0;
-        IndexVO indexVO = null;
+        IndexVO indexVO = getIndexData.getLatestIndexData();
+        int num = indexVO.getDate().length;
 
-        indexVO = getIndexData.getLatestIndexData();
-        num = indexVO.getDate().length;
         System.out.println(num);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             String[] days = indexVO.getDate()[i].split("-");
             series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
         }
@@ -56,7 +55,7 @@ public class IndexKLine_Monthly {
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             String[] days = indexVO.getDate()[i].split("-");
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
         }
@@ -64,7 +63,7 @@ public class IndexKLine_Monthly {
         timeSeriesCollection.addSeries(series2);
 
         TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             double pma5 = 0;
             for(int j=i;j>i-5;j--){
                 pma5 += indexVO.getClose()[j];
@@ -77,7 +76,7 @@ public class IndexKLine_Monthly {
         timeSeriesCollectionPMA5.addSeries(seriesPMA5);
 
         TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             double pma10 = 0;
             for(int j=i;j>i-10;j--){
                 pma10 += indexVO.getClose()[j];
@@ -90,7 +89,7 @@ public class IndexKLine_Monthly {
         timeSeriesCollectionPMA10.addSeries(seriesPMA10);
 
         TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             double pma20 = 0;
             for(int j=i;j>i-20;j--){
                 pma20 += indexVO.getClose()[j];
@@ -103,7 +102,7 @@ public class IndexKLine_Monthly {
         timeSeriesCollectionPMA20.addSeries(seriesPMA20);
 
         TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             double pma30 = 0;
             for(int j=i;j>i-30;j--){
                 pma30 += indexVO.getClose()[j];
@@ -116,7 +115,7 @@ public class IndexKLine_Monthly {
         timeSeriesCollectionPMA30.addSeries(seriesPMA30);
 
         TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
-        for(int i=num-1;i>=num-90;i--){
+        for(int i=num-1;i>=num-600;i-=30){
             double pma60 = 0;
             for(int j=i;j>i-60;j--){
                 pma60 += indexVO.getClose()[j];
@@ -173,7 +172,7 @@ public class IndexKLine_Monthly {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String d = simpleDateFormat.format(date1);
 
-            x1Axis.setRange(dateFormat.parse(indexVO.getDate()[num-90]),dateFormat.parse(d));// 设置时间范围，注意时间的最大值要比已有的时间最大值要多一天
+            x1Axis.setRange(dateFormat.parse(indexVO.getDate()[num-600]),dateFormat.parse(d));// 设置时间范围，注意时间的最大值要比已有的时间最大值要多一天
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -256,5 +255,20 @@ public class IndexKLine_Monthly {
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
 //        frame.pack();
 //        frame.setVisible(true);
+    }
+
+    public ChartPanel getChartPanel(){
+        return chartPanel;
+    }
+
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+        try {
+            jFrame.add(new IndexKLine_Monthly().getChartPanel());
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

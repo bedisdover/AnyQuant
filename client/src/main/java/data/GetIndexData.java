@@ -18,7 +18,7 @@ public class GetIndexData implements GetIndexDataService {
      */
     public IndexPO getLatestIndexData() throws IOException {
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/benchmark/hs300?start=2014-01-01&end="+getDateOfLatestData();
+        String url = "http://121.41.106.89:8010/api/benchmark/hs300?start=2013-01-01&end="+getDateOfLatestData();
         String result = rdt.getData(url);
         String s1 = rdt.parseJSON(result, "data");
         String[] trading_info = rdt.parseJSON_array(s1, "trading_info");
