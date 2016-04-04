@@ -19,8 +19,10 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -322,7 +324,6 @@ public class PicturePanel extends OperationPanel {
          * 涨幅榜,跌幅榜,成交额榜,换手率榜 对应的label
          */
         private JLabel labelIncrease, labelDecrease, labelTurnVolume;
-//        labelTurnOverRate;
 
         /**
          * label的宽度
@@ -333,7 +334,6 @@ public class PicturePanel extends OperationPanel {
          * 涨幅榜,跌幅榜,成交额榜,换手率榜
          */
         private UltraScrollPane scrollIncrease, scrollDecrease, scrollTurnVolume;
-//        scrollTurnOverRate;
 
         /**
          * 单个榜单的高度
@@ -366,7 +366,6 @@ public class PicturePanel extends OperationPanel {
         protected void init() {
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
-
             setBackground(new Color(0, 0, 0, 0));
         }
 
@@ -385,7 +384,6 @@ public class PicturePanel extends OperationPanel {
             table2 = table;
             labelTurnVolume = new JLabel("↓  成交量榜");
             table3 = table;
-//            labelTurnOverRate = new JLabel("↓  转手率榜");
 
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
@@ -400,16 +398,13 @@ public class PicturePanel extends OperationPanel {
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(PicturePanel.this, "请检查网络连接！");
             }
-//            scrollTurnOverRate = new UltraScrollPane(null);
 
             centerPanel.add(labelIncrease);
             centerPanel.add(labelDecrease);
             centerPanel.add(labelTurnVolume);
-//            centerPanel.add(labelTurnOverRate);
             centerPanel.add(scrollIncrease);
             centerPanel.add(scrollDecrease);
             centerPanel.add(scrollTurnVolume);
-//            centerPanel.add(scrollTurnOverRate);
             centerPanel.add(btnCustom);
             getViewport().add(centerPanel);
 
@@ -417,7 +412,6 @@ public class PicturePanel extends OperationPanel {
             expand.put(scrollIncrease, true);
             expand.put(scrollDecrease, true);
             expand.put(scrollTurnVolume, true);
-//            expand.put(scrollTurnOverRate, true);
         }
 
         /**
@@ -465,14 +459,6 @@ public class PicturePanel extends OperationPanel {
                     assignment();
                 }
             });
-
-//            labelTurnOverRate.addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mouseClicked(MouseEvent e) {
-//                    turnOverRateOperation();
-//                    assignment();
-//                }
-//            });
         }
 
         /**
@@ -519,21 +505,8 @@ public class PicturePanel extends OperationPanel {
                         scrollPane_width, SCROLL_HEIGHT);
             }
 
-            {
-                if (expand.get(scrollTurnVolume)) {
-//                    labelTurnOverRate.setBounds(MARGIN,
-//                            scrollTurnVolume.getY() + scrollTurnVolume.getHeight(),
-//                            LABEL_WIDTH, BUTTON_HEIGHT);
-                    temp++;
-                } else {
-//                    labelTurnOverRate.setBounds(MARGIN, labelTurnVolume.getY() + BUTTON_HEIGHT,
-//                            LABEL_WIDTH, BUTTON_HEIGHT);
-                }
-//                if (expand.get(scrollTurnOverRate)) {
-//                    scrollTurnOverRate.setBounds(MARGIN, labelTurnOverRate.getY() + BUTTON_HEIGHT,
-//                            PANEL_WIDTH - MARGIN * 4, SCROLL_HEIGHT);
-//                    temp++;
-//                }
+            if (expand.get(scrollTurnVolume)) {
+                temp++;
             }
 
             btnCustom.setBounds(getWidth() - MARGIN - btnCustom.width, labelIncrease.getY() / 2,
@@ -592,19 +565,6 @@ public class PicturePanel extends OperationPanel {
                 expand.put(scrollTurnVolume, false);
             }
         }
-
-//        /**
-//         * '转手率榜'单击后的操作
-//         */
-//        private void turnOverRateOperation() {
-//            if (changeText(labelTurnOverRate)) {
-//                centerPanel.add(scrollTurnOverRate);
-//                expand.put(scrollTurnOverRate, true);
-//            } else {
-//                centerPanel.remove(scrollTurnOverRate);
-//                expand.put(scrollTurnOverRate, false);
-//            }
-//        }
 
         /**
          * 单击label后,修改label显示的文字

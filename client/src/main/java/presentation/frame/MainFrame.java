@@ -33,20 +33,32 @@ public final class MainFrame extends JFrame {
      */
     public static final int MENU_WIDTH;
 
+    /**
+     * 主窗体对象
+     */
     private static final MainFrame frame;
 
+    /**
+     * 背景面板
+     */
     private static final BackgroundPanel backgroundPanel;
 
+    /**
+     * 操作面板
+     */
     public static JPanel operationPanel;
 
+    /**
+     * 界面配置对象
+     */
     private static FrameConfig frameConfig;
 
     private MainFrame() {
     }
 
     static {
+        //默认宽度固定不变
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-
         DEFAULT_WIDTH = screen.width / 2;
 
 

@@ -1,9 +1,9 @@
 /**
  * Created by 宋益明 on 16-4-2.
  * <p>
- * 程序显示层
+ * 股票信息模块
  */
-package presentation;
+package presentation.panel.info;
 
 import presentation.frame.MainFrame;
 
