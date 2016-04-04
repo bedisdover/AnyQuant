@@ -29,6 +29,5 @@ public class IndexInfoPanel extends InfoPanel {
             JOptionPane.showMessageDialog(IndexInfoPanel.this, "请检查网络连接！");
         }
        createTable(index);
-
     }
 }

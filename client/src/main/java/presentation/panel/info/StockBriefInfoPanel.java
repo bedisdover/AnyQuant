@@ -100,8 +100,8 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private void setText() {
         labelPrice.setText(stock.getHigh()[0] + "");
-        labelIncrease.setText(stock.getIncrease_decreaseNum()
-                + "(" + stock.getIncrease_decreaseRate() + ")");
+        labelIncrease.setText(stock.getIncrease_decreaseNum()[0]
+                + "(" + stock.getIncrease_decreaseRate()[0] + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");

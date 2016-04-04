@@ -156,7 +156,7 @@ public abstract class OperationPanel extends JPanel {
             stock = stockList.get(i);
             data[i] = new Object[]{
                     ++i, stock.getName(), stock.getId(),
-                    stock.getIncrease_decreaseNum(),
+                    stock.getIncrease_decreaseNum()[0],
                     stock.getIncrease_decreaseRate()[0] * 100 + "%",
                     stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0],
