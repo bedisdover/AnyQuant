@@ -105,7 +105,7 @@ public class DrawKLineHelper {
         candlestickRenderer.setAutoWidthGap(0.001);// 设置各个K线图之间的间隔
         candlestickRenderer.setUpPaint(Color.RED);// 设置股票上涨的K线图颜色
         candlestickRenderer.setDownPaint(Color.GREEN);// 设置股票下跌的K线图颜色
-        candlestickRenderer.setCandleWidth(6);
+        candlestickRenderer.setCandleWidth(8);
     }
 
     public void setXAxis(DateAxis dateAxis,String date1,String date2){
