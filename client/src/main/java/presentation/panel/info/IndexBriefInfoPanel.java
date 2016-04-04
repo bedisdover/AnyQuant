@@ -190,8 +190,12 @@ class IndexNamePanel extends JPanel {
         JLabel labelName = new JLabel(name);
         JLabel labelID = new JLabel(id);
 
-        labelName.setBounds(25, 10, 60, 20);
-        labelID.setBounds(25, 30, 60, 20);
+        labelName.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN,
+                LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+        labelID.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN + LocationValue.PADDING,
+                LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+
+        labelName.setFont(new Font("", Font.PLAIN, 16));
 
         add(labelName);
         add(labelID);

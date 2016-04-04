@@ -1,10 +1,14 @@
 package presentation.panel.info;
 
+import presentation.util.ImageLoader;
 import vo.StockVO;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.*;
+
+import static presentation.panel.info.LocationValue.*;
 
 /**
  * Created by 宋益明 on 16-3-31.
@@ -64,6 +68,7 @@ public class StockBriefInfoPanel extends JPanel {
         init();
         createUIComponents();
         setText();
+        addListeners();
     }
 
     /**
@@ -80,7 +85,7 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private void createUIComponents() {
         StockNamePanel namePanel = new StockNamePanel(stock.getName(), stock.getId());
-        namePanel.setBounds(0, 0, LocationValue.PANEL_WIDTH, LocationValue.PANEL_HEIGHT);
+        namePanel.setBounds(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
 
         labelPrice = new JLabel();
         labelIncrease = new JLabel();
@@ -92,6 +97,48 @@ public class StockBriefInfoPanel extends JPanel {
         labelNumber = new JLabel();
 
         add(namePanel);
+        add(labelPrice);
+        add(labelIncrease);
+        add(labelOpen);
+        add(labelClose);
+        add(labelHigh);
+        add(labelLow);
+        add(labelVolume);
+        add(labelNumber);
+    }
+
+    /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+
+            }
+        });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+                    JPopupMenu popupMenu = new JPopupMenu();
+                    JMenuItem menuItem = new JMenuItem(ImageLoader.addPortfolio);
+                    popupMenu.add(menuItem);
+
+                    popupMenu.show(StockBriefInfoPanel.this, e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
+    /**
+     * 界面大小发生变化时，重新定位各组件
+     */
+    private void setLocation() {
+        labelPrice.setBounds(PANEL_WIDTH + PADDING, PADDING,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+
     }
 
     /**

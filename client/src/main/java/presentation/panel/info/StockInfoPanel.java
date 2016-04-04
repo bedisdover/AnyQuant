@@ -85,10 +85,10 @@ public class StockInfoPanel extends InfoPanel {
                         MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
                         BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
-                briefInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT,
-                        PANEL_WIDTH - MARGIN * 2, PADDING + MARGIN * 2);
+                briefInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
+                        PANEL_WIDTH - MARGIN * 2, LocationValue.PANEL_HEIGHT);
                 //TODO location
-                k_line.setBounds(MARGIN, briefInfo.getY() + BUTTON_HEIGHT + PADDING,
+                k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN * 2);
             }
         });

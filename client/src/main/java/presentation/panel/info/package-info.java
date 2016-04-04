@@ -46,20 +46,13 @@ class LocationValue {
     static {
         //以下各值均为常量
         //当界面大小改变时,无需再次赋值
-        MARGIN = MainFrame.DEFAULT_WIDTH / 25;
-        PADDING = MainFrame.DEFAULT_WIDTH / 20;
-        BUTTON_WIDTH = PADDING + MARGIN;
-        BUTTON_HEIGHT = MARGIN;
+        MARGIN = MainFrame.DEFAULT_WIDTH / 50;
+        PADDING = MainFrame.DEFAULT_WIDTH / 40;
+        BUTTON_WIDTH = (PADDING + MARGIN) * 3;
+        BUTTON_HEIGHT = MARGIN * 2;
         TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
-        //面板高度固定不变
-        PANEL_HEIGHT = PADDING + MARGIN;
-    }
 
-    /**
-     * 面板宽度不确定
-     * 界面大小发生变化时，进行赋值
-     */
-    static void assignment() {
-        PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
+        PANEL_WIDTH = MARGIN * 2 + BUTTON_WIDTH;
+        PANEL_HEIGHT = MARGIN * 5;
     }
 }

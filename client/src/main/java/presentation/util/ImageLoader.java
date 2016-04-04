@@ -1,6 +1,7 @@
 package presentation.util;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,9 @@ import java.io.IOException;
 public class ImageLoader {
     private static final String IMAGE_PATH = "client/src/main/resources/images/";
 
+    /**
+     * 设置
+     */
     public static Image settings;
     public static Image skin;
     public static Image icon;
@@ -20,6 +24,16 @@ public class ImageLoader {
     public static Image on;
     public static Image off;
     public static Image nothing;
+
+    /**
+     * 添加自选图标
+     */
+    public static ImageIcon addPortfolio;
+
+    /**
+     * “涨”图标
+     */
+    public static ImageIcon increase;
 
     static {
         try {
@@ -30,6 +44,8 @@ public class ImageLoader {
             on = ImageIO.read(new File(IMAGE_PATH + "on.png"));
             off = ImageIO.read(new File(IMAGE_PATH + "off.png"));
             nothing = ImageIO.read(new File(IMAGE_PATH + "nothing.png"));
+
+            addPortfolio = new ImageIcon(IMAGE_PATH + "addPortfolio.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
