@@ -2,7 +2,6 @@ package presentation.panel.operation;
 
 import bl.HistoryRecordStock;
 import data.GetStockData;
-import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -19,9 +18,6 @@ import java.util.List;
  * 自选面板
  */
 public class HistoryPanel extends OperationPanel {
-
-
-    private Table table;
 
     public HistoryPanel() {
         init();
@@ -52,7 +48,7 @@ public class HistoryPanel extends OperationPanel {
             }
         }
 
-        table = createTable(list);
+        createTable(list);
     }
 
 
