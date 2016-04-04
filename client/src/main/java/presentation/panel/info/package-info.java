@@ -10,10 +10,10 @@ import presentation.frame.MainFrame;
 /**
  * 界面常量
  */
-class ValueLocation {
+class LocationValue {
 
     /**
-     * 工作面板宽度，高度
+     * 主要信息面板宽度，高度
      */
     static int PANEL_WIDTH, PANEL_HEIGHT;
 
@@ -38,7 +38,8 @@ class ValueLocation {
     static final int BUTTON_HEIGHT;
 
     /**
-     * 搜索框宽度
+     * 文本框宽度
+     * 高度与按钮高度相同
      */
     static final int TEXT_FIELD_WIDTH;
 
@@ -50,14 +51,15 @@ class ValueLocation {
         BUTTON_WIDTH = PADDING + MARGIN;
         BUTTON_HEIGHT = MARGIN;
         TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
+        //面板高度固定不变
+        PANEL_HEIGHT = PADDING + MARGIN;
     }
 
     /**
-     * 宽度和高度不确定
+     * 面板宽度不确定
      * 界面大小发生变化时，进行赋值
      */
     static void assignment() {
         PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
-        PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
     }
 }

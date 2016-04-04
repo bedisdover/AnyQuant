@@ -80,7 +80,7 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private void createUIComponents() {
         StockNamePanel namePanel = new StockNamePanel(stock.getName(), stock.getId());
-        namePanel.setBounds(0, 0, 100, 100);
+        namePanel.setBounds(0, 0, LocationValue.PANEL_WIDTH, LocationValue.PANEL_HEIGHT);
 
         labelPrice = new JLabel();
         labelIncrease = new JLabel();

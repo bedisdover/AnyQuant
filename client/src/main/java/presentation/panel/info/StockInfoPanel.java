@@ -35,14 +35,14 @@ public class StockInfoPanel extends InfoPanel {
     private UltraButton btnInfo;
 
     /**
+     * 主要信息面板
+     */
+    private JPanel briefInfo;
+
+    /**
      * k-线图面板
      */
     private JPanel k_line;
-
-    /**
-     * 股票持久化对象
-     */
-    private StockPO stock;
 
     /**
      * 股票ID
@@ -51,7 +51,6 @@ public class StockInfoPanel extends InfoPanel {
 
     public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent, stock);
-        this.stock = stock;
         this.stockID = stock.getId();
     }
 
@@ -63,6 +62,7 @@ public class StockInfoPanel extends InfoPanel {
         btnInfo = new UltraButton("详细数据");
 
         try {
+            briefInfo = new StockBriefInfoPanel(new StockVO(stock));
             k_line = new IndexKLine_Daily().getChartPanel();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
@@ -70,6 +70,7 @@ public class StockInfoPanel extends InfoPanel {
 
         add(btnFollow);
         add(btnInfo);
+        add(briefInfo);
         add(k_line);
     }
 
@@ -84,9 +85,11 @@ public class StockInfoPanel extends InfoPanel {
                         MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
                 btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
                         BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
-                //TODO 位置
-                k_line.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING,
-                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - BUTTON_HEIGHT - PADDING - MARGIN * 2);
+                briefInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT,
+                        PANEL_WIDTH - MARGIN * 2, PADDING + MARGIN * 2);
+                //TODO location
+                k_line.setBounds(MARGIN, briefInfo.getY() + BUTTON_HEIGHT + PADDING,
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN * 2);
             }
         });
 

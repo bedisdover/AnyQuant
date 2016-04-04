@@ -7,6 +7,10 @@ import presentation.panel.operation.OperationPanel;
 import javax.swing.*;
 import java.awt.event.*;
 
+import static presentation.panel.info.LocationValue.BUTTON_HEIGHT;
+import static presentation.panel.info.LocationValue.BUTTON_WIDTH;
+import static presentation.panel.info.LocationValue.MARGIN;
+
 /**
  * Created by 宋益明 on 16-3-8.
  * <p>
@@ -19,7 +23,7 @@ public abstract class InfoPanel extends OperationPanel {
     /**
      * 父面板(前一个面板)
      */
-    private JPanel parent;
+    protected JPanel parent;
 
     /**
      * 日期选择框
@@ -36,7 +40,7 @@ public abstract class InfoPanel extends OperationPanel {
     /**
      * 此面板持有的股票值对象
      */
-    private StockPO stock;
+    protected StockPO stock;
 
     InfoPanel(JPanel parent) {
         this.parent = parent;
