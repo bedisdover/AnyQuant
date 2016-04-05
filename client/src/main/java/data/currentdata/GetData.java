@@ -1,4 +1,4 @@
-package data.briefdata;
+package data.currentdata;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -20,6 +20,8 @@ public class GetData {
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     /**
+     * 请求数据
+     *
      * @param strUrl 请求地址
      * @param params 请求参数
      * @param method 请求方法
@@ -54,7 +56,7 @@ public class GetData {
                     DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                     out.writeBytes(transfer(params));
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    throw e;
                 }
             }
             InputStream is = conn.getInputStream();

@@ -31,6 +31,7 @@ public class BriefInfoTest {
         Map params = new HashMap();//请求参数
         params.put("gid", "sh601009");//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
         params.put("key", APP_KEY);//APP Key
+        params.put("type", 1);
 
         try {
             result = net(url, params, "GET");
@@ -173,8 +174,8 @@ public class BriefInfoTest {
 
 
     public static void main(String[] args) {
-//        getRequest1();
-        getRequest7();
+        getRequest1();
+//        getRequest7();
     }
 
     /**
