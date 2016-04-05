@@ -71,6 +71,7 @@ public class IndexBriefInfoPanel extends JPanel {
         init();
         createUIComponents();
         setText();
+        addListeners();
     }
 
     /**

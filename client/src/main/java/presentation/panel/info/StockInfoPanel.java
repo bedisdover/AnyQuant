@@ -62,9 +62,9 @@ public class StockInfoPanel extends InfoPanel {
         btnInfo = new UltraButton("详细数据");
 
         try {
-            briefInfo = new StockBriefInfoPanel(new StockVO(stock));
+            briefInfo = new StockBriefInfoPanel(stock.getId());
             k_line = new IndexKLine_Daily().getChartPanel();
-        } catch (IOException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
@@ -86,10 +86,10 @@ public class StockInfoPanel extends InfoPanel {
                 btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
                         BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
                 briefInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
-                        PANEL_WIDTH - MARGIN * 2, LocationValue.PANEL_HEIGHT);
+                        PANEL_WIDTH - MARGIN * 2, LocationValue.INFO_PANEL_HEIGHT);
                 //TODO location
                 k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
-                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN * 2);
+                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
             }
         });
 

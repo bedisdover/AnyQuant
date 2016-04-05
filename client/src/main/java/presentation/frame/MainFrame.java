@@ -4,6 +4,7 @@ import config.FrameConfig;
 import config.SystemConfig;
 import org.dom4j.DocumentException;
 import presentation.panel.BackgroundPanel;
+import presentation.panel.info.LocationValue;
 import presentation.panel.MenuPanel;
 import presentation.util.ImageLoader;
 
@@ -110,10 +111,15 @@ public final class MainFrame extends JFrame {
                     operationPanel.setBounds(MENU_WIDTH, 0,
                             frame.getWidth() - MENU_WIDTH, frame.getHeight());
                 }
+
+                notifyPanel();
             }
         });
     }
 
+    /**
+     * 添加事件监听器
+     */
     private static void addListeners() {
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -121,6 +127,13 @@ public final class MainFrame extends JFrame {
                 frameConfig.storeBounds(frame.getBounds());
             }
         });
+    }
+
+    /**
+     * 界面大小发生变化时，通知面板更新数据
+     */
+    private static void notifyPanel() {
+        LocationValue.updateValue();
     }
 
     /**

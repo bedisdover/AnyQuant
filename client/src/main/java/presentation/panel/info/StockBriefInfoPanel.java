@@ -1,7 +1,10 @@
 package presentation.panel.info;
 
+import data.currentdata.CurrentStockData;
+import dataservice.current.CurrentStockDataService;
+import po.current.CurrentStockPO;
+import presentation.UltraSwing.UltraLabel;
 import presentation.util.ImageLoader;
-import vo.StockVO;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -18,59 +21,57 @@ import static presentation.panel.info.LocationValue.*;
 public class StockBriefInfoPanel extends JPanel {
 
     /**
-     * 股票值对象
+     * 股票当前数据值对象
      */
-    private StockVO stock;
+    private CurrentStockPO stock;
 
     /**
      * 当前价格
      */
-    private JLabel labelPrice;
+    private UltraLabel labelPrice;
 
     /**
      * 涨跌额（涨跌幅）
      */
-    private JLabel labelIncrease;
+    private UltraLabel labelIncrease;
 
     /**
      * 涨跌图标
      */
-    private JLabel labelIncreaseIcon;
+    private UltraLabel labelIncreaseIcon;
 
     /**
      * 开盘价
      */
-    private JLabel labelOpen;
+    private UltraLabel labelOpen;
 
     /**
      * 收盘价（昨天）
      */
-    private JLabel labelClose;
+    private UltraLabel labelClose;
 
     /**
      * 最高价
      */
-    private JLabel labelHigh;
+    private UltraLabel labelHigh;
 
     /**
      * 最低价
      */
-    private JLabel labelLow;
+    private UltraLabel labelLow;
 
     /**
      * 成交量
      */
-    private JLabel labelVolume;
+    private UltraLabel labelVolume;
 
     /**
      * 成交额
      */
-    private JLabel labelNumber;
+    private UltraLabel labelNumber;
 
-    public StockBriefInfoPanel(StockVO stock) {
-        this.stock = stock;
-
-        init();
+    public StockBriefInfoPanel(String id) throws Exception {
+        init(id);
         createUIComponents();
         setText();
         addListeners();
@@ -78,8 +79,12 @@ public class StockBriefInfoPanel extends JPanel {
 
     /**
      * 初始化
+     * @param id 股票ID
      */
-    private void init() {
+    private void init(String id) throws Exception {
+        CurrentStockDataService stockData = new CurrentStockData();
+        stock = stockData.getCurrentStockPO(id);
+
         setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
         setBackground(new Color(175, 152, 139, 56));
@@ -90,21 +95,22 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private void createUIComponents() {
         StockNamePanel namePanel = new StockNamePanel(stock.getName(), stock.getId());
-        namePanel.setBounds(0, 0, PANEL_WIDTH, PANEL_HEIGHT);
+        namePanel.setBounds(0, 0, NAME_PANEL_WIDTH, INFO_PANEL_HEIGHT);
 
-        labelPrice = new JLabel();
-        labelIncrease = new JLabel();
-        labelIncreaseIcon = new JLabel();
-        labelOpen = new JLabel();
-        labelClose = new JLabel();
-        labelHigh = new JLabel();
-        labelLow = new JLabel();
-        labelVolume = new JLabel();
-        labelNumber = new JLabel();
+        labelPrice = new UltraLabel(30);
+        labelIncrease = new UltraLabel(30);
+        labelIncreaseIcon = new UltraLabel();
+        labelOpen = new UltraLabel();
+        labelClose = new UltraLabel();
+        labelHigh = new UltraLabel();
+        labelLow = new UltraLabel();
+        labelVolume = new UltraLabel();
+        labelNumber = new UltraLabel();
 
         add(namePanel);
         add(labelPrice);
         add(labelIncrease);
+        add(labelIncreaseIcon);
         add(labelOpen);
         add(labelClose);
         add(labelHigh);
@@ -142,8 +148,10 @@ public class StockBriefInfoPanel extends JPanel {
      * 界面大小发生变化时，重新定位各组件
      */
     private void assignment() {
-        labelPrice.setBounds(PANEL_WIDTH + PADDING, PADDING,
-                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelPrice.setBounds(NAME_PANEL_WIDTH + PADDING, MARGIN * 2,
+                labelPrice.getPreferredSize().width, labelPrice.getPreferredSize().height);
+        labelIncreaseIcon.setBounds(labelPrice.getX() + BUTTON_HEIGHT + PADDING,
+                PADDING, BUTTON_HEIGHT, BUTTON_HEIGHT);
     }
 
     /**
@@ -151,24 +159,24 @@ public class StockBriefInfoPanel extends JPanel {
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
-        labelPrice.setText(stock.getHigh()[0] + "");
-        labelIncrease.setText(stock.getIncrease_decreaseNum()[0]
-                + "(" + stock.getIncrease_decreaseRate()[0] + ")");
+        labelPrice.setText(stock.getPrice() + "");
+        labelIncrease.setText(stock.getIncrease()
+                + "(" + stock.getIncreasePer() + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 
-        labelOpen.setText("今开：" + stock.getOpen()[0] + "");
+        labelOpen.setText("今开：" + stock.getOpen() + "");
         labelClose.setText("昨收：" + stock.getClose() + "");
-        labelHigh.setText("最高：" + stock.getHigh()[0] + "");
-        labelLow.setText("最低：" + stock.getLow()[0] + "");
-        labelVolume.setText("成交量：" + stock.getVolume()[0] + "");
-        labelNumber.setText("成交额：" + stock.getTurnover()[0] + "");
+        labelHigh.setText("最高：" + stock.getHigh() + "");
+        labelLow.setText("最低：" + stock.getLow() + "");
+        labelVolume.setText("成交量：" + stock.getDealNum() + "");
+        labelNumber.setText("成交额：" + stock.getDealAmount() + "");
 
-        if (stock.getIncrease_decreaseNum()[0] > 0) {
+        if (stock.getIncrease() > 0) {
             setTextColor(Color.red);
             labelIncreaseIcon.setIcon(ImageLoader.increase);
-        } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+        } else if (stock.getIncrease() < 0) {
             setTextColor(Color.green);
             labelIncreaseIcon.setIcon(ImageLoader.decrease);
         } else {
@@ -178,13 +186,15 @@ public class StockBriefInfoPanel extends JPanel {
     }
 
     /**
-     * 设置文本颜色
+     * 设置文本颜色及字体
      *
      * @param color 颜色
      */
     private void setTextColor(Color color) {
         labelPrice.setForeground(color);
         labelIncrease.setForeground(color);
+        labelPrice.setFont(new Font("", Font.BOLD, 30));
+        labelIncrease.setFont(new Font("", Font.BOLD, 30));
     }
 }
 
