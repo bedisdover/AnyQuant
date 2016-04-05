@@ -33,6 +33,11 @@ public class StockBriefInfoPanel extends JPanel {
     private JLabel labelIncrease;
 
     /**
+     * 涨跌图标
+     */
+    private JLabel labelIncreaseIcon;
+
+    /**
      * 开盘价
      */
     private JLabel labelOpen;
@@ -89,6 +94,7 @@ public class StockBriefInfoPanel extends JPanel {
 
         labelPrice = new JLabel();
         labelIncrease = new JLabel();
+        labelIncreaseIcon = new JLabel();
         labelOpen = new JLabel();
         labelClose = new JLabel();
         labelHigh = new JLabel();
@@ -114,7 +120,7 @@ public class StockBriefInfoPanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-
+                assignment();
             }
         });
 
@@ -135,10 +141,9 @@ public class StockBriefInfoPanel extends JPanel {
     /**
      * 界面大小发生变化时，重新定位各组件
      */
-    private void setLocation() {
+    private void assignment() {
         labelPrice.setBounds(PANEL_WIDTH + PADDING, PADDING,
                 BUTTON_WIDTH, BUTTON_HEIGHT);
-
     }
 
     /**
@@ -162,10 +167,13 @@ public class StockBriefInfoPanel extends JPanel {
 
         if (stock.getIncrease_decreaseNum()[0] > 0) {
             setTextColor(Color.red);
+            labelIncreaseIcon.setIcon(ImageLoader.increase);
         } else if (stock.getIncrease_decreaseNum()[0] < 0) {
             setTextColor(Color.green);
+            labelIncreaseIcon.setIcon(ImageLoader.decrease);
         } else {
             setTextColor(Color.black);
+            labelIncreaseIcon.setIcon(ImageLoader.dull);
         }
     }
 

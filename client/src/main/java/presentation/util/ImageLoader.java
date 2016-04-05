@@ -35,6 +35,16 @@ public class ImageLoader {
      */
     public static ImageIcon increase;
 
+    /**
+     * “跌”图标
+     */
+    public static ImageIcon decrease;
+
+    /**
+     * “盘整”图标
+     */
+    public static ImageIcon dull;
+
     static {
         try {
             settings = ImageIO.read(new File(IMAGE_PATH + "settings.png"));
@@ -46,6 +56,9 @@ public class ImageLoader {
             nothing = ImageIO.read(new File(IMAGE_PATH + "nothing.png"));
 
             addPortfolio = new ImageIcon(IMAGE_PATH + "addPortfolio.png");
+            increase = new ImageIcon(IMAGE_PATH + "increase.png");
+            decrease = new ImageIcon(IMAGE_PATH + "decrease.png");
+            dull = new ImageIcon(IMAGE_PATH + "dull.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

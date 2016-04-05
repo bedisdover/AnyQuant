@@ -22,7 +22,7 @@ public class BriefInfoTest {
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     //配置申请的KEY
-    public static final String APP_KEY = "*************************";
+    public static final String APP_KEY = "5f2ce1ab06969ecf179311a72416ac3d";
 
     //1.沪深股市
     public static void getRequest1() {
@@ -173,7 +173,8 @@ public class BriefInfoTest {
 
 
     public static void main(String[] args) {
-        getRequest1();
+//        getRequest1();
+        getRequest7();
     }
 
     /**
