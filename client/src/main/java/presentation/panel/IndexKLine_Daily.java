@@ -288,16 +288,16 @@ public class IndexKLine_Daily implements ChartMouseListener{
         int yPos = chartMouseEvent.getTrigger().getY();
         System.out.println("x = " + xPos + ", y = " + yPos);
         Point2D point2D = this.chartPanel.translateScreenToJava2D(new Point(xPos, yPos));
-        XYPlot xyPlot = (XYPlot)this.chart.getPlot();
+        CombinedDomainXYPlot xyPlot = (CombinedDomainXYPlot)this.chart.getPlot();
         ChartRenderingInfo chartRenderingInfo = this.chartPanel.getChartRenderingInfo();
         Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
         ValueAxis valueAxis1 = xyPlot.getDomainAxis();
         RectangleEdge rectangleEdge1 = xyPlot.getDomainAxisEdge();
-        ValueAxis valueAxis2 = xyPlot.getRangeAxis();
-        RectangleEdge rectangleEdge2 = xyPlot.getRangeAxisEdge();
+//        ValueAxis valueAxis2 = xyPlot.getRangeAxis();
+//        RectangleEdge rectangleEdge2 = xyPlot.getRangeAxisEdge();
         double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
-        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
-        System.out.println("Chart: x = " + d1 + ", y = " + d2);
+//        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
+        System.out.println("Chart: x = " + d1 );
     }
 
     @Override
