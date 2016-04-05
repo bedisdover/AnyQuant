@@ -1,6 +1,8 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartMouseEvent;
+import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
@@ -28,7 +30,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by user on 2016/3/26.
  */
-public class IndexKLine_Daily {
+public class IndexKLine_Daily implements ChartMouseListener{
     ChartPanel chartPanel;
 
     public IndexKLine_Daily() throws IOException {
@@ -183,7 +185,7 @@ public class IndexKLine_Daily {
         x1Axis.setAutoTickUnitSelection(false);// 设置不采用自动选择刻度值
         x1Axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);// 设置标记的位置
         x1Axis.setStandardTickUnits(DateAxis.createStandardDateTickUnits());// 设置标准的时间刻度单位
-        x1Axis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,7));// 设置时间刻度的间隔，一般以周为单位
+        x1Axis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY,30));// 设置时间刻度的间隔，一般以周为单位
         x1Axis.setDateFormatOverride(new SimpleDateFormat("yyyy-MM-dd"));// 设置显示时间的格式
         x1Axis.setVisible(true);
 
@@ -255,6 +257,7 @@ public class IndexKLine_Daily {
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
         JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
         chartPanel = new ChartPanel(chart,true);
+
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
 //        frame.pack();
 //        frame.setVisible(true);
@@ -274,5 +277,15 @@ public class IndexKLine_Daily {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
+
+    }
+
+    @Override
+    public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+
     }
 }
