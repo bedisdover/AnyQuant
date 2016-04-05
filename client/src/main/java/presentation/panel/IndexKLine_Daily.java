@@ -1,10 +1,7 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
-import org.jfree.chart.ChartMouseEvent;
-import org.jfree.chart.ChartMouseListener;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
@@ -16,10 +13,13 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.ui.RectangleEdge;
 import vo.IndexVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,10 +31,13 @@ import java.util.GregorianCalendar;
  * Created by user on 2016/3/26.
  */
 public class IndexKLine_Daily implements ChartMouseListener{
+    JFreeChart chart;
     ChartPanel chartPanel;
 
     public IndexKLine_Daily() throws IOException {
         createChart();
+        this.chartPanel.setMouseZoomable(true, false);
+        this.chartPanel.addChartMouseListener(this);
     }
 
     public  void createChart() throws IOException {
@@ -255,7 +258,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
-        JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
         chartPanel = new ChartPanel(chart,true);
 
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
@@ -281,7 +284,20 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
-
+        int xPos = chartMouseEvent.getTrigger().getX();
+        int yPos = chartMouseEvent.getTrigger().getY();
+        System.out.println("x = " + xPos + ", y = " + yPos);
+        Point2D point2D = this.chartPanel.translateScreenToJava2D(new Point(xPos, yPos));
+        CombinedDomainXYPlot xyPlot = (CombinedDomainXYPlot)this.chart.getPlot();
+        ChartRenderingInfo chartRenderingInfo = this.chartPanel.getChartRenderingInfo();
+        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
+        ValueAxis valueAxis1 = xyPlot.getDomainAxis();
+        RectangleEdge rectangleEdge1 = xyPlot.getDomainAxisEdge();
+//        ValueAxis valueAxis2 = xyPlot.getRangeAxis();
+//        RectangleEdge rectangleEdge2 = xyPlot.getRangeAxisEdge();
+        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
+//        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
+        System.out.println("Chart: x = " + d1 );
     }
 
     @Override
