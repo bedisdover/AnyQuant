@@ -3,7 +3,7 @@ package presentation.panel.operation;
 import bl.SelfSelectStock;
 import bl.SortStock;
 import data.GetStockData;
-//import org.jb2011.lnf.beautyeye.ch4_scroll.BEScrollBarUI;
+import org.jb2011.lnf.beautyeye.ch4_scroll.BEScrollBarUI;
 import po.StockID;
 import po.StockPO;
 import presentation.UltraSwing.UltraButton;
@@ -368,8 +368,8 @@ public class PicturePanel extends OperationPanel {
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
             setBackground(new Color(0, 0, 0, 0));
-//            getHorizontalScrollBar().setUI(new BEScrollBarUI());
-//            getVerticalScrollBar().setUI(new BEScrollBarUI());
+            getHorizontalScrollBar().setUI(new BEScrollBarUI());
+            getVerticalScrollBar().setUI(new BEScrollBarUI());
         }
 
         /**
