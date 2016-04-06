@@ -36,6 +36,8 @@ import java.util.GregorianCalendar;
 public class IndexKLine_Daily implements ChartMouseListener{
     JFreeChart chart;
     ChartPanel chartPanel;
+    IndexVO indexVO;
+    int num;
 
     public IndexKLine_Daily() throws IOException {
         createChart();
@@ -50,8 +52,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
         ShowIndexData getIndexData = new ShowIndexData();
-        int num = 0;
-        IndexVO indexVO = null;
+
 
         indexVO = getIndexData.getLatestIndexData();
         num = indexVO.getDate().length;
@@ -287,22 +288,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
-        int xPos = chartMouseEvent.getTrigger().getX();
-        int yPos = chartMouseEvent.getTrigger().getY();
-        System.out.println("x = " + xPos + ", y = " + yPos);
-        Point2D point2D = this.chartPanel.translateScreenToJava2D(new Point(xPos, yPos));
-        XYPlot xyPlot = (XYPlot)this.chart.getPlot();
-        ChartRenderingInfo chartRenderingInfo = this.chartPanel.getChartRenderingInfo();
-        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
-        ValueAxis valueAxis1 = xyPlot.getDomainAxis();
-        RectangleEdge rectangleEdge1 = xyPlot.getDomainAxisEdge();
-//        ValueAxis valueAxis2 = xyPlot.getRangeAxis();
-//        RectangleEdge rectangleEdge2 = xyPlot.getRangeAxisEdge();
-        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
 
-
-//        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
-        System.out.println("Chart: x = " + d1 );
     }
 
     @Override
@@ -313,7 +299,10 @@ public class IndexKLine_Daily implements ChartMouseListener{
         this.chartPanel.setHorizontalAxisTrace(true);
         this.chartPanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);
-
-        System.out.println(this.chartPanel.getEntityForPoint(xPos,yPos).toString());
+        String[] info = chartEntity.toString().split(" ");
+        if(info[1].equals("series")){
+            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
+            System.out.println(indexVO.getDate()[num-90+item]);
+        }
     }
 }
