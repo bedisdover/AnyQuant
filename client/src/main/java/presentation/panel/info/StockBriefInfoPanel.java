@@ -63,12 +63,17 @@ public class StockBriefInfoPanel extends JPanel {
     /**
      * 成交量
      */
-    private UltraLabel labelVolume;
+    private UltraLabel labelAmount;
 
     /**
      * 成交额
      */
     private UltraLabel labelNumber;
+
+    /**
+     * 从左到右分为三个部分，每个部分包含一个面板
+     */
+    private JPanel namePanel, leftPanel, rightPanel;
 
     public StockBriefInfoPanel(String id) throws Exception {
         init(id);
@@ -94,29 +99,43 @@ public class StockBriefInfoPanel extends JPanel {
      * 创建组件
      */
     private void createUIComponents() {
-        StockNamePanel namePanel = new StockNamePanel(stock.getName(), stock.getId());
-        namePanel.setBounds(0, 0, NAME_PANEL_WIDTH, INFO_PANEL_HEIGHT);
+        namePanel = new StockNamePanel(stock.getName(), stock.getId());
 
-        labelPrice = new UltraLabel(30);
-        labelIncrease = new UltraLabel(30);
-        labelIncreaseIcon = new UltraLabel();
-        labelOpen = new UltraLabel();
-        labelClose = new UltraLabel();
-        labelHigh = new UltraLabel();
-        labelLow = new UltraLabel();
-        labelVolume = new UltraLabel();
-        labelNumber = new UltraLabel();
+        {
+            leftPanel = new JPanel();
+            leftPanel.setBackground(new Color(0, 0, 0, 0));
+
+            labelPrice = new UltraLabel(stock.getPrice() + "", 30);
+            labelIncrease = new UltraLabel();
+            labelIncreaseIcon = new UltraLabel();
+
+            leftPanel.add(labelIncrease);
+            leftPanel.add(labelIncreaseIcon);
+            leftPanel.add(labelPrice);
+        }
+
+        {
+            rightPanel = new JPanel();
+            rightPanel.setBackground(new Color(0, 0, 0, 0));
+
+            labelOpen = new UltraLabel();
+            labelClose = new UltraLabel();
+            labelHigh = new UltraLabel();
+            labelLow = new UltraLabel();
+            labelAmount = new UltraLabel();
+            labelNumber = new UltraLabel();
+
+            rightPanel.add(labelOpen);
+            rightPanel.add(labelClose);
+            rightPanel.add(labelHigh);
+            rightPanel.add(labelLow);
+            rightPanel.add(labelAmount);
+            rightPanel.add(labelNumber);
+        }
 
         add(namePanel);
-        add(labelPrice);
-        add(labelIncrease);
-        add(labelIncreaseIcon);
-        add(labelOpen);
-        add(labelClose);
-        add(labelHigh);
-        add(labelLow);
-        add(labelVolume);
-        add(labelNumber);
+        add(leftPanel);
+        add(rightPanel);
     }
 
     /**
@@ -148,10 +167,27 @@ public class StockBriefInfoPanel extends JPanel {
      * 界面大小发生变化时，重新定位各组件
      */
     private void assignment() {
-        labelPrice.setBounds(NAME_PANEL_WIDTH + PADDING, MARGIN * 2,
+        namePanel.setBounds(0, 0, NAME_PANEL_WIDTH, INFO_PANEL_HEIGHT);
+
+        leftPanel.setBounds(NAME_PANEL_WIDTH, 0,
+                (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
+        labelPrice.setBounds(PADDING, MARGIN * 2,
                 labelPrice.getPreferredSize().width, labelPrice.getPreferredSize().height);
-        labelIncreaseIcon.setBounds(labelPrice.getX() + BUTTON_HEIGHT + PADDING,
-                PADDING, BUTTON_HEIGHT, BUTTON_HEIGHT);
+        labelIncreaseIcon.setBounds(labelPrice.getX() + labelPrice.getWidth(), MARGIN * 2,
+                ImageLoader.increase.getIconWidth(), ImageLoader.increase.getIconHeight());
+        labelIncrease.setBounds(labelIncreaseIcon.getX() + labelIncreaseIcon.getWidth(), MARGIN * 2,
+                labelIncrease.getPreferredSize().width, labelIncrease.getPreferredSize().height);
+
+        rightPanel.setBounds(leftPanel.getX() + leftPanel.getWidth(), 0,
+                (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
+        labelAmount.setBounds(rightPanel.getWidth() - labelAmount.getPreferredSize().width - PADDING, MARGIN,
+                labelAmount.getPreferredSize().width, labelAmount.getPreferredSize().height);
+        labelNumber.setBounds(labelAmount.getX(), INFO_PANEL_HEIGHT - MARGIN - labelNumber.getPreferredSize().height,
+                labelNumber.getPreferredSize().width, labelNumber.getPreferredSize().height);
+        labelOpen.setBounds(labelAmount.getX() - labelOpen.getPreferredSize().width - PADDING, MARGIN,
+                labelOpen.getPreferredSize().width, labelOpen.getPreferredSize().height);
+        labelClose.setBounds(labelOpen.getX(), labelNumber.getY(),
+                labelClose.getPreferredSize().width, labelClose.getPreferredSize().height);
     }
 
     /**
@@ -159,9 +195,7 @@ public class StockBriefInfoPanel extends JPanel {
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
-        labelPrice.setText(stock.getPrice() + "");
-        labelIncrease.setText(stock.getIncrease()
-                + "(" + stock.getIncreasePer() + ")");
+        labelIncrease.setText(stock.getIncrease() + "(" + stock.getIncreasePer() + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
@@ -170,7 +204,7 @@ public class StockBriefInfoPanel extends JPanel {
         labelClose.setText("昨收：" + stock.getClose() + "");
         labelHigh.setText("最高：" + stock.getHigh() + "");
         labelLow.setText("最低：" + stock.getLow() + "");
-        labelVolume.setText("成交量：" + stock.getDealNum() + "");
+        labelAmount.setText("成交量：" + stock.getDealNum() + "");
         labelNumber.setText("成交额：" + stock.getDealAmount() + "");
 
         if (stock.getIncrease() > 0) {

@@ -32,10 +32,6 @@ public class UltraLabel extends JLabel {
         super(icon);
     }
 
-    public UltraLabel(int fontSize) {
-        super("", fontSize);
-    }
-
     /**
      * 创建具有指定文本和字体大小的Label
      *
@@ -48,18 +44,16 @@ public class UltraLabel extends JLabel {
         this.text = text;
         this.fontSize = fontSize;
 
-        init();
     }
 
-    /**
-     * 初始化
-     */
-    private void init() {
-        setPreferredSize(new Dimension(fontSize * text.length(), fontSize));
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(fontSize * text.length() * 2 / 3, fontSize + 10);
     }
 
     @Override
     public void setText(String text) {
+        super.setText(text);
         this.text = text;
     }
 }

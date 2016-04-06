@@ -65,6 +65,7 @@ public class StockInfoPanel extends InfoPanel {
             briefInfo = new StockBriefInfoPanel(stock.getId());
             k_line = new IndexKLine_Daily().getChartPanel();
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
