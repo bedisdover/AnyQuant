@@ -8,6 +8,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.general.Dataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -18,6 +19,7 @@ import vo.IndexVO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -288,7 +290,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         int yPos = chartMouseEvent.getTrigger().getY();
         System.out.println("x = " + xPos + ", y = " + yPos);
         Point2D point2D = this.chartPanel.translateScreenToJava2D(new Point(xPos, yPos));
-        CombinedDomainXYPlot xyPlot = (CombinedDomainXYPlot)this.chart.getPlot();
+        XYPlot xyPlot = (XYPlot)this.chart.getPlot();
         ChartRenderingInfo chartRenderingInfo = this.chartPanel.getChartRenderingInfo();
         Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
         ValueAxis valueAxis1 = xyPlot.getDomainAxis();
@@ -296,12 +298,20 @@ public class IndexKLine_Daily implements ChartMouseListener{
 //        ValueAxis valueAxis2 = xyPlot.getRangeAxis();
 //        RectangleEdge rectangleEdge2 = xyPlot.getRangeAxisEdge();
         double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
+
+
 //        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
         System.out.println("Chart: x = " + d1 );
     }
 
     @Override
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
-
+        int xPos = chartMouseEvent.getTrigger().getX();
+        int yPos = chartMouseEvent.getTrigger().getY();
+        Point2D p1 = new Point2D.Double(0,yPos);
+        Point2D p2 = new Point2D.Double(1024,yPos);
+        Line2D line2D = new Line2D.Double(p1,p2);
+        this.chartPanel.setHorizontalAxisTrace(true);
+        this.chartPanel.setVerticalAxisTrace(true);
     }
 }
