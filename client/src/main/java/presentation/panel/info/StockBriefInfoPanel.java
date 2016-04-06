@@ -176,18 +176,30 @@ public class StockBriefInfoPanel extends JPanel {
         labelIncreaseIcon.setBounds(labelPrice.getX() + labelPrice.getWidth(), MARGIN * 2,
                 ImageLoader.increase.getIconWidth(), ImageLoader.increase.getIconHeight());
         labelIncrease.setBounds(labelIncreaseIcon.getX() + labelIncreaseIcon.getWidth(), MARGIN * 2,
-                labelIncrease.getPreferredSize().width, labelIncrease.getPreferredSize().height);
+                leftPanel.getWidth(), labelPrice.getHeight());
 
         rightPanel.setBounds(leftPanel.getX() + leftPanel.getWidth(), 0,
                 (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
-        labelAmount.setBounds(rightPanel.getWidth() - labelAmount.getPreferredSize().width - PADDING, MARGIN,
-                labelAmount.getPreferredSize().width, labelAmount.getPreferredSize().height);
-        labelNumber.setBounds(labelAmount.getX(), INFO_PANEL_HEIGHT - MARGIN - labelNumber.getPreferredSize().height,
-                labelNumber.getPreferredSize().width, labelNumber.getPreferredSize().height);
-        labelOpen.setBounds(labelAmount.getX() - labelOpen.getPreferredSize().width - PADDING, MARGIN,
-                labelOpen.getPreferredSize().width, labelOpen.getPreferredSize().height);
-        labelClose.setBounds(labelOpen.getX(), labelNumber.getY(),
-                labelClose.getPreferredSize().width, labelClose.getPreferredSize().height);
+//        labelAmount.setBounds(rightPanel.getWidth() - labelAmount.getPreferredSize().width - PADDING, MARGIN,
+//                labelAmount.getPreferredSize().width, labelAmount.getPreferredSize().height);
+//        labelNumber.setBounds(labelAmount.getX(), INFO_PANEL_HEIGHT - MARGIN - labelNumber.getPreferredSize().height,
+//                labelNumber.getPreferredSize().width, labelNumber.getPreferredSize().height);
+//        labelOpen.setBounds(labelAmount.getX() - labelOpen.getPreferredSize().width - PADDING, MARGIN,
+//                labelOpen.getPreferredSize().width, labelOpen.getPreferredSize().height);
+//        labelClose.setBounds(labelOpen.getX(), labelNumber.getY(),
+//                labelClose.getPreferredSize().width, labelClose.getPreferredSize().height);
+        labelAmount.setBounds(rightPanel.getWidth() - BUTTON_WIDTH * 2 - PADDING, MARGIN,
+                BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        labelNumber.setBounds(labelAmount.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        labelOpen.setBounds(labelAmount.getX() - BUTTON_WIDTH - PADDING, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelClose.setBounds(labelOpen.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelHigh.setBounds(labelOpen.getX() - BUTTON_WIDTH - PADDING, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelLow.setBounds(labelHigh.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     /**
