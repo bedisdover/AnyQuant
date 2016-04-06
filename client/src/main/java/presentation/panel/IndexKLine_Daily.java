@@ -3,6 +3,7 @@ package presentation.panel;
 import bl.ShowIndexData;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
+import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
@@ -38,7 +39,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
     public IndexKLine_Daily() throws IOException {
         createChart();
-        this.chartPanel.setMouseZoomable(true, false);
+        this.chartPanel.setMouseZoomable(false, false);
         this.chartPanel.addChartMouseListener(this);
     }
 
@@ -308,10 +309,11 @@ public class IndexKLine_Daily implements ChartMouseListener{
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-        Point2D p1 = new Point2D.Double(0,yPos);
-        Point2D p2 = new Point2D.Double(1024,yPos);
-        Line2D line2D = new Line2D.Double(p1,p2);
+
         this.chartPanel.setHorizontalAxisTrace(true);
         this.chartPanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);
+
+        System.out.println(this.chartPanel.getEntityForPoint(xPos,yPos).toString());
     }
 }
