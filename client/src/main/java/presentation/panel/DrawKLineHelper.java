@@ -44,6 +44,7 @@ public class DrawKLineHelper {
                 pma5 += stockVO.getClose()[j];
             }
             pma5 /= 5;
+
             String[] days = stockVO.getDate()[i].split("-");
             seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma5);
         }

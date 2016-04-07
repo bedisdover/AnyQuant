@@ -20,6 +20,7 @@ import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 import po.Transfer;
 import vo.StockVO;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -65,6 +66,7 @@ public class StockKLine_Daily implements ChartMouseListener{
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
         for(int i=num-1;i>=num-90;i--){
             String[] days = stockVO.getDate()[i].split("-");
+
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),stockVO.getVolume()[i]/100);
         }
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
@@ -141,6 +143,17 @@ public class StockKLine_Daily implements ChartMouseListener{
 
     public ChartPanel getChartPanel(){
         return chartPanel;
+    }
+
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+        try {
+            jFrame.add(new StockKLine_Daily("sh600000").getChartPanel());
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
