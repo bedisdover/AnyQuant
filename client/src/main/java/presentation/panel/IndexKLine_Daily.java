@@ -4,11 +4,13 @@ import bl.ShowIndexData;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.entity.ChartEntity;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.servlet.ServletUtilities;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
@@ -24,6 +26,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -288,7 +291,14 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
-
+        Shape shape = new Rectangle(20, 10);
+        ChartEntity entity = new ChartEntity(shape);
+        StandardEntityCollection coll = new StandardEntityCollection();
+        coll.add(entity);
+        //ChartRenderingInfo info = new ChartRenderingInfo(coll);
+        //PrintWriter pw = new PrintWriter(out);//输出MAP信息
+        //fileName = ServletUtilities.saveChartAsPNG(chart, width , height,info, session);//保存图表为文件
+        //ChartUtilities.writeImageMap(pw, fileName, info, false);
     }
 
     @Override

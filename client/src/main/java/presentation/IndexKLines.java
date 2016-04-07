@@ -19,12 +19,15 @@ public class IndexKLines {
 
     public IndexKLines() throws IOException {
         jTabbedPane = new JTabbedPane();
+        ImageIcon image1 = new ImageIcon("client\\src\\main\\resources\\images\\dayK.png");
+        ImageIcon image2 = new ImageIcon("client\\src\\main\\resources\\images\\weekK.png");
+        ImageIcon image3 = new ImageIcon("client\\src\\main\\resources\\images\\monthK.png");
         chartPanel1 = new IndexKLine_Daily().getChartPanel();
         chartPanel2 = new IndexKLine_Weekly().getChartPanel();
         chartPanel3 = new IndexKLine_Monthly().getChartPanel();
-        jTabbedPane.addTab("日k",chartPanel1);
-        jTabbedPane.addTab("周k",chartPanel2);
-        jTabbedPane.addTab("月k",chartPanel3);
+        jTabbedPane.addTab(null,image1,chartPanel1,"日k线");
+        jTabbedPane.addTab(null,image2,chartPanel2,"周k线");
+        jTabbedPane.addTab(null,image3,chartPanel3,"月k线");
     }
 
     public JTabbedPane getjTabbedPane(){

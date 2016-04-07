@@ -1,6 +1,8 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartMouseEvent;
+import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -28,9 +30,11 @@ import java.util.GregorianCalendar;
 /**
  * Created by user on 2016/3/29.
  */
-public class IndexKLine_Weekly {
+public class IndexKLine_Weekly implements ChartMouseListener{
     ChartPanel chartPanel;
     DrawKLineHelper drawKLineHelper;
+    IndexVO indexVO;
+    int num;
 
     public IndexKLine_Weekly() throws IOException {
         drawKLineHelper = new DrawKLineHelper();
@@ -44,13 +48,13 @@ public class IndexKLine_Weekly {
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
         ShowIndexData getIndexData = new ShowIndexData();
-        IndexVO indexVO = getIndexData.getLatestIndexData();
-        int num = indexVO.getDate().length;
+        indexVO = getIndexData.getLatestIndexData();
+        num = indexVO.getDate().length;
 
-        drawKLineHelper.addPMA(indexVO,300,5);
+        drawKLineHelper.addPMA(indexVO,500,5);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
-        for(int i=num-1;i>=num-300;i-=5){
+        for(int i=num-1;i>=num-500;i-=5){
             String[] days = indexVO.getDate()[i].split("-");
             series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
         }
@@ -58,7 +62,7 @@ public class IndexKLine_Weekly {
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
-        for(int i=num-1;i>=num-300;i-=5){
+        for(int i=num-1;i>=num-500;i-=5){
             String[] days = indexVO.getDate()[i].split("-");
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
         }
@@ -97,7 +101,7 @@ public class IndexKLine_Weekly {
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
-        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-300],getLatestFriday());
+        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-500],getLatestFriday());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
@@ -162,5 +166,15 @@ public class IndexKLine_Weekly {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
+
+    }
+
+    @Override
+    public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+
     }
 }
