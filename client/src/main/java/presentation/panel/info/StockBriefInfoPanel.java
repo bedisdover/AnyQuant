@@ -77,6 +77,7 @@ public class StockBriefInfoPanel extends JPanel {
 
     StockBriefInfoPanel(String id) throws Exception {
         init(id);
+
         createUIComponents();
         setText();
         addListeners();
@@ -175,7 +176,7 @@ public class StockBriefInfoPanel extends JPanel {
 
         leftPanel.setBounds(NAME_PANEL_WIDTH, 0,
                 (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
-        labelPrice.setBounds(PADDING, MARGIN * 2,
+        labelPrice.setBounds(MARGIN, MARGIN * 2,
                 labelPrice.getPreferredSize().width, labelPrice.getPreferredSize().height);
         labelIncreaseIcon.setBounds(labelPrice.getX() + labelPrice.getWidth(), MARGIN * 2,
                 ImageLoader.increase.getIconWidth(), ImageLoader.increase.getIconHeight());
@@ -192,7 +193,7 @@ public class StockBriefInfoPanel extends JPanel {
 //                labelOpen.getPreferredSize().width, labelOpen.getPreferredSize().height);
 //        labelClose.setBounds(labelOpen.getX(), labelNumber.getY(),
 //                labelClose.getPreferredSize().width, labelClose.getPreferredSize().height);
-        labelAmount.setBounds(rightPanel.getWidth() - BUTTON_WIDTH * 2 - PADDING, MARGIN,
+        labelAmount.setBounds(rightPanel.getWidth() - BUTTON_WIDTH * 2, MARGIN,
                 BUTTON_WIDTH * 2, BUTTON_HEIGHT);
         labelNumber.setBounds(labelAmount.getX(), MARGIN + BUTTON_HEIGHT,
                 BUTTON_WIDTH * 2, BUTTON_HEIGHT);
@@ -289,7 +290,7 @@ class StockNamePanel extends JPanel {
             public void componentResized(ComponentEvent e) {
                 labelName.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
-                labelID.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN + LocationValue.PADDING,
+                labelID.setBounds(labelName.getX(), LocationValue.MARGIN + LocationValue.PADDING,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
 
                 repaint();

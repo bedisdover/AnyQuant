@@ -84,10 +84,14 @@ public class FrameConfig {
         try {
             width = Integer.parseInt(minimumSize.attributeValue("width"));
             height = Integer.parseInt(minimumSize.attributeValue("height"));
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            width = screen.width * 3 / 4;
+            height = screen.height * 3 / 4;
 
-            return new Dimension(screen.width * 2 / 3, screen.height * 2 / 3);
+            minimumSize = element.addElement("minimumSize");
+            minimumSize.addAttribute("width", width + "");
+            minimumSize.addAttribute("height", height + "");
         }
 
         return new Dimension(width, height);
