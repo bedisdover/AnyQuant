@@ -7,6 +7,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
@@ -16,6 +17,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import po.Transfer;
 import vo.StockVO;
 
 import java.awt.*;
@@ -132,10 +134,14 @@ public class StockKLine_Daily implements ChartMouseListener{
         combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
-        JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+
+        JFreeChart chart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
         chartPanel = new ChartPanel(chart,true);
     }
 
+    public ChartPanel getChartPanel(){
+        return chartPanel;
+    }
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
 
@@ -143,6 +149,16 @@ public class StockKLine_Daily implements ChartMouseListener{
 
     @Override
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+        int xPos = chartMouseEvent.getTrigger().getX();
+        int yPos = chartMouseEvent.getTrigger().getY();
 
+        this.chartPanel.setHorizontalAxisTrace(true);
+        this.chartPanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);
+        String[] info = chartEntity.toString().split(" ");
+        if(info[1].equals("series")){
+            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
+            System.out.println(stockVO.getDate()[num-90+item]);
+        }
     }
 }
