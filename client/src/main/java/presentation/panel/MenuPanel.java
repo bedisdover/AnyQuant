@@ -203,6 +203,9 @@ public class MenuPanel extends JPanel {
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
                 btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
+
+                revalidate();
+                repaint();
             }
         });
 

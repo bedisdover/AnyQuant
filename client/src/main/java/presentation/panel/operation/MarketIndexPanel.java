@@ -82,6 +82,9 @@ public class MarketIndexPanel extends OperationPanel {
                         PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
                 chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
+
+                revalidate();
+                repaint();
             }
         });
 

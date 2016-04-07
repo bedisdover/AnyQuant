@@ -1,6 +1,5 @@
 package presentation.panel.info;
 
-import po.StockPO;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
 
@@ -12,8 +11,6 @@ import java.awt.event.*;
  * <p>
  * 信息面板
  * 用于展示大盘指数和股票的详细信息
- * 以无表头表格展示详细信息
- * 以图标展示变化情况
  */
 public abstract class InfoPanel extends OperationPanel {
     /**
@@ -33,27 +30,10 @@ public abstract class InfoPanel extends OperationPanel {
      */
     private JButton back;
 
-    /**
-     * 此面板持有的股票值对象
-     */
-    protected StockPO stock;
-
     InfoPanel(JPanel parent) {
         this.parent = parent;
-        this.stock = null;
 
         init();
-        createUIComponents();
-        addListeners();
-    }
-
-    InfoPanel(JPanel parent, StockPO stock) {
-        this.parent = parent;
-        this.stock = stock;
-
-        init();
-        createUIComponents();
-        addListeners();
     }
 
     protected void init() {
@@ -68,26 +48,28 @@ public abstract class InfoPanel extends OperationPanel {
 //        add(dateChooser);
     }
 
-
     protected void addListeners() {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 assignment();
+
+                revalidate();
+                repaint();
             }
         });
 
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(parent);
+                onBack();
             }
         });
 
-        this.addKeyListener(new KeyAdapter() {
+        back.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(parent);
+                onBack();
             }
         });
     }
@@ -103,7 +85,12 @@ public abstract class InfoPanel extends OperationPanel {
 //                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+    }
 
-        repaint();
+    /**
+     * 返回操作
+     */
+    private void onBack() {
+        MainFrame.getMainFrame().addOperationPanel(parent);
     }
 }

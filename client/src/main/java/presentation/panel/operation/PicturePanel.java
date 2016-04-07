@@ -113,6 +113,9 @@ public class PicturePanel extends OperationPanel {
                         MARGIN, TEXT_FIELD_WIDTH, BUTTON_HEIGHT);
                 listPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - MARGIN * 2 - PADDING - BUTTON_HEIGHT);
+
+                revalidate();
+                repaint();
             }
         });
 
@@ -425,6 +428,9 @@ public class PicturePanel extends OperationPanel {
                 @Override
                 public void componentResized(ComponentEvent e) {
                     assignment();
+
+                    revalidate();
+                    repaint();
                 }
             });
 

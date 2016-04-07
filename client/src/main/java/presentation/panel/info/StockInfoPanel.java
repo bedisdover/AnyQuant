@@ -44,14 +44,21 @@ public class StockInfoPanel extends InfoPanel {
      */
     private JPanel k_line;
 
+    private StockPO stock;
+
     /**
      * 股票ID
      */
     private String stockID;
 
     public StockInfoPanel(JPanel parent, StockPO stock) {
-        super(parent, stock);
+        super(parent);
+
+        this.stock = stock;
         this.stockID = stock.getId();
+
+        createUIComponents();
+        addListeners();
     }
 
     @Override
@@ -91,6 +98,9 @@ public class StockInfoPanel extends InfoPanel {
                 //TODO location
                 k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
+
+                revalidate();
+                repaint();
             }
         });
 
@@ -133,7 +143,7 @@ public class StockInfoPanel extends InfoPanel {
     /**
      * 股票详细数据面板
      */
-    class DetailedInfoPanel extends InfoPanel {
+    private class DetailedInfoPanel extends InfoPanel {
 
         /**
          * 关注按钮
@@ -145,11 +155,22 @@ public class StockInfoPanel extends InfoPanel {
         DetailedInfoPanel(JPanel parent, StockPO stock) {
             super(parent);
 
-            follow = new JButton("关注");
-            add(follow);
+            createUIComponents();
+            addListeners();
 
             displayInfo(stock);
+        }
 
+        @Override
+        protected void createUIComponents() {
+            super.createUIComponents();
+
+            follow = new JButton("关注");
+            add(follow);
+        }
+
+        @Override
+        protected void addListeners() {
             super.addListeners();
 
             follow.addMouseListener(new MouseAdapter() {
@@ -164,6 +185,9 @@ public class StockInfoPanel extends InfoPanel {
                 public void componentResized(ComponentEvent e) {
                     follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
                             MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+                    revalidate();
+                    repaint();
                 }
             });
         }

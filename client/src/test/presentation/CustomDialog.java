@@ -187,6 +187,7 @@ public class CustomDialog extends JDialog {
             }
         }
 
+        revalidate();
         repaint();
     }
 

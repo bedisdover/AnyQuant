@@ -121,6 +121,8 @@ public abstract class OperationPanel extends JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 assignment();
+                revalidate();
+                repaint();
             }
         });
     }
