@@ -66,6 +66,7 @@ public class StockKLine_Daily implements ChartMouseListener{
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
         for(int i=num-1;i>=num-90;i--){
             String[] days = stockVO.getDate()[i].split("-");
+
             series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),stockVO.getVolume()[i]/100);
         }
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
