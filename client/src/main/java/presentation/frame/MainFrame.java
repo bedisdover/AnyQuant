@@ -155,6 +155,7 @@ public final class MainFrame extends JFrame {
 
         backgroundPanel.revalidate();
         backgroundPanel.repaint();
+        backgroundPanel.updateUI();
 
         frame.revalidate();
         frame.repaint();

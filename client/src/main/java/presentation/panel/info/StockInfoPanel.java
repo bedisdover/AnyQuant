@@ -44,6 +44,9 @@ public class StockInfoPanel extends InfoPanel {
      */
     private JPanel k_line;
 
+    /**
+     * 持有的股票对象
+     */
     private StockPO stock;
 
     /**
@@ -98,9 +101,6 @@ public class StockInfoPanel extends InfoPanel {
                 //TODO location
                 k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
-
-                revalidate();
-                repaint();
             }
         });
 
