@@ -291,14 +291,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
-        Shape shape = new Rectangle(20, 10);
-        ChartEntity entity = new ChartEntity(shape);
-        StandardEntityCollection coll = new StandardEntityCollection();
-        coll.add(entity);
-        //ChartRenderingInfo info = new ChartRenderingInfo(coll);
-        //PrintWriter pw = new PrintWriter(out);//输出MAP信息
-        //fileName = ServletUtilities.saveChartAsPNG(chart, width , height,info, session);//保存图表为文件
-        //ChartUtilities.writeImageMap(pw, fileName, info, false);
+
     }
 
     @Override
