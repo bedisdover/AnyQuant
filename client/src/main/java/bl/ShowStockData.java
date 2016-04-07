@@ -53,8 +53,11 @@ public class ShowStockData {
     }
 
     public static void main(String[] args) {
-//        ShowStockData s = new ShowStockData();
-//        System.out.println();
-//        System.out.println(s.getLatestStockData().get(1).getVolume()[0]);
+        ShowStockData s = new ShowStockData();
+        try {
+            System.out.println(s.getDateOfLatestData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -20,6 +20,7 @@ import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 import po.Transfer;
 import vo.StockVO;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -141,6 +142,17 @@ public class StockKLine_Daily implements ChartMouseListener{
 
     public ChartPanel getChartPanel(){
         return chartPanel;
+    }
+
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+        try {
+            jFrame.add(new StockKLine_Daily("sh600000").getChartPanel());
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {

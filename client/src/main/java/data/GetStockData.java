@@ -300,25 +300,25 @@ public class GetStockData implements GetStockDataService {
      * @return StockPO
      */
     public StockPO getStockData_name(String name, String date1, String date2) throws IOException {
-        int interval = intervalBetweenTwoDates(date1, date2);
+//        int interval = intervalBetweenTwoDates(date1, date2);
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
         String s1 = rdt.getData(url);
         String s2 = rdt.parseJSON(s1, "data");
         String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
-        StockPO stockPO = new StockPO(interval);
-        long[] volume = new long[interval];
-        double[] pb = new double[interval];
-        double[] high = new double[interval];
-        double[] pe_ttm = new double[interval];
-        double[] adj_price = new double[interval];
-        double[] low = new double[interval];
-        String[] date = new String[interval];
-        double[] close = new double[interval];
-        double[] open = new double[interval];
-        double[] turnover = new double[interval];
-        double[] increase_decreaseRate = new double[interval];
-        double[] increase_decreaseNum = new double[interval];
+        StockPO stockPO = new StockPO(trading_info.length);
+        long[] volume = new long[trading_info.length];
+        double[] pb = new double[trading_info.length];
+        double[] high = new double[trading_info.length];
+        double[] pe_ttm = new double[trading_info.length];
+        double[] adj_price = new double[trading_info.length];
+        double[] low = new double[trading_info.length];
+        String[] date = new String[trading_info.length];
+        double[] close = new double[trading_info.length];
+        double[] open = new double[trading_info.length];
+        double[] turnover = new double[trading_info.length];
+        double[] increase_decreaseRate = new double[trading_info.length];
+        double[] increase_decreaseNum = new double[trading_info.length];
         for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
