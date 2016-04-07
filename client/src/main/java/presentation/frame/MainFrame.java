@@ -114,8 +114,8 @@ public final class MainFrame extends JFrame {
 
                 notifyPanel();
 
-                frame.revalidate();
-                frame.repaint();
+//                frame.revalidate();
+//                frame.repaint();
             }
         });
     }
@@ -153,12 +153,12 @@ public final class MainFrame extends JFrame {
         panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
         backgroundPanel.add(panel);
 
-        backgroundPanel.revalidate();
+//        backgroundPanel.revalidate();
         backgroundPanel.repaint();
-        backgroundPanel.updateUI();
+//        backgroundPanel.updateUI();
 
-        frame.revalidate();
-        frame.repaint();
+//        frame.revalidate();
+//        frame.repaint();
     }
 }
 

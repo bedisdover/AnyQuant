@@ -74,6 +74,8 @@ public class StockInfoPanel extends InfoPanel {
         try {
             briefInfo = new StockBriefInfoPanel(stock.getId());
             k_line = new IndexKLine_Daily().getChartPanel();
+            k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
+                    PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
@@ -101,6 +103,9 @@ public class StockInfoPanel extends InfoPanel {
                 //TODO location
                 k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
                         PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
+
+//                revalidate();
+//                repaint();
             }
         });
 

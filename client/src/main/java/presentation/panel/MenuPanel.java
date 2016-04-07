@@ -204,7 +204,6 @@ public class MenuPanel extends JPanel {
                 btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                         BUTTON_HEIGHT, BUTTON_HEIGHT);
 
-                revalidate();
                 repaint();
             }
         });
@@ -304,11 +303,9 @@ public class MenuPanel extends JPanel {
                             netState = temp;
                             repaint();
                         }
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (InterruptedException | IOException e) {
                     e.printStackTrace();
                 }
             }
