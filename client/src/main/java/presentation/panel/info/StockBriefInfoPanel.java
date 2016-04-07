@@ -75,7 +75,7 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private JPanel namePanel, leftPanel, rightPanel;
 
-    public StockBriefInfoPanel(String id) throws Exception {
+    StockBriefInfoPanel(String id) throws Exception {
         init(id);
         createUIComponents();
         setText();
@@ -103,6 +103,7 @@ public class StockBriefInfoPanel extends JPanel {
 
         {
             leftPanel = new JPanel();
+            leftPanel.setLayout(null);
             leftPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelPrice = new UltraLabel(stock.getPrice() + "", 30);
@@ -116,6 +117,7 @@ public class StockBriefInfoPanel extends JPanel {
 
         {
             rightPanel = new JPanel();
+            rightPanel.setLayout(null);
             rightPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelOpen = new UltraLabel();
@@ -147,7 +149,6 @@ public class StockBriefInfoPanel extends JPanel {
             public void componentResized(ComponentEvent e) {
                 assignment();
 
-                revalidate();
                 repaint();
             }
         });
@@ -251,22 +252,48 @@ public class StockBriefInfoPanel extends JPanel {
  * 股票名称代码
  * 除包含中文名称、代码外，还包含关注按钮
  */
-class StockNamePanel extends IndexNamePanel {
+class StockNamePanel extends JPanel {
 
     /**
-     * 关注按钮
+     * 名称
      */
-    private JButton btnFollow;
+    private JLabel labelName;
+
+    /**
+     * ID
+     */
+    private JLabel labelID;
 
     StockNamePanel(String name, String id) {
-        super(name, id);
+        labelName = new JLabel(name);
+        labelID = new JLabel(id);
+
+        setLayout(null);
+        setBackground(new Color(140, 175, 146, 58));
+        setBorder(new BevelBorder(BevelBorder.RAISED));
 
         createUIComponents();
+        addListeners();
     }
 
     private void createUIComponents() {
-        btnFollow = new JButton("关注");
+        labelName.setFont(new Font("", Font.PLAIN, 16));
 
-        add(btnFollow);
+        add(labelName);
+        add(labelID);
+    }
+
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                labelName.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN,
+                        LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+                labelID.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN + LocationValue.PADDING,
+                        LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+
+                repaint();
+            }
+        });
     }
 }
