@@ -2,6 +2,7 @@ package dataservice;
 
 import po.StockPO;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -10,4 +11,5 @@ import java.util.List;
 public interface GetStockDataService {
 //    public List<StockPO> getStockData_today_sh();
 //    public List<StockPO> getStockData_today_sz();
+    public StockPO getStockData_name(String name, String date1, String date2) throws IOException;
 }

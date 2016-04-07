@@ -8,10 +8,14 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import vo.IndexVO;
+import vo.StockVO;
 
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by user on 2016/4/1.
@@ -29,6 +33,73 @@ public class DrawKLineHelper {
         timeSeriesCollectionPMA20 = new TimeSeriesCollection();
         timeSeriesCollectionPMA30 = new TimeSeriesCollection();
         timeSeriesCollectionPMA60 = new TimeSeriesCollection();
+    }
+
+    public void addPMA(StockVO stockVO,int n,int gap){
+        int num = stockVO.getDate().length;
+        TimeSeries seriesPMA5 = new TimeSeries("");//对应五日均线数据
+        for(int i=num-1;i>=num-n;i-=gap){
+            double pma5 = 0;
+            for(int j=i;j>i-5;j--){
+                pma5 += stockVO.getClose()[j];
+            }
+            pma5 /= 5;
+            String[] days = stockVO.getDate()[i].split("-");
+            seriesPMA5.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma5);
+        }
+        timeSeriesCollectionPMA5.addSeries(seriesPMA5);//保留五日均线数据的集合
+
+
+        TimeSeries seriesPMA10 = new TimeSeries("");//对应十日均线数据
+        for(int i=num-1;i>=num-n;i-=gap){
+            double pma10 = 0;
+            for(int j=i;j>i-10;j--){
+                pma10 += stockVO.getClose()[j];
+            }
+            pma10 /= 10;
+            String[] days = stockVO.getDate()[i].split("-");
+            seriesPMA10.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma10);
+        }
+        timeSeriesCollectionPMA10.addSeries(seriesPMA10);//保留十日均线数据的集合
+
+
+        TimeSeries seriesPMA20 = new TimeSeries("");//对应二十日均线数据
+        for(int i=num-1;i>=num-n;i-=gap){
+            double pma20 = 0;
+            for(int j=i;j>i-20;j--){
+                pma20 += stockVO.getClose()[j];
+            }
+            pma20 /= 20;
+            String[] days = stockVO.getDate()[i].split("-");
+            seriesPMA20.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma20);
+        }
+        timeSeriesCollectionPMA20.addSeries(seriesPMA20);//保留二十日均线数据的集合
+
+
+        TimeSeries seriesPMA30 = new TimeSeries("");//对应三十日均线数据
+        for(int i=num-1;i>=num-n;i-=gap){
+            double pma30 = 0;
+            for(int j=i;j>i-30;j--){
+                pma30 += stockVO.getClose()[j];
+            }
+            pma30 /= 30;
+            String[] days = stockVO.getDate()[i].split("-");
+            seriesPMA30.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma30);
+        }
+        timeSeriesCollectionPMA30.addSeries(seriesPMA30);//保留三十日均线数据的集合
+
+
+        TimeSeries seriesPMA60 = new TimeSeries("");//对应六十日均线数据
+        for(int i=num-1;i>=num-n;i-=gap){
+            double pma60 = 0;
+            for(int j=i;j>i-60;j--){
+                pma60 += stockVO.getClose()[j];
+            }
+            pma60 /= 60;
+            String[] days = stockVO.getDate()[i].split("-");
+            seriesPMA60.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),pma60);
+        }
+        timeSeriesCollectionPMA60.addSeries(seriesPMA60);//保留六十日均线数据的集合
     }
 
     public void addPMA(IndexVO indexVO,int n,int gap){
@@ -112,7 +183,15 @@ public class DrawKLineHelper {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateAxis.setAutoRange(false);
         try {
-            dateAxis.setRange(simpleDateFormat.parse(date1),simpleDateFormat.parse(date2));
+            Calendar c = new GregorianCalendar();
+            String[] time = date2.split("-");
+            c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
+            c.add(c.DATE,1);
+            Date date = c.getTime();
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+            String d = simpleDateFormat1.format(date);//得到date2的后一天
+
+            dateAxis.setRange(simpleDateFormat.parse(date1),simpleDateFormat.parse(d));
         } catch (ParseException e) {
             e.printStackTrace();
         }
