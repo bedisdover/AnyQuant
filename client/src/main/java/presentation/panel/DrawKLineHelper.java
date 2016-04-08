@@ -193,6 +193,7 @@ public class DrawKLineHelper {
             String d = simpleDateFormat1.format(date);//得到date2的后一天
 
             dateAxis.setRange(simpleDateFormat.parse(date1),simpleDateFormat.parse(d));
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

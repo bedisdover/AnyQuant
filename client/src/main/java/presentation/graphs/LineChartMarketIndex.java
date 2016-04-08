@@ -13,28 +13,45 @@ import java.io.IOException;
 public class LineChartMarketIndex {
     public static LineChartParent lineChartParent;
 
-    public LineChartMarketIndex(String nameInit[], double data[]) {
+    public LineChartMarketIndex(String nameInit[], double dataInit[]) {
         String name[] = nameInit;
+        double data[]=new double[365];
+        int length=dataInit.length;
+        for(int i=0;i<365;i++){
+            data[364-i]=dataInit[length-1-i];
+        }
 
         try {
             IndexVO index = new ShowIndexData().getLatestIndexData();
-            String date[] = index.getDate();
+            String dateInit[] = index.getDate();
+            String date[]=new String[365];
+            int len=dateInit.length;
+            for(int i=0;i<365;i++){
+                date[364-i]=dateInit[len-1-i];
+            }
+
             lineChartParent = new LineChartParent(name, date, data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public LineChartMarketIndex(String nameInit[], long data[]) {
+    public LineChartMarketIndex(String nameInit[], long dataInit[]) {
         String name[] = nameInit;
-        double dataDouble[] = new double[data.length];
-        for (int i = 0; i < data.length; i++) {
-            dataDouble[i] = (double) data[i];
+        int length=dataInit.length;
+        double data[] = new double[365];
+        for(int i=0;i<365;i++) {
+            data[364 - i] = (double)dataInit[length - 1 - i];
         }
         try {
             IndexVO index = new ShowIndexData().getLatestIndexData();
-            String date[] = index.getDate();
-            lineChartParent = new LineChartParent(name, date, dataDouble);
+            String dateInit[] = index.getDate();
+            String date[]=new String[365];
+            for(int i=0;i<365;i++){
+                date[364-i]=dateInit[dataInit.length-1-i];
+            }
+
+            lineChartParent = new LineChartParent(name, date, data);
         } catch (IOException e) {
             e.printStackTrace();
         }

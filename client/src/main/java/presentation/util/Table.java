@@ -96,7 +96,7 @@ public class Table extends JTable {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2 && BUTTON3_MASK != 0) {
+                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                     StockPO stock = null;
                     try {
                         String name = (String) getValueAt(getSelectedRow(), 2);
