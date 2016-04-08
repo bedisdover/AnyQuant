@@ -256,16 +256,17 @@ public class IndexKLine_Daily implements ChartMouseListener{
                 }
             }};
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
+
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
         y2Axis.setAutoRange(false);
         y2Axis.setRange(volumeMinValue*0.9, volumeHighValue*1.1);
         y2Axis.setTickUnit(new NumberTickUnit((volumeHighValue*1.1-volumeMinValue*0.9)/4));
         XYPlot plot2=new XYPlot(timeSeriesCollection,null,y2Axis,xyBarRender);// 建立第二个画图区域对象，主要此时的x轴设为了null值，因为要与第一个画图区域对象共享x轴
-        CombinedDomainXYPlot combineddomainxyplot = new CombinedDomainXYPlot(x1Axis);// 建立一个恰当的联合图形区域对象，以x轴为共享轴
-        combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
-        combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
-        combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
-        chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        CombinedDomainXYPlot combinedDomainXYPlotXYPLot = new CombinedDomainXYPlot(x1Axis);// 建立一个恰当的联合图形区域对象，以x轴为共享轴
+        combinedDomainXYPlotXYPLot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
+        combinedDomainXYPlotXYPLot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
+        combinedDomainXYPlotXYPLot.setGap(20);// 设置两个图形区域对象之间的间隔空间
+        chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combinedDomainXYPlotXYPLot, false);
         chartPanel = new ChartPanel(chart,true);
 
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
@@ -306,6 +307,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
 
+
         this.chartPanel.setHorizontalAxisTrace(true);
         this.chartPanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);
@@ -315,4 +317,5 @@ public class IndexKLine_Daily implements ChartMouseListener{
             System.out.println(indexVO.getDate()[num-90+item]);
         }
     }
+
 }
