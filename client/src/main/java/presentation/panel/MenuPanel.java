@@ -3,7 +3,6 @@ package presentation.panel;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
-import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
 import presentation.settings.SettingsDialog;
 import presentation.util.ExampleFileFilter;
@@ -13,6 +12,7 @@ import presentation.util.Portrait;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -90,6 +90,21 @@ public class MenuPanel extends JPanel {
     private JButton btnPicture;
 
     /**
+     * 行情选项面板，承载沪深按钮和美股按钮
+     */
+    private JPanel options;
+
+    /**
+     * 沪深按钮
+     */
+    private JButton btnSH_SZ;
+
+    /**
+     * 美股按钮
+     */
+    private JButton btnUS;
+
+    /**
      * 大盘指数按钮
      */
     private JButton btnMarketIndex;
@@ -158,8 +173,16 @@ public class MenuPanel extends JPanel {
      * 创建UI组件
      */
     private void createUIComponents() {
+        //默认不可见
+        options = new JPanel();
+        options.setBackground(new Color(140, 140, 140));
+        options.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        options.setVisible(false);
+
         btnPortfolio = new JButton("自  选");
         btnPicture = new JButton("行  情");
+        btnUS = new JButton("美股");
+        btnSH_SZ = new JButton("沪深");
         btnMarketIndex = new JButton("大盘指数");
         btnHistory = new JButton("历  史");
         btnSettings = new JLabel();
@@ -179,6 +202,7 @@ public class MenuPanel extends JPanel {
         btnSettings.setIcon(new ImageIcon(ImageLoader.settings));
         btnSkin.setIcon(new ImageIcon(ImageLoader.skin));
 
+        this.add(options);
         this.add(btnPortfolio);
         this.add(btnPicture);
         this.add(btnMarketIndex);
@@ -191,20 +215,7 @@ public class MenuPanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2,
-                        BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2,
-                        BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2,
-                        BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
-                        BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
-                        BUTTON_HEIGHT, BUTTON_HEIGHT);
-                btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
-                        BUTTON_HEIGHT, BUTTON_HEIGHT);
-
-                repaint();
+                assignment();
             }
         });
 
@@ -231,11 +242,16 @@ public class MenuPanel extends JPanel {
 
         btnPicture.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!options.isVisible()) {
+                    showPictureOptions();
+                }
+            }
+
+            @Override
             public void mouseClicked(MouseEvent e) {
-                if (netState) {
-                    getMainFrame().addOperationPanel(new PicturePanel());
-                } else {
-                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                if (!options.isVisible()) {
+                    showPictureOptions();
                 }
             }
         });
@@ -278,6 +294,95 @@ public class MenuPanel extends JPanel {
     }
 
     /**
+     * 界面大小发生变化时，对组件重新布局
+     */
+    private void assignment() {
+        btnPortfolio.setBounds(MARGIN, PORTRAIT_DIAMETER + PADDING * 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
+                BUTTON_HEIGHT, BUTTON_HEIGHT);
+        btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
+                BUTTON_HEIGHT, BUTTON_HEIGHT);
+
+        repaint();
+    }
+
+    /**
+     * 显示行情选项——美股、沪深
+     */
+    private void showPictureOptions() {
+        options.setVisible(true);
+
+        new Thread() {
+            @Override
+            public void run() {
+                //动画时间持续3秒
+                try {
+                    for (int i = 0; i < BUTTON_HEIGHT * 2 + 20; i++) {
+                        Thread.sleep(10);
+                        options.setBounds(btnPicture.getX() + 10,
+                                btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);
+                        btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
+                                BUTTON_WIDTH, BUTTON_HEIGHT);
+                        btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
+                                BUTTON_WIDTH, BUTTON_HEIGHT);
+                        repaint();
+                    }
+
+                    options.add(btnUS, "left");
+                    options.add(btnSH_SZ, "right");
+
+                    revalidate();
+                    repaint();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                hidePictureOptions();
+            }
+        });
+    }
+
+    /**
+     * 隐藏行情选项——美股、沪深
+     */
+    private void hidePictureOptions() {
+        options.setVisible(false);
+
+        new Thread() {
+            @Override
+            public void run() {
+                //动画时间持续3秒
+                try {
+                    for (int i = BUTTON_HEIGHT + 20; i >= 0; i--) {
+                        Thread.sleep(10);
+                        options.setBounds(btnPicture.getX() + 10,
+                                btnPicture.getY() + BUTTON_HEIGHT + PADDING / 2, BUTTON_WIDTH - 20, i);
+                        btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
+                                BUTTON_WIDTH, BUTTON_HEIGHT);
+                        btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
+                                BUTTON_WIDTH, BUTTON_HEIGHT);
+                        repaint();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    /**
      * 加载当前头像
      */
     private void loadPortrait() {
@@ -303,7 +408,7 @@ public class MenuPanel extends JPanel {
                             netState = temp;
                             repaint();
                         }
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     }
                 } catch (InterruptedException | IOException e) {
                     e.printStackTrace();

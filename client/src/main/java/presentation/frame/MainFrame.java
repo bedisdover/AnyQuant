@@ -4,8 +4,8 @@ import config.FrameConfig;
 import config.SystemConfig;
 import org.dom4j.DocumentException;
 import presentation.panel.BackgroundPanel;
-import presentation.panel.info.LocationValue;
 import presentation.panel.MenuPanel;
+import presentation.panel.info.LocationValue;
 import presentation.util.ImageLoader;
 
 import javax.swing.*;
@@ -113,9 +113,6 @@ public final class MainFrame extends JFrame {
                 }
 
                 notifyPanel();
-
-//                frame.revalidate();
-//                frame.repaint();
             }
         });
     }
@@ -150,15 +147,15 @@ public final class MainFrame extends JFrame {
         }
 
         operationPanel = panel;
-        panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
-        backgroundPanel.add(panel);
+        operationPanel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
+        backgroundPanel.add(operationPanel);
 
-//        backgroundPanel.revalidate();
+        backgroundPanel.revalidate();
         backgroundPanel.repaint();
-//        backgroundPanel.updateUI();
+        backgroundPanel.updateUI();
 
-//        frame.revalidate();
-//        frame.repaint();
+        frame.revalidate();
+        frame.repaint();
     }
 }
 

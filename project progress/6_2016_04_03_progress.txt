@@ -16,8 +16,8 @@ what : 继续写界面
 problem : 效率不够高
 todo : 写出牛逼闪闪的界面
 
-who : 
-when : 
-what : 
-problem :
-todo : 
+who : 苏琰梓
+when : 2016-04-03
+what : 继续画K线图
+problem : 效率不够高
+todo : 研究K线图的交互

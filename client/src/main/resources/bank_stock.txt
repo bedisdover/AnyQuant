@@ -1,4 +1,3 @@
-sh600000 浦发银行 true
 sh600015 华夏银行 true
 sh600016 民生银行 true
 sh600036 招商银行 true
