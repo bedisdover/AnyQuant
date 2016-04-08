@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * 主要信息测试
  */
-public class BriefInfoTest {
+public class InfoTest {
     public static final String DEF_CHAT_SET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static final int DEF_READ_TIMEOUT = 30000;
