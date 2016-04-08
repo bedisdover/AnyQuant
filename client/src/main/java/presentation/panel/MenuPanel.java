@@ -3,6 +3,7 @@ package presentation.panel;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
+import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
 import presentation.settings.SettingsDialog;
 import presentation.util.ExampleFileFilter;
@@ -173,16 +174,16 @@ public class MenuPanel extends JPanel {
      * 创建UI组件
      */
     private void createUIComponents() {
-        //默认不可见
         options = new JPanel();
         options.setBackground(new Color(140, 140, 140));
         options.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        //默认不可见
         options.setVisible(false);
 
         btnPortfolio = new JButton("自  选");
         btnPicture = new JButton("行  情");
-        btnUS = new JButton("美股");
-        btnSH_SZ = new JButton("沪深");
+        btnSH_SZ = new JButton("沪 深");
+        btnUS = new JButton("美 股");
         btnMarketIndex = new JButton("大盘指数");
         btnHistory = new JButton("历  史");
         btnSettings = new JLabel();
@@ -256,6 +257,24 @@ public class MenuPanel extends JPanel {
             }
         });
 
+        btnSH_SZ.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (netState) {
+                    getMainFrame().addOperationPanel(new PicturePanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
+            }
+        });
+
+        btnUS.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -322,7 +341,6 @@ public class MenuPanel extends JPanel {
         new Thread() {
             @Override
             public void run() {
-                //动画时间持续3秒
                 try {
                     for (int i = 0; i < BUTTON_HEIGHT * 2 + 20; i++) {
                         Thread.sleep(10);
@@ -335,8 +353,8 @@ public class MenuPanel extends JPanel {
                         repaint();
                     }
 
-                    options.add(btnUS, "left");
-                    options.add(btnSH_SZ, "right");
+                    options.add(btnSH_SZ);
+                    options.add(btnUS);
 
                     revalidate();
                     repaint();
@@ -349,7 +367,13 @@ public class MenuPanel extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                hidePictureOptions();
+                boolean temp = e.getX() >= options.getX()
+                        && e.getX() <= options.getX() + options.getHeight()
+                        && e.getY() >= options.getY()
+                        && e.getY() <= options.getY() + options.getWidth();
+                if (!temp) {
+                    hidePictureOptions();
+                }
             }
         });
     }
@@ -358,8 +382,6 @@ public class MenuPanel extends JPanel {
      * 隐藏行情选项——美股、沪深
      */
     private void hidePictureOptions() {
-        options.setVisible(false);
-
         new Thread() {
             @Override
             public void run() {
@@ -368,13 +390,15 @@ public class MenuPanel extends JPanel {
                     for (int i = BUTTON_HEIGHT + 20; i >= 0; i--) {
                         Thread.sleep(10);
                         options.setBounds(btnPicture.getX() + 10,
-                                btnPicture.getY() + BUTTON_HEIGHT + PADDING / 2, BUTTON_WIDTH - 20, i);
+                                btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);
                         btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
                                 BUTTON_WIDTH, BUTTON_HEIGHT);
                         btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
                                 BUTTON_WIDTH, BUTTON_HEIGHT);
                         repaint();
                     }
+
+                    options.setVisible(false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
