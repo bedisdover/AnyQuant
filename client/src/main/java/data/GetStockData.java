@@ -306,41 +306,55 @@ public class GetStockData implements GetStockDataService {
         String s1 = rdt.getData(url);
         String s2 = rdt.parseJSON(s1, "data");
         String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
-        StockPO stockPO = new StockPO(trading_info.length);
-        long[] volume = new long[trading_info.length];
-        double[] pb = new double[trading_info.length];
-        double[] high = new double[trading_info.length];
-        double[] pe_ttm = new double[trading_info.length];
-        double[] adj_price = new double[trading_info.length];
-        double[] low = new double[trading_info.length];
-        String[] date = new String[trading_info.length];
-        double[] close = new double[trading_info.length];
-        double[] open = new double[trading_info.length];
-        double[] turnover = new double[trading_info.length];
-        double[] increase_decreaseRate = new double[trading_info.length];
-        double[] increase_decreaseNum = new double[trading_info.length];
+
+        int num = 0;
+        for(int i=0;i<trading_info.length;i++){
+            JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
+            if(jsonObject.getString("volume").equals("0")||jsonObject.getString("high").equals("0")||jsonObject.getString("low").equals("0")||jsonObject.getString("close").equals("0")){
+                num++;
+            }
+        }//计算无用的股票数据个数
+
+        StockPO stockPO = new StockPO(trading_info.length-num);
+        long[] volume = new long[trading_info.length-num];
+        double[] pb = new double[trading_info.length-num];
+        double[] high = new double[trading_info.length-num];
+        double[] pe_ttm = new double[trading_info.length-num];
+        double[] adj_price = new double[trading_info.length-num];
+        double[] low = new double[trading_info.length-num];
+        String[] date = new String[trading_info.length-num];
+        double[] close = new double[trading_info.length-num];
+        double[] open = new double[trading_info.length-num];
+        double[] turnover = new double[trading_info.length-num];
+        double[] increase_decreaseRate = new double[trading_info.length-num];
+        double[] increase_decreaseNum = new double[trading_info.length-num];
+        int k = 0;
         for (int i = 0; i < trading_info.length; i++) {
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
-            volume[i] = Long.parseLong(jsonObject.getString("volume"));
-            pb[i] = Double.parseDouble(jsonObject.getString("pb"));
-            high[i] = Double.parseDouble(jsonObject.getString("high"));
-            pe_ttm[i] = Double.parseDouble(jsonObject.getString("pe_ttm"));
-            adj_price[i] = Double.parseDouble(jsonObject.getString("adj_price"));
-            low[i] = Double.parseDouble(jsonObject.getString("low"));
-            date[i] = jsonObject.getString("date");
-            close[i] = Double.parseDouble(jsonObject.getString("close"));
-            open[i] = Double.parseDouble(jsonObject.getString("open"));
-            turnover[i] = Double.parseDouble(jsonObject.getString("turnover"));
-            if(i>=1){
-                if(i!=trading_info.length-1){
-                    increase_decreaseRate[i] = (close[i]-close[i-1])/close[i-1];
-                    increase_decreaseNum[i] = close[i]-close[i-1];
+            if(jsonObject.getString("volume").equals("0")||jsonObject.getString("high").equals("0")||jsonObject.getString("low").equals("0")||jsonObject.getString("close").equals("0")){
+                continue;
+            }
+            volume[k] = Long.parseLong(jsonObject.getString("volume"));
+            pb[k] = Double.parseDouble(jsonObject.getString("pb"));
+            high[k] = Double.parseDouble(jsonObject.getString("high"));
+            pe_ttm[k] = Double.parseDouble(jsonObject.getString("pe_ttm"));
+            adj_price[k] = Double.parseDouble(jsonObject.getString("adj_price"));
+            low[k] = Double.parseDouble(jsonObject.getString("low"));
+            date[k] = jsonObject.getString("date");
+            close[k] = Double.parseDouble(jsonObject.getString("close"));
+            open[k] = Double.parseDouble(jsonObject.getString("open"));
+            turnover[k] = Double.parseDouble(jsonObject.getString("turnover"));
+            if(k>=1){
+                if(k!=trading_info.length-1){
+                    increase_decreaseRate[k] = (close[k]-close[k-1])/close[k-1];
+                    increase_decreaseNum[k] = close[k]-close[k-1];
                 }
                 else{
-                    increase_decreaseRate[i] = getIncrease_decreaseRate(name);
-                    increase_decreaseNum[i] = getIncrease_decreaseNum(name);
+                    increase_decreaseRate[k] = getIncrease_decreaseRate(name);
+                    increase_decreaseNum[k] = getIncrease_decreaseNum(name);
                 }
             }
+            k++;
         }
         stockPO.setId(name);
         stockPO.setVolume(volume);

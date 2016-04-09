@@ -38,6 +38,7 @@ public class GetIndexData implements GetIndexDataService {
         double[] open = new double[trading_info.length-num];
         String[] date = new String[trading_info.length-num];
         IndexPO indexPO = new IndexPO(trading_info.length-num);
+        int k = 0;
         for (int i = 0; i < trading_info.length; i++) {
 
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
@@ -46,13 +47,15 @@ public class GetIndexData implements GetIndexDataService {
                 continue;
             }
 
-            volume[i] = Long.parseLong(jsonObject.getString("volume"));
-            high[i] = Double.parseDouble(jsonObject.getString("high"));
-            adj_price[i] = Double.parseDouble(jsonObject.getString("adj_price"));
-            low[i] = Double.parseDouble(jsonObject.getString("low"));
-            date[i] = jsonObject.getString("date");
-            close[i] = Double.parseDouble(jsonObject.getString("close"));
-            open[i] = Double.parseDouble(jsonObject.getString("open"));
+            volume[k] = Long.parseLong(jsonObject.getString("volume"));
+            high[k] = Double.parseDouble(jsonObject.getString("high"));
+            adj_price[k] = Double.parseDouble(jsonObject.getString("adj_price"));
+            low[k] = Double.parseDouble(jsonObject.getString("low"));
+            date[k] = jsonObject.getString("date");
+            close[k] = Double.parseDouble(jsonObject.getString("close"));
+            open[k] = Double.parseDouble(jsonObject.getString("open"));
+
+            k++;
         }
         indexPO.setVolume(volume);
         indexPO.setHigh(high);
