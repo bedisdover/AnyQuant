@@ -138,8 +138,8 @@ public class StockKLine_Daily implements ChartMouseListener{
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
 
-        JFreeChart chart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
-        chartPanel = new ChartPanel(chart,true);
+        jFreeChart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        chartPanel = new ChartPanel(jFreeChart,true);
     }
 
     public ChartPanel getChartPanel(){
@@ -149,7 +149,7 @@ public class StockKLine_Daily implements ChartMouseListener{
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {
-            jFrame.add(new StockKLine_Daily("sh600000").getChartPanel());
+            jFrame.add(new StockKLine_Daily("sh601988").getChartPanel());
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
         } catch (IOException e) {
