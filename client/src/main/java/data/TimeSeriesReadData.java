@@ -102,7 +102,7 @@ public class TimeSeriesReadData {
 
         String str = null;
         try {
-            str = timeSeriesReadData.getData("http://op.juhe.cn/onebox/stock/query ");
+            str = timeSeriesReadData.getData("http://op.juhe.cn/onebox/stock/query");
         } catch (IOException e) {
             e.printStackTrace();
         }

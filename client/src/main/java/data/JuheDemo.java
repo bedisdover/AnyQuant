@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
  * Created by syz on 2016/4/9.
  */
 public class JuheDemo {
-    public static final String DEF_CHATSET = "UTH-8";
+//    public static final String DEF_CHATSET = "UTH-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
@@ -19,11 +19,11 @@ public class JuheDemo {
 
     public static void getRequest1(){
         String result = null;
-        String url = "http://op.juhe.cn/onebox/stock/query ";
+        String url = "http://op.juhe.cn/onebox/stock/query";
         Map params = new HashMap();
         params.put("key",APPKEY);
         params.put("dtype","");
-        params.put("stock","");
+        params.put("stock","中国银行");
 
         try{
             result = net(url, params ,"GET");
@@ -36,10 +36,11 @@ public class JuheDemo {
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println(result);
     }
 
     public static void main(String[] args){
-
+        getRequest1();
     }
 
     public static String net(String strUrl,Map params,String method) throws Exception{
@@ -68,13 +69,13 @@ public class JuheDemo {
             if(params!=null&&method.equals("POST")){
                 try{
                     DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-                    out.writeByte(urlencode(params));
+                    out.writeByte(Integer.parseInt(urlencode(params)));
                 }catch (Exception e){
 
                 }
             }
             InputStream is = conn.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(is,DEF_CHATSET));
+            reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
             String strRead = null;
             while((strRead = reader.readLine())!=null){
                 sb.append(strRead);
