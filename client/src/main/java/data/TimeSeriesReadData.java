@@ -11,10 +11,11 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by lenovo2014 on 2016/4/9.
+ * Created by syz on 2016/4/9.
  */
 public class TimeSeriesReadData {
     //5cd97982c4a9f8352b5497694f26be84
+    //"http://op.juhe.cn/onebox/stock/query "
     public String getData(String url) throws IOException {
         StringBuilder json = new StringBuilder();
         URL urlObject = new URL(url);
@@ -94,5 +95,18 @@ public class TimeSeriesReadData {
             result[i] = temp.getString("date");
         }
         return result;
+    }
+
+    public static void main(String[] args){
+        TimeSeriesReadData timeSeriesReadData = new TimeSeriesReadData();
+
+        String str = null;
+        try {
+            str = timeSeriesReadData.getData("http://op.juhe.cn/onebox/stock/query ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(str);
+
     }
 }
