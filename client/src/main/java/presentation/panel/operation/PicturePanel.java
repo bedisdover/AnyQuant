@@ -371,6 +371,7 @@ public class PicturePanel extends OperationPanel {
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
             setBackground(new Color(0, 0, 0, 0));
+            //TODO ui
             getHorizontalScrollBar().setUI(new BEScrollBarUI());
             getVerticalScrollBar().setUI(new BEScrollBarUI());
         }

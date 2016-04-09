@@ -60,6 +60,16 @@ public class MenuPanel extends JPanel {
     private final int BUTTON_HEIGHT;
 
     /**
+     * 行情选项宽度
+     */
+    private int optionsWidth;
+
+    /**
+     * 行情选项高度
+     */
+    private int optionsHeight;
+
+    /**
      * 面板透明度
      */
     private final float TRANSPARENCY = 0.5f;
@@ -148,6 +158,10 @@ public class MenuPanel extends JPanel {
         BUTTON_HEIGHT = BUTTON_WIDTH / 3;
         MARGIN = (temp - BUTTON_WIDTH) / 2;
         PADDING = BUTTON_HEIGHT;
+
+        //默认不显示行情选项，故设高度为0
+        optionsWidth = BUTTON_WIDTH * 3 / 4;
+        optionsHeight = 0;
 
         createUIComponents();
         addListeners();
@@ -320,8 +334,15 @@ public class MenuPanel extends JPanel {
                 BUTTON_WIDTH, BUTTON_HEIGHT);
         btnPicture.setBounds(MARGIN, btnPortfolio.getY() + PADDING * 2,
                 BUTTON_WIDTH, BUTTON_HEIGHT);
-        btnMarketIndex.setBounds(MARGIN, btnPicture.getY() + PADDING * 2,
-                BUTTON_WIDTH, BUTTON_HEIGHT);
+        options.setBounds(btnPicture.getX() + (BUTTON_WIDTH - optionsWidth) / 2,
+                btnPicture.getY() + BUTTON_HEIGHT, optionsWidth, optionsHeight);
+        if (optionsHeight == 0) {
+            btnMarketIndex.setBounds(MARGIN, options.getY() + options.getHeight() + PADDING,
+                    BUTTON_WIDTH, BUTTON_HEIGHT);
+        } else {
+            btnMarketIndex.setBounds(MARGIN, options.getY() + options.getHeight() + PADDING / 2,
+                    BUTTON_WIDTH, BUTTON_HEIGHT);
+        }
         btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
                 BUTTON_WIDTH, BUTTON_HEIGHT);
         btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
@@ -329,7 +350,9 @@ public class MenuPanel extends JPanel {
         btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
 
+        revalidate();
         repaint();
+        updateUI();
     }
 
     /**
@@ -342,10 +365,12 @@ public class MenuPanel extends JPanel {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < BUTTON_HEIGHT * 2 + 20; i++) {
+                    optionsHeight = BUTTON_HEIGHT * 5 / 2;
+
+                    for (int i = 0; i <= optionsHeight; i++) {
                         Thread.sleep(10);
-                        options.setBounds(btnPicture.getX() + 10,
-                                btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);
+                        options.setBounds(btnPicture.getX() + (BUTTON_WIDTH - optionsWidth) / 2,
+                                btnPicture.getY() + BUTTON_HEIGHT, optionsWidth, i);
                         btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
                                 BUTTON_WIDTH, BUTTON_HEIGHT);
                         btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
@@ -364,7 +389,7 @@ public class MenuPanel extends JPanel {
             }
         }.start();
 
-        this.addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 boolean temp = e.getX() >= options.getX()
@@ -381,22 +406,27 @@ public class MenuPanel extends JPanel {
     /**
      * 隐藏行情选项——美股、沪深
      */
-    private void hidePictureOptions() {
+    public void hidePictureOptions() {
         new Thread() {
             @Override
             public void run() {
                 try {
-                    for (int i = BUTTON_HEIGHT + 20; i >= PADDING / 2; i--) {
+                    for (int i = optionsHeight; i >= 0; i--) {
                         Thread.sleep(10);
-                        options.setBounds(btnPicture.getX() + 10,
-                                btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);
-                        btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
-                                BUTTON_WIDTH, BUTTON_HEIGHT);
-                        btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
-                                BUTTON_WIDTH, BUTTON_HEIGHT);
+                        options.setBounds(btnPicture.getX() + (BUTTON_WIDTH - optionsWidth) / 2,
+                                btnPicture.getY() + BUTTON_HEIGHT, optionsWidth, i);
+
+                        if (i > PADDING / 2) {
+                            btnMarketIndex.setBounds(MARGIN, options.getY() + i + PADDING / 2,
+                                    BUTTON_WIDTH, BUTTON_HEIGHT);
+                            btnHistory.setBounds(MARGIN, btnMarketIndex.getY() + PADDING * 2,
+                                    BUTTON_WIDTH, BUTTON_HEIGHT);
+                        }
+
                         repaint();
                     }
 
+                    optionsHeight = 0;
                     options.setVisible(false);
                 } catch (Exception e) {
                     e.printStackTrace();

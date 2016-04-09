@@ -67,7 +67,6 @@ public final class MainFrame extends JFrame {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         DEFAULT_WIDTH = screen.width / 2;
 
-
         frame = new MainFrame();
         backgroundPanel = new BackgroundPanel(ImageLoader.background);
 
@@ -158,9 +157,13 @@ public final class MainFrame extends JFrame {
                         Thread.sleep(10);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
+                        if (operationPanel != null) {
+                            operationPanel.setBounds(i, 0, frame.getWidth() - i, frame.getHeight());
+                        }
+
                         repaint();
                     }
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -182,6 +185,10 @@ public final class MainFrame extends JFrame {
                     for (int i = MENU_WIDTH; i >= 0; i--) {
                         Thread.sleep(10);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
+
+                        if (operationPanel != null) {
+                            operationPanel.setBounds(i, 0, frame.getWidth() - i, frame.getHeight());
+                        }
 
                         repaint();
                     }

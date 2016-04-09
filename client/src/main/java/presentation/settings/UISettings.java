@@ -39,7 +39,7 @@ public class UISettings extends JPanel {
     /**
      * 自动隐藏菜单栏
      */
-    private boolean autoHide;
+    private boolean autoHidden;
 
     UISettings() {
         init();
@@ -51,7 +51,11 @@ public class UISettings extends JPanel {
         setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
 
-        autoHide = false;
+        try {
+            autoHidden = SystemConfig.getMenuPanelConfig().isAutoHidden();
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createUIComponents() {
@@ -90,7 +94,7 @@ public class UISettings extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getX() > 240 && e.getX() < 320 && e.getY() > 190 && e.getY() < 218) {
-                    autoHide = !autoHide;
+                    autoHidden = !autoHidden;
                     try {
                         SystemConfig.getMenuPanelConfig().changeAutoHidden();
                     } catch (MalformedURLException e1) {
@@ -116,7 +120,7 @@ public class UISettings extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        if (autoHide) {
+        if (autoHidden) {
             g.drawImage(ImageLoader.on, 240, 190, 80, 28, null);
         } else {
             g.drawImage(ImageLoader.off, 240, 190, 80, 28, null);

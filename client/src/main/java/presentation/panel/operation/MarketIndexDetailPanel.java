@@ -51,12 +51,12 @@ public class MarketIndexDetailPanel extends JPanel {
         lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price).drawLineChartMarketIndex();
 
         tabbedPane = new JTabbedPane();
-        ImageIcon image1 = new ImageIcon("client\\src\\main\\resources\\images\\volume.png");
-        ImageIcon image2 = new ImageIcon("client\\src\\main\\resources\\images\\high.png");
-        ImageIcon image3 = new ImageIcon("client\\src\\main\\resources\\images\\low.png");
-        ImageIcon image4 = new ImageIcon("client\\src\\main\\resources\\images\\price.png");
-        ImageIcon image5 = new ImageIcon("client\\src\\main\\resources\\images\\open.png");
-        ImageIcon image6 = new ImageIcon("client\\src\\main\\resources\\images\\close.png");
+        ImageIcon image1 = new ImageIcon("client/src/main/resources/images/volume.png");
+        ImageIcon image2 = new ImageIcon("client/src/main/resources/images/high.png");
+        ImageIcon image3 = new ImageIcon("client/src/main/resources/images/low.png");
+        ImageIcon image4 = new ImageIcon("client/src/main/resources/images/price.png");
+        ImageIcon image5 = new ImageIcon("client/src/main/resources/images/open.png");
+        ImageIcon image6 = new ImageIcon("client/src/main/resources/images/close.png");
         //tabbedPane.addTab(title, icon, component, tip);
         //添加由 title 和/或 icon 表示的 component 和 tip，其中任意一个都可以为 null。
 
