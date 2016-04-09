@@ -29,7 +29,7 @@ public class InfoTest {
         String result;
         String url = "http://web.juhe.cn:8080/finance/stock/hs";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("gid", "sh601009");//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
+        params.put("gid", "");//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
         params.put("key", APP_KEY);//APP Key
         params.put("type", 1);
 

@@ -54,13 +54,14 @@ public class MarketIndexPanel extends OperationPanel {
     }
 
     protected void createUIComponents() {
-        briefInfoPanel = new IndexBriefInfoPanel(new IndexVO(new IndexPO(3)));
         try {
+            briefInfoPanel = new IndexBriefInfoPanel(new IndexVO(new IndexPO(3)));
             chartPanel = new MarketIndexDetailPanel();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
         }
+
         btnData = new UltraButton("详细数据");
 
         add(briefInfoPanel);
