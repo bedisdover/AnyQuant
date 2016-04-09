@@ -1,4 +1,4 @@
-package presentation;
+package presentation.panel;
 
 import org.jfree.chart.ChartPanel;
 import presentation.panel.IndexKLine_Daily;

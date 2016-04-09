@@ -305,7 +305,6 @@ public class IndexKLine_Daily implements ChartMouseListener{
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
 
-
         this.chartPanel.setHorizontalAxisTrace(true);
         this.chartPanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);

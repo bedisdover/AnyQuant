@@ -77,6 +77,13 @@ public class SystemConfig {
         return new FrameConfig(mainFrame);
     }
 
+    /**
+     * 获得字体设置，可设置字体样式、大小
+     *
+     * @return 字体设置领域对象
+     * @throws MalformedURLException
+     * @throws DocumentException
+     */
     public static FontConfig getFontConfig() throws MalformedURLException, DocumentException {
         init();
 
@@ -84,6 +91,25 @@ public class SystemConfig {
         Element font = presentation.element("font");
 
         return new FontConfig(font);
+    }
+
+    /**
+     * 获得菜单栏配置，可自动隐藏菜单栏
+     *
+     * @return 菜单栏配置领域对象
+     * @throws MalformedURLException
+     * @throws DocumentException
+     */
+    public static MenuPanelConfig getMenuPanelConfig()
+            throws MalformedURLException, DocumentException {
+
+        init();
+
+        Element presentation = root.element("presentation");
+        Element panel = presentation.element("panel");
+        Element menuPanel = panel.element("MenuPanel");
+
+        return new MenuPanelConfig(menuPanel);
     }
 
     /**

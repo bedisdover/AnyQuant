@@ -193,10 +193,10 @@ public class DrawKLineHelper {
             String d = simpleDateFormat1.format(date);//得到date2的后一天
 
             dateAxis.setRange(simpleDateFormat.parse(date1),simpleDateFormat.parse(d));
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        ;
         dateAxis.setTimeline(SegmentedTimeline.newMondayThroughFridayTimeline());// 设置时间线显示的规则，用这个方法就摒除掉了周六和周日这些没有交易的日期(很多人都不知道有此方法)，使图形看上去连续
         dateAxis.setAutoTickUnitSelection(false);// 设置不采用自动选择刻度值
         dateAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);// 设置标记的位置

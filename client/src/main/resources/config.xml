@@ -4,13 +4,13 @@
         <mainFrame>
             <default x="342" y="140" width="683" height="512"/>
 
-            <last x="160" y="114" width="1049" height="651"/>
+            <last x="160" y="117" width="1049" height="651"/>
 
             <minimumSize width="1024" height="576"/>
         </mainFrame>
 
         <panel>
-            <MenuPanel x="0" y="0" width="136" height="512"/>
+            <MenuPanel autoHidden="true" x="0" y="0" width="136" height="512"/>
             <OperationPanel x="136" y="0" width="769" height="512"/>
         </panel>
 

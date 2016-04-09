@@ -1,5 +1,7 @@
 package presentation.settings;
 
+import config.SystemConfig;
+import org.dom4j.DocumentException;
 import presentation.util.ExampleFileFilter;
 import presentation.util.ImageLoader;
 
@@ -8,6 +10,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
 
 import static presentation.frame.MainFrame.getMainFrame;
 
@@ -17,9 +20,25 @@ import static presentation.frame.MainFrame.getMainFrame;
  * 界面设置面板
  */
 public class UISettings extends JPanel {
+
+    /**
+     * 自定义背景图片 按钮
+     */
     private JButton btnCustom;
+
+    /**
+     * 透明度
+     */
     private JSlider transparency;
+
+    /**
+     * 菜单栏位置
+     */
     private JComboBox<String> menuBarLocation;
+
+    /**
+     * 自动隐藏菜单栏
+     */
     private boolean autoHide;
 
     UISettings() {
@@ -72,6 +91,14 @@ public class UISettings extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getX() > 240 && e.getX() < 320 && e.getY() > 190 && e.getY() < 218) {
                     autoHide = !autoHide;
+                    try {
+                        SystemConfig.getMenuPanelConfig().changeAutoHidden();
+                    } catch (MalformedURLException e1) {
+                        e1.printStackTrace();
+                    } catch (DocumentException e1) {
+                        e1.printStackTrace();
+                    }
+
                     repaint();
                 }
             }
