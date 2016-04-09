@@ -6,8 +6,10 @@ package presentation.graphs;
 
 import bl.ShowIndexData;
 import org.jfree.chart.ChartPanel;
+import presentation.UltraSwing.UltraScrollPane;
 import vo.IndexVO;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class LineChartMarketIndex {
@@ -61,4 +63,10 @@ public class LineChartMarketIndex {
         return lineChartParent.getChartPanel();
     }
 
+    public JScrollPane drawLineChartMarketIndex() {
+        UltraScrollPane scroll = new UltraScrollPane(getChartPanel());
+        scroll.setBounds();
+        return scroll;
+        return scroll;
+    }
 }
