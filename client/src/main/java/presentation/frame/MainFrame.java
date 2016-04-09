@@ -171,6 +171,10 @@ public final class MainFrame extends JFrame {
      * 隐藏菜单栏
      */
     public void hideMenuPanel() {
+        if (menuPanel.getWidth() == 0) {
+            return;
+        }
+
         new Thread() {
             @Override
             public void run() {

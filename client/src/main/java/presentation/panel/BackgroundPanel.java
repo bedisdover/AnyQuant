@@ -6,10 +6,7 @@ import presentation.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.MalformedURLException;
 
 /**
@@ -39,50 +36,44 @@ public class BackgroundPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                if (e.getX() < MainFrame.getMainFrame().getWidth() / 10) {
+                if (e.getX() < MainFrame.getMainFrame().getWidth() / 2) {
                     MainFrame.getMainFrame().showMenuPanel();
                 }
             }
-        });
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                MainFrame.getMainFrame().showMenuPanel();
-            }
-        });
-    }
-
-    /**
-     * 隐藏菜单栏
-     */
-    public void hideMenu() {
-        try {//若未选择自动隐藏，结束
-            if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
-                return;
-            }
-        } catch (MalformedURLException | DocumentException e) {
-            e.printStackTrace();
-        }
-
-        addMouseListener(new MouseAdapter() {
-            @Override
             public void mouseClicked(MouseEvent e) {
+                try {//若未选择自动隐藏，结束
+                    if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                        return;
+                    }
+                } catch (MalformedURLException | DocumentException e1) {
+                    e1.printStackTrace();
+                }
                 if (e.getX() > MainFrame.MENU_WIDTH) {
                     MainFrame.getMainFrame().hideMenuPanel();
                 }
             }
         });
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    MainFrame.getMainFrame().hideMenuPanel();
+        registerKeyboardAction(e -> MainFrame.getMainFrame().showMenuPanel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_M, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        registerKeyboardAction(e -> {
+                try {//若未选择自动隐藏，结束
+                    if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                        return;
+                    }
+                } catch (MalformedURLException | DocumentException e1) {
+                    e1.printStackTrace();
                 }
-            }
-        });
+
+                MainFrame.getMainFrame().hideMenuPanel();
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
+
+
 
     @Override
     public void paintComponent(Graphics g) {
