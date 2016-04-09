@@ -36,9 +36,9 @@ public class StockInfoPanel extends InfoPanel {
     private UltraButton btnInfo;
 
     /**
-     * 主要信息面板
+     * 当前信息面板
      */
-    private JPanel briefInfo;
+    private JPanel currentInfo;
 
     /**
      * k-线图面板
@@ -55,6 +55,11 @@ public class StockInfoPanel extends InfoPanel {
      */
     private String stockID;
 
+    /**
+     * 刷新界面标记，界面发生切换后，停止刷新
+     */
+    private boolean updateFlag;
+
     public StockInfoPanel(JPanel parent, StockPO stock) {
         super(parent);
 
@@ -66,6 +71,15 @@ public class StockInfoPanel extends InfoPanel {
     }
 
     @Override
+    protected void init() {
+        super.init();
+
+        updateFlag = true;
+
+        update(1);
+    }
+
+    @Override
     protected void createUIComponents() {
         super.createUIComponents();
 
@@ -73,7 +87,7 @@ public class StockInfoPanel extends InfoPanel {
         btnInfo = new UltraButton("详细数据");
 
         try {
-            briefInfo = new StockBriefInfoPanel(stock.getId());
+            currentInfo = new StockCurrentInfoPanel(stock.getId());
             k_line = new IndexKLines().getjTabbedPane();
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +96,7 @@ public class StockInfoPanel extends InfoPanel {
 
         add(btnFollow);
         add(btnInfo);
-        add(briefInfo);
+        add(currentInfo);
         add(k_line);
     }
 
@@ -93,15 +107,15 @@ public class StockInfoPanel extends InfoPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnFollow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
-                        MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-                btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
-                        BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
-                briefInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
-                        PANEL_WIDTH - MARGIN * 2, LocationValue.INFO_PANEL_HEIGHT);
-                //TODO location
-                k_line.setBounds(MARGIN, briefInfo.getY() + briefInfo.getHeight() + PADDING / 4,
-                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - MARGIN);
+                assignment();
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                super.componentMoved(e);
+                updateFlag = false;
+                System.out.println("hide");
+//                update(1);
             }
         });
 
@@ -122,6 +136,24 @@ public class StockInfoPanel extends InfoPanel {
     }
 
     /**
+     * 界面大小发生变化时，重新布局所有组件
+     */
+    private void assignment() {
+        btnFollow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+                MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
+                BUTTON_WIDTH * 3 / 2, BUTTON_HEIGHT);
+        currentInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
+                PANEL_WIDTH - MARGIN * 2, LocationValue.INFO_PANEL_HEIGHT);
+        k_line.setBounds(MARGIN, currentInfo.getY() + currentInfo.getHeight() + PADDING / 4,
+                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - PADDING);
+
+        revalidate();
+        repaint();
+        updateUI();
+    }
+
+    /**
      * 关注股票
      *
      * @param name 股票名称(代码)
@@ -139,6 +171,31 @@ public class StockInfoPanel extends InfoPanel {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "呀!出错啦...");
         }
+    }
+
+    /**
+     * 固定时间间隔刷新面板
+     *
+     * @param interval 时间间隔,单位为秒
+     */
+    private void update(int interval) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+
+                try {
+                    while (updateFlag) {
+                        Thread.sleep(interval * 1000);
+                        assignment();
+                    }
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
     }
 
     /**

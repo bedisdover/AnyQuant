@@ -10,7 +10,7 @@ import presentation.frame.MainFrame;
 public class LocationValue {
 
     /**
-     * 主要信息面板宽度，高度
+     * 当前信息面板宽度，高度
      * 高度保持不变，宽度随界面变化而变化
      */
     public static int INFO_PANEL_WIDTH, INFO_PANEL_HEIGHT;

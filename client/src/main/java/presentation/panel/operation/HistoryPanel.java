@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by 宋益明 on 16-3-2.
  * <p>
- * 自选面板
+ * 历史面板
  */
 public class HistoryPanel extends OperationPanel {
 

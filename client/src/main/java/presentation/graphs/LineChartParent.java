@@ -74,7 +74,7 @@ public class LineChartParent {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
 
         int length = date.length;
-
+        System.out.println(length+"aaaaaa");
         for (int i = 1; i <= length; i++) {
             int year = Integer.parseInt(date[length - i].substring(0, 4));
             int month = Integer.parseInt(date[length - i].substring(5, 7));
