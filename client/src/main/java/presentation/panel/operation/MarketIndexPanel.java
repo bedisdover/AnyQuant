@@ -3,7 +3,6 @@ package presentation.panel.operation;
 import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
-import presentation.graphs.LineChartMarketIndex;
 import presentation.panel.info.IndexBriefInfoPanel;
 import presentation.panel.info.IndexInfoPanel;
 import presentation.util.DateChooser;
@@ -50,11 +49,11 @@ public class MarketIndexPanel extends OperationPanel {
 
     protected void init() {
         this.setLayout(null);
+
+        update();
     }
 
     protected void createUIComponents() {
-        new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-
         briefInfoPanel = new IndexBriefInfoPanel(new IndexVO(new IndexPO(3)));
         try {
             chartPanel = new MarketIndexDetailPanel();
@@ -67,6 +66,8 @@ public class MarketIndexPanel extends OperationPanel {
         add(briefInfoPanel);
         add(chartPanel);
         add(btnData);
+
+        new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
     }
 
     /**
@@ -76,15 +77,7 @@ public class MarketIndexPanel extends OperationPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
-                        BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-                briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
-                        PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
-                chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
-                        PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
-
-                revalidate();
-                repaint();
+                assignment();
             }
         });
 
@@ -94,6 +87,41 @@ public class MarketIndexPanel extends OperationPanel {
                 MainFrame.getMainFrame().addOperationPanel(new IndexInfoPanel(MarketIndexPanel.this));
             }
         });
+    }
+
+    /**
+     * 界面大小发生变化时，组件重新布局
+     */
+    private void assignment() {
+        btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
+                BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+        briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
+                PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
+        chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
+                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
+
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * 定时刷新界面
+     */
+    private void update() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        assignment();
+
+                        Thread.sleep(1000);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }.start();
     }
 
     @Override

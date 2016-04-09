@@ -11,12 +11,15 @@ import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.servlet.ServletUtilities;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.title.Title;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import vo.IndexVO;
 
@@ -29,6 +32,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -267,6 +271,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         combinedDomainXYPlotXYPLot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combinedDomainXYPlotXYPLot.setGap(20);// 设置两个图形区域对象之间的间隔空间
         chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combinedDomainXYPlotXYPLot, false);
+        chart.getTitle().setTextAlignment(HorizontalAlignment.RIGHT);
         chartPanel = new ChartPanel(chart,true);
 
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
@@ -307,8 +312,11 @@ public class IndexKLine_Daily implements ChartMouseListener{
         String[] info = chartEntity.toString().split(" ");
         if(info[1].equals("series")){
             int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-            System.out.println(indexVO.getDate()[num-90+item]);
+//            System.out.println(indexVO.getDate()[num-90+item]);
+            TextTitle textTitle = this.chart.getTitle();
+            textTitle.setText(indexVO.getDate()[num-90+item]+"  高:"+indexVO.getHigh()[num-90+item]+"  开:"+indexVO.getOpen()[num-90+item]+"  收:"+indexVO.getClose()[num-90+item]+"  低:"+indexVO.getLow()[num-90+item]+"  成交量:"+indexVO.getVolume()[num-90+item]/100);
         }
+
     }
 
 }
