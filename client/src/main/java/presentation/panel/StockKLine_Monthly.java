@@ -1,7 +1,8 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
-import com.sun.prism.paint.Gradient;
+import bl.ShowStockData;
+import javafx.scene.chart.Chart;
 import org.jfree.chart.ChartMouseEvent;
 import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;
@@ -11,11 +12,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.GradientBarPainter;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
-import org.jfree.chart.renderer.xy.StandardXYBarPainter;
-import org.jfree.chart.renderer.xy.XYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Day;
@@ -23,7 +20,9 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import po.Transfer;
 import vo.IndexVO;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,51 +30,53 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
- * Created by user on 2016/3/29.
+ * Created by user on 2016/4/9.
  */
-public class IndexKLine_Weekly implements ChartMouseListener{
+public class StockKLine_Monthly implements ChartMouseListener{
     JFreeChart jFreeChart;
     ChartPanel chartPanel;
     DrawKLineHelper drawKLineHelper;
-    IndexVO indexVO;
+    StockVO stockVO;
     int num;
     int total;
 
-    public IndexKLine_Weekly() throws IOException {
+    public StockKLine_Monthly(String stockID) throws IOException {
         drawKLineHelper = new DrawKLineHelper();
-        createChart();
+        createChart(stockID);
         this.chartPanel.setMouseZoomable(false, false);
         this.chartPanel.addChartMouseListener(this);
-}
+    }
 
-    public void createChart() throws IOException {
+    public void createChart(String stockID) throws IOException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
         double highValue = Double.MIN_VALUE;// 设置K线数据当中的最大值
         double minValue = Double.MAX_VALUE;// 设置K线数据当中的最小值
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
-        ShowIndexData getIndexData = new ShowIndexData();
-        indexVO = getIndexData.getLatestIndexData();
-        num = indexVO.getDate().length;
-        total = 400;
-        int gap = 5;
-        drawKLineHelper.addPMA(indexVO,total,gap);
+
+        ShowStockData showStockData = new ShowStockData();
+        stockVO = showStockData.getStockData(stockID);
+        num = stockVO.getDate().length;
+        total = 750;
+        int gap = 30;
+
+        drawKLineHelper.addPMA(stockVO,total,gap);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
         for(int i=num-1;i>=num-total;i-=gap){
-            String[] days = indexVO.getDate()[i].split("-");
-            series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
+            String[] days = stockVO.getDate()[i].split("-");
+            series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),stockVO.getOpen()[i],stockVO.getHigh()[i],stockVO.getLow()[i],stockVO.getClose()[i]);
         }
         final OHLCSeriesCollection seriesCollection = new OHLCSeriesCollection();// 保留K线数据的数据集，必须申明为final，后面要在匿名内部类里面用到
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
         for(int i=num-1;i>=num-total;i-=gap){
-            String[] days = indexVO.getDate()[i].split("-");
-            series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
+            String[] days = stockVO.getDate()[i].split("-");
+
+            series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),stockVO.getVolume()[i]/100);
         }
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
         timeSeriesCollection.addSeries(series2);
@@ -112,13 +113,13 @@ public class IndexKLine_Weekly implements ChartMouseListener{
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
-        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-total],getLatestFriday());
+        drawKLineHelper.setXAxis(x1Axis,stockVO.getDate()[num-total],getDateOfEndOfLastMonth());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
 
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
-        drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5,Color.ORANGE);
+        drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5, Color.ORANGE);
         drawKLineHelper.setXYPlot(2,plot1,drawKLineHelper.timeSeriesCollectionPMA10,Color.MAGENTA);
         drawKLineHelper.setXYPlot(3,plot1,drawKLineHelper.timeSeriesCollectionPMA20,Color.CYAN);
         drawKLineHelper.setXYPlot(4,plot1,drawKLineHelper.timeSeriesCollectionPMA30,Color.GREEN);
@@ -134,7 +135,6 @@ public class IndexKLine_Weekly implements ChartMouseListener{
                 }
             }};
         xyBarRender.setShadowVisible(false);
-
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
 
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
@@ -145,7 +145,8 @@ public class IndexKLine_Weekly implements ChartMouseListener{
         combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
-        jFreeChart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+
+        jFreeChart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
         chartPanel = new ChartPanel(jFreeChart,true);
     }
 
@@ -153,34 +154,26 @@ public class IndexKLine_Weekly implements ChartMouseListener{
         return chartPanel;
     }
 
-
-    private String getLatestFriday(){
+    private String getDateOfEndOfLastMonth(){
         Calendar calendar = Calendar.getInstance();
-        Date d = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-        String s = simpleDateFormat.format(d);
-        while(!s.equals("星期五")){
-            calendar.add(calendar.DATE,-1);
-            d = calendar.getTime();
-            s = simpleDateFormat.format(d);
-        }
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        s = simpleDateFormat.format(d);
-        System.out.println(s);
-        return s;
+        int month = calendar.get(Calendar.MONTH);
+        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date strDateTo = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(strDateTo);
     }
 
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {
-            jFrame.add(new IndexKLine_Weekly().getChartPanel());
+            jFrame.add(new StockKLine_Monthly("sh601998").getChartPanel());
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
 
@@ -197,9 +190,8 @@ public class IndexKLine_Weekly implements ChartMouseListener{
         String[] info = chartEntity.toString().split(" ");
         if(info[1].equals("series")){
             int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-//            System.out.println(indexVO.getDate()[num-90+item]);
             TextTitle textTitle = this.jFreeChart.getTitle();
-            textTitle.setText(indexVO.getDate()[num-total+5*item]+"  高:"+indexVO.getHigh()[num-total+5*item]+"  开:"+indexVO.getOpen()[num-total+5*item]+"  收:"+indexVO.getClose()[num-total+5*item]+"  低:"+indexVO.getLow()[num-total+5*item]+"  成交量:"+indexVO.getVolume()[num-total+5*item]/100);
+            textTitle.setText(stockVO.getDate()[num-total+30*item]+"  高:"+stockVO.getHigh()[num-total+30*item]+"  开:"+stockVO.getOpen()[num-total+30*item]+"  收:"+stockVO.getClose()[num-total+30*item]+"  低:"+stockVO.getLow()[num-total+30*item]+"  成交量:"+stockVO.getVolume()[num-total+30*item]/100);
         }
     }
 }

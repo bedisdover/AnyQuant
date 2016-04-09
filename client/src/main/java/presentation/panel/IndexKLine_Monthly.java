@@ -1,20 +1,25 @@
 package presentation.panel;
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartMouseEvent;
+import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
+import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
 import vo.IndexVO;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,13 +32,19 @@ import java.util.GregorianCalendar;
 /**
  * Created by user on 2016/3/29.
  */
-public class IndexKLine_Monthly {
+public class IndexKLine_Monthly implements ChartMouseListener{
+    JFreeChart jFreeChart;
     ChartPanel chartPanel;
     DrawKLineHelper drawKLineHelper;
+    IndexVO indexVO;
+    int num;
+    int total;
 
     public IndexKLine_Monthly() throws IOException {
         drawKLineHelper = new DrawKLineHelper();
         createChart();
+        this.chartPanel.setMouseZoomable(false, false);
+        this.chartPanel.addChartMouseListener(this);
     }
 
     public  void createChart() throws IOException {
@@ -43,23 +54,27 @@ public class IndexKLine_Monthly {
         double volumeHighValue = Double.MIN_VALUE;// 设置成交量的最大值
         double volumeMinValue = Double.MAX_VALUE;// 设置成交量的最低值
         ShowIndexData getIndexData = new ShowIndexData();
-        IndexVO indexVO = getIndexData.getLatestIndexData();
-        int num = indexVO.getDate().length;
+        indexVO = getIndexData.getLatestIndexData();
+        num = indexVO.getDate().length;
+        total = 750;
+        int gap = 30;
 
-        drawKLineHelper.addPMA(indexVO,750,30);
+        drawKLineHelper.addPMA(indexVO,total,gap);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
-        for(int i=num-1;i>=num-750;i-=30){
+
+        for(int i=num-1;i>=num-total;i-=gap){
             String[] days = indexVO.getDate()[i].split("-");
             series.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getOpen()[i],indexVO.getHigh()[i],indexVO.getLow()[i],indexVO.getClose()[i]);
+
         }
         final OHLCSeriesCollection seriesCollection = new OHLCSeriesCollection();// 保留K线数据的数据集，必须申明为final，后面要在匿名内部类里面用到
         seriesCollection.addSeries(series);
 
         TimeSeries series2=new TimeSeries("");// 对应时间成交量数据
-        for(int i=num-1;i>=num-750;i-=30){
+        for(int i=num-1;i>=num-total;i-=gap){
             String[] days = indexVO.getDate()[i].split("-");
-            series2.add(new Day(Integer.parseInt(days[2]),Integer.parseInt(days[1]),Integer.parseInt(days[0])),indexVO.getVolume()[i]/100);
+            series2.add(new Day(Integer.parseInt(days[2]), Integer.parseInt(days[1]), Integer.parseInt(days[0])), indexVO.getVolume()[i] / 100);
         }
         TimeSeriesCollection timeSeriesCollection=new TimeSeriesCollection();// 保留成交量数据的集合
         timeSeriesCollection.addSeries(series2);
@@ -95,10 +110,10 @@ public class IndexKLine_Monthly {
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
-        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-750],getDateOfEndOfLastMonth());
+        drawKLineHelper.setXAxis(x1Axis,indexVO.getDate()[num-total],getDateOfEndOfLastMonth());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
-       drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
+        drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
 
         XYPlot plot1=new XYPlot(seriesCollection,x1Axis,y1Axis,candlestickRender);// 设置画图区域对象
         drawKLineHelper.setXYPlot(1,plot1,drawKLineHelper.timeSeriesCollectionPMA5,Color.ORANGE);
@@ -116,6 +131,7 @@ public class IndexKLine_Monthly {
                     return candlestickRender.getDownPaint();
                 }
             }};
+        xyBarRender.setShadowVisible(false);
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
 
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
@@ -126,8 +142,8 @@ public class IndexKLine_Monthly {
         combineddomainxyplot.add(plot1, 2);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域2/3
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
-        JFreeChart chart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
-        chartPanel = new ChartPanel(chart,true);
+        jFreeChart = new JFreeChart("沪深300", JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        chartPanel = new ChartPanel(jFreeChart,true);
 //        ChartFrame frame = new ChartFrame("沪深300", chart);
 //        frame.pack();
 //        frame.setVisible(true);
@@ -146,6 +162,17 @@ public class IndexKLine_Monthly {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(strDateTo);
     }
+
+//    private String getDateOfEndOfMonth(int numOfMonthsBefore){
+//        Calendar calendar = Calendar.getInstance();
+//        int month = calendar.get(Calendar.MONTH);
+//        calendar.set(Calendar.MONTH, month-1-numOfMonthsBefore);//从上个月月底开始推算
+//        calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+//        Date strDateTo = calendar.getTime();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        return simpleDateFormat.format(strDateTo);
+//    }
+
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {
@@ -155,6 +182,31 @@ public class IndexKLine_Monthly {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        try {
+//            System.out.println(new IndexKLine_Monthly().getDateOfEndOfMonth(4));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
 
+    @Override
+    public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
+
+    }
+
+    @Override
+    public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+        int xPos = chartMouseEvent.getTrigger().getX();
+        int yPos = chartMouseEvent.getTrigger().getY();
+
+        this.chartPanel.setHorizontalAxisTrace(true);
+        this.chartPanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = this.chartPanel.getEntityForPoint(xPos,yPos);
+        String[] info = chartEntity.toString().split(" ");
+        if(info[1].equals("series")){
+            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
+            TextTitle textTitle = this.jFreeChart.getTitle();
+            textTitle.setText(indexVO.getDate()[num-total+30*item]+"  高:"+indexVO.getHigh()[num-total+30*item]+"  开:"+indexVO.getOpen()[num-total+30*item]+"  收:"+indexVO.getClose()[num-total+30*item]+"  低:"+indexVO.getLow()[num-total+30*item]+"  成交量:"+indexVO.getVolume()[num-total+30*item]/100);
+        }
     }
 }
