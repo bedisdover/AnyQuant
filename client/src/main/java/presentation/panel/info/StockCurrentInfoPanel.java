@@ -16,9 +16,9 @@ import static presentation.panel.info.LocationValue.*;
 /**
  * Created by 宋益明 on 16-3-31.
  * <p>
- * 股票简要信息面板
+ * 股票当前信息面板
  */
-public class StockBriefInfoPanel extends JPanel {
+public class StockCurrentInfoPanel extends JPanel {
 
     /**
      * 股票当前数据值对象
@@ -75,7 +75,7 @@ public class StockBriefInfoPanel extends JPanel {
      */
     private JPanel namePanel, leftPanel, rightPanel;
 
-    StockBriefInfoPanel(String id) throws Exception {
+    StockCurrentInfoPanel(String id) throws Exception {
         init(id);
 
         createUIComponents();
@@ -162,7 +162,7 @@ public class StockBriefInfoPanel extends JPanel {
                     JMenuItem menuItem = new JMenuItem(ImageLoader.addPortfolio);
                     popupMenu.add(menuItem);
 
-                    popupMenu.show(StockBriefInfoPanel.this, e.getX(), e.getY());
+                    popupMenu.show(StockCurrentInfoPanel.this, e.getX(), e.getY());
                 }
             }
         });

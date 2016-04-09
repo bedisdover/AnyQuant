@@ -85,6 +85,9 @@ public abstract class InfoPanel extends OperationPanel {
 //                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+//        revalidate();
+//        repaint();
     }
 
     /**

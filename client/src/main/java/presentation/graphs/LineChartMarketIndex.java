@@ -65,8 +65,7 @@ public class LineChartMarketIndex {
 
     public JScrollPane drawLineChartMarketIndex() {
         UltraScrollPane scroll = new UltraScrollPane(getChartPanel());
-        scroll.setBounds();
-        return scroll;
+        scroll.setBounds(0,0,100,100);
         return scroll;
     }
 }
