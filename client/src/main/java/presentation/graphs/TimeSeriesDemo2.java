@@ -10,13 +10,9 @@ import java.text.SimpleDateFormat;
 //import javax.servlet.http.HttpSession;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.*;
 import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -34,16 +30,20 @@ import org.jfree.ui.RefineryUtilities;
  * Created by lenovo2014 on 2016/4/9.
  */
 
-public class TimeSeriesDemo2 extends ApplicationFrame{
+public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListener {
     private static final long serialVersionUID = -4172191391806537567L;
+
+    JFreeChart jfreechart;
+    ChartPanel chartpanel;
 
     public TimeSeriesDemo2(String s) {
         super(s);
         XYDataset xydataset = createDataset();
-        JFreeChart jfreechart = createChart(xydataset);
-        ChartPanel chartpanel = new ChartPanel(jfreechart, false);
+        jfreechart = createChart(xydataset);
+        chartpanel = new ChartPanel(jfreechart, false);
         chartpanel.setPreferredSize(new Dimension(500, 270));
-        chartpanel.setMouseZoomable(true, false);
+        chartpanel.setMouseZoomable(false, false);
+        chartpanel.addChartMouseListener(this);
         setContentPane(chartpanel);
     }
 
@@ -154,9 +154,29 @@ public class TimeSeriesDemo2 extends ApplicationFrame{
 //    }
 
     public static void main(String args[]) {
-        TimeSeriesDemo2 timeseriesdemo1 = new TimeSeriesDemo2("Time Series Demo 2");
-        timeseriesdemo1.pack();
-        RefineryUtilities.centerFrameOnScreen(timeseriesdemo1);
-        timeseriesdemo1.setVisible(true);
+        TimeSeriesDemo2 timeseriesdemo2 = new TimeSeriesDemo2("Time Series Demo 2");
+        timeseriesdemo2.pack();
+        RefineryUtilities.centerFrameOnScreen(timeseriesdemo2);
+        timeseriesdemo2.setVisible(true);
+    }
+
+    @Override
+    public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
+
+    }
+
+    @Override
+    public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+        int xPos = chartMouseEvent.getTrigger().getX();
+        int yPos = chartMouseEvent.getTrigger().getY();
+
+        this.chartpanel.setHorizontalAxisTrace(true);
+        this.chartpanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = this.chartpanel.getEntityForPoint(xPos,yPos);
+//        String[] info = chartEntity.toString().split(" ");
+//        if(info[1].equals("series")){
+//            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
+//            System.out.println(indexVO.getDate()[num-90+item]);
+//        }
     }
 }
