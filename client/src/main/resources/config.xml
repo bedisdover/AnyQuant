@@ -4,11 +4,7 @@
         <mainFrame>
             <default x="342" y="140" width="683" height="512"/>
 
-<<<<<<< HEAD
-            <last x="-8" y="-8" width="1382" height="744"/>
-=======
-            <last x="215" y="88" width="1049" height="651"/>
->>>>>>> 1b71f5e3ae8b4acc66b98c6d40a3354969d9d2b4
+            <last x="121" y="39" width="1127" height="670"/>
 
             <minimumSize width="1024" height="576"/>
         </mainFrame>

@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import bl.ShowIndexData;
+import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.graphs.LineChartMarketIndex;
 import vo.IndexVO;
@@ -15,16 +16,15 @@ import java.io.IOException;
  */
 public class MarketIndexDetailPanel extends JPanel {
     private JTabbedPane tabbedPane;
-    private JPanel lineChartMarketIndexVolume;
-    private JPanel lineChartMarketIndexHigh;
-    private JPanel lineChartMarketIndexLow;
-    private JPanel lineChartMarketIndexOpen;
-    private JPanel lineChartMarketIndexClose;
-    private JPanel lineChartMarketIndexADJPrice;
+    private UltraScrollPane lineChartMarketIndexVolume;
+    private UltraScrollPane lineChartMarketIndexHigh;
+    private UltraScrollPane lineChartMarketIndexLow;
+    private UltraScrollPane lineChartMarketIndexOpen;
+    private UltraScrollPane lineChartMarketIndexClose;
+    private UltraScrollPane lineChartMarketIndexADJPrice;
 
     public MarketIndexDetailPanel() throws IOException {
         this.setLayout(new BorderLayout());
-//        this.setBounds(0, 0, MainFrame.getMainFrame().getWidth(), MainFrame.getMainFrame().getHeight());
         init();
         initComponents();
     }
@@ -33,23 +33,22 @@ public class MarketIndexDetailPanel extends JPanel {
         IndexVO index = new ShowIndexData().getLatestIndexData();
         String nameVolume[] = {"日期", "成交量", "大盘指数"};
         long volume[] = index.getVolume();
-        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
+        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).drawLineChartMarketIndex();
         String nameHigh[] = {"日期", "最高价", "大盘指数"};
         double high[] = index.getHigh();
-        lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high).getChartPanel();
+        lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high).drawLineChartMarketIndex();
         String nameLow[] = {"日期", "最低价", "大盘指数"};
         double low[] = index.getLow();
-        lineChartMarketIndexLow = new LineChartMarketIndex(nameLow, low).getChartPanel();
+        lineChartMarketIndexLow = new LineChartMarketIndex(nameLow, low).drawLineChartMarketIndex();
         String nameOpen[] = {"日期", "开盘价", "大盘指数"};
         double open[] = index.getOpen();
-        lineChartMarketIndexOpen = new LineChartMarketIndex(nameOpen, open).getChartPanel();
+        lineChartMarketIndexOpen = new LineChartMarketIndex(nameOpen, open).drawLineChartMarketIndex();
         String nameClose[] = {"日期", "收盘价", "大盘指数"};
         double close[] = index.getClose();
-        lineChartMarketIndexClose = new LineChartMarketIndex(nameClose, close).getChartPanel();
+        lineChartMarketIndexClose = new LineChartMarketIndex(nameClose, close).drawLineChartMarketIndex();
         String namePrice[] = {"日期", "最新价", "大盘指数"};
         double price[] = index.getAdj_price();
-        lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price).getChartPanel();
-
+        lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price).drawLineChartMarketIndex();
 
         tabbedPane = new JTabbedPane();
         ImageIcon image1 = new ImageIcon("client\\src\\main\\resources\\images\\volume.png");
@@ -71,13 +70,16 @@ public class MarketIndexDetailPanel extends JPanel {
 
     private void initComponents() {
         tabbedPane.setTabPlacement(JTabbedPane.NORTH);
-        //	tabbedPane.setTabPlacement(JTabbedPane.LEFT);
         this.add(tabbedPane);
     }
 
     public static void main(String[] args) throws IOException {
         JFrame jFrame = new JFrame();
-        jFrame.add(new MarketIndexDetailPanel());
+        IndexVO index = new ShowIndexData().getLatestIndexData();
+        String nameVolume[] = {"日期", "成交量", "大盘指数"};
+        long volume[] = index.getVolume();
+        UltraScrollPane lineChartMarket=new LineChartMarketIndex(nameVolume, volume).drawLineChartMarketIndex();
+        jFrame.add(lineChartMarket);
         jFrame.setBounds(50, 50, 800, 600);
         jFrame.setVisible(true);
     }

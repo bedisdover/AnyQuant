@@ -5,7 +5,9 @@ package presentation.graphs;
  */
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartMouseEvent;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.entity.ChartEntity;
 import presentation.UltraSwing.UltraScrollPane;
 import vo.IndexVO;
 
@@ -17,19 +19,19 @@ public class LineChartMarketIndex {
 
     public LineChartMarketIndex(String nameInit[], double dataInit[]) {
         String name[] = nameInit;
-        double data[]=new double[365];
-        int length=dataInit.length;
-        for(int i=0;i<365;i++){
-            data[364-i]=dataInit[length-1-i];
+        double data[] = new double[365];
+        int length = dataInit.length;
+        for (int i = 0; i < 365; i++) {
+            data[364 - i] = dataInit[length - 1 - i];
         }
 
         try {
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String dateInit[] = index.getDate();
-            String date[]=new String[365];
-            int len=dateInit.length;
-            for(int i=0;i<365;i++){
-                date[364-i]=dateInit[len-1-i];
+            String date[] = new String[365];
+            int len = dateInit.length;
+            for (int i = 0; i < 365; i++) {
+                date[364 - i] = dateInit[len - 1 - i];
             }
 
             lineChartParent = new LineChartParent(name, date, data);
@@ -40,17 +42,17 @@ public class LineChartMarketIndex {
 
     public LineChartMarketIndex(String nameInit[], long dataInit[]) {
         String name[] = nameInit;
-        int length=dataInit.length;
+        int length = dataInit.length;
         double data[] = new double[365];
-        for(int i=0;i<365;i++) {
-            data[364 - i] = (double)dataInit[length - 1 - i];
+        for (int i = 0; i < 365; i++) {
+            data[364 - i] = (double) dataInit[length - 1 - i];
         }
         try {
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String dateInit[] = index.getDate();
-            String date[]=new String[365];
-            for(int i=0;i<365;i++){
-                date[364-i]=dateInit[dataInit.length-1-i];
+            String date[] = new String[365];
+            for (int i = 0; i < 365; i++) {
+                date[364 - i] = dateInit[dataInit.length - 1 - i];
             }
 
             lineChartParent = new LineChartParent(name, date, data);
@@ -60,12 +62,15 @@ public class LineChartMarketIndex {
     }
 
     public ChartPanel getChartPanel() {
-        return lineChartParent.getChartPanel();
+        ChartPanel chartPanel = lineChartParent.getChartPanel();
+        chartPanel.setSize(1000, 300);
+        return chartPanel;
     }
 
-    public JScrollPane drawLineChartMarketIndex() {
+    public UltraScrollPane drawLineChartMarketIndex() {
         UltraScrollPane scroll = new UltraScrollPane(getChartPanel());
-        scroll.setBounds(0,0,100,100);
         return scroll;
     }
+
+
 }

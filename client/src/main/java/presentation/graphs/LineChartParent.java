@@ -1,11 +1,11 @@
 package presentation.graphs;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartMouseEvent;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.axis.*;
+import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -46,6 +46,15 @@ public class LineChartParent {
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
         ValueAxis domainAxis = plot.getDomainAxis();
 
+        //设置日期显示格式
+        DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
+       SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
+
+        //   dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 30, frm));
+
+
+
+
         /*------设置X轴坐标上的文字-----------*/
         domainAxis.setTickLabelFont(new Font("sans-serif", Font.PLAIN, 12));
         /*------设置X轴的标题文字------------*/
@@ -64,9 +73,7 @@ public class LineChartParent {
         plot.setDomainGridlinePaint(Color.pink);
         // 设置网格横线颜色
         plot.setRangeGridlinePaint(Color.pink);
-        //设置日期显示格式
-        DateAxis dateaxiss = (DateAxis) plot.getDomainAxis();
-        SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
+
     }
 
     public XYDataset createDataset(String date[],double data[]) throws IOException {
@@ -74,7 +81,6 @@ public class LineChartParent {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
 
         int length = date.length;
-        System.out.println(length+"aaaaaa");
         for (int i = 1; i <= length; i++) {
             int year = Integer.parseInt(date[length - i].substring(0, 4));
             int month = Integer.parseInt(date[length - i].substring(5, 7));
@@ -93,7 +99,9 @@ public class LineChartParent {
         XYItemRenderer r = xyPolt.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
+
+
+            renderer.setBaseShapesVisible(false);
             renderer.setBaseShapesFilled(false);
         }
     }
@@ -101,5 +109,6 @@ public class LineChartParent {
     public ChartPanel getChartPanel() {
         return panel;
     }
-
 }
+
+
