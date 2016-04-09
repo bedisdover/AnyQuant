@@ -4,10 +4,8 @@ import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
 import org.jfree.chart.ChartPanel;
 import po.StockPO;
-import presentation.IndexKLines;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
-import presentation.panel.IndexKLine_Daily;
 import presentation.panel.StockKLine_Daily;
 import vo.StockVO;
 
