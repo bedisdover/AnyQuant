@@ -12,6 +12,7 @@ import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.CandlestickRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -171,7 +172,8 @@ public class StockKLine_Daily implements ChartMouseListener{
         String[] info = chartEntity.toString().split(" ");
         if(info[1].equals("series")){
             int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-            System.out.println(stockVO.getDate()[num-90+item]);
+            TextTitle textTitle = this.jFreeChart.getTitle();
+            textTitle.setText(stockVO.getDate()[num-90+item]+"  高:"+stockVO.getHigh()[num-90+item]+"  开:"+stockVO.getOpen()[num-90+item]+"  收:"+stockVO.getClose()[num-90+item]+"  低:"+stockVO.getLow()[num-90+item]+"  成交量:"+stockVO.getVolume()[num-90+item]/100);
         }
     }
 }

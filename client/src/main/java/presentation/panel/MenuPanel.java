@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static presentation.frame.MainFrame.MENU_WIDTH;
 import static presentation.frame.MainFrame.getMainFrame;
 
 /**
@@ -141,7 +142,7 @@ public class MenuPanel extends JPanel {
         //故先进行初始化,设置Panel的Bounds
         init();
 
-        int temp = Math.min(getWidth(), getHeight());
+        int temp = Math.min(MENU_WIDTH, getMainFrame().getHeight());
         PORTRAIT_DIAMETER = temp / 2;
         BUTTON_WIDTH = temp * 2 / 3;
         BUTTON_HEIGHT = BUTTON_WIDTH / 3;
@@ -162,7 +163,6 @@ public class MenuPanel extends JPanel {
             e.printStackTrace();
         }
 
-        this.setBounds(0, 0, MainFrame.MENU_WIDTH, getMainFrame().getHeight());
         this.setLayout(null);
         this.setOpaque(false);
 
@@ -385,9 +385,8 @@ public class MenuPanel extends JPanel {
         new Thread() {
             @Override
             public void run() {
-                //动画时间持续3秒
                 try {
-                    for (int i = BUTTON_HEIGHT + 20; i >= 0; i--) {
+                    for (int i = BUTTON_HEIGHT + 20; i >= PADDING / 2; i--) {
                         Thread.sleep(10);
                         options.setBounds(btnPicture.getX() + 10,
                                 btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);

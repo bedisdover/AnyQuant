@@ -10,7 +10,7 @@
         </mainFrame>
 
         <panel>
-            <MenuPanel x="0" y="0" width="136" height="512"/>
+            <MenuPanel autoHidden="true" x="0" y="0" width="136" height="512"/>
             <OperationPanel x="136" y="0" width="769" height="512"/>
         </panel>
 

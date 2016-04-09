@@ -1,7 +1,13 @@
 package presentation.panel;
 
+import config.SystemConfig;
+import org.dom4j.DocumentException;
+import presentation.frame.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.net.MalformedURLException;
 
 /**
  * Created by 宋益明 on 16-3-5.
@@ -20,7 +26,54 @@ public class BackgroundPanel extends JPanel {
 
     public BackgroundPanel(Image image) {
         this.backdrop = image;
+        addListeners();
     }
+
+    /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (e.getX() < MainFrame.getMainFrame().getWidth() / 2) {
+                    MainFrame.getMainFrame().showMenuPanel();
+                }
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                try {//若未选择自动隐藏，结束
+                    if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                        return;
+                    }
+                } catch (MalformedURLException | DocumentException e1) {
+                    e1.printStackTrace();
+                }
+                if (e.getX() > MainFrame.MENU_WIDTH) {
+                    MainFrame.getMainFrame().hideMenuPanel();
+                }
+            }
+        });
+
+        registerKeyboardAction(e -> MainFrame.getMainFrame().showMenuPanel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_M, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        registerKeyboardAction(e -> {
+                try {//若未选择自动隐藏，结束
+                    if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                        return;
+                    }
+                } catch (MalformedURLException | DocumentException e1) {
+                    e1.printStackTrace();
+                }
+
+                MainFrame.getMainFrame().hideMenuPanel();
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+
 
     @Override
     public void paintComponent(Graphics g) {

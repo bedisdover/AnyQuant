@@ -1,7 +1,5 @@
 .idea/
 *.iml
-*.class
-target/
 /client/target
 /client/src/main/resources/config.xml
 /client/src/main/resources/follow.data

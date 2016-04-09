@@ -29,10 +29,10 @@ public final class MainFrame extends JFrame {
     public static final int DEFAULT_WIDTH;
 
     /**
-     * 菜单栏宽度固定
+     * 菜单栏宽度固定(可自动隐藏)
      * 菜单栏高度随窗口大小变化而变化
      */
-    public static final int MENU_WIDTH;
+    public static int MENU_WIDTH;
 
     /**
      * 主窗体对象
@@ -43,6 +43,11 @@ public final class MainFrame extends JFrame {
      * 背景面板
      */
     private static final BackgroundPanel backgroundPanel;
+
+    /**
+     * 菜单面板
+     */
+    public static MenuPanel menuPanel;
 
     /**
      * 操作面板
@@ -99,13 +104,14 @@ public final class MainFrame extends JFrame {
      * 创建组件
      */
     private static void createUIComponents() {
-        MenuPanel menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel();
         backgroundPanel.add(menuPanel);
+        frame.showMenuPanel();
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                menuPanel.setBounds(0, 0, MENU_WIDTH, frame.getHeight());
+//                menuPanel.setBounds(0, 0, MENU_WIDTH, frame.getHeight());
 
                 if (operationPanel != null) {
                     operationPanel.setBounds(MENU_WIDTH, 0,
@@ -137,18 +143,71 @@ public final class MainFrame extends JFrame {
     }
 
     /**
+     * 显示菜单栏
+     */
+    public void showMenuPanel() {
+        if (menuPanel.getWidth() != 0) {
+            return;
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < MENU_WIDTH; i++) {
+                        Thread.sleep(10);
+                        menuPanel.setBounds(0, 0, i, frame.getHeight());
+
+                        repaint();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    /**
+     * 隐藏菜单栏
+     */
+    public void hideMenuPanel() {
+        if (menuPanel.getWidth() == 0) {
+            return;
+        }
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = MENU_WIDTH; i >= 0; i--) {
+                        Thread.sleep(10);
+                        menuPanel.setBounds(0, 0, i, frame.getHeight());
+
+                        repaint();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    /**
      * 添加操作面板
      *
      * @param panel 操作面板
      */
     public void addOperationPanel(JPanel panel) {
         if (operationPanel != null) {
+            operationPanel.setVisible(false);
             backgroundPanel.remove(operationPanel);
         }
 
         operationPanel = panel;
-        operationPanel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
-        backgroundPanel.add(operationPanel);
+
+        panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
+//        panel.setVisible(true);
+        backgroundPanel.add(panel);
 
         backgroundPanel.revalidate();
         backgroundPanel.repaint();
@@ -156,6 +215,18 @@ public final class MainFrame extends JFrame {
 
         frame.revalidate();
         frame.repaint();
+    }
+
+    /**
+     * panel切换
+     */
+    private void switchover() {
+        new Thread() {
+            @Override
+            public void run() {
+                //TODO panel切换
+            }
+        }.start();
     }
 }
 

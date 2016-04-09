@@ -2,11 +2,11 @@ package presentation.panel.info;
 
 import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
+import org.jfree.chart.ChartPanel;
 import po.StockPO;
-import presentation.IndexKLines;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
-import presentation.panel.IndexKLine_Daily;
+import presentation.panel.StockKLine_Daily;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class StockInfoPanel extends InfoPanel {
     /**
      * k-线图面板
      */
-    private JTabbedPane k_line;
+    private ChartPanel k_line;
 
     /**
      * 持有的股票对象
@@ -87,8 +87,8 @@ public class StockInfoPanel extends InfoPanel {
         btnInfo = new UltraButton("详细数据");
 
         try {
-            currentInfo = new StockCurrentInfoPanel(stock.getId());
-            k_line = new IndexKLines().getjTabbedPane();
+            currentInfo = new StockCurrentInfoPanel(stockID);
+            k_line = new StockKLine_Daily(stockID).getChartPanel();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
@@ -112,10 +112,9 @@ public class StockInfoPanel extends InfoPanel {
 
             @Override
             public void componentHidden(ComponentEvent e) {
-                super.componentMoved(e);
                 updateFlag = false;
                 System.out.println("hide");
-//                update(1);
+                update(1);
             }
         });
 
