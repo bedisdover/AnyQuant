@@ -23,40 +23,44 @@ public class GetIndexData implements GetIndexDataService {
         String s1 = rdt.parseJSON(result, "data");
         String[] trading_info = rdt.parseJSON_array(s1, "trading_info");
 
-        long[] volume = new long[trading_info.length];
-        double[] high = new double[trading_info.length];
-        double[] adj_price = new double[trading_info.length];
-        double[] low = new double[trading_info.length];
-        double[] close = new double[trading_info.length];
-        double[] open = new double[trading_info.length];
-        String[] date = new String[trading_info.length];
-        IndexPO indexPO = new IndexPO(trading_info.length);
+        int num=0;
+        for(int i=0;i<trading_info.length;i++){
+            JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
+            if(jsonObject.getString("volume").equals("0")){
+                num++;
+            }
+        }//计算无用数据的个数
+        long[] volume = new long[trading_info.length-num];
+        double[] high = new double[trading_info.length-num];
+        double[] adj_price = new double[trading_info.length-num];
+        double[] low = new double[trading_info.length-num];
+        double[] close = new double[trading_info.length-num];
+        double[] open = new double[trading_info.length-num];
+        String[] date = new String[trading_info.length-num];
+        IndexPO indexPO = new IndexPO(trading_info.length-num);
         for (int i = 0; i < trading_info.length; i++) {
 
             JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
 
+            if(jsonObject.getString("volume").equals("0")){
+                continue;
+            }
+
             volume[i] = Long.parseLong(jsonObject.getString("volume"));
-            indexPO.setVolume(volume);
-
             high[i] = Double.parseDouble(jsonObject.getString("high"));
-            indexPO.setHigh(high);
-
             adj_price[i] = Double.parseDouble(jsonObject.getString("adj_price"));
-            indexPO.setAdj_price(adj_price);
-
             low[i] = Double.parseDouble(jsonObject.getString("low"));
-            indexPO.setLow(low);
-
             date[i] = jsonObject.getString("date");
-            indexPO.setDate(date);
-
             close[i] = Double.parseDouble(jsonObject.getString("close"));
-            indexPO.setClose(close);
-
             open[i] = Double.parseDouble(jsonObject.getString("open"));
-            indexPO.setOpen(open);
-
         }
+        indexPO.setVolume(volume);
+        indexPO.setHigh(high);
+        indexPO.setAdj_price(adj_price);
+        indexPO.setLow(low);
+        indexPO.setDate(date);
+        indexPO.setClose(close);
+        indexPO.setOpen(open);
         JSONObject jsonObject1 = JSONObject.fromObject(s1);
         indexPO.setName(jsonObject1.getString("name"));
 
