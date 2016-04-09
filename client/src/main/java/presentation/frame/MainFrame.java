@@ -143,12 +143,15 @@ public final class MainFrame extends JFrame {
      */
     public void addOperationPanel(JPanel panel) {
         if (operationPanel != null) {
+            operationPanel.setVisible(false);
             backgroundPanel.remove(operationPanel);
         }
 
         operationPanel = panel;
-        operationPanel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
-        backgroundPanel.add(operationPanel);
+
+        panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
+//        panel.setVisible(true);
+        backgroundPanel.add(panel);
 
         backgroundPanel.revalidate();
         backgroundPanel.repaint();

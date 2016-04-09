@@ -385,9 +385,8 @@ public class MenuPanel extends JPanel {
         new Thread() {
             @Override
             public void run() {
-                //动画时间持续3秒
                 try {
-                    for (int i = BUTTON_HEIGHT + 20; i >= 0; i--) {
+                    for (int i = BUTTON_HEIGHT + 20; i >= PADDING / 2; i--) {
                         Thread.sleep(10);
                         options.setBounds(btnPicture.getX() + 10,
                                 btnPicture.getY() + BUTTON_HEIGHT, BUTTON_WIDTH - 20, i);
