@@ -319,7 +319,7 @@ public class IndexKLine_Daily implements ChartMouseListener{
         String[] info = chartEntity.toString().split(" ");
         if(info[1].equals("series")){
             int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-            System.out.println(indexVO.getDate()[num-90+item]);
+//            System.out.println(indexVO.getDate()[num-90+item]);
             TextTitle textTitle = this.chart.getTitle();
             textTitle.setText(indexVO.getDate()[num-90+item]+"  高:"+indexVO.getHigh()[num-90+item]+"  开:"+indexVO.getOpen()[num-90+item]+"  收:"+indexVO.getClose()[num-90+item]+"  低:"+indexVO.getLow()[num-90+item]+"  成交量:"+indexVO.getVolume()[num-90+item]/100);
         }
