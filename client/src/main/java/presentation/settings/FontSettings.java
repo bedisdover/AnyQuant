@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
  * 可设置字体样式,大小
  * 并可进行字体预览
  */
-public class FontSettings extends JPanel {
+class FontSettings extends JPanel {
 
     /**
      * 字体列表
@@ -54,9 +54,7 @@ public class FontSettings extends JPanel {
 
         try {
             font = SystemConfig.getFontConfig().getFontInfo();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
+        } catch (MalformedURLException | DocumentException e) {
             e.printStackTrace();
         }
     }
@@ -138,9 +136,7 @@ public class FontSettings extends JPanel {
             SystemConfig.getFontConfig().changeFont(font);
         } catch (NumberFormatException e) {
             //若size输入非法值,不做任何处理
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
+        } catch (MalformedURLException | DocumentException e) {
             e.printStackTrace();
         }
 

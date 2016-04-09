@@ -43,9 +43,17 @@ public class SettingsDialog extends JDialog {
     /**
      * 设置窗体主面板
      */
-    class SettingsPanel extends JPanel {
-        private final int width;
-        private final int height;
+    private class SettingsPanel extends JPanel {
+
+        /**
+         * 宽、高
+         */
+        private final int WIDTH, HEIGHT;
+
+        /**
+         * 风格设置按钮
+         */
+        private JButton btnStyle;
 
         /**
          * 界面设置按钮
@@ -78,8 +86,8 @@ public class SettingsDialog extends JDialog {
         private JPanel settings;
 
         SettingsPanel() {
-            width = 450;
-            height = 340;
+            WIDTH = 450;
+            HEIGHT = 340;
 
             init();
             createUIComponents();
@@ -90,19 +98,13 @@ public class SettingsDialog extends JDialog {
          * 初始化
          */
         private void init() {
-            setLayout(null);
+            setLayout(new BorderLayout());
         }
 
         /**
          * 创建组件
          */
         private void createUIComponents() {
-            try {
-                UIManager.setLookAndFeel(new NimbusLookAndFeel());
-            } catch (UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
-            }
-
             settings = new UISettings();
 
             addMenuPanel();
@@ -115,12 +117,14 @@ public class SettingsDialog extends JDialog {
         private void addMenuPanel() {
             JPanel menuPanel = new JPanel();
             menuPanel.setBackground(Color.GRAY);
-            menuPanel.setBounds(0, 0, width / 5, height);
             //设置盒式布局,每个按钮一行
             menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
             //设置边界
             menuPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-            add(menuPanel);
+            add(menuPanel, BorderLayout.WEST);
+
+            btnStyle = new JButton("风格设置");
+            menuPanel.add(btnStyle);
 
             btnUI = new JButton("界面设置");
             menuPanel.add(btnUI);
@@ -135,9 +139,8 @@ public class SettingsDialog extends JDialog {
         private void addSettingsPanel(JPanel panel) {
             remove(settings);
             settings = panel;
-            settings.setBounds(width / 5, 0, width - getX(), height * 4 / 5);
 
-            add(settings);
+            add(settings, BorderLayout.CENTER);
             repaint();
         }
 
@@ -149,9 +152,8 @@ public class SettingsDialog extends JDialog {
             buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
             buttonPanel.setBackground(Color.lightGray);
             buttonPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-            buttonPanel.setBounds(width / 5, height * 4 / 5, width * 4 / 5, height / 5);
 
-            add(buttonPanel);
+            add(buttonPanel, BorderLayout.SOUTH);
 
             btnOK = new JButton("确 认");
             btnApply = new JButton("应 用");
@@ -171,6 +173,13 @@ public class SettingsDialog extends JDialog {
             btnApply.addActionListener(e -> onApply());
 
             btnCancel.addActionListener(e -> onCancel());
+
+            btnStyle.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    addSettingsPanel(new StyleSettings());
+                }
+            });
 
             btnUI.addMouseListener(new MouseAdapter() {
                 @Override

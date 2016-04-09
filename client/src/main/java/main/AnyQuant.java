@@ -7,6 +7,7 @@ import presentation.frame.MainFrame;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.util.Enumeration;
 
@@ -23,6 +24,13 @@ public class AnyQuant extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        if (SystemConfig.getStyle().equals("Nimbus")) {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } else if (SystemConfig.getStyle().equals("BeautyEye")) {
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+        }
+
         //设置全局字体
         initGlobalFontSetting(SystemConfig.getFontConfig().getFontInfo());
 

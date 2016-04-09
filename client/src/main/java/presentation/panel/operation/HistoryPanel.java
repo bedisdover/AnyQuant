@@ -25,12 +25,6 @@ public class HistoryPanel extends OperationPanel {
     }
 
     protected void init() {
-        try {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         setLayout(null);
     }
 

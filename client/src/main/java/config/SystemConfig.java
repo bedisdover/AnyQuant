@@ -63,6 +63,20 @@ public class SystemConfig {
     }
 
     /**
+     * 获取系统样式
+     *
+     * @return 样式名称
+     */
+    public static String getStyle() throws MalformedURLException, DocumentException {
+        init();
+
+        Element presentation = root.element("presentation");
+
+        return presentation.attributeValue("style");
+    }
+
+
+    /**
      * 获得主界面配置
      *
      * @return 主界面配置领域对象

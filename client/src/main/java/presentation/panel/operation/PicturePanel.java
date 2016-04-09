@@ -656,12 +656,6 @@ public class PicturePanel extends OperationPanel {
             setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
             setModal(true);
-
-            try {
-                UIManager.setLookAndFeel(new NimbusLookAndFeel());
-            } catch (UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
-            }
         }
 
         /**

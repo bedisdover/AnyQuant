@@ -97,6 +97,15 @@ public final class MainFrame extends JFrame {
         frame.setContentPane(backgroundPanel);
         frame.setLayout(null);
         frame.setIconImage(ImageLoader.icon);
+
+        try {//采用BeautyEye样式时，不宜改变窗体大小
+            String style = SystemConfig.getStyle();
+            if (style.equals("BeautyEye")) {
+                frame.setResizable(false);
+            }
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

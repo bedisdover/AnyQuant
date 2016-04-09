@@ -49,11 +49,6 @@ public class Table extends JTable {
     }
 
     private void init() {
-        try {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
         // TODO 行宽
         setRowHeight(30);
 

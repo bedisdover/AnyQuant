@@ -171,12 +171,6 @@ public class MenuPanel extends JPanel {
      * 初始化
      */
     private void init() {
-        try {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
         this.setLayout(null);
         this.setOpaque(false);
 
