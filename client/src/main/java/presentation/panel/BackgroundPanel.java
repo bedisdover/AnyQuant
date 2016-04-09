@@ -1,7 +1,16 @@
 package presentation.panel;
 
+import config.SystemConfig;
+import org.dom4j.DocumentException;
+import presentation.frame.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
 
 /**
  * Created by 宋益明 on 16-3-5.
@@ -20,6 +29,59 @@ public class BackgroundPanel extends JPanel {
 
     public BackgroundPanel(Image image) {
         this.backdrop = image;
+        addListeners();
+    }
+
+    /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (e.getX() < MainFrame.getMainFrame().getWidth() / 10) {
+                    MainFrame.getMainFrame().showMenuPanel();
+                }
+            }
+        });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                MainFrame.getMainFrame().showMenuPanel();
+            }
+        });
+    }
+
+    /**
+     * 隐藏菜单栏
+     */
+    public void hideMenu() {
+        try {//若未选择自动隐藏，结束
+            if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                return;
+            }
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getX() > MainFrame.MENU_WIDTH) {
+                    MainFrame.getMainFrame().hideMenuPanel();
+                }
+            }
+        });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    MainFrame.getMainFrame().hideMenuPanel();
+                }
+            }
+        });
     }
 
     @Override
