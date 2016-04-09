@@ -169,6 +169,7 @@ public class IndexKLine_Weekly implements ChartMouseListener{
         System.out.println(s);
         return s;
     }
+
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {

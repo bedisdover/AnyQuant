@@ -25,6 +25,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by user on 2016/4/4.
@@ -54,7 +56,7 @@ public class StockKLine_Weekly implements ChartMouseListener{
         ShowStockData showStockData = new ShowStockData();
         stockVO = showStockData.getStockData(stockID);
         num = stockVO.getDate().length;
-        total = 400;
+        total = 300;
         int gap = 5;
 
         drawKLineHelper.addPMA(stockVO,total,gap);
@@ -108,7 +110,7 @@ public class StockKLine_Weekly implements ChartMouseListener{
         drawKLineHelper.setCandlestickRenderer(candlestickRender);
 
         DateAxis x1Axis=new DateAxis();// 设置x轴，也就是时间轴
-        drawKLineHelper.setXAxis(x1Axis,stockVO.getDate()[num-total],stockVO.getDate()[num-1]);
+        drawKLineHelper.setXAxis(x1Axis,stockVO.getDate()[num-total],getLatestFriday());
 
         NumberAxis y1Axis=new NumberAxis();// 设定y轴，就是数字轴
         drawKLineHelper.setY1Axis(y1Axis,minValue*0.95,highValue*1.05);
@@ -129,7 +131,7 @@ public class StockKLine_Weekly implements ChartMouseListener{
                     return candlestickRender.getDownPaint();
                 }
             }};
-
+        xyBarRender.setShadowVisible(false);
         xyBarRender.setMargin(0.1);// 设置柱形图之间的间隔
 
         NumberAxis y2Axis=new NumberAxis();// 设置Y轴，为数值,后面的设置，参考上面的y轴设置
@@ -141,18 +143,34 @@ public class StockKLine_Weekly implements ChartMouseListener{
         combineddomainxyplot.add(plot2, 1);// 添加图形区域对象，后面的数字是计算这个区域对象应该占据多大的区域1/3
         combineddomainxyplot.setGap(20);// 设置两个图形区域对象之间的间隔空间
 
-        JFreeChart chart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
-        chartPanel = new ChartPanel(chart,true);
+        jFreeChart = new JFreeChart(Transfer.getName(stockID), JFreeChart.DEFAULT_TITLE_FONT, combineddomainxyplot, false);
+        chartPanel = new ChartPanel(jFreeChart,true);
     }
 
     public ChartPanel getChartPanel(){
         return chartPanel;
     }
 
+    private String getLatestFriday(){
+        Calendar calendar = Calendar.getInstance();
+        Date d = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+        String s = simpleDateFormat.format(d);
+        while(!s.equals("星期五")){
+            calendar.add(calendar.DATE,-1);
+            d = calendar.getTime();
+            s = simpleDateFormat.format(d);
+        }
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        s = simpleDateFormat.format(d);
+        System.out.println(s);
+        return s;
+    }
+
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
         try {
-            jFrame.add(new StockKLine_Daily("sh600000").getChartPanel());
+            jFrame.add(new StockKLine_Weekly("sh601998").getChartPanel());
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
         } catch (IOException e) {
