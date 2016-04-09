@@ -18,8 +18,8 @@ class StyleSettings extends JPanel {
     }
 
     private void init() {
-        setBorder(new BevelBorder(BevelBorder.LOWERED));
         setLayout(new BorderLayout());
+        setBorder(new BevelBorder(BevelBorder.LOWERED));
     }
 
     private void createUIComponents() {
@@ -43,5 +43,12 @@ class StyleSettings extends JPanel {
 
     private void addListeners() {
 
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        System.out.println(1);
     }
 }

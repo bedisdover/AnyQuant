@@ -140,7 +140,7 @@ public class SettingsDialog extends JDialog {
             remove(settings);
             settings = panel;
 
-            add(settings, BorderLayout.CENTER);
+            add(panel, BorderLayout.CENTER);
             repaint();
         }
 
