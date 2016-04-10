@@ -124,18 +124,21 @@ public class PortfolioPanel extends OperationPanel {
         cancel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int line = table.getSelectedRow();
-                if (line != -1) {
-                    try {
-                        new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
-                        new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
-                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                int[] rows = table.getSelectedRows();
+                try {
+                    for (int row : rows) {
+                        if (row != -1) {
+                            new SelfSelectStock().removeStock((String) table.getValueAt(row, 2));
+                            new HistoryRecordStock().addStock((String) table.getValueAt(row, 2));
+                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                                    "取消关注成功!可在历史记录中查看");
+                        }
                     }
-
-                    MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
+
+                MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
             }
         });
 

@@ -41,6 +41,11 @@ public class MarketIndexPanel extends OperationPanel {
      */
     private JPanel chartPanel;
 
+    /**
+     * 刷新界面标记，界面发生切换后，停止刷新
+     */
+    private boolean updateFlag;
+
     public MarketIndexPanel() {
         init();
         createUIComponents();
@@ -49,6 +54,8 @@ public class MarketIndexPanel extends OperationPanel {
 
     protected void init() {
         this.setLayout(null);
+
+        updateFlag = true;
 
         update();
     }
@@ -115,12 +122,14 @@ public class MarketIndexPanel extends OperationPanel {
             @Override
             public void run() {
                 try {
-                    while (true) {
+                    while (updateFlag) {
                         assignment();
 
                         Thread.sleep(100);
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    //有可能会出现空指针异常，对程序运行无影响，不予处理
+                }
             }
         }.start();
     }

@@ -49,32 +49,35 @@ public class HistoryRecordStock implements HistoryRecordStockService {
         return list.contains(id);
     }
 
-    //加载股票代码列表
-    public void load() {
+    /**
+     * 加载股票代码列表
+     */
+    private void load() {
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            String stockid;
+            String stockID;
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            while ((stockid = br.readLine()) != null) {
-                list.add(stockid);
+            while ((stockID = br.readLine()) != null) {
+                list.add(stockID);
             }
+
             br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //存储更新后的股票列表
-    public void store() throws IOException{
+    /**
+     * 存储更新后的股票列表
+     */
+    private void store() throws IOException{
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 
-        for(String stockid:list){
-            bw.write(stockid+"\n");
+        for (String stockID : list) {
+            bw.write(stockID + "\n");
         }
         bw.close();
     }
