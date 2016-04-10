@@ -1,8 +1,12 @@
 package presentation.settings;
 
+import config.SystemConfig;
+import org.dom4j.DocumentException;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.net.MalformedURLException;
 
 /**
  * Created by 宋益明 on 16-4-9.
@@ -18,31 +22,54 @@ public class StyleSettings extends JPanel {
     }
 
     private void init() {
-//        setLayout(new BorderLayout());
-        setLayout(null);
+        setLayout(new BorderLayout());
         setBorder(new BevelBorder(BevelBorder.LOWERED));
     }
 
     private void createUIComponents() {
         addItemPanel();
+        addPreviewPanel();
     }
 
+    /**
+     * 添加选项面板
+     */
     private void addItemPanel() {
         JPanel itemPanel = new JPanel();
         add(itemPanel, BorderLayout.NORTH);
-        itemPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
+        itemPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
 
         JLabel label = new JLabel("风 格：");
         itemPanel.add(label);
 
-        JCheckBox nimbus = new JCheckBox(" Nimbus");
+        JRadioButton nimbus = new JRadioButton(" Nimbus");
         itemPanel.add(nimbus);
 
-        JCheckBox beautyEye = new JCheckBox(" 古典");
+        JRadioButton beautyEye = new JRadioButton(" 古典");
         itemPanel.add(beautyEye);
 
-        JButton button = new JButton("test");
-        itemPanel.add(button);
+        ButtonGroup group = new ButtonGroup();
+
+        group.add(nimbus);
+        group.add(beautyEye);
+
+        try {
+            String style = SystemConfig.getStyle();
+            if (style.equals("Nimbus")) {
+                nimbus.setSelected(true);
+            } else if (style.equals("BeautyEye")) {
+                beautyEye.setSelected(true);
+            }
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 添加预览面板
+     */
+    private void addPreviewPanel() {
+
     }
 
     private void addListeners() {

@@ -99,6 +99,7 @@ public class SettingsDialog extends JDialog {
          */
         private void init() {
             setLayout(new BorderLayout());
+            setTitle("设 置");
         }
 
         /**
@@ -123,13 +124,13 @@ public class SettingsDialog extends JDialog {
             menuPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
             add(menuPanel, BorderLayout.WEST);
 
-            btnStyle = new JButton("风格设置");
-            menuPanel.add(btnStyle);
-
-            btnUI = new JButton("界面设置");
+            btnUI = new JButton("界 面");
             menuPanel.add(btnUI);
 
-            btnFont = new JButton("字体设置");
+            btnStyle = new JButton("风 格");
+            menuPanel.add(btnStyle);
+
+            btnFont = new JButton("字 体");
             menuPanel.add(btnFont);
         }
 
@@ -137,10 +138,10 @@ public class SettingsDialog extends JDialog {
          * 添加具体的设置面板
          */
         private void addSettingsPanel(JPanel panel) {
-            remove(settings);
+            settings.setVisible(false);
             settings = panel;
-
             add(panel, BorderLayout.CENTER);
+
             repaint();
         }
 

@@ -144,7 +144,6 @@ public class StockInfoPanel extends InfoPanel {
 
         revalidate();
         repaint();
-        updateUI();
     }
 
     /**
