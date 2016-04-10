@@ -1,5 +1,6 @@
 package presentation.graphs;
 
+import bl.ShowIndexData;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.entity.ChartEntity;
@@ -13,9 +14,11 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
+import vo.IndexVO;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -26,15 +29,19 @@ public class LineChartParent implements ChartMouseListener {
     ChartPanel panel;
     JFreeChart timeSeriesChart;
     XYPlot plot;
+    ;
     TimeSeries timeSeries1 = new TimeSeries("", Day.class);
-    public LineChartParent(String name[],String x[],double y[]) throws IOException {
-        createTimeSeriesChart(name,x,y);
+
+    public LineChartParent(String name[], String x[], double y[]) throws IOException {
+        createTimeSeriesChart(name, x, y);
+        this.panel.setMouseZoomable(false, false);
+        this.panel.addChartMouseListener(this);
     }
 
-    public void createTimeSeriesChart(String name[],String x[],double y[]) throws IOException {
-        timeSeriesChart = ChartFactory.createTimeSeriesChart("", name[0], name[1], createDataset(x,y), true, true, false);
+    public void createTimeSeriesChart(String name[], String x[], double y[]) throws IOException {
+        timeSeriesChart = ChartFactory.createTimeSeriesChart("", name[0], name[1], createDataset(x, y), true, true, false);
         timeSeriesChart.setBackgroundPaint(Color.WHITE);
-         plot = timeSeriesChart.getXYPlot();
+        plot = timeSeriesChart.getXYPlot();
         setXYPolt(plot);
         panel = new ChartPanel(timeSeriesChart, true);
         LegendTitle legendTitle = timeSeriesChart.getLegend();
@@ -49,7 +56,7 @@ public class LineChartParent implements ChartMouseListener {
 
         //设置日期显示格式
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
-       SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
+        SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
 
         //   dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 30, frm));
 
@@ -77,7 +84,7 @@ public class LineChartParent implements ChartMouseListener {
 
     }
 
-    public XYDataset createDataset(String date[],double data[]) throws IOException {
+    public XYDataset createDataset(String date[], double data[]) throws IOException {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
 
@@ -118,34 +125,35 @@ public class LineChartParent implements ChartMouseListener {
 
     @Override
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
+//        int xPos = chartMouseEvent.getTrigger().getX();
+//        int yPos = chartMouseEvent.getTrigger().getY();
+//
+//        panel.setHorizontalAxisTrace(true);
+//        panel.setVerticalAxisTrace(true);
+//        ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
+//        String[] info = chartEntity.toString().split(" ");
+//        for (int i = 0; i < info.length; i++) {
+//            System.out.println(info[i] + "什么鬼咯" + i);
+//        }
+//        if (info[1].equals("series")) {
+//            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
+//            System.out.println(indexVO.getDate()[num - 90 + item]);
+ //           TextTitle textTitle = this.timeSeriesChart.getTitle();
+//            textTitle.setText(indexVO.getDate()[num - 90 + item] + "  高:" + indexVO.getHigh()[num - 90 + item] + "  开:" + indexVO.getOpen()[num - 90 + item] + "  收:" + indexVO.getClose()[num - 90 + item] + "  低:" + indexVO.getLow()[num - 90 + item] + "  成交量:" + indexVO.getVolume()[num - 90 + item] / 100);
+
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-
-        panel.setHorizontalAxisTrace(true);
-        panel.setVerticalAxisTrace(true);
-        ChartEntity chartEntity = panel.getEntityForPoint(xPos,yPos);
-        String[] info = chartEntity.toString().split(" ");
-        for(int i=0;i<info.length;i++){
-            System.out.println(info[i]+"什么鬼咯"+i);
+        System.out.println("x = " + xPos + ", y = " + yPos);
+        Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
+        ChartRenderingInfo chartRenderingInfo = this.panel.getChartRenderingInfo();
+        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
+        ValueAxis valueAxis1 = plot.getDomainAxis();
+        RectangleEdge rectangleEdge1 = plot.getDomainAxisEdge();
+        ValueAxis valueAxis2 = plot.getRangeAxis();
+        RectangleEdge rectangleEdge2 = plot.getRangeAxisEdge();
+        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
+        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
+        System.out.println("Chart: x = " + d1 + ", y = " + d2);
         }
-        //   if(info[1].equals("series")){
-        //     int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-        //    System.out.println(indexVO.getDate()[num-90+item]);
-        //  TextTitle textTitle = this.timeSeriesChart.getTitle();
-        //  textTitle.setText(indexVO.getDate()[num-90+item]+"  高:"+indexVO.getHigh()[num-90+item]+"  开:"+indexVO.getOpen()[num-90+item]+"  收:"+indexVO.getClose()[num-90+item]+"  低:"+indexVO.getLow()[num-90+item]+"  成交量:"+indexVO.getVolume()[num-90+item]/100);
-
-
-
-//        point = chartMouseEvent.getTrigger().getPoint();
-//     int   mouseX = chartMouseEvent.getTrigger().getX();
-//     int   mouseY = chartMouseEvent.getTrigger().getY();
-//        Point2D point2D = this.panel.translateScreenToJava2D(new Point(mouseX, mouseY));
-//        ChartRenderingInfo info = this.panel.getChartRenderingInfo();
-//        rectangle2D = panel.getScreenDataArea();
-//        yValue = plot.getRangeAxis().java2DToValue(point2D.getY(), info.getPlotInfo().getDataArea(), RectangleEdge.RIGHT);
-//        xValue = plot.getDomainAxis().java2DToValue(point2D.getX(), info.getPlotInfo().getDataArea(), RectangleEdge.BOTTOM);
-//        refreshAxis(mouseY, mouseX);
     }
-}
-
 

@@ -1,6 +1,7 @@
 package presentation.panel.operation;
 
 import bl.ShowIndexData;
+import org.jfree.chart.ChartPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.graphs.LineChartMarketIndex;
@@ -16,12 +17,12 @@ import java.io.IOException;
  */
 public class MarketIndexDetailPanel extends JPanel {
     private JTabbedPane tabbedPane;
-    private JPanel lineChartMarketIndexVolume;
-    private JPanel lineChartMarketIndexHigh;
-    private JPanel lineChartMarketIndexLow;
-    private JPanel lineChartMarketIndexOpen;
-    private JPanel lineChartMarketIndexClose;
-    private JPanel lineChartMarketIndexADJPrice;
+    private ChartPanel lineChartMarketIndexVolume;
+    private ChartPanel lineChartMarketIndexHigh;
+    private ChartPanel lineChartMarketIndexLow;
+    private ChartPanel lineChartMarketIndexOpen;
+    private ChartPanel lineChartMarketIndexClose;
+    private ChartPanel lineChartMarketIndexADJPrice;
 
     public MarketIndexDetailPanel() throws IOException {
         this.setLayout(new BorderLayout());
@@ -78,7 +79,7 @@ public class MarketIndexDetailPanel extends JPanel {
         IndexVO index = new ShowIndexData().getLatestIndexData();
         String nameVolume[] = {"日期", "成交量", "大盘指数"};
         long volume[] = index.getVolume();
-        JPanel lineChartMarket=new LineChartMarketIndex(nameVolume, volume).getChartPanel();
+        ChartPanel lineChartMarket=new LineChartMarketIndex(nameVolume, volume).getChartPanel();
         jFrame.add(lineChartMarket);
 
         jFrame.setBounds(50, 50, 800, 600);
