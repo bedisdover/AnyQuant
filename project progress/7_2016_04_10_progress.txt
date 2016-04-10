@@ -16,8 +16,8 @@ what : 完成折线图修改以及交互。
 problem : 未能将折线图做到预想的样子。
 todo :  需求规格说明书写。
 
-who : 
-when : 
-what : 
-problem :
-todo :  
+who : 苏琰梓
+when : 2016-04-10
+what : 完成部分分时图。
+problem : 分时图还没有完全画好。
+todo :  书写需求规格说明，完成分时图。
