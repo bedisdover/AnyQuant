@@ -1,7 +1,9 @@
 package presentation.panel.info;
 
+import config.SystemConfig;
 import data.currentdata.CurrentStockData;
 import dataservice.current.CurrentStockDataService;
+import org.dom4j.DocumentException;
 import po.current.CurrentStockPO;
 import presentation.UltraSwing.UltraLabel;
 import presentation.util.ImageLoader;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.MalformedURLException;
 
 import static presentation.panel.info.LocationValue.*;
 
@@ -24,6 +27,11 @@ public class StockCurrentInfoPanel extends JPanel {
      * 股票当前数据值对象
      */
     private CurrentStockPO stock;
+
+    /**
+     * 股票ID
+     */
+    private String id;
 
     /**
      * 当前价格
@@ -76,8 +84,11 @@ public class StockCurrentInfoPanel extends JPanel {
     private JPanel namePanel, leftPanel, rightPanel;
 
     StockCurrentInfoPanel(String id) throws Exception {
-        init(id);
+        this.id = id;
+        CurrentStockDataService stockData = new CurrentStockData();
+        stock = stockData.getCurrentStockPO(id);
 
+        init();
         createUIComponents();
         setText();
         addListeners();
@@ -85,15 +96,12 @@ public class StockCurrentInfoPanel extends JPanel {
 
     /**
      * 初始化
-     * @param id 股票ID
      */
-    private void init(String id) throws Exception {
-        CurrentStockDataService stockData = new CurrentStockData();
-        stock = stockData.getCurrentStockPO(id);
-
+    private void init() throws Exception {
         setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
         setBackground(new Color(175, 152, 139, 56));
+        updateData();
     }
 
     /**
@@ -249,6 +257,29 @@ public class StockCurrentInfoPanel extends JPanel {
         labelPrice.setFont(new Font("", Font.BOLD, 30));
         labelIncrease.setFont(new Font("", Font.BOLD, 30));
     }
+
+    /**
+     * 固定时间间隔更新数据
+     */
+    private void updateData() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    int lag = SystemConfig.getDataConfig().getUpdateLag();
+                    CurrentStockDataService stockData = new CurrentStockData();
+                    stock = stockData.getCurrentStockPO(id);
+
+                    Thread.sleep(60000 * lag);
+                    setText();
+
+                    repaint();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
 }
 
 /**
@@ -263,7 +294,7 @@ class StockNamePanel extends JPanel {
     private JLabel labelName;
 
     /**
-     * ID
+     * id
      */
     private JLabel labelID;
 

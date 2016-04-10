@@ -4,11 +4,11 @@ what : 股票和大盘的k线图全部绘制完成。
 problem : 周k和月k的柱状图不是很好看。
 todo :  完成需求规格说明。
 
-who : 
-when : 
-what : 
-problem :
-todo :  
+who : 宋益明
+when : 2016-04-10
+what : 完善界面
+problem : 界面刷新问题
+todo : 继续写界面，需求规格说明。
 
 who : 
 when : 

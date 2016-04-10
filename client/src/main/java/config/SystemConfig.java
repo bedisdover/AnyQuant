@@ -126,6 +126,23 @@ public class SystemConfig {
         return new MenuPanelConfig(menuPanel);
     }
 
+
+    /**
+     * 获得数据配置
+     *
+     * @return 数据配置领域对象
+     * @throws MalformedURLException
+     * @throws DocumentException
+     */
+    public static DataConfig getDataConfig() throws MalformedURLException, DocumentException {
+        init();
+
+        Element presentation = root.element("presentation");
+        Element data = presentation.element("data");
+
+        return new DataConfig(data);
+    }
+
     /**
      * 存储各种配置
      */

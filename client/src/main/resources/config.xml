@@ -10,9 +10,12 @@
         </mainFrame>
 
         <panel>
-            <MenuPanel autoHidden="true" x="0" y="0" width="136" height="512"/>
-            <OperationPanel x="136" y="0" width="769" height="512"/>
+            <MenuPanel autoHidden="true"/>
         </panel>
+
+        <data>
+            <StockData updateLag="2"/>
+        </data>
 
         <font name="新宋体" style="0" size="14"/>
     </presentation>

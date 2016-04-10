@@ -161,7 +161,7 @@ public final class MainFrame extends JFrame {
             public void run() {
                 try {
                     for (int i = 0; i <= MENU_WIDTH; i++) {
-                        Thread.sleep(2);
+                        Thread.sleep(1);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
                         if (operationPanel != null) {
@@ -190,7 +190,7 @@ public final class MainFrame extends JFrame {
             public void run() {
                 try {
                     for (int i = MENU_WIDTH; i >= 0; i--) {
-                        Thread.sleep(2);
+                        Thread.sleep(1);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
                         if (operationPanel != null) {
@@ -213,7 +213,6 @@ public final class MainFrame extends JFrame {
      */
     public void addOperationPanel(JPanel panel) {
         if (operationPanel != null) {
-            operationPanel.setVisible(false);
             backgroundPanel.remove(operationPanel);
         }
 

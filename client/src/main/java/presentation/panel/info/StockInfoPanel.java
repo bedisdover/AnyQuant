@@ -76,7 +76,7 @@ public class StockInfoPanel extends InfoPanel {
 
         updateFlag = true;
 
-        update(1);
+        update();
     }
 
     @Override
@@ -168,27 +168,21 @@ public class StockInfoPanel extends InfoPanel {
 
     /**
      * 固定时间间隔刷新面板
-     *
-     * @param interval 时间间隔,单位为秒
      */
-    private void update(int interval) {
-        Thread thread = new Thread() {
+    private void update() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
 
                 try {
                     while (updateFlag) {
-                        Thread.sleep(interval * 1000);
+                        Thread.sleep(1000);
                         assignment();
                     }
-                } catch (Exception e) {
-//                    e.printStackTrace();
-                }
+                } catch (Exception e) {}
             }
-        };
-
-        thread.start();
+        }.start();
     }
 
     /**

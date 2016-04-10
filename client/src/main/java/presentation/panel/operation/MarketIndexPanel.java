@@ -4,7 +4,7 @@ import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
 import presentation.panel.info.IndexBriefInfoPanel;
-import presentation.panel.info.IndexInfoPanel;
+import presentation.panel.info.IndexDataPanel;
 import presentation.util.DateChooser;
 import vo.IndexVO;
 
@@ -85,7 +85,7 @@ public class MarketIndexPanel extends OperationPanel {
         btnData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new IndexInfoPanel(MarketIndexPanel.this));
+                MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel(MarketIndexPanel.this));
             }
         });
     }
@@ -101,7 +101,7 @@ public class MarketIndexPanel extends OperationPanel {
         briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
         chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
-                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - MARGIN);
+                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - PADDING);
 
         revalidate();
         repaint();
@@ -118,11 +118,9 @@ public class MarketIndexPanel extends OperationPanel {
                     while (true) {
                         assignment();
 
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     }
-                } catch (Exception e) {
-
-                }
+                } catch (Exception e) {}
             }
         }.start();
     }
