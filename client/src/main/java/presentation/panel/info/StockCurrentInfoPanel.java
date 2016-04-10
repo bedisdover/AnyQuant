@@ -172,6 +172,8 @@ public class StockCurrentInfoPanel extends JPanel {
      * 界面大小发生变化时，重新定位各组件
      */
     private void assignment() {
+        LocationValue.updateValue();
+
         namePanel.setBounds(0, 0, NAME_PANEL_WIDTH, INFO_PANEL_HEIGHT);
 
         leftPanel.setBounds(NAME_PANEL_WIDTH, 0,

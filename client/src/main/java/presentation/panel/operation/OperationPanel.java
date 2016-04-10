@@ -69,14 +69,14 @@ public abstract class OperationPanel extends JPanel {
             TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
         }
 
-        assignment();
+        assignmentValue();
         addListeners();
     }
 
     /**
      * 界面大小发生变化时，对各种组件大小赋值
      */
-    protected void assignment() {
+    protected void assignmentValue() {
         PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.menuPanel.getWidth();
         PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
@@ -120,7 +120,7 @@ public abstract class OperationPanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                assignment();
+                assignmentValue();
                 revalidate();
                 repaint();
             }
@@ -133,7 +133,7 @@ public abstract class OperationPanel extends JPanel {
         scrollPane = table.drawTable();
 
         if (data.length != 0) {
-            assignment();
+            assignmentValue();
             add(scrollPane);
         }
 

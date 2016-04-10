@@ -9,7 +9,7 @@ import java.awt.*;
  *
  * 系统风格设置
  */
-class StyleSettings extends JPanel {
+public class StyleSettings extends JPanel {
 
     StyleSettings() {
         init();
@@ -18,7 +18,8 @@ class StyleSettings extends JPanel {
     }
 
     private void init() {
-        setLayout(new BorderLayout());
+//        setLayout(new BorderLayout());
+        setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
     }
 
@@ -39,6 +40,9 @@ class StyleSettings extends JPanel {
 
         JCheckBox beautyEye = new JCheckBox(" 古典");
         itemPanel.add(beautyEye);
+
+        JButton button = new JButton("test");
+        itemPanel.add(button);
     }
 
     private void addListeners() {
@@ -50,5 +54,12 @@ class StyleSettings extends JPanel {
         super.paint(g);
 
         System.out.println(1);
+    }
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+
+        System.out.println(2);
     }
 }

@@ -112,9 +112,10 @@ public class PortfolioPanel extends OperationPanel {
 
             @Override
             public void componentMoved(ComponentEvent e) {
-                assignment();
+                PortfolioPanel.super.assignmentValue();
+
                 cancel.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-//                System.out.println(1);
+
                 revalidate();
                 repaint();
             }

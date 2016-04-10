@@ -65,6 +65,6 @@ public class LocationValue {
      * @see MainFrame
      */
     public static void updateValue() {
-        INFO_PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
+        INFO_PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.menuPanel.getWidth();
     }
 }

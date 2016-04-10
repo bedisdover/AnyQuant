@@ -119,8 +119,6 @@ public final class MainFrame extends JFrame {
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-//                menuPanel.setBounds(0, 0, MENU_WIDTH, frame.getHeight());
-
                 if (operationPanel != null) {
                     operationPanel.setBounds(MENU_WIDTH, 0,
                             frame.getWidth() - MENU_WIDTH, frame.getHeight());
@@ -163,7 +161,7 @@ public final class MainFrame extends JFrame {
             public void run() {
                 try {
                     for (int i = 0; i <= MENU_WIDTH; i++) {
-                        Thread.sleep(10);
+                        Thread.sleep(2);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
                         if (operationPanel != null) {
@@ -192,7 +190,7 @@ public final class MainFrame extends JFrame {
             public void run() {
                 try {
                     for (int i = MENU_WIDTH; i >= 0; i--) {
-                        Thread.sleep(10);
+                        Thread.sleep(2);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
                         if (operationPanel != null) {
@@ -221,8 +219,8 @@ public final class MainFrame extends JFrame {
 
         operationPanel = panel;
 
-        panel.setBounds(MENU_WIDTH, 0, frame.getWidth() - MENU_WIDTH, frame.getHeight());
-//        panel.setVisible(true);
+        panel.setBounds(menuPanel.getWidth(), 0,
+                frame.getWidth() - menuPanel.getWidth(), frame.getHeight());
         backgroundPanel.add(panel);
 
         backgroundPanel.revalidate();

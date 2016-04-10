@@ -94,6 +94,8 @@ public class MarketIndexPanel extends OperationPanel {
      * 界面大小发生变化时，组件重新布局
      */
     private void assignment() {
+        super.assignmentValue();
+
         btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
                 BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
         briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,

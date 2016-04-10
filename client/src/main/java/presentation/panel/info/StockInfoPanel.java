@@ -109,13 +109,6 @@ public class StockInfoPanel extends InfoPanel {
             public void componentResized(ComponentEvent e) {
                 assignment();
             }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                updateFlag = false;
-                System.out.println("hide");
-                update(1);
-            }
         });
 
         btnFollow.addMouseListener(new MouseAdapter() {
@@ -138,6 +131,8 @@ public class StockInfoPanel extends InfoPanel {
      * 界面大小发生变化时，重新布局所有组件
      */
     private void assignment() {
+        super.assignmentValue();
+
         btnFollow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
                 MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
         btnInfo.setBounds(btnFollow.getX() - BUTTON_WIDTH * 2, btnFollow.getY(),
