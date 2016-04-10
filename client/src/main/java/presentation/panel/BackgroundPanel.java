@@ -36,7 +36,7 @@ public class BackgroundPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                if (e.getX() < MainFrame.getMainFrame().getWidth() / 2) {
+                if (e.getX() < MainFrame.getMainFrame().getWidth() / 10) {
                     MainFrame.getMainFrame().showMenuPanel();
                 }
             }

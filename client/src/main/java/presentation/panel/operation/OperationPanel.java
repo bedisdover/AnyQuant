@@ -76,8 +76,8 @@ public abstract class OperationPanel extends JPanel {
     /**
      * 界面大小发生变化时，对各种组件大小赋值
      */
-    private void assignment() {
-        PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.MENU_WIDTH;
+    protected void assignment() {
+        PANEL_WIDTH = MainFrame.getMainFrame().getWidth() - MainFrame.menuPanel.getWidth();
         PANEL_HEIGHT = MainFrame.getMainFrame().getHeight();
 
         if (data != null && table != null) {

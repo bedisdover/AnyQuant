@@ -162,7 +162,7 @@ public final class MainFrame extends JFrame {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < MENU_WIDTH; i++) {
+                    for (int i = 0; i <= MENU_WIDTH; i++) {
                         Thread.sleep(10);
                         menuPanel.setBounds(0, 0, i, frame.getHeight());
 
@@ -183,7 +183,7 @@ public final class MainFrame extends JFrame {
      * 隐藏菜单栏
      */
     public void hideMenuPanel() {
-        if (menuPanel.getWidth() == 0) {
+        if (menuPanel.getWidth() != MENU_WIDTH) {
             return;
         }
 

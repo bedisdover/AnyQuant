@@ -403,6 +403,7 @@ public class PicturePanel extends OperationPanel {
                 scrollDecrease = createRankingList(sortStock.decrease_sort());
                 scrollTurnVolume = createRankingList(sortStock.volume_sort());
             } catch (IOException e) {
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(PicturePanel.this, "请检查网络连接！");
             }
 

@@ -26,6 +26,7 @@ import java.io.IOException;
 
 import static presentation.frame.MainFrame.MENU_WIDTH;
 import static presentation.frame.MainFrame.getMainFrame;
+import static presentation.frame.MainFrame.operationPanel;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -236,6 +237,15 @@ public class MenuPanel extends JPanel {
                     chooseImage();
                 }
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (e.getX() >= PADDING && e.getX() <= PADDING + PORTRAIT_DIAMETER &&
+                        e.getY() >= PADDING && e.getY() <= PADDING + PORTRAIT_DIAMETER) {
+                    setToolTipText("单击更换头像");
+                    createToolTip();
+                }
+            }
         });
 
         btnPortfolio.addMouseListener(new MouseAdapter() {
@@ -341,7 +351,7 @@ public class MenuPanel extends JPanel {
                 BUTTON_WIDTH, BUTTON_HEIGHT);
         btnSettings.setBounds(MARGIN, getHeight() - MARGIN * 2 - BUTTON_HEIGHT,
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
-        btnSkin.setBounds(getWidth() - MARGIN - BUTTON_HEIGHT, btnSettings.getY(),
+        btnSkin.setBounds(btnSettings.getX() + BUTTON_HEIGHT + PADDING, btnSettings.getY(),
                 BUTTON_HEIGHT, BUTTON_HEIGHT);
 
         revalidate();
@@ -353,6 +363,12 @@ public class MenuPanel extends JPanel {
      * 显示行情选项——美股、沪深
      */
     private void showPictureOptions() {
+        //当菜单栏宽度小于初始值，即菜单栏正处于大小变化过程中
+        //此时不作相应
+        if (getWidth() != MainFrame.MENU_WIDTH) {
+            return;
+        }
+
         options.setVisible(true);
 
         new Thread() {
@@ -401,6 +417,10 @@ public class MenuPanel extends JPanel {
      * 隐藏行情选项——美股、沪深
      */
     public void hidePictureOptions() {
+        if (getWidth() != MainFrame.MENU_WIDTH) {
+            return;
+        }
+
         new Thread() {
             @Override
             public void run() {

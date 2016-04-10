@@ -71,6 +71,7 @@ public class PortfolioPanel extends OperationPanel {
             try {
                 list.add(new StockVO(getStockData.getStockData_name(string)));
             } catch (IOException e) {
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
             }
         }
@@ -82,7 +83,7 @@ public class PortfolioPanel extends OperationPanel {
         table = createTable(list);
     }
 
-    protected void showMenuList(int x, int y) {
+    private void showMenuList(int x, int y) {
         popupMenu1.show(this, x, y);
     }
 
@@ -92,6 +93,7 @@ public class PortfolioPanel extends OperationPanel {
         try {
             stock = new GetStockData().getStockData_name(name);
         } catch (IOException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
         }
 
@@ -104,6 +106,15 @@ public class PortfolioPanel extends OperationPanel {
             public void componentResized(ComponentEvent e) {
                 cancel.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
 
+                revalidate();
+                repaint();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                assignment();
+                cancel.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN, BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+//                System.out.println(1);
                 revalidate();
                 repaint();
             }
