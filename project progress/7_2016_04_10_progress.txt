@@ -10,11 +10,11 @@ what : 完善界面
 problem : 界面刷新问题
 todo : 继续写界面，需求规格说明。
 
-who : 
-when : 
-what : 
-problem :
-todo :  
+who : 周梦佳
+when : 2016-04-10
+what : 完成折线图修改以及交互。
+problem : 未能将折线图做到预想的样子。
+todo :  需求规格说明书写。
 
 who : 
 when : 
