@@ -29,10 +29,16 @@ public class LineChartParent implements ChartMouseListener {
     ChartPanel panel;
     JFreeChart timeSeriesChart;
     XYPlot plot;
-    ;
+    int dataLength=365;
+    String title[]=new String[2];
+    String date[]=new String[dataLength];
+    double data[]=new double[dataLength];
     TimeSeries timeSeries1 = new TimeSeries("", Day.class);
 
     public LineChartParent(String name[], String x[], double y[]) throws IOException {
+        title=name;
+        date=x;
+        data=y;
         createTimeSeriesChart(name, x, y);
         this.panel.setMouseZoomable(false, false);
         this.panel.addChartMouseListener(this);
@@ -47,10 +53,10 @@ public class LineChartParent implements ChartMouseListener {
         LegendTitle legendTitle = timeSeriesChart.getLegend();
         legendTitle.setVisible(false);
         Font font = new Font("宋体", Font.BOLD, 16);
-        TextTitle title = new TextTitle(name[2], font);//副标题 
+     //   TextTitle title = new TextTitle(name[2], font);//副标题 
         //    TextTitle subtitle=new TextTitle("副标题", new Font("黑体",Font.BOLD,12));
         //   timeSeriesChart.addSubtitle(subtitle);
-        timeSeriesChart.setTitle(title);//标题
+   //     timeSeriesChart.setTitle(title);//标题
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
         ValueAxis domainAxis = plot.getDomainAxis();
 
@@ -125,35 +131,27 @@ public class LineChartParent implements ChartMouseListener {
 
     @Override
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
-//        int xPos = chartMouseEvent.getTrigger().getX();
-//        int yPos = chartMouseEvent.getTrigger().getY();
-//
-//        panel.setHorizontalAxisTrace(true);
-//        panel.setVerticalAxisTrace(true);
-//        ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
-//        String[] info = chartEntity.toString().split(" ");
-//        for (int i = 0; i < info.length; i++) {
-//            System.out.println(info[i] + "什么鬼咯" + i);
-//        }
-//        if (info[1].equals("series")) {
-//            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
-//            System.out.println(indexVO.getDate()[num - 90 + item]);
- //           TextTitle textTitle = this.timeSeriesChart.getTitle();
-//            textTitle.setText(indexVO.getDate()[num - 90 + item] + "  高:" + indexVO.getHigh()[num - 90 + item] + "  开:" + indexVO.getOpen()[num - 90 + item] + "  收:" + indexVO.getClose()[num - 90 + item] + "  低:" + indexVO.getLow()[num - 90 + item] + "  成交量:" + indexVO.getVolume()[num - 90 + item] / 100);
-
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-        System.out.println("x = " + xPos + ", y = " + yPos);
-        Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
-        ChartRenderingInfo chartRenderingInfo = this.panel.getChartRenderingInfo();
-        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
-        ValueAxis valueAxis1 = plot.getDomainAxis();
-        RectangleEdge rectangleEdge1 = plot.getDomainAxisEdge();
-        ValueAxis valueAxis2 = plot.getRangeAxis();
-        RectangleEdge rectangleEdge2 = plot.getRangeAxisEdge();
-        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
-        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
-        System.out.println("Chart: x = " + d1 + ", y = " + d2);
+        System.out.println("x= "+xPos);
+        panel.setHorizontalAxisTrace(true);
+        panel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
+        String[] info = chartEntity.toString().split(" ");
+        String getDate=date[xPos];
+        double getData=data[xPos];
+            TextTitle textTitle = this.timeSeriesChart.getTitle();
+               textTitle.setText(title[1]+" : "+getData+" "+title[0]+" : "+getDate);
+
+//        Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
+//        ChartRenderingInfo chartRenderingInfo = this.panel.getChartRenderingInfo();
+//        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
+//        ValueAxis valueAxis1 = plot.getDomainAxis();
+//        RectangleEdge rectangleEdge1 = plot.getDomainAxisEdge();
+//        ValueAxis valueAxis2 = plot.getRangeAxis();
+//        RectangleEdge rectangleEdge2 = plot.getRangeAxisEdge();
+//        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
+//        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
         }
     }
 

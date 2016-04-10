@@ -32,22 +32,22 @@ public class MarketIndexDetailPanel extends JPanel {
 
     private void init() throws IOException {
         IndexVO index = new ShowIndexData().getLatestIndexData();
-        String nameVolume[] = {"日期", "成交量", "大盘指数"};
+        String nameVolume[] = {"日期", "成交量"};
         long volume[] = index.getVolume();
         lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
-        String nameHigh[] = {"日期", "最高价", "大盘指数"};
+        String nameHigh[] = {"日期", "最高价"};
         double high[] = index.getHigh();
         lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high).getChartPanel();
-        String nameLow[] = {"日期", "最低价", "大盘指数"};
+        String nameLow[] = {"日期", "最低价"};
         double low[] = index.getLow();
         lineChartMarketIndexLow = new LineChartMarketIndex(nameLow, low).getChartPanel();
-        String nameOpen[] = {"日期", "开盘价", "大盘指数"};
+        String nameOpen[] = {"日期", "开盘价"};
         double open[] = index.getOpen();
         lineChartMarketIndexOpen = new LineChartMarketIndex(nameOpen, open).getChartPanel();
-        String nameClose[] = {"日期", "收盘价", "大盘指数"};
+        String nameClose[] = {"日期", "收盘价"};
         double close[] = index.getClose();
         lineChartMarketIndexClose = new LineChartMarketIndex(nameClose, close).getChartPanel();
-        String namePrice[] = {"日期", "最新价", "大盘指数"};
+        String namePrice[] = {"日期", "最新价"};
         double price[] = index.getAdj_price();
         lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price).getChartPanel();
 
