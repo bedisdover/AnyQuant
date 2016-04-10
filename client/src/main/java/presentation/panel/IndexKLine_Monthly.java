@@ -57,7 +57,7 @@ public class IndexKLine_Monthly implements ChartMouseListener{
         indexVO = getIndexData.getLatestIndexData();
         num = indexVO.getDate().length;
         total = 750;
-        int gap = 30;
+        int gap = 22;
 
         drawKLineHelper.addPMA(indexVO,total,gap);
 
