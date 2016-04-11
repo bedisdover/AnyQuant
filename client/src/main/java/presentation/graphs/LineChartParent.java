@@ -16,6 +16,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import vo.IndexVO;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -124,6 +125,21 @@ public class LineChartParent implements ChartMouseListener {
         return panel;
     }
 
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+        try {
+            IndexVO index = new ShowIndexData().getLatestIndexData();
+            String nameVolume[] = {"日期", "成交量"};
+            long volume[] = index.getVolume();
+            ChartPanel lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
+            jFrame.add(lineChartMarketIndexVolume);
+            jFrame.setBounds(50, 50, 1024, 768);
+            jFrame.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void chartMouseClicked(ChartMouseEvent chartMouseEvent) {
     }
@@ -133,17 +149,22 @@ public class LineChartParent implements ChartMouseListener {
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-        System.out.println("x= "+xPos);
         panel.setHorizontalAxisTrace(true);
         panel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
-        String getDate=date[xPos];
-        double getData=data[xPos];
+        System.out.println(chartEntity.toString());
+        if(info[1].equals("series")) {
+            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
+            System.out.println(item+"Item");
+            String getData=data[item]+"";
+            String getDate=date[item];
             TextTitle textTitle = this.timeSeriesChart.getTitle();
-               textTitle.setText(title[1]+" : "+getData+" "+title[0]+" : "+getDate);
-
-//        Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
+                 String text=title[1]+" : "+getData+" "+title[0]+" : "+getDate;
+            textTitle.setText(text);
+            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
+        }
+//       Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
 //        ChartRenderingInfo chartRenderingInfo = this.panel.getChartRenderingInfo();
 //        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
 //        ValueAxis valueAxis1 = plot.getDomainAxis();
@@ -152,6 +173,8 @@ public class LineChartParent implements ChartMouseListener {
 //        RectangleEdge rectangleEdge2 = plot.getRangeAxisEdge();
 //        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
 //        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
+//        System.out.println(d1+"欸欸欸d1");
+//        System.out.println(d2+"欸欸欸d2");
         }
     }
 
