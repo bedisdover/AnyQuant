@@ -222,9 +222,8 @@ public class IndexCurrentInfoPanel extends JPanel {
         labelClose.setText("昨收：" + index.getClose()[0] + "");
         labelHigh.setText("最高：" + index.getHigh()[0] + "");
         labelLow.setText("最低：" + index.getLow()[0] + "");
-        labelVolume.setText("成交量：" + index.getVolume()[0] + "");
-        //用成交量×平均价计算成交额
-        labelNumber.setText("成交额：" + index.getVolume()[0] * index.getAdj_price()[0] + "");
+        labelVolume.setText("成交量：" + index.getDealNum() + "");
+        labelNumber.setText("成交额：" + index.getDealAmount() + "");
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 

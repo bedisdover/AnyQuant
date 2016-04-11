@@ -17,9 +17,7 @@ import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.servlet.ServletUtilities;
-import org.jfree.data.time.Month;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleInsets;
@@ -27,7 +25,7 @@ import org.jfree.ui.RefineryUtilities;
 
 
 /**
- * Created by lenovo2014 on 2016/4/9.
+ * Created by syz on 2016/4/9.
  */
 
 public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListener {
@@ -48,7 +46,6 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
     }
 
     private static JFreeChart createChart(XYDataset xydataset) {
-        //这里的"name"参数；是什么意思我也不知道，反正这样可以用
         StandardChartTheme standardChartTheme = new StandardChartTheme("name");
         //可以改变轴向的字体
         standardChartTheme.setLargeFont(new Font("楷体",Font.BOLD, 14));
@@ -82,48 +79,48 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
 
     private static XYDataset createDataset() {
         TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
-                org.jfree.data.time.Month.class);
-        timeseries.add(new Month(2, 2001), 181.80000000000001D);
-        timeseries.add(new Month(3, 2001), 167.30000000000001D);
-        timeseries.add(new Month(4, 2001), 153.80000000000001D);
-        timeseries.add(new Month(5, 2001), 167.59999999999999D);
-        timeseries.add(new Month(6, 2001), 158.80000000000001D);
-        timeseries.add(new Month(7, 2001), 148.30000000000001D);
-        timeseries.add(new Month(8, 2001), 153.90000000000001D);
-        timeseries.add(new Month(9, 2001), 142.69999999999999D);
-        timeseries.add(new Month(10, 2001), 123.2D);
-        timeseries.add(new Month(11, 2001), 131.80000000000001D);
-        timeseries.add(new Month(12, 2001), 139.59999999999999D);
-        timeseries.add(new Month(1, 2002), 142.90000000000001D);
-        timeseries.add(new Month(2, 2002), 138.69999999999999D);
-        timeseries.add(new Month(3, 2002), 137.30000000000001D);
-        timeseries.add(new Month(4, 2002), 143.90000000000001D);
-        timeseries.add(new Month(5, 2002), 139.80000000000001D);
-        timeseries.add(new Month(6, 2002), 137D);
-        timeseries.add(new Month(7, 2002), 132.80000000000001D);
-        TimeSeries timeseries1 = new TimeSeries("L&G UK Index Trust",
-                org.jfree.data.time.Month.class);
-        timeseries1.add(new Month(2, 2001), 129.59999999999999D);
-        timeseries1.add(new Month(3, 2001), 123.2D);
-        timeseries1.add(new Month(4, 2001), 117.2D);
-        timeseries1.add(new Month(5, 2001), 124.09999999999999D);
-        timeseries1.add(new Month(6, 2001), 122.59999999999999D);
-        timeseries1.add(new Month(7, 2001), 119.2D);
-        timeseries1.add(new Month(8, 2001), 116.5D);
-        timeseries1.add(new Month(9, 2001), 112.7D);
-        timeseries1.add(new Month(10, 2001), 101.5D);
-        timeseries1.add(new Month(11, 2001), 106.09999999999999D);
-        timeseries1.add(new Month(12, 2001), 110.3D);
-        timeseries1.add(new Month(1, 2002), 111.7D);
-        timeseries1.add(new Month(2, 2002), 111D);
-        timeseries1.add(new Month(3, 2002), 109.59999999999999D);
-        timeseries1.add(new Month(4, 2002), 113.2D);
-        timeseries1.add(new Month(5, 2002), 111.59999999999999D);
-        timeseries1.add(new Month(6, 2002), 108.8D);
-        timeseries1.add(new Month(7, 2002), 101.59999999999999D);
+                org.jfree.data.time.Minute.class);
+        timeseries.add(new Minute(26,7,11,5,2016), 181.80000000000001D);
+        timeseries.add(new Minute(27,7,11,4,2016), 167.30000000000001D);
+        timeseries.add(new Minute(28,7,11,4,2016), 153.80000000000001D);
+//        timeseries.add(new Month(5, 2001), 167.59999999999999D);
+//        timeseries.add(new Month(6, 2001), 158.80000000000001D);
+//        timeseries.add(new Month(7, 2001), 148.30000000000001D);
+//        timeseries.add(new Month(8, 2001), 153.90000000000001D);
+//        timeseries.add(new Month(9, 2001), 142.69999999999999D);
+//        timeseries.add(new Month(10, 2001), 123.2D);
+//        timeseries.add(new Month(11, 2001), 131.80000000000001D);
+//        timeseries.add(new Month(12, 2001), 139.59999999999999D);
+//        timeseries.add(new Month(1, 2002), 142.90000000000001D);
+//        timeseries.add(new Month(2, 2002), 138.69999999999999D);
+//        timeseries.add(new Month(3, 2002), 137.30000000000001D);
+//        timeseries.add(new Month(4, 2002), 143.90000000000001D);
+//        timeseries.add(new Month(5, 2002), 139.80000000000001D);
+//        timeseries.add(new Month(6, 2002), 137D);
+//        timeseries.add(new Month(7, 2002), 132.80000000000001D);
+//        TimeSeries timeseries1 = new TimeSeries("L&G UK Index Trust",
+//                org.jfree.data.time.Month.class);
+//        timeseries1.add(new Month(2, 2001), 129.59999999999999D);
+//        timeseries1.add(new Month(3, 2001), 123.2D);
+//        timeseries1.add(new Month(4, 2001), 117.2D);
+//        timeseries1.add(new Month(5, 2001), 124.09999999999999D);
+//        timeseries1.add(new Month(6, 2001), 122.59999999999999D);
+//        timeseries1.add(new Month(7, 2001), 119.2D);
+//        timeseries1.add(new Month(8, 2001), 116.5D);
+//        timeseries1.add(new Month(9, 2001), 112.7D);
+//        timeseries1.add(new Month(10, 2001), 101.5D);
+//        timeseries1.add(new Month(11, 2001), 106.09999999999999D);
+//        timeseries1.add(new Month(12, 2001), 110.3D);
+//        timeseries1.add(new Month(1, 2002), 111.7D);
+//        timeseries1.add(new Month(2, 2002), 111D);
+//        timeseries1.add(new Month(3, 2002), 109.59999999999999D);
+//        timeseries1.add(new Month(4, 2002), 113.2D);
+//        timeseries1.add(new Month(5, 2002), 111.59999999999999D);
+//        timeseries1.add(new Month(6, 2002), 108.8D);
+//        timeseries1.add(new Month(7, 2002), 101.59999999999999D);
         TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
         timeseriescollection.addSeries(timeseries);
-        timeseriescollection.addSeries(timeseries1);
+//        timeseriescollection.addSeries(timeseries1);
         return timeseriescollection;
     }
 
