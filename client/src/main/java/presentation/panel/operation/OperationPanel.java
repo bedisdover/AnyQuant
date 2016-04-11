@@ -64,8 +64,16 @@ public abstract class OperationPanel extends JPanel {
             //当界面大小改变时,无需再次赋值
 //            MARGIN = MainFrame.DEFAULT_WIDTH / 25;
 //            PADDING = MainFrame.DEFAULT_WIDTH / 20;
-            MARGIN = 27;
-            PADDING = 34;
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            if(dimension.width>1366){
+                MARGIN = 30;
+                PADDING = 40;
+            }
+            else{
+                MARGIN = 27;
+                PADDING = 34;
+            }
+
             BUTTON_WIDTH = PADDING + MARGIN;
             BUTTON_HEIGHT = MARGIN;
             TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
