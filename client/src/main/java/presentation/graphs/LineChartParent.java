@@ -41,7 +41,7 @@ public class LineChartParent implements ChartMouseListener {
         date=x;
         data=y;
         createTimeSeriesChart(name, x, y);
-        this.panel.setMouseZoomable(false, false);
+        this.panel.setMouseZoomable(true, true);
         this.panel.addChartMouseListener(this);
     }
 

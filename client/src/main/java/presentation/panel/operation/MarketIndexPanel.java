@@ -15,6 +15,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -30,7 +31,15 @@ public class MarketIndexPanel extends OperationPanel {
      * 显示详细数据按钮
      */
     private UltraButton btnData;
-
+    /**
+     * 确认日期选择，生成对应折线图
+     */
+    private UltraButton confirm;
+    /**
+     * 开始日期、结束日期
+     */
+    DateChooser dcStart;
+    DateChooser dcEnd;
     /**
      * 简要信息面板
      */
@@ -63,6 +72,8 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         try {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
+            String start="";
+            String end="";
             chartPanel = new MarketIndexDetailPanel();
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,12 +81,15 @@ public class MarketIndexPanel extends OperationPanel {
         }
 
         btnData = new UltraButton("详细数据");
+        confirm=new UltraButton("生成");
 
         add(currentInfoPanel);
         add(chartPanel);
         add(btnData);
+        add(confirm);
 
-        new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        dcStart=new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        dcEnd=new DateChooser(this, MARGIN*10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
     }
 
     /**
@@ -95,6 +109,17 @@ public class MarketIndexPanel extends OperationPanel {
                 MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel(MarketIndexPanel.this));
             }
         });
+        confirm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String start=dcStart.getTime();
+                String end=dcEnd.getTime();
+                System.out.println(start+"start");//20160401
+                System.out.println(end+"end");//20160411
+                String chooseDate[]={start,end};
+                chartPanel =new MarketIndexDetailPanel(chooseDate);
+            }
+        });
     }
 
     /**
@@ -104,6 +129,8 @@ public class MarketIndexPanel extends OperationPanel {
         super.assignmentValue();
 
         btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
+                BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+        confirm.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH*3, MARGIN,
                 BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
         currentInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
