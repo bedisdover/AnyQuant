@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 //import javax.servlet.http.HttpSession;
 import javax.swing.JPanel;
 
+import data.JuheDemo;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.entity.ChartEntity;
@@ -33,6 +34,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
 
     JFreeChart jfreechart;
     ChartPanel chartpanel;
+    static String result;
 
     public TimeSeriesDemo2(String s) {
         super(s);
@@ -78,6 +80,15 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
     }
 
     private static XYDataset createDataset() {
+        result = new JuheDemo().getRequest1("中国银行");
+//        System.out.println(result);
+        String[] str = result.split("\\{");
+        for(int i = 0;i<str.length;i++){
+            if(str[i].startsWith("\"date\"")){
+                System.out.println(str[i]);
+            }
+        }
+
         TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
         timeseries.add(new Minute(26,7,11,4,2016), 181.80000000000001D);

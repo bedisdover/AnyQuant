@@ -2,6 +2,8 @@ package presentation.panel.info;
 
 import presentation.frame.MainFrame;
 
+import java.awt.*;
+
 /**
  * Created by 宋益明 on 16-4-5.
  *
@@ -51,8 +53,15 @@ public class LocationValue {
         //当界面大小改变时,无需再次赋值
 //        MARGIN = MainFrame.DEFAULT_WIDTH / 50;
 //        PADDING = MainFrame.DEFAULT_WIDTH / 40;
-        MARGIN = 14;
-        PADDING = 17;
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        if(dimension.width>1366){
+            MARGIN = 20;
+            PADDING = 22;
+        }
+        else{
+            MARGIN = 13;
+            PADDING = 17;
+        }
         BUTTON_WIDTH = (PADDING + MARGIN) * 3;
         BUTTON_HEIGHT = MARGIN * 2;
         TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;

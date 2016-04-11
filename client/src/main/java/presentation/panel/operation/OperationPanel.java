@@ -64,8 +64,16 @@ public abstract class OperationPanel extends JPanel {
             //当界面大小改变时,无需再次赋值
 //            MARGIN = MainFrame.DEFAULT_WIDTH / 25;
 //            PADDING = MainFrame.DEFAULT_WIDTH / 20;
-            MARGIN = 27;
-            PADDING = 34;
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            if(dimension.width>1366){
+                MARGIN = 30;
+                PADDING = 40;
+            }
+            else{
+                MARGIN = 27;
+                PADDING = 34;
+            }
+
             BUTTON_WIDTH = PADDING + MARGIN;
             BUTTON_HEIGHT = MARGIN;
             TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
@@ -161,13 +169,17 @@ public abstract class OperationPanel extends JPanel {
             data[i] = new Object[]{
                     ++i, stock.getName(), stock.getId(),
                     stock.getIncrease_decreaseNum()[stock.getDate().length - 1],
-                    stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100 + "%",
+                    ((double) Math.round(stock.getIncrease_decreaseRate()[stock.getDate().length - 1]
+                            * 100 * 100)) / 100 + "%",
                     stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0],
                     stock.getPe_ttm()[0], stock.getAdj_price()[0],
                     stock.getClose()[0], stock.getOpen()[0],
                     stock.getTurnover()[0]
             };
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1]);
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100);
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100 + "%");
         }
         return createTable(this, columnNames);
     }
