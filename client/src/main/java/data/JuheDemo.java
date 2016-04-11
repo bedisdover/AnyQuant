@@ -11,19 +11,19 @@ import net.sf.json.JSONObject;
  * Created by syz on 2016/4/9.
  */
 public class JuheDemo {
-//    public static final String DEF_CHATSET = "UTH-8";
+    public static final String DEF_CHATSET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     public static final String APPKEY = "5cd97982c4a9f8352b5497694f26be84";
 
-    public static void getRequest1(){
+    public static void getRequest1(String stockName){
         String result = null;
         String url = "http://op.juhe.cn/onebox/stock/query";
         Map params = new HashMap();
         params.put("key",APPKEY);
         params.put("dtype","");
-        params.put("stock","中国银行");
+        params.put("stock",stockName);
 
         try{
             result = net(url, params ,"GET");
@@ -40,7 +40,7 @@ public class JuheDemo {
     }
 
     public static void main(String[] args){
-        getRequest1();
+        getRequest1("中国银行");
     }
 
     public static String net(String strUrl,Map params,String method) throws Exception{
@@ -75,7 +75,7 @@ public class JuheDemo {
                 }
             }
             InputStream is = conn.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+            reader = new BufferedReader(new InputStreamReader(is,DEF_CHATSET));
             String strRead = null;
             while((strRead = reader.readLine())!=null){
                 sb.append(strRead);
