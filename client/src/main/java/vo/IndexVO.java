@@ -14,6 +14,14 @@ public class IndexVO {
     private String[] date;
     private double[] close;
     private double[] open;
+    /**
+     * 大盘对应日期内的涨跌幅
+     */
+    private double[] increase_decreaseRate;
+    /**
+     * 大盘对应日期内的涨跌额
+     */
+    private double[] increase_decreaseNum;
 
     public IndexVO(IndexPO indexPO){
         volume = indexPO.getVolume();
@@ -24,6 +32,8 @@ public class IndexVO {
         close = indexPO.getClose();
         open = indexPO.getOpen();
         name = indexPO.getName();
+        increase_decreaseRate = indexPO.getIncrease_decreaseRate();
+        increase_decreaseNum = indexPO.getIncrease_decreaseNum();
     }
 
 
@@ -66,4 +76,11 @@ public class IndexVO {
         return name;
     }
 
+    public double[] getIncrease_decreaseRate() {
+        return increase_decreaseRate;
+    }
+
+    public double[] getIncrease_decreaseNum() {
+        return increase_decreaseNum;
+    }
 }

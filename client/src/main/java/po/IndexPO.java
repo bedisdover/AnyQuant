@@ -12,6 +12,14 @@ public class IndexPO {
     private String[] date;
     private double[] close;
     private double[] open;
+    /**
+     * 该股票对应日期内的涨跌幅
+     */
+    private double[] increase_decreaseRate;
+    /**
+     * 该股票对应日期内的涨跌额
+     */
+    private double[] increase_decreaseNum;
 
     public IndexPO(int numberOfDays) {
         volume = new long[numberOfDays];
@@ -21,6 +29,8 @@ public class IndexPO {
         date = new String[numberOfDays];
         close = new double[numberOfDays];
         open = new double[numberOfDays];
+        increase_decreaseRate = new double[numberOfDays];
+        increase_decreaseNum = new double[numberOfDays];
     }
 
 
@@ -86,5 +96,21 @@ public class IndexPO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double[] getIncrease_decreaseRate() {
+        return increase_decreaseRate;
+    }
+
+    public void setIncrease_decreaseRate(double[] increase_decreaseRate) {
+        this.increase_decreaseRate = increase_decreaseRate;
+    }
+
+    public double[] getIncrease_decreaseNum() {
+        return increase_decreaseNum;
+    }
+
+    public void setIncrease_decreaseNum(double[] increase_decreaseNum) {
+        this.increase_decreaseNum = increase_decreaseNum;
     }
 }
