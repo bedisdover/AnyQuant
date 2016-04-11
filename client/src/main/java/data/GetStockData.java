@@ -219,14 +219,11 @@ public class GetStockData implements GetStockDataService {
             open[i] = Double.parseDouble(jsonObject.getString("open"));
             turnover[i] = Double.parseDouble(jsonObject.getString("turnover"));
             if(i>=1){
-                if(i!=trading_info.length-1){
-                    increase_decreaseRate[i] = (close[i]-close[i-1])/close[i-1];
+
+                    increase_decreaseRate[i] = ((double)Math.round((close[i]-close[i-1])/close[i-1]*10000))/10000;
                     increase_decreaseNum[i] = close[i]-close[i-1];
-                }
-                else{
-                    increase_decreaseRate[i] = getIncrease_decreaseRate(name);
-                    increase_decreaseNum[i] = getIncrease_decreaseNum(name);
-                }
+                    System.out.println(((double)Math.round((close[i]-close[i-1])/close[i-1]*10000))/10000);
+
             }
         }
         stockPO.setId(name);
@@ -359,14 +356,10 @@ public class GetStockData implements GetStockDataService {
             open[k] = Double.parseDouble(jsonObject.getString("open"));
             turnover[k] = Double.parseDouble(jsonObject.getString("turnover"));
             if(k>=1){
-                if(k!=trading_info.length-1){
-                    increase_decreaseRate[k] = (close[k]-close[k-1])/close[k-1];
+
+                    increase_decreaseRate[k] = ((double)Math.round((close[k]-close[k-1])/close[k-1]*10000))/10000;
                     increase_decreaseNum[k] = close[k]-close[k-1];
-                }
-                else{
-                    increase_decreaseRate[k] = getIncrease_decreaseRate(name);
-                    increase_decreaseNum[k] = getIncrease_decreaseNum(name);
-                }
+
             }
             k++;
         }
@@ -441,7 +434,7 @@ public class GetStockData implements GetStockDataService {
         String[] strings = s.split(",");
         double close_yesterday = Double.parseDouble(strings[2]);
         double currentPrice = Double.parseDouble(strings[3]);
-        return (currentPrice - close_yesterday) / close_yesterday;
+        return ((double)Math.round((currentPrice - close_yesterday) / close_yesterday*10000))/10000;
     }
 
     public double getIncrease_decreaseNum(String stockID) throws IOException {
