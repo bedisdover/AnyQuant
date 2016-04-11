@@ -41,7 +41,15 @@ public class JuheDemo {
 
     public static void main(String[] args){
         String result = getRequest1("中国银行");
-        System.out.println(result);
+//        System.out.println(result);
+        String[] str = result.split("\\{");
+        for(int i = 2;i<str.length;i++){
+            if(str[i].startsWith("\""))
+                System.out.println(str[i].startsWith("\""));
+                 System.out.println(str[i]);
+        }
+//        System.out.println(str[0]);
+//        System.out.println(str[0].startsWith("\""));
     }
 
     public static String net(String strUrl,Map params,String method) throws Exception{
