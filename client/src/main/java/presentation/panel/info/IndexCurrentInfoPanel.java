@@ -1,6 +1,8 @@
 package presentation.panel.info;
 
 import bl.ShowIndexData;
+import presentation.UltraSwing.UltraLabel;
+import presentation.util.ImageLoader;
 import vo.IndexVO;
 
 import javax.swing.*;
@@ -9,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
+
+import static presentation.panel.info.LocationValue.*;
+import static presentation.panel.info.LocationValue.BUTTON_HEIGHT;
 
 /**
  * Created by 宋益明 on 16-3-31.
@@ -31,6 +36,11 @@ public class IndexCurrentInfoPanel extends JPanel {
      * 当前价格
      */
     private JLabel labelPrice;
+
+    /**
+     * 涨跌图标
+     */
+    private UltraLabel labelIncreaseIcon;
 
     /**
      * 涨跌额（涨跌幅）
@@ -67,6 +77,11 @@ public class IndexCurrentInfoPanel extends JPanel {
      */
     private JLabel labelNumber;
 
+    /**
+     * 从左到右分为三个部分，每个部分包含一个面板
+     */
+    private JPanel namePanel, leftPanel, rightPanel;
+
     public IndexCurrentInfoPanel(IndexVO index) {
 //        this.index = index;
         try {
@@ -94,20 +109,46 @@ public class IndexCurrentInfoPanel extends JPanel {
      * 创建组件
      */
     private void createUIComponents() {
-        //TODO id
-        IndexNamePanel namePanel = new IndexNamePanel("沪深300", "1B0300");
+        namePanel = new IndexNamePanel("沪深300", "1B0300");
         namePanel.setBounds(0, 0, LABEL_WIDTH, 100);
 
-        labelPrice = new JLabel();
-        labelIncrease = new JLabel();
-        labelOpen = new JLabel();
-        labelClose = new JLabel();
-        labelHigh = new JLabel();
-        labelLow = new JLabel();
-        labelVolume = new JLabel();
-        labelNumber = new JLabel();
+        {
+            leftPanel = new JPanel();
+            leftPanel.setLayout(null);
+            leftPanel.setBackground(new Color(0, 0, 0, 0));
+
+            labelPrice = new UltraLabel(index.getAdj_price()[0] + "", 30);
+            labelIncrease = new UltraLabel();
+            labelIncreaseIcon = new UltraLabel();
+
+            leftPanel.add(labelIncrease);
+            leftPanel.add(labelIncreaseIcon);
+            leftPanel.add(labelPrice);
+        }
+
+        {
+            rightPanel = new JPanel();
+            rightPanel.setLayout(null);
+            rightPanel.setBackground(new Color(0, 0, 0, 0));
+
+            labelOpen = new UltraLabel();
+            labelClose = new UltraLabel();
+            labelHigh = new UltraLabel();
+            labelLow = new UltraLabel();
+            labelVolume = new UltraLabel();
+            labelNumber = new UltraLabel();
+
+            rightPanel.add(labelOpen);
+            rightPanel.add(labelClose);
+            rightPanel.add(labelHigh);
+            rightPanel.add(labelLow);
+            rightPanel.add(labelVolume);
+            rightPanel.add(labelNumber);
+        }
 
         add(namePanel);
+        add(leftPanel);
+        add(rightPanel);
     }
 
     /**
@@ -129,16 +170,41 @@ public class IndexCurrentInfoPanel extends JPanel {
      * 为组件赋值
      */
     private void assignment() {
-        labelIncrease = new JLabel();
-        labelOpen = new JLabel();
-        labelClose = new JLabel();
-        labelHigh = new JLabel();
-        labelLow = new JLabel();
-        labelVolume = new JLabel();
-        labelNumber = new JLabel();
+        LocationValue.updateValue();
 
-        labelPrice.setBounds(100, 40, 50, 30);
-//        labelIncrease.setBounds();
+        namePanel.setBounds(0, 0, NAME_PANEL_WIDTH, INFO_PANEL_HEIGHT);
+
+        leftPanel.setBounds(NAME_PANEL_WIDTH, 0,
+                (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
+        labelPrice.setBounds(MARGIN, MARGIN * 2,
+                labelPrice.getPreferredSize().width, labelPrice.getPreferredSize().height);
+        labelIncreaseIcon.setBounds(labelPrice.getX() + labelPrice.getWidth(), MARGIN * 2,
+                ImageLoader.increase.getIconWidth(), ImageLoader.increase.getIconHeight());
+        labelIncrease.setBounds(labelIncreaseIcon.getX() + labelIncreaseIcon.getWidth(), MARGIN * 2,
+                leftPanel.getWidth(), labelPrice.getHeight());
+
+        rightPanel.setBounds(leftPanel.getX() + leftPanel.getWidth(), 0,
+                (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
+//        labelVolume.setBounds(rightPanel.getWidth() - labelVolume.getPreferredSize().width - PADDING, MARGIN,
+//                labelVolume.getPreferredSize().width, labelVolume.getPreferredSize().height);
+//        labelNumber.setBounds(labelVolume.getX(), INFO_PANEL_HEIGHT - MARGIN - labelNumber.getPreferredSize().height,
+//                labelNumber.getPreferredSize().width, labelNumber.getPreferredSize().height);
+//        labelOpen.setBounds(labelVolume.getX() - labelOpen.getPreferredSize().width - PADDING, MARGIN,
+//                labelOpen.getPreferredSize().width, labelOpen.getPreferredSize().height);
+//        labelClose.setBounds(labelOpen.getX(), labelNumber.getY(),
+//                labelClose.getPreferredSize().width, labelClose.getPreferredSize().height);
+        labelVolume.setBounds(rightPanel.getWidth() - BUTTON_WIDTH * 2, MARGIN,
+                BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        labelNumber.setBounds(labelVolume.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        labelOpen.setBounds(labelVolume.getX() - BUTTON_WIDTH - PADDING, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelClose.setBounds(labelOpen.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelHigh.setBounds(labelOpen.getX() - BUTTON_WIDTH - PADDING, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        labelLow.setBounds(labelHigh.getX(), MARGIN + BUTTON_HEIGHT,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     /**
@@ -146,10 +212,8 @@ public class IndexCurrentInfoPanel extends JPanel {
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
-        //TODO high
-        labelPrice.setText(index.getHigh()[0] + "");
-        labelIncrease.setText(index.getHigh()[0]
-                + "(" + index.getHigh()[0] + ")");
+        labelIncrease.setText(index.getIncrease_decreaseNum()[0]
+                + "(" + index.getIncrease_decreaseRate()[0] + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
@@ -159,18 +223,21 @@ public class IndexCurrentInfoPanel extends JPanel {
         labelHigh.setText("最高：" + index.getHigh()[0] + "");
         labelLow.setText("最低：" + index.getLow()[0] + "");
         labelVolume.setText("成交量：" + index.getVolume()[0] + "");
-        //TODO VOLUME
-        labelNumber.setText("成交额：" + index.getVolume()[0] + "");
+        //用成交量×平均价计算成交额
+        labelNumber.setText("成交额：" + index.getVolume()[0] * index.getAdj_price()[0] + "");
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 
-        //TODO 涨跌幅
-//        if (index.ge) {
-//            setTextColor(Color.red);
-//            setTextColor(Color.green);
-//        } else {
-//            setTextColor(Color.black);
-//        }
+        if (index.getIncrease_decreaseNum()[0] > 0) {
+            setTextColor(Color.red);
+            setTextColor(Color.green);
+        } else if (index.getIncrease_decreaseNum()[0] < 0){
+            setTextColor(Color.green);
+            labelIncreaseIcon.setIcon(ImageLoader.decrease);
+        } else {
+            setTextColor(Color.black);
+            labelIncreaseIcon.setIcon(ImageLoader.dull);
+        }
     }
 
     /**
