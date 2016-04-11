@@ -161,13 +161,17 @@ public abstract class OperationPanel extends JPanel {
             data[i] = new Object[]{
                     ++i, stock.getName(), stock.getId(),
                     stock.getIncrease_decreaseNum()[stock.getDate().length - 1],
-                    stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100 + "%",
+                    ((double) Math.round(stock.getIncrease_decreaseRate()[stock.getDate().length - 1]
+                            * 100 * 100)) / 100 + "%",
                     stock.getVolume()[0], stock.getPb()[0],
                     stock.getHigh()[0], stock.getLow()[0],
                     stock.getPe_ttm()[0], stock.getAdj_price()[0],
                     stock.getClose()[0], stock.getOpen()[0],
                     stock.getTurnover()[0]
             };
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1]);
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100);
+            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100 + "%");
         }
         return createTable(this, columnNames);
     }

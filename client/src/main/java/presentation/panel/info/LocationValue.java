@@ -51,7 +51,7 @@ public class LocationValue {
         //当界面大小改变时,无需再次赋值
 //        MARGIN = MainFrame.DEFAULT_WIDTH / 50;
 //        PADDING = MainFrame.DEFAULT_WIDTH / 40;
-        MARGIN = 14;
+        MARGIN = 13;
         PADDING = 17;
         BUTTON_WIDTH = (PADDING + MARGIN) * 3;
         BUTTON_HEIGHT = MARGIN * 2;
