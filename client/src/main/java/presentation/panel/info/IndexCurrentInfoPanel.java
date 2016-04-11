@@ -1,5 +1,6 @@
 package presentation.panel.info;
 
+import bl.ShowIndexData;
 import vo.IndexVO;
 
 import javax.swing.*;
@@ -7,16 +8,17 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.IOException;
 
 /**
  * Created by 宋益明 on 16-3-31.
  *
- * 大盘指数简要信息面板
+ * 大盘指数当前（最新）信息面板
  * 包含
  *      中文名称                        今开      最高     成交量
  *        ID        涨跌额（涨跌幅）      昨收     最低     成交额
  */
-public class IndexBriefInfoPanel extends JPanel {
+public class IndexCurrentInfoPanel extends JPanel {
 
     private final int LABEL_WIDTH = 100;
 
@@ -65,8 +67,13 @@ public class IndexBriefInfoPanel extends JPanel {
      */
     private JLabel labelNumber;
 
-    public IndexBriefInfoPanel(IndexVO index) {
-        this.index = index;
+    public IndexCurrentInfoPanel(IndexVO index) {
+//        this.index = index;
+        try {
+            this.index = new ShowIndexData().getLatestIndexData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         init();
         createUIComponents();
@@ -141,14 +148,14 @@ public class IndexBriefInfoPanel extends JPanel {
     private void setText() {
         //TODO high
         labelPrice.setText(index.getHigh()[0] + "");
-        labelIncrease.setText(index.getHigh()
-                + "(" + index.getHigh() + ")");
+        labelIncrease.setText(index.getHigh()[0]
+                + "(" + index.getHigh()[0] + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 
         labelOpen.setText("今开：" + index.getOpen()[0] + "");
-        labelClose.setText("昨收：" + index.getClose() + "");
+        labelClose.setText("昨收：" + index.getClose()[0] + "");
         labelHigh.setText("最高：" + index.getHigh()[0] + "");
         labelLow.setText("最低：" + index.getLow()[0] + "");
         labelVolume.setText("成交量：" + index.getVolume()[0] + "");
@@ -167,13 +174,15 @@ public class IndexBriefInfoPanel extends JPanel {
     }
 
     /**
-     * 设置文本颜色
+     * 设置文本颜色及字体
      *
      * @param color 颜色
      */
     private void setTextColor(Color color) {
         labelPrice.setForeground(color);
         labelIncrease.setForeground(color);
+        labelPrice.setFont(new Font("", Font.BOLD, 30));
+        labelIncrease.setFont(new Font("", Font.BOLD, 30));
     }
 }
 
@@ -182,26 +191,47 @@ public class IndexBriefInfoPanel extends JPanel {
  * 包含中文名称与ID
  */
 class IndexNamePanel extends JPanel {
+
+    /**
+     * 名称
+     */
+    private JLabel labelName;
+
+    /**
+     * id
+     */
+    private JLabel labelID;
+
     IndexNamePanel(String name, String id) {
+        labelName = new JLabel(name);
+        labelID = new JLabel(id);
+
+        setLayout(null);
         setBackground(new Color(140, 175, 146, 58));
-        setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         setBorder(new BevelBorder(BevelBorder.RAISED));
 
-        createUIComponents(name, id);
+        createUIComponents();
+        addListeners();
     }
 
-    private void createUIComponents(String name, String id) {
-        JLabel labelName = new JLabel(name);
-        JLabel labelID = new JLabel(id);
-
-        labelName.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN,
-                LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
-        labelID.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN + LocationValue.PADDING,
-                LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
-
+    private void createUIComponents() {
         labelName.setFont(new Font("", Font.PLAIN, 16));
 
         add(labelName);
         add(labelID);
+    }
+
+    private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                labelName.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN,
+                        LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+                labelID.setBounds(labelName.getX(), LocationValue.MARGIN + LocationValue.PADDING,
+                        LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
+
+                repaint();
+            }
+        });
     }
 }

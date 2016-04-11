@@ -3,7 +3,7 @@ package presentation.panel.operation;
 import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
-import presentation.panel.info.IndexBriefInfoPanel;
+import presentation.panel.info.IndexCurrentInfoPanel;
 import presentation.panel.info.IndexDataPanel;
 import presentation.util.DateChooser;
 import vo.IndexVO;
@@ -34,7 +34,7 @@ public class MarketIndexPanel extends OperationPanel {
     /**
      * 简要信息面板
      */
-    private JPanel briefInfoPanel;
+    private JPanel currentInfoPanel;
 
     /**
      * 图表面板
@@ -62,7 +62,7 @@ public class MarketIndexPanel extends OperationPanel {
 
     protected void createUIComponents() {
         try {
-            briefInfoPanel = new IndexBriefInfoPanel(new IndexVO(new IndexPO(3)));
+            currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
             chartPanel = new MarketIndexDetailPanel();
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class MarketIndexPanel extends OperationPanel {
 
         btnData = new UltraButton("详细数据");
 
-        add(briefInfoPanel);
+        add(currentInfoPanel);
         add(chartPanel);
         add(btnData);
 
@@ -105,9 +105,9 @@ public class MarketIndexPanel extends OperationPanel {
 
         btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
                 BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-        briefInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
+        currentInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
-        chartPanel.setBounds(MARGIN, briefInfoPanel.getY() + briefInfoPanel.getHeight() + PADDING / 2,
+        chartPanel.setBounds(MARGIN, currentInfoPanel.getY() + currentInfoPanel.getHeight() + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - getX() - PADDING);
 
         revalidate();
