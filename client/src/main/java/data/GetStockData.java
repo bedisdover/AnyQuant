@@ -221,8 +221,7 @@ public class GetStockData implements GetStockDataService {
             if (i >= 1) {
 
                 increase_decreaseRate[i] = ((double) Math.round((close[i] - close[i - 1]) / close[i - 1] * 10000)) / 10000;
-                increase_decreaseNum[i] = close[i] - close[i - 1];
-//                System.out.println(((double) Math.round((close[i] - close[i - 1]) / close[i - 1] * 10000)) / 10000);
+                increase_decreaseNum[i] = ((double)Math.round((close[i] - close[i - 1])*100))/100;
 
             }
         }
@@ -357,7 +356,7 @@ public class GetStockData implements GetStockDataService {
             turnover[k] = Double.parseDouble(jsonObject.getString("turnover"));
             if (k >= 1) {
                 increase_decreaseRate[k] = ((double) Math.round((close[k] - close[k - 1]) / close[k - 1] * 10000)) / 10000;
-                increase_decreaseNum[k] = close[k] - close[k - 1];
+                increase_decreaseNum[k] = ((double)Math.round((close[k] - close[k - 1])*100))/100;
             }
             k++;
         }
