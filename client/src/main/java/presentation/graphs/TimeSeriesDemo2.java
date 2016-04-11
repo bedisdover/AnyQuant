@@ -73,14 +73,14 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
             xylineandshaperenderer.setBaseShapesFilled(true);
         }
         DateAxis dateaxis = (DateAxis) xyplot.getDomainAxis();
-        dateaxis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
+        dateaxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
         return jfreechart;
     }
 
     private static XYDataset createDataset() {
         TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
-        timeseries.add(new Minute(26,7,11,5,2016), 181.80000000000001D);
+        timeseries.add(new Minute(26,7,11,4,2016), 181.80000000000001D);
         timeseries.add(new Minute(27,7,11,4,2016), 167.30000000000001D);
         timeseries.add(new Minute(28,7,11,4,2016), 153.80000000000001D);
 //        timeseries.add(new Month(5, 2001), 167.59999999999999D);
