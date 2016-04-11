@@ -92,15 +92,15 @@ public class IndexVO {
      * @return 换算后的成交量
      */
     public String getDealNum() {
-        StringBuffer temp = new StringBuffer(volume[volume.length - 1] + "");
+        StringBuilder temp = new StringBuilder(volume[volume.length - 1] + "");
         int length = temp.length();
 
         if (length >= 9) {//9位数，数量级为亿,保留到百万位
-            temp.delete(temp.length() - 7, temp.length() - 1);
+            temp.delete(temp.length() - 6, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("亿手");
         } else if (length >= 5) {//5位数，数量级为万，保留到百位
-            temp.delete(temp.length() - 3, temp.length() - 1);
+            temp.delete(temp.length() - 2, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("万手");
         } else {
@@ -116,24 +116,24 @@ public class IndexVO {
      * @return 换算后的成交额
      */
     public String getDealAmount() {
-
         BigDecimal bigDecimal = new BigDecimal(volume[volume.length - 1]);
         double avgPrice = (high[high.length - 1] + low[low.length - 1]) / 2;
         bigDecimal = bigDecimal.multiply(new BigDecimal(avgPrice));
 
-//        StringBuffer temp = new StringBuffer(bigDecimal.toString());
-        StringBuffer temp = new StringBuffer(12345);
+        StringBuilder temp = new StringBuilder(bigDecimal.toString());
         int length = temp.length();
 
-        temp.delete(temp.indexOf("."), temp.length());
+        if (temp.indexOf(".") != -1) {
+            temp.delete(temp.indexOf("."), temp.length());
+        }
 
         if (length >= 9) {//9位数，数量级为亿,保留到百万位
-            temp.delete(temp.length() - 8, temp.length());
+            temp.delete(temp.length() - 6, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("亿");
         } else if (length >= 5) {//5位数，数量级为万，保留到百位
-            temp.delete(temp.length() - 3, temp.length());
-            temp.insert(temp.length() - 3, '.');
+            temp.delete(temp.length() - 2, temp.length());
+            temp.insert(temp.length() - 2, '.');
             temp.append("万");
         }
 

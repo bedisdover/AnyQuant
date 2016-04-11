@@ -162,14 +162,14 @@ public class CurrentStockPO {
      */
     public String getDealNum() {
         int length =dealNum.toString().length();
-        StringBuffer temp = new StringBuffer(dealNum.toString());
+        StringBuilder temp = new StringBuilder(dealNum.toString());
 
         if (length >= 9) {//9位数，数量级为亿,保留到百万位
-            temp.delete(temp.length() - 7, temp.length() - 1);
+            temp.delete(temp.length() - 6, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("亿手");
         } else if (length >= 5) {//5位数，数量级为万，保留到百位
-            temp.delete(temp.length() - 3, temp.length() - 1);
+            temp.delete(temp.length() - 2, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("万手");
         } else {
@@ -186,14 +186,14 @@ public class CurrentStockPO {
      */
     public String getDealAmount() {
         int length =dealAmount.toString().length();
-        StringBuffer temp = new StringBuffer(dealAmount.toString());
+        StringBuilder temp = new StringBuilder(dealAmount.toString());
 
         if (length >= 13) {//9位数(包含小数点后三位)，数量级为亿,保留到百万位
-            temp.delete(temp.length() - 11, temp.length() - 1);
+            temp.delete(temp.length() - 10, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("亿");
         } else if (length >= 9) {//5位数，数量级为万，保留到百位
-            temp.delete(temp.length() - 5, temp.length() - 1);
+            temp.delete(temp.length() - 6, temp.length());
             temp.insert(temp.length() - 2, '.');
             temp.append("万");
         }
