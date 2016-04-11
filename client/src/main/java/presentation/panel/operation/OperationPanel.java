@@ -169,7 +169,6 @@ public abstract class OperationPanel extends JPanel {
                     stock.getTurnover()[0]
             };
         }
-
         return createTable(this, columnNames);
     }
 
