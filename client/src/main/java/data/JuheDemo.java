@@ -17,7 +17,7 @@ public class JuheDemo {
 
     public static final String APPKEY = "5cd97982c4a9f8352b5497694f26be84";
 
-    public static void getRequest1(String stockName){
+    public static String getRequest1(String stockName){
         String result = null;
         String url = "http://op.juhe.cn/onebox/stock/query";
         Map params = new HashMap();
@@ -36,11 +36,12 @@ public class JuheDemo {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println(result);
+        return result;
     }
 
     public static void main(String[] args){
-        getRequest1("中国银行");
+        String result = getRequest1("中国银行");
+        System.out.println(result);
     }
 
     public static String net(String strUrl,Map params,String method) throws Exception{
