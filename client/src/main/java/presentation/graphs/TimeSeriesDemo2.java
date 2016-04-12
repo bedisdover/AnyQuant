@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import data.JuheDemo;
+import data.ReadData;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.entity.ChartEntity;
@@ -81,13 +82,19 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
 
     private static XYDataset createDataset() {
         result = new JuheDemo().getRequest1("中国银行");
-//        System.out.println(result);
-        String[] str = result.split("\\{");
-        for(int i = 0;i<str.length;i++){
-            if(str[i].startsWith("\"date\"")){
-                System.out.println(str[i]);
+        ReadData rd = new ReadData();
+        String str = rd.parseJSON(rd.parseJSON(rd.parseJSON(result,"result"),"timeChart"),"p");
+        str = str.substring(1,str.length()-1);
+        String[] s = str.split("\\{");
+        for(int i = 1;i<s.length;i++){
+            s[i] = "{"+s[i];
+            if(s[i].endsWith(",")){
+                s[i] = s[i].substring(0,s[i].length()-1);
             }
+            System.out.println(rd.parseJSON(s[i],"price"));
+            System.out.println(rd.parseJSON(s[i],"time"));
         }
+//        System.out.println(rd.parseJSON(s[1],"price"));
 
         TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
