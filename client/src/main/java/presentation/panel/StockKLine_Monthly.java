@@ -59,7 +59,7 @@ public class StockKLine_Monthly implements ChartMouseListener{
         ShowStockData showStockData = new ShowStockData();
         stockVO = showStockData.getStockData(stockID);
         num = stockVO.getDate().length;
-        total = 750;
+        total = 720;
         int gap = 22;
 
         drawKLineHelper.addPMA(stockVO,total,gap);
