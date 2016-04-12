@@ -2,10 +2,13 @@ package presentation.panel.info;
 
 import data.GetStockData;
 import po.StockPO;
+import presentation.UltraSwing.UltraScrollPane;
 import presentation.util.Table;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +18,17 @@ import java.util.List;
  * <p>
  * 股票详细数据面板
  */
-public class DetailedInfoPanel extends JPanel {
+public class DetailedInfoPanel extends JPanel implements ItemListener {
 
     /**
      * 股票ID
      */
     private String id;
+
+    /**
+     * 股票对象
+     */
+    private StockPO stock;
 
     /**
      * 关注按钮
@@ -36,7 +44,27 @@ public class DetailedInfoPanel extends JPanel {
     /**
      * 表格的列名，包含日期及上述复选框中选择显示的列
      */
-    private List<String> columns;
+    private List<Integer> columnSelect;
+
+    /**
+     * 所有数据
+     */
+    private Object[][] allData;
+
+    /**
+     * 所有列
+     */
+    private String[] allColumns;
+
+    /**
+     * 需要显示的数据
+     */
+    private Object[][] data;
+
+    /**
+     * 需要显示的列
+     */
+    private String[] columns;
 
     /**
      * K线图、折线图
@@ -48,10 +76,45 @@ public class DetailedInfoPanel extends JPanel {
 
         init();
         createUIComponents();
+        initColumns();
     }
 
     private void init() {
         setLayout(new BorderLayout());
+
+        try {
+            stock = new GetStockData().getStockData_name(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        initData();
+    }
+
+    /**
+     * 初始化表格数据
+     */
+    private void initData() {
+        allData = new Object[stock.getDate().length][];
+        allColumns = new String[]{
+                "日期", "最高", "最低", "开盘价", "收盘价",
+                "成交量", "市净率", "市盈率", "后复权价", "周转率"
+        };
+
+        for (int i = 0; i < stock.getDate().length; i++) {
+            allData[i] = new Object[]{
+                    stock.getDate()[i],
+                    stock.getHigh()[i],
+                    stock.getLow()[i],
+                    stock.getOpen()[i],
+                    stock.getClose()[i],
+                    stock.getVolume()[i],
+                    stock.getPb()[i],
+                    stock.getPe_ttm()[i],
+                    stock.getAdj_price()[i],
+                    stock.getTurnover()[i]
+            };
+        }
     }
 
     private void createUIComponents() {
@@ -111,6 +174,16 @@ public class DetailedInfoPanel extends JPanel {
             adjPrice = new JCheckBox("后复权价");
             turnOver = new JCheckBox("转手率");
 
+            high.addItemListener(this);
+            low.addItemListener(this);
+            open.addItemListener(this);
+            close.addItemListener(this);
+            volume.addItemListener(this);
+            pb.addItemListener(this);
+            pe_ttm.addItemListener(this);
+            adjPrice.addItemListener(this);
+            turnOver.addItemListener(this);
+
             columnsPanel.add(high);
             columnsPanel.add(low);
             columnsPanel.add(open);
@@ -121,11 +194,16 @@ public class DetailedInfoPanel extends JPanel {
             columnsPanel.add(adjPrice);
             columnsPanel.add(turnOver);
 
+            columnsPanel.setPreferredSize(new Dimension(500, 100));
             centerPanel.add(columnsPanel, BorderLayout.NORTH);
         }
 
         {
-
+            JPanel southPanel = new JPanel();
+            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            JScrollPane scrollPane = new UltraScrollPane(createSelectTable());
+            southPanel.add(scrollPane);
+            centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
 
         add(centerPanel, BorderLayout.CENTER);
@@ -160,45 +238,73 @@ public class DetailedInfoPanel extends JPanel {
         pe_ttm.setSelected(true);
         adjPrice.setSelected(true);
         turnOver.setSelected(true);
-
-        columns = new ArrayList<>();
     }
 
     /**
-     * 创建显示所有属性的表格
+     * 创建显示选中属性的表格
      *
-     * @return
+     * @return 表格对象
      */
-    private Table createTable() {
-        StockPO stock = null;
-        try {
-            stock = new GetStockData().getStockData_name(id);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private Table createSelectTable() {
+        columnSelect = getSelectColumns();
+
+        data = new Object[stock.getDate().length][];
+        columns = new String[columnSelect.size()];
+
+        for (int i = 0; i < columnSelect.size(); i++) {
+            columns[i] = allColumns[columnSelect.get(i)];
+
+            for (int j = 0; j < data.length; j++) {
+                data[j][i] = allData[j][columnSelect.get(i)];
+            }
         }
 
-        Object[][] data = new Object[stock.getDate().length][];
-        String[] columnNames = new String[]{
-                "日期", "成交量", "市净率", "最高", "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
-        };
+        return new Table(data, columns);
+    }
 
-        for (int i = 0; i < data.length; i++) {
-            data[i] = new Object[]{
-                    stock.getDate()[i],
-                    stock.getVolume()[i],
-                    stock.getPb()[i],
-                    stock.getHigh()[i],
-                    stock.getLow()[i],
-                    stock.getPe_ttm()[i],
-                    stock.getAdj_price()[i],
-                    stock.getClose()[i],
-                    stock.getOpen()[i],
-                    stock.getTurnover()[i]
-            };
+    /**
+     * 获得选中的列
+     *
+     * @return 列编号，日期必须显示
+     */
+    private List<Integer> getSelectColumns() {
+        List<Integer> temp = new ArrayList<>();
+        temp.add(0);
+        if (high.isSelected()) {
+            System.out.println(1);
+            temp.add(1);
+        }
+        if (low.isSelected()) {
+            temp.add(2);
+        }
+        if (open.isSelected()) {
+            temp.add(3);
+        }
+        if (close.isSelected()) {
+            temp.add(4);
+            System.out.println(4);
+        }
+        if (volume.isSelected()) {
+            temp.add(5);
+        }
+        if (pb.isSelected()) {
+            temp.add(6);
+        }
+        if (pe_ttm.isSelected()) {
+            temp.add(7);
+        }
+        if (adjPrice.isSelected()) {
+            temp.add(8);
+        }
+        if (turnOver.isSelected()) {
+            temp.add(9);
         }
 
-//        return new    Table();
-        return null;
+        return temp;
+    }
 
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        createSelectTable();
     }
 }

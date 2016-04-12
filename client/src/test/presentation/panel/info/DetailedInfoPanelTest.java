@@ -13,7 +13,7 @@ public class DetailedInfoPanelTest {
 
         frame.setBounds(100, 100, 700, 500);
 
-        frame.add(new DetailedInfoPanel("1314"));
+        frame.add(new DetailedInfoPanel("sh600015"));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);

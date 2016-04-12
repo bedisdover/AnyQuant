@@ -128,7 +128,7 @@ public class CurrentStockPO {
         id = object.getString("gid");
         name = object.getString("name");
 
-        price = object.getDouble("latestpri");
+        price = object.getDouble("lastestpri");
         increase = object.getDouble("uppic");
         increasePer = object.getDouble("limit");        //涨跌幅%
         high = object.getDouble("maxpri");

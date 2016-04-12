@@ -1,6 +1,7 @@
 package presentation.panel;
 
 import presentation.frame.MainFrame;
+import presentation.panel.info.US_StockInfoPanel;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
@@ -311,7 +312,15 @@ public class MenuPanel extends JPanel {
         btnUS.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                if (netState) {
+                    try {
+                        getMainFrame().addOperationPanel(new US_StockInfoPanel("aapl"));
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
+                }
             }
         });
 

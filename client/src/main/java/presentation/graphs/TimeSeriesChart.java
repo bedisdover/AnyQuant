@@ -32,7 +32,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
     private static final long serialVersionUID = -4172191391806537567L;
 
     JFreeChart jfreechart;
-    static ChartPanel chartpanel;
+    ChartPanel chartpanel;
     static String result;
     //日期
     static String date;
@@ -82,7 +82,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         return jfreechart;
     }
 
-    public static ChartPanel getChartPanel(){
+    public ChartPanel getChartPanel(){
         return chartpanel;
     }
 
