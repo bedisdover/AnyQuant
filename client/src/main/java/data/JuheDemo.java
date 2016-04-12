@@ -103,9 +103,18 @@ public class JuheDemo {
 
     public static void main(String[] args) {
         JuheDemo j = new JuheDemo();
-        String result = j.getRequest1("中国银行");
+        String result = j.getRequest1("长江实业");
+        System.out.println(result);
         ReadData rd = new ReadData();
         String t = rd.parseJSON(result,"result");
+        System.out.println(t);
+        String d = rd.parseJSON(t,"timeChart");
+        System.out.println(d);
+        String stock = rd.parseJSON(d,"p");
+        stock = stock.substring(1,stock.length()-1);
+        System.out.println(stock);
+        String dongping = rd.parseJSON(stock,"time");
+        System.out.println(dongping);
     }
 }
 

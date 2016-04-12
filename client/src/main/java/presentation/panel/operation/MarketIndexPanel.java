@@ -74,7 +74,8 @@ public class MarketIndexPanel extends OperationPanel {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
             String start="";
             String end="";
-            chartPanel = new MarketIndexDetailPanel();
+            String a[] = {"2"};
+            chartPanel = new MarketIndexDetailPanel(a);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
@@ -117,7 +118,11 @@ public class MarketIndexPanel extends OperationPanel {
                 System.out.println(start+"start");//20160401
                 System.out.println(end+"end");//20160411
                 String chooseDate[]={start,end};
-                chartPanel =new MarketIndexDetailPanel(chooseDate);
+                try {
+                    chartPanel =new MarketIndexDetailPanel(chooseDate);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }
