@@ -17,6 +17,7 @@ import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.servlet.ServletUtilities;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
@@ -43,7 +44,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         XYDataset xydataset = createDataset(stockName);
         jfreechart = createChart(xydataset);
         chartpanel = new ChartPanel(jfreechart, false);
-        chartpanel.setPreferredSize(new Dimension(500, 270));
+        chartpanel.setPreferredSize(new Dimension(800, 470));
         chartpanel.setMouseZoomable(false, false);
         chartpanel.addChartMouseListener(this);
         setContentPane(chartpanel);
@@ -184,14 +185,20 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-
-        this.chartpanel.setHorizontalAxisTrace(true);
-        this.chartpanel.setVerticalAxisTrace(true);
-//        ChartEntity chartEntity = this.chartpanel.getEntityForPoint(xPos,yPos);
-//        String[] info = chartEntity.toString().split(" ");
-//        if(info[1].equals("series")){
-//            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-//            System.out.println(indexVO.getDate()[num-90+item]);
+        chartpanel.setHorizontalAxisTrace(true);
+        chartpanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = chartpanel.getEntityForPoint(xPos, yPos);
+        String[] info = chartEntity.toString().split(" ");
+        System.out.println(chartEntity.toString());
+//        if(info[1].equals("series")) {
+//            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
+//            System.out.println(item+"Item");
+//            String getData=data[item]+"";
+//            String getDate=date[item];
+//            TextTitle textTitle = this.jfreechart.getTitle();
+//            String text=title[1]+" : "+getData+" "+title[0]+" : "+getDate;
+//            textTitle.setText(text);
+//            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
 //        }
     }
 }
