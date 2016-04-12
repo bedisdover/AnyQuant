@@ -13,13 +13,10 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.RectangleEdge;
 import vo.IndexVO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -131,8 +128,8 @@ public class LineChartParent implements ChartMouseListener {
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String nameVolume[] = {"日期", "成交量"};
             long volume[] = index.getVolume();
-            ChartPanel lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
-            jFrame.add(lineChartMarketIndexVolume);
+    //        ChartPanel lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
+   //         jFrame.add(lineChartMarketIndexVolume);
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
         } catch (IOException e) {

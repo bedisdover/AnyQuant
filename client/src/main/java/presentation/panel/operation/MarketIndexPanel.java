@@ -1,5 +1,6 @@
 package presentation.panel.operation;
 
+import bl.ShowIndexData;
 import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
@@ -15,6 +16,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -72,9 +76,21 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         try {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
-            String start="";
-            String end="";
-            chartPanel = new MarketIndexDetailPanel();
+            IndexVO index = new ShowIndexData().getLatestIndexData();
+            String date[]=index.getDate();
+            //now 2016-04-12 latest 2016-04-11
+
+            SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE,-1);
+            String yesterday=df.format(c.getTime()).substring(0,10);//2016-04-11
+            c.add(Calendar.DATE,-366);
+            String yesterday_365=df.format(c.getTime()).substring(0,10);//2015-04-11
+
+            String chooseD[]={yesterday_365,yesterday};
+            chartPanel = new MarketIndexDetailPanel(chooseD);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
@@ -113,10 +129,12 @@ public class MarketIndexPanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 String start=dcStart.getTime();
+                String startDate=start.substring(0,4)+"-"+start.substring(4,6)+"-"+start.substring(6,8);
                 String end=dcEnd.getTime();
-                System.out.println(start+"start");//20160401
-                System.out.println(end+"end");//20160411
-                String chooseDate[]={start,end};
+                String endDate=end.substring(0,4)+"-"+end.substring(4,6)+"-"+end.substring(6,8);
+            //    System.out.println(start+"start");//20160401
+            //    System.out.println(end+"end");//20160411
+                String chooseDate[]={startDate,endDate};
                 try {
                     chartPanel =new MarketIndexDetailPanel(chooseDate);
                 } catch (IOException e1) {
@@ -171,5 +189,16 @@ public class MarketIndexPanel extends OperationPanel {
         Graphics2D graphics2D = (Graphics2D) g;
 
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+    }
+
+
+    public static void main(String[] args){
+        JFrame jFrame = new JFrame();
+
+        jFrame.add(new MarketIndexPanel());
+        jFrame.setBounds(50, 50, 1024, 768);
+        jFrame.setVisible(true);
+
+
     }
 }

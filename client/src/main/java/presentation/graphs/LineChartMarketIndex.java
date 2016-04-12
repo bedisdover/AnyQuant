@@ -18,8 +18,9 @@ public class LineChartMarketIndex {
     public static LineChartParent lineChartParent;
     int showLength=365;
 
-    public LineChartMarketIndex(String nameInit[], double dataInit[]) {
+    public LineChartMarketIndex(String nameInit[], double dataInit[],String dateChoose[]) {
         String name[] = nameInit;
+
         double data[] = new double[showLength];
         int length = dataInit.length;
         for (int i = 0; i < showLength; i++) {
@@ -41,7 +42,7 @@ public class LineChartMarketIndex {
         }
     }
 
-    public LineChartMarketIndex(String nameInit[], long dataInit[]) {
+    public LineChartMarketIndex(String nameInit[], long dataInit[],String dateChoose[]) {
         String name[] = nameInit;
         int length = dataInit.length;
         double data[] = new double[showLength];
