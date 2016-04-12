@@ -208,7 +208,7 @@ public abstract class OperationPanel extends JPanel {
     protected Table createTable(StockVO stock) {
         data = new Object[stock.getDate().length][];
         String[] columnNames = new String[]{
-                "日期", "成交量", "市净率", "最高", "最低", "市盈率", "最新", "收盘价", "开盘价", "周转率"
+                "日期", "成交量", "市净率", "最高", "最低", "市盈率", "后复权价", "收盘价", "开盘价", "周转率"
         };
 
         for (int i = 0; i < data.length; i++) {

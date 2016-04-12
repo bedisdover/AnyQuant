@@ -7,6 +7,7 @@ import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
 import presentation.panel.StockKLine_Daily;
+import presentation.panel.StockKLines;
 import vo.StockVO;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class StockInfoPanel extends InfoPanel {
     /**
      * k-线图面板
      */
-    private ChartPanel k_line;
+    private JTabbedPane k_line;
 
     /**
      * 持有的股票对象
@@ -88,7 +89,7 @@ public class StockInfoPanel extends InfoPanel {
 
         try {
             currentInfo = new StockCurrentInfoPanel(stockID);
-            k_line = new StockKLine_Daily(stockID).getChartPanel();
+            k_line = new StockKLines(stockID).getjTabbedPane();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");

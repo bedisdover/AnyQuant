@@ -76,6 +76,7 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {
         try {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
+
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String date[]=index.getDate();
             //now 2016-04-12 latest 2016-04-11
@@ -91,6 +92,12 @@ public class MarketIndexPanel extends OperationPanel {
 
             String chooseD[]={yesterday_365,yesterday};
             chartPanel = new MarketIndexDetailPanel(chooseD);
+
+            String start="";
+            String end="";
+            String chooseDate[]={start,end};
+            chartPanel = new MarketIndexDetailPanel(chooseDate);
+
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
