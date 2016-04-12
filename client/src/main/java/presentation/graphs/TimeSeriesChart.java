@@ -40,7 +40,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
 
 
     public TimeSeriesChart(String stockName) {
-        super("Time series chart");
+        super("");
         XYDataset xydataset = createDataset(stockName);
         jfreechart = createChart(xydataset);
         chartpanel = new ChartPanel(jfreechart, false);
