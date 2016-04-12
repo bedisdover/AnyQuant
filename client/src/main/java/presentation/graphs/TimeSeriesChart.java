@@ -189,16 +189,16 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         chartpanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = chartpanel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
-        System.out.println(chartEntity.toString());
-//        if(info[1].equals("series")) {
-//            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
-//            System.out.println(item+"Item");
+//        System.out.println(chartEntity.toString());
+        if(info[1].equals("series")) {
+            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
+            System.out.println(item+"Item");
 //            String getData=data[item]+"";
 //            String getDate=date[item];
-//            TextTitle textTitle = this.jfreechart.getTitle();
-//            String text=title[1]+" : "+getData+" "+title[0]+" : "+getDate;
-//            textTitle.setText(text);
-//            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
-//        }
+            TextTitle textTitle = this.jfreechart.getTitle();
+            String text="Y:"+item;
+            textTitle.setText(text);
+            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
+        }
     }
 }
