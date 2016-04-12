@@ -115,6 +115,30 @@ public class CurrentStockPO {
         dealAmount = new BigDecimal(object.getString("traAmount"));
     }
 
+    /**
+     * @param data json数据包，形如：
+     * {"gid":"aapl","name":"苹果","lastestpri":"109.02","openpri":"108.97","formpri":"108.66",
+     * "maxpri":"110.61","minpri":"108.83","uppic":"0.36","limit":"0.33","traAmount":"29407518",
+     * "markValue":"607822585620","ustime":"Mar 11 4:00PM EDT"}
+     * @param type 股票类型
+     */
+    public CurrentStockPO(String data, String type) {
+        JSONObject object = JSONObject.fromObject(data);
+
+        id = object.getString("gid");
+        name = object.getString("name");
+
+        price = object.getDouble("latestpri");
+        increase = object.getDouble("uppic");
+        increasePer = object.getDouble("limit");        //涨跌幅%
+        high = object.getDouble("maxpri");
+        low = object.getDouble("minpri");
+        open = object.getDouble("openpri");
+        close = object.getDouble("formpri");
+        dealNum = new BigInteger(object.getString("traAmount"));
+        dealAmount = new BigDecimal(object.getString("markValue"));
+    }
+
     public String getId() {
         return id;
     }

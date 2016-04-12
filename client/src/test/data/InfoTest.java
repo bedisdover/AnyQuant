@@ -72,7 +72,7 @@ public class InfoTest {
         String result = null;
         String url = "http://web.juhe.cn:8080/finance/stock/usa";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("gid", "");//股票代码，如：aapl 为“苹果公司”的股票代码
+        params.put("gid", "aapl");//股票代码，如：aapl 为“苹果公司”的股票代码
         params.put("key", APP_KEY);//APP Key
 
         try {
@@ -174,7 +174,7 @@ public class InfoTest {
 
 
     public static void main(String[] args) {
-        getRequest1();
+        getRequest3();
 //        getRequest7();
     }
 
