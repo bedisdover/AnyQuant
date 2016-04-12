@@ -1,8 +1,6 @@
 package presentation.graphs;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -77,6 +75,8 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
             XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
             xylineandshaperenderer.setBaseShapesVisible(true);
             xylineandshaperenderer.setBaseShapesFilled(true);
+            //xylineandshaperenderer.setBaseStroke(new BasicStroke(1.6f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+//            xylineandshaperenderer.setBaseShape(new Shape());
         }
         DateAxis dateaxis = (DateAxis) xyplot.getDomainAxis();
         dateaxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
