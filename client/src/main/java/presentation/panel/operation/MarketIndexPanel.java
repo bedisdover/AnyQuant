@@ -74,8 +74,7 @@ public class MarketIndexPanel extends OperationPanel {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
             String start="";
             String end="";
-            String a[] = {"2"};
-            chartPanel = new MarketIndexDetailPanel(a);
+            chartPanel = new MarketIndexDetailPanel();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
