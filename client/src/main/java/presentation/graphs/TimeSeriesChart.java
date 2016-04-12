@@ -100,13 +100,11 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         }
 
         date = rd.parseJSON(s[1],"date");
-        System.out.println(date);
         String[] d = date.split("/");
         int year,month,day;
         year = Integer.parseInt(d[0]);
         month = Integer.parseInt(d[1]);
         day = Integer.parseInt(d[2].split(" ")[0]);
-        System.out.println(day);
 
         TimeSeries timeSeries1 = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
@@ -119,19 +117,28 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             timeSeries1.add(new Minute(minute,hour,day,month,year),price);
         }
 
-        TimeSeries timeSeries2 = new TimeSeries("",
+        TimeSeries timeSeries2 = new TimeSeries("average price",
                 org.jfree.data.time.Minute.class);
 
         for(int i = 1;i<s.length-1;i++){
             double sum = 0;
-            for(int j = 1;j<=i;j++){
-
+            double avg = 0;
+            int j;
+            for(j = 1;j<=i;j++){
+                double price = Double.parseDouble(rd.parseJSON(s[j],"price"));
+                sum+=price;
             }
+            j--;
+            avg = sum/j;
+            int hour,minute;
+            hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
+            minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
+            timeSeries2.add(new Minute(minute,hour,day,month,year),avg);
         }
 
         TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
         timeseriescollection.addSeries(timeSeries1);
-//        timeseriescollection.addSeries(timeseries1);
+        timeseriescollection.addSeries(timeSeries2);
         return timeseriescollection;
     }
 
