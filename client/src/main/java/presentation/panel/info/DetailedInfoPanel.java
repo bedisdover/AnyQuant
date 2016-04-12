@@ -6,6 +6,7 @@ import presentation.UltraSwing.UltraScrollPane;
 import presentation.util.Table;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -67,6 +68,11 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
     private String[] columns;
 
     /**
+     * 表格对象
+     */
+    private Table table;
+
+    /**
      * K线图、折线图
      */
     private JLabel labelK_Line, labelBrokenLien;
@@ -88,13 +94,13 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
             e.printStackTrace();
         }
 
-        initData();
+        table = createTable();
     }
 
     /**
      * 初始化表格数据
      */
-    private void initData() {
+    private Table createTable() {
         allData = new Object[stock.getDate().length][];
         allColumns = new String[]{
                 "日期", "最高", "最低", "开盘价", "收盘价",
@@ -115,8 +121,13 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
                     stock.getTurnover()[i]
             };
         }
+
+        return new Table(allData, allColumns);
     }
 
+    /**
+     * 创建组件
+     */
     private void createUIComponents() {
         createNorthPanel();
         createCenterPanel();
@@ -174,16 +185,6 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
             adjPrice = new JCheckBox("后复权价");
             turnOver = new JCheckBox("转手率");
 
-            high.addItemListener(this);
-            low.addItemListener(this);
-            open.addItemListener(this);
-            close.addItemListener(this);
-            volume.addItemListener(this);
-            pb.addItemListener(this);
-            pe_ttm.addItemListener(this);
-            adjPrice.addItemListener(this);
-            turnOver.addItemListener(this);
-
             columnsPanel.add(high);
             columnsPanel.add(low);
             columnsPanel.add(open);
@@ -201,7 +202,7 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         {
             JPanel southPanel = new JPanel();
             southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-            JScrollPane scrollPane = new UltraScrollPane(createSelectTable());
+            JScrollPane scrollPane = new UltraScrollPane(table);
             southPanel.add(scrollPane);
             centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
@@ -238,6 +239,16 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         pe_ttm.setSelected(true);
         adjPrice.setSelected(true);
         turnOver.setSelected(true);
+
+        high.addItemListener(this);
+        low.addItemListener(this);
+        open.addItemListener(this);
+        close.addItemListener(this);
+        volume.addItemListener(this);
+        pb.addItemListener(this);
+        pe_ttm.addItemListener(this);
+        adjPrice.addItemListener(this);
+        turnOver.addItemListener(this);
     }
 
     /**
@@ -248,17 +259,17 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
     private Table createSelectTable() {
         columnSelect = getSelectColumns();
 
-        data = new Object[stock.getDate().length][];
+        data = new Object[allData.length][];
         columns = new String[columnSelect.size()];
 
         for (int i = 0; i < columnSelect.size(); i++) {
             columns[i] = allColumns[columnSelect.get(i)];
-
-            for (int j = 0; j < data.length; j++) {
-                data[j][i] = allData[j][columnSelect.get(i)];
+        }
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < columnSelect.size(); j++) {
+                data[i][j] = allData[i][columnSelect.get(j)];
             }
         }
-
         return new Table(data, columns);
     }
 
@@ -271,7 +282,6 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         List<Integer> temp = new ArrayList<>();
         temp.add(0);
         if (high.isSelected()) {
-            System.out.println(1);
             temp.add(1);
         }
         if (low.isSelected()) {
@@ -282,7 +292,6 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         }
         if (close.isSelected()) {
             temp.add(4);
-            System.out.println(4);
         }
         if (volume.isSelected()) {
             temp.add(5);
@@ -305,6 +314,8 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        createSelectTable();
+        table = createSelectTable();
+//        table.setModel(new DefaultTableModel(data, columns));
+        repaint();
     }
 }
