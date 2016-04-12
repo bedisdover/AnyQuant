@@ -86,8 +86,11 @@ public class LineChartMarketIndex {
                 }
             }
             double data[] = new double[showLength];
+            System.out.println(showLength+"showlength");
+            System.out.println(position+"position");
             for (int i = 0; i < showLength; i++) {
                 data[showLength - 1 - i] = dataInit[position - i];
+
             }
             String date[] = new String[showLength];
             for (int i = 0; i < showLength; i++) {
