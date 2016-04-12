@@ -17,6 +17,7 @@ import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.servlet.ServletUtilities;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
@@ -39,11 +40,11 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
 
 
     public TimeSeriesChart(String stockName) {
-        super("Time series chart");
+        super("");
         XYDataset xydataset = createDataset(stockName);
         jfreechart = createChart(xydataset);
         chartpanel = new ChartPanel(jfreechart, false);
-        chartpanel.setPreferredSize(new Dimension(500, 270));
+        chartpanel.setPreferredSize(new Dimension(800, 470));
         chartpanel.setMouseZoomable(false, false);
         chartpanel.addChartMouseListener(this);
         setContentPane(chartpanel);
@@ -100,13 +101,11 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         }
 
         date = rd.parseJSON(s[1],"date");
-        System.out.println(date);
         String[] d = date.split("/");
         int year,month,day;
         year = Integer.parseInt(d[0]);
         month = Integer.parseInt(d[1]);
         day = Integer.parseInt(d[2].split(" ")[0]);
-        System.out.println(day);
 
         TimeSeries timeSeries1 = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
@@ -119,19 +118,28 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             timeSeries1.add(new Minute(minute,hour,day,month,year),price);
         }
 
-        TimeSeries timeSeries2 = new TimeSeries("",
+        TimeSeries timeSeries2 = new TimeSeries("average price",
                 org.jfree.data.time.Minute.class);
 
         for(int i = 1;i<s.length-1;i++){
             double sum = 0;
-            for(int j = 1;j<=i;j++){
-
+            double avg = 0;
+            int j;
+            for(j = 1;j<=i;j++){
+                double price = Double.parseDouble(rd.parseJSON(s[j],"price"));
+                sum+=price;
             }
+            j--;
+            avg = sum/j;
+            int hour,minute;
+            hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
+            minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
+            timeSeries2.add(new Minute(minute,hour,day,month,year),avg);
         }
 
         TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
         timeseriescollection.addSeries(timeSeries1);
-//        timeseriescollection.addSeries(timeseries1);
+        timeseriescollection.addSeries(timeSeries2);
         return timeseriescollection;
     }
 
@@ -177,14 +185,20 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
     public void chartMouseMoved(ChartMouseEvent chartMouseEvent) {
         int xPos = chartMouseEvent.getTrigger().getX();
         int yPos = chartMouseEvent.getTrigger().getY();
-
-        this.chartpanel.setHorizontalAxisTrace(true);
-        this.chartpanel.setVerticalAxisTrace(true);
-//        ChartEntity chartEntity = this.chartpanel.getEntityForPoint(xPos,yPos);
-//        String[] info = chartEntity.toString().split(" ");
-//        if(info[1].equals("series")){
-//            int item = Integer.parseInt(info[6].substring(0,info[6].length()-1));
-//            System.out.println(indexVO.getDate()[num-90+item]);
-//        }
+        chartpanel.setHorizontalAxisTrace(true);
+        chartpanel.setVerticalAxisTrace(true);
+        ChartEntity chartEntity = chartpanel.getEntityForPoint(xPos, yPos);
+        String[] info = chartEntity.toString().split(" ");
+//        System.out.println(chartEntity.toString());
+        if(info[1].equals("series")) {
+            int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
+            System.out.println(item+"Item");
+//            String getData=data[item]+"";
+//            String getDate=date[item];
+            TextTitle textTitle = this.jfreechart.getTitle();
+            String text="Y:"+item;
+            textTitle.setText(text);
+            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
+        }
     }
 }
