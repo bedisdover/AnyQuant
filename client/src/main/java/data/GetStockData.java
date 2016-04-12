@@ -388,6 +388,7 @@ public class GetStockData implements GetStockDataService {
         for (int i = 0; i < names.length; i++) {
             stockPOs.add(getStockData_name(names[i]));
         }
+
         return stockPOs;
     }
 
