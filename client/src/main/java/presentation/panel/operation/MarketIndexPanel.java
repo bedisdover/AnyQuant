@@ -117,7 +117,11 @@ public class MarketIndexPanel extends OperationPanel {
                 System.out.println(start+"start");//20160401
                 System.out.println(end+"end");//20160411
                 String chooseDate[]={start,end};
-                chartPanel =new MarketIndexDetailPanel(chooseDate);
+                try {
+                    chartPanel =new MarketIndexDetailPanel(chooseDate);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }
