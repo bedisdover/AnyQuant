@@ -73,9 +73,9 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
                 .getRenderer();
         if (xyitemrenderer instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
-            xylineandshaperenderer.setBaseShapesVisible(true);
-            xylineandshaperenderer.setBaseShapesFilled(true);
-            //xylineandshaperenderer.setBaseStroke(new BasicStroke(1.6f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+            xylineandshaperenderer.setBaseShapesVisible(false);
+            xylineandshaperenderer.setBaseShapesFilled(false);
+            xylineandshaperenderer.setBaseStroke(new BasicStroke(1.6f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 //            xylineandshaperenderer.setBaseShape(new Shape());
         }
         DateAxis dateaxis = (DateAxis) xyplot.getDomainAxis();
