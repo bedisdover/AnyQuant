@@ -36,6 +36,9 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
     JFreeChart jfreechart;
     ChartPanel chartpanel;
     static String result;
+    //日期
+    static String date;
+
 
     public TimeSeriesDemo2(String s) {
         super(s);
@@ -58,7 +61,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
         standardChartTheme.setExtraLargeFont(new Font("隶书", Font.BOLD, 20));
         ChartFactory.setChartTheme(standardChartTheme);// 设置主题
         JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(
-                "Legal & General Unit Trust Prices", "Date", "Price Per Unit",
+                "Legal & General Unit Trust Prices", date , "Price Per Unit",
                 xydataset, true, true, true);
         jfreechart.setBackgroundPaint(Color.white);
         XYPlot xyplot = (XYPlot) jfreechart.getPlot();
@@ -81,7 +84,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
     }
 
     private static XYDataset createDataset() {
-        result = new JuheDemo().getRequest1("中国银行");
+        result = new JuheDemo().getRequest1("长江实业");
         ReadData rd = new ReadData();
         String str = rd.parseJSON(rd.parseJSON(rd.parseJSON(result,"result"),"timeChart"),"p");
         str = str.substring(1,str.length()-1);
@@ -91,16 +94,30 @@ public class TimeSeriesDemo2 extends ApplicationFrame implements ChartMouseListe
             if(s[i].endsWith(",")){
                 s[i] = s[i].substring(0,s[i].length()-1);
             }
-            System.out.println(rd.parseJSON(s[i],"price"));
-            System.out.println(rd.parseJSON(s[i],"time"));
         }
-//        System.out.println(rd.parseJSON(s[1],"price"));
+
+        date = rd.parseJSON(s[1],"date");
+        System.out.println(date);
+        String[] d = date.split("/");
+        int year,month,day;
+        year = Integer.parseInt(d[0]);
+        month = Integer.parseInt(d[1]);
+        day = Integer.parseInt(d[2].split(" ")[0]);
+        System.out.println(day);
 
         TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
-        timeseries.add(new Minute(26,7,11,4,2016), 181.80000000000001D);
-        timeseries.add(new Minute(27,7,11,4,2016), 167.30000000000001D);
-        timeseries.add(new Minute(28,7,11,4,2016), 153.80000000000001D);
+
+        for(int i = 1;i<s.length-1;i++){
+            double price = Double.parseDouble(rd.parseJSON(s[i],"price"));
+            int hour,minute;
+            hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
+            minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
+            timeseries.add(new Minute(minute,hour,day,month,year),price);
+        }
+//        timeseries.add(new Minute(26,7,11,6,2016), 181.80000000000001D);
+//        timeseries.add(new Minute(27,7,11,4,2016), 167.30000000000001D);
+//        timeseries.add(new Minute(28,7,11,4,2016), 153.80000000000001D);
 //        timeseries.add(new Month(5, 2001), 167.59999999999999D);
 //        timeseries.add(new Month(6, 2001), 158.80000000000001D);
 //        timeseries.add(new Month(7, 2001), 148.30000000000001D);
