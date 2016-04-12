@@ -15,6 +15,7 @@ import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Created by zmj on 2016/3/31.
@@ -32,14 +33,14 @@ public class MarketIndexDetailPanel extends JPanel {
     private ChartPanel lineChartMarketIndexADJPrice;
     String chooseDate[];
 
-    public MarketIndexDetailPanel(String chooseDateInit[]) throws IOException {
+    public MarketIndexDetailPanel(String chooseDateInit[]) throws IOException, ParseException {
         chooseDate=chooseDateInit;
         this.setLayout(new BorderLayout());
         init();
         initComponents();
     }
 
-    private void init() throws IOException {
+    private void init() throws IOException, ParseException {
        indexKLine_Daily = new IndexKLine_Daily().getChartPanel();
         indexKLine_Weekly = new IndexKLine_Weekly().getChartPanel();
         indexKLine_Monthly = new IndexKLine_Monthly().getChartPanel();
@@ -64,26 +65,26 @@ public class MarketIndexDetailPanel extends JPanel {
         lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price,chooseDate).getChartPanel();
 
         tabbedPane = new JTabbedPane();
-        ImageIcon image7 = new ImageIcon("client/src/main/resources/images/dayK.png");
-        ImageIcon image8 = new ImageIcon("client/src/main/resources/images/weekK.png");
-        ImageIcon image9 = new ImageIcon("client/src/main/resources/images/monthK.png");
-        ImageIcon image1 = new ImageIcon("client/src/main/resources/images/volume.png");
-        ImageIcon image2 = new ImageIcon("client/src/main/resources/images/high.png");
-        ImageIcon image3 = new ImageIcon("client/src/main/resources/images/low.png");
-        ImageIcon image4 = new ImageIcon("client/src/main/resources/images/price.png");
-        ImageIcon image5 = new ImageIcon("client/src/main/resources/images/open.png");
-        ImageIcon image6 = new ImageIcon("client/src/main/resources/images/close.png");
+        ImageIcon image1 = new ImageIcon("client/src/main/resources/images/dayK.png");
+        ImageIcon image2 = new ImageIcon("client/src/main/resources/images/weekK.png");
+        ImageIcon image3 = new ImageIcon("client/src/main/resources/images/monthK.png");
+        ImageIcon image4= new ImageIcon("client/src/main/resources/images/volume.png");
+        ImageIcon image5 = new ImageIcon("client/src/main/resources/images/high.png");
+        ImageIcon image6 = new ImageIcon("client/src/main/resources/images/low.png");
+        ImageIcon image7 = new ImageIcon("client/src/main/resources/images/price.png");
+        ImageIcon image8 = new ImageIcon("client/src/main/resources/images/open.png");
+        ImageIcon image9 = new ImageIcon("client/src/main/resources/images/close.png");
         //tabbedPane.addTab(title, icon, component, tip);
         //添加由 title 和/或 icon 表示的 component 和 tip，其中任意一个都可以为 null。
-        tabbedPane.addTab(null,image7,indexKLine_Daily,"日k线");
-        tabbedPane.addTab(null,image8,indexKLine_Weekly,"周k线");
-        tabbedPane.addTab(null,image9,indexKLine_Monthly,"月k线");
-        tabbedPane.addTab(null, image1, lineChartMarketIndexVolume, "成交量");
-        tabbedPane.addTab(null, image2, lineChartMarketIndexHigh, "最高价");
-        tabbedPane.addTab(null, image3, lineChartMarketIndexLow, "最低价");
-        tabbedPane.addTab(null, image4, lineChartMarketIndexADJPrice, "最新价");
-        tabbedPane.addTab(null, image5, lineChartMarketIndexOpen, "开盘价");
-        tabbedPane.addTab(null, image6, lineChartMarketIndexClose, "收盘价");
+        tabbedPane.addTab(null,image1,indexKLine_Daily,"日k线");
+        tabbedPane.addTab(null,image2,indexKLine_Weekly,"周k线");
+        tabbedPane.addTab(null,image3,indexKLine_Monthly,"月k线");
+        tabbedPane.addTab(null, image4, lineChartMarketIndexVolume, "成交量");
+        tabbedPane.addTab(null, image5, lineChartMarketIndexHigh, "最高价");
+        tabbedPane.addTab(null, image6, lineChartMarketIndexLow, "最低价");
+        tabbedPane.addTab(null, image7, lineChartMarketIndexADJPrice, "最新价");
+        tabbedPane.addTab(null, image8, lineChartMarketIndexOpen, "开盘价");
+        tabbedPane.addTab(null, image9, lineChartMarketIndexClose, "收盘价");
 
     }
 

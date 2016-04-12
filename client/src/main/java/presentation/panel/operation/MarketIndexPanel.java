@@ -92,15 +92,11 @@ public class MarketIndexPanel extends OperationPanel {
 
             String chooseD[]={yesterday_365,yesterday};
             chartPanel = new MarketIndexDetailPanel(chooseD);
-
-            String start="";
-            String end="";
-            String chooseDate[]={start,end};
-            chartPanel = new MarketIndexDetailPanel(chooseDate);
-
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         btnData = new UltraButton("详细数据");
@@ -139,12 +135,13 @@ public class MarketIndexPanel extends OperationPanel {
                 String startDate=start.substring(0,4)+"-"+start.substring(4,6)+"-"+start.substring(6,8);
                 String end=dcEnd.getTime();
                 String endDate=end.substring(0,4)+"-"+end.substring(4,6)+"-"+end.substring(6,8);
-            //    System.out.println(start+"start");//20160401
-            //    System.out.println(end+"end");//20160411
                 String chooseDate[]={startDate,endDate};
                 try {
                     chartPanel =new MarketIndexDetailPanel(chooseDate);
+                    repaint();
                 } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
                     e1.printStackTrace();
                 }
             }
@@ -201,7 +198,6 @@ public class MarketIndexPanel extends OperationPanel {
 
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
-
         jFrame.add(new MarketIndexPanel());
         jFrame.setBounds(50, 50, 1024, 768);
         jFrame.setVisible(true);
