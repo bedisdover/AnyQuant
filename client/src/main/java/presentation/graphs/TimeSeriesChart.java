@@ -104,7 +104,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         day = Integer.parseInt(d[2].split(" ")[0]);
         System.out.println(day);
 
-        TimeSeries timeseries = new TimeSeries("L&G European Index Trust",
+        TimeSeries timeSeries1 = new TimeSeries("L&G European Index Trust",
                 org.jfree.data.time.Minute.class);
 
         for(int i = 1;i<s.length-1;i++){
@@ -112,10 +112,21 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             int hour,minute;
             hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
             minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
-            timeseries.add(new Minute(minute,hour,day,month,year),price);
+            timeSeries1.add(new Minute(minute,hour,day,month,year),price);
         }
+
+        TimeSeries timeSeries2 = new TimeSeries("",
+                org.jfree.data.time.Minute.class);
+
+        for(int i = 1;i<s.length-1;i++){
+            double sum = 0;
+            for(int j = 1;j<=i;j++){
+
+            }
+        }
+
         TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
-        timeseriescollection.addSeries(timeseries);
+        timeseriescollection.addSeries(timeSeries1);
 //        timeseriescollection.addSeries(timeseries1);
         return timeseriescollection;
     }
