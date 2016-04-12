@@ -138,7 +138,7 @@ public class MarketIndexPanel extends OperationPanel {
                 String chooseDate[]={startDate,endDate};
                 try {
                     chartPanel =new MarketIndexDetailPanel(chooseDate);
-                    repaint();
+                   update();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (ParseException e1) {
