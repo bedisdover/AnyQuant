@@ -105,7 +105,18 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      */
     private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
-    public DetailedInfoPanel(String id) {
+    /**
+     * 父面板
+     */
+    private JPanel parent;
+
+    /**
+     * 返回按钮
+     */
+    private JButton back;
+
+    public DetailedInfoPanel(JPanel parent, String id) {
+        this.parent = parent;
         this.id = id;
 
         init();
@@ -169,36 +180,27 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      */
     private void createNorthPanel() {
         northPanel = new UltraPanel();
-        northPanel.setLayout(new BorderLayout());
+        northPanel.setLayout(null);
 
         {
-            UltraPanel leftPanel = new UltraPanel();
-            leftPanel.setLayout(null);
 
-            dcStart = new DateChooser(northPanel, MARGIN,
-                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
-            JLabel labelTo = new JLabel("至");
-            labelTo.setBounds(BUTTON_WIDTH + MARGIN * 3, MARGIN / 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
-            dcEnd = new DateChooser(northPanel, labelTo.getX() + BUTTON_HEIGHT + MARGIN,
-                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
+            back = new JButton("返回");
+            dcStart = new DateChooser(northPanel,
+                    PANEL_WIDTH - MARGIN - BUTTON_WIDTH * 2 - PADDING * 7 - BUTTON_HEIGHT * 2,
+                    MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+            dcEnd = new DateChooser(northPanel,
+                    PANEL_WIDTH - MARGIN - BUTTON_WIDTH * 2- PADDING * 4 - BUTTON_HEIGHT,
+                    MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
             confirm = new UltraButton("生成");
 
-            confirm.setBounds(labelTo.getX() + BUTTON_WIDTH + PADDING * 4, MARGIN / 2,
-                    BUTTON_WIDTH, BUTTON_HEIGHT);
-
-            leftPanel.add(labelTo);
-            leftPanel.add(confirm);
-
-            northPanel.add(leftPanel, BorderLayout.CENTER);
+            northPanel.add(confirm);
+            northPanel.add(back);
         }
 
         {
-            UltraPanel rightPanel = new UltraPanel();
-            rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
             btnFollow = new JButton("关 注");
-            rightPanel.add(btnFollow);
 
-            northPanel.add(rightPanel, BorderLayout.EAST);
+            northPanel.add(btnFollow);
         }
 
         add(northPanel);
@@ -307,6 +309,13 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(parent);
+            }
+        });
+
         btnFollow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -366,7 +375,12 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 界面大小发生变化时，对组件重新赋值
      */
     private void assignment() {
-        northPanel.setBounds(0, MARGIN, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        confirm.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH * 2, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        btnFollow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),

@@ -1,12 +1,11 @@
-package presentation.panel.operation;
+package presentation.panel.index;
 
 import bl.ShowIndexData;
-import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
-import presentation.panel.IndexKLines;
 import presentation.panel.info.IndexCurrentInfoPanel;
-import presentation.panel.info.IndexDataPanel;
+import presentation.panel.operation.MarketIndexDetailPanel;
+import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
 import vo.IndexVO;
 
@@ -24,17 +23,13 @@ import java.util.Calendar;
 /**
  * Created by 宋益明 on 16-3-2.
  * <p>
- * 大盘指数面板
+ * 大盘指数折线图面板
  * 包含简要信息（中文名称                        今开     最高     成交量)
  * (  ID        涨跌额（涨跌幅）      昨收     最低     成交额)
- * 及k-线图
+ * 及折线图
  */
-public class MarketIndexPanel extends OperationPanel {
+public class IndexBrokenLinePanel extends OperationPanel {
 
-    /**
-     * 显示详细数据按钮
-     */
-    private UltraButton btnData;
     /**
      * 确认日期选择，生成对应折线图
      */
@@ -42,10 +37,10 @@ public class MarketIndexPanel extends OperationPanel {
     /**
      * 开始日期、结束日期
      */
-    DateChooser dcStart;
-    DateChooser dcEnd;
+    private DateChooser dcStart, dcEnd;
+
     /**
-     * 简要信息面板
+     * 当前信息面板
      */
     private JPanel currentInfoPanel;
 
@@ -55,29 +50,31 @@ public class MarketIndexPanel extends OperationPanel {
     private JPanel chartPanel;
 
     /**
-     * 刷新界面标记，界面发生切换后，停止刷新
+     * 父面板
      */
-    private boolean updateFlag;
+    private JPanel parent;
 
-    public MarketIndexPanel(String type) {
+    /**
+     * 返回按钮
+     */
+    private JButton back;
+
+    public IndexBrokenLinePanel(JPanel parent) {
+        this.parent = parent;
+
         init();
-        createUIComponents(type);
+        createUIComponents();
         addListeners();
     }
 
     protected void init() {
         this.setLayout(null);
 
-        updateFlag = true;
-
         update();
     }
 
     @Override
     protected void createUIComponents() {
-    }
-
-    protected void createUIComponents(String type) {
         String startTime = null;
         try {
             currentInfoPanel = new IndexCurrentInfoPanel();
@@ -98,12 +95,7 @@ public class MarketIndexPanel extends OperationPanel {
 
             String chooseD[] = {yesterday_365, yesterday};
 
-            if (type.equals("kLine")) {
-                chartPanel = new JPanel();
-                chartPanel.add(new IndexKLines().getjTabbedPane());
-            } else {
-                chartPanel = new MarketIndexDetailPanel(chooseD);
-            }
+            chartPanel = new MarketIndexDetailPanel(chooseD);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
@@ -111,16 +103,18 @@ public class MarketIndexPanel extends OperationPanel {
             e.printStackTrace();
         }
 
-        btnData = new UltraButton("详细数据");
         confirm = new UltraButton("生成");
+        back = new JButton("返回");
 
+        add(back);
         add(currentInfoPanel);
         add(chartPanel);
-        add(btnData);
         add(confirm);
 
-        dcStart = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-        dcEnd = new DateChooser(this, MARGIN * 10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        dcStart = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
+                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        dcEnd = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT
+                , MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
     }
 
     /**
@@ -134,12 +128,13 @@ public class MarketIndexPanel extends OperationPanel {
             }
         });
 
-        btnData.addMouseListener(new MouseAdapter() {
+        back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel());
+                MainFrame.getMainFrame().addOperationPanel(parent);
             }
         });
+
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -169,10 +164,9 @@ public class MarketIndexPanel extends OperationPanel {
     private void assignment() {
         super.assignmentValue();
 
-        btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
-                BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-        confirm.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH * 3, MARGIN,
-                BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
+        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        confirm.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
         currentInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
         chartPanel.setBounds(MARGIN, currentInfoPanel.getY() + currentInfoPanel.getHeight() + PADDING / 2,
@@ -216,7 +210,7 @@ public class MarketIndexPanel extends OperationPanel {
         JPanel panel = new JPanel();
         DateChooser dc = new DateChooser(panel, 100, 400);
         dc.setTime("2015-10-08");
-        // jFrame.add(new MarketIndexPanel("kLine"));
+        // jFrame.add(new IndexBrokenLinePanel("kLine"));
         jFrame.add(panel);
         jFrame.setBounds(50, 50, 1024, 768);
         jFrame.setVisible(true);

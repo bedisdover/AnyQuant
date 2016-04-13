@@ -5,7 +5,8 @@ import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
-import presentation.panel.operation.MarketIndexPanel;
+import presentation.panel.index.IndexBrokenLinePanel;
+import presentation.panel.index.IndexKLinePanel;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
@@ -94,7 +95,19 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
-    public IndexDataPanel() {
+    /**
+     * 父面板
+     */
+    private JPanel parent;
+
+    /**
+     * 返回按钮
+     */
+    private JButton back;
+
+    public IndexDataPanel(JPanel parent) {
+        this.parent = parent;
+
         init();
         createUIComponents();
         initColumns();
@@ -153,18 +166,17 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         northPanel = new UltraPanel();
         northPanel.setLayout(null);
 
-        dcStart = new DateChooser(northPanel, MARGIN, MARGIN / 2, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-        JLabel labelTo = new JLabel("至");
-        labelTo.setBounds(BUTTON_WIDTH + MARGIN * 2, MARGIN / 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
-        dcEnd = new DateChooser(northPanel, labelTo.getX() + BUTTON_HEIGHT + MARGIN,
-                MARGIN / 2, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        back = new JButton("返回");
+        dcStart = new DateChooser(northPanel,
+                PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
+                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        dcEnd = new DateChooser(northPanel,
+                PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT,
+                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
         confirm = new UltraButton("生成");
 
-        confirm.setBounds(labelTo.getX() + BUTTON_WIDTH + PADDING * 4, MARGIN / 2,
-                BUTTON_WIDTH, BUTTON_HEIGHT);
-
         northPanel.add(confirm);
-        northPanel.add(labelTo);
+        northPanel.add(back);
 
         add(northPanel);
     }
@@ -351,6 +363,13 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(parent);
+            }
+        });
+
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -362,7 +381,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new MarketIndexPanel("kLine"));
+                        new IndexKLinePanel(IndexDataPanel.this));
             }
         });
 
@@ -370,7 +389,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new MarketIndexPanel("brokenLine"));
+                        new IndexBrokenLinePanel(IndexDataPanel.this));
             }
         });
 
@@ -387,7 +406,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 界面大小发生变化时，对组件位置重新赋值
      */
     private void assignment() {
-        northPanel.setBounds(0, MARGIN, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+        confirm.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH, MARGIN,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),

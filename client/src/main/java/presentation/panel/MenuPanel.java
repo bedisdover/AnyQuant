@@ -4,7 +4,6 @@ import presentation.frame.MainFrame;
 import presentation.panel.info.IndexDataPanel;
 import presentation.panel.info.US_StockInfoPanel;
 import presentation.panel.operation.HistoryPanel;
-import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.PicturePanel;
 import presentation.panel.operation.PortfolioPanel;
 import presentation.settings.SettingsDialog;
@@ -330,7 +329,7 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (netState) {
-                    getMainFrame().addOperationPanel(new IndexDataPanel());
+                    getMainFrame().addOperationPanel(new IndexDataPanel(MenuPanel.this));
                 } else {
                     JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
                 }

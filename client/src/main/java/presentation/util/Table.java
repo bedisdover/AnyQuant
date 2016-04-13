@@ -108,7 +108,7 @@ public class Table extends JTable {
                     if (parent != null) {
 //                        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
                         MainFrame.getMainFrame().addOperationPanel(
-                                new DetailedInfoPanel((String) getValueAt(getSelectedRow(), 2)));
+                                new DetailedInfoPanel(parent, (String) getValueAt(getSelectedRow(), 2)));
                     }
                 }
             }

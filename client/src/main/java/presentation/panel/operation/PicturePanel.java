@@ -277,7 +277,8 @@ public class PicturePanel extends OperationPanel {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
-        MainFrame.getMainFrame().addOperationPanel(new DetailedInfoPanel(name));
+        MainFrame.getMainFrame().addOperationPanel(
+                new DetailedInfoPanel(PicturePanel.this, name));
     }
 
     @Override
