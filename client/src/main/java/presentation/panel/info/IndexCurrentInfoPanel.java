@@ -277,7 +277,7 @@ class IndexNamePanel extends JPanel {
         labelID = new JLabel(id);
 
         setLayout(null);
-        setBackground(Color.lightGray);
+        setBackground(new Color(140, 175, 146, 58));
         setBorder(new BevelBorder(BevelBorder.RAISED));
 
         createUIComponents();

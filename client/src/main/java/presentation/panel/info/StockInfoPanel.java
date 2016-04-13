@@ -123,7 +123,7 @@ public class StockInfoPanel extends InfoPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new DetailedInfoPanel(stockID));
+                        new DetailedInfoPanel(StockInfoPanel.this, stockID));
             }
         });
     }
