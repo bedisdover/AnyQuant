@@ -120,8 +120,6 @@ public class MarketIndexPanel extends OperationPanel {
 
         dcStart=new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
         dcEnd=new DateChooser(this, MARGIN*10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-
-        dcStart.setTime("20150412");
     }
 
     /**

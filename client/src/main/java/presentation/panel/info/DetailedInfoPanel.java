@@ -1,5 +1,7 @@
 package presentation.panel.info;
 
+import bl.SelfSelectStock;
+import blservice.SelfSelectStockService;
 import data.GetStockData;
 import po.StockPO;
 import presentation.UltraSwing.UltraButton;
@@ -53,7 +55,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
     /**
      * 关注按钮
      */
-    private JButton follow;
+    private JButton btnFollow;
 
     /**
      * 表格选项面板
@@ -192,8 +194,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
         {
             UltraPanel rightPanel = new UltraPanel();
             rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            follow = new JButton("关 注");
-            rightPanel.add(follow);
+            btnFollow = new JButton("关 注");
+            rightPanel.add(btnFollow);
 
             northPanel.add(rightPanel, BorderLayout.EAST);
         }
@@ -304,6 +306,13 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        btnFollow.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                follow(stock.getId());
+            }
+        });
+
         labelK_Line.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -311,6 +320,33 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
                         new StockInfoPanel(DetailedInfoPanel.this, stock));
             }
         });
+
+        labelAnalyze.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+        });
+    }
+
+    /**
+     * 关注股票
+     *
+     * @param name 股票名称(代码)
+     */
+    private void follow(String name) {
+        SelfSelectStockService selfSelect = new SelfSelectStock();
+
+        try {
+            boolean exist = selfSelect.addStock(name);
+            if (exist) {
+                JOptionPane.showMessageDialog(this, "添加成功!");
+            } else {
+                JOptionPane.showMessageDialog(this, "您添加的股票已在关注列表中");
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "呀!出错啦...");
+        }
     }
 
     /**
@@ -321,7 +357,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
-                table.getColumnModel().getTotalColumnWidth(),
+                table.getColumnModel().getTotalColumnWidth() + 20,
                 PANEL_HEIGHT - (columnsPanel.getY() + columnsPanel.getHeight()) - PADDING);
         labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
                 BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
@@ -443,11 +479,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        remove(scrollPane);
-        scrollPane = new JScrollPane(createSelectTable());
+        table = createSelectTable();
 
-        revalidate();
-        repaint();
-        updateUI();
+        assignment();
     }
 }
