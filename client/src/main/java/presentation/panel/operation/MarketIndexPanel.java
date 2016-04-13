@@ -77,6 +77,7 @@ public class MarketIndexPanel extends OperationPanel {
     protected void createUIComponents() {}
 
     protected void createUIComponents(String type) {
+        String startTime = null;
         try {
             currentInfoPanel = new IndexCurrentInfoPanel();
 
@@ -92,6 +93,7 @@ public class MarketIndexPanel extends OperationPanel {
             String yesterday=df.format(c.getTime()).substring(0,10);//2016-04-11
             c.add(Calendar.DATE,-366);
             String yesterday_365=df.format(c.getTime()).substring(0,10);//2015-04-11
+            startTime = yesterday_365;
 
             String chooseD[]={yesterday_365,yesterday};
 
@@ -118,6 +120,8 @@ public class MarketIndexPanel extends OperationPanel {
 
         dcStart=new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
         dcEnd=new DateChooser(this, MARGIN*10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+
+        dcStart.setTime("20150412");
     }
 
     /**
@@ -146,8 +150,11 @@ public class MarketIndexPanel extends OperationPanel {
                 String endDate=end.substring(0,4)+"-"+end.substring(4,6)+"-"+end.substring(6,8);
                 String chooseDate[]={startDate,endDate};
                 try {
+                    remove(chartPanel);
                     chartPanel =new MarketIndexDetailPanel(chooseDate);
-                   update();
+                    add(chartPanel);
+
+                    update();
                 } catch (IOException | ParseException e1) {
                     e1.printStackTrace();
                 }
@@ -182,7 +189,7 @@ public class MarketIndexPanel extends OperationPanel {
             @Override
             public void run() {
                 try {
-                    while (updateFlag) {
+                    while (true) {
                         assignment();
 
                         Thread.sleep(100);

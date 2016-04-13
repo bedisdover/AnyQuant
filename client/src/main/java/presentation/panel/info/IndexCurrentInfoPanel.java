@@ -292,7 +292,7 @@ class IndexNamePanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                labelName.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN,
+                labelName.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
                 labelID.setBounds(labelName.getX(), LocationValue.MARGIN + LocationValue.PADDING,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
