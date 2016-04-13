@@ -2,6 +2,7 @@ package presentation.panel.info;
 
 import bl.ShowIndexData;
 import presentation.UltraSwing.UltraLabel;
+import presentation.UltraSwing.UltraPanel;
 import presentation.util.ImageLoader;
 import vo.IndexVO;
 
@@ -23,7 +24,7 @@ import static presentation.panel.info.LocationValue.BUTTON_HEIGHT;
  *      中文名称                        今开      最高     成交量
  *        ID        涨跌额（涨跌幅）      昨收     最低     成交额
  */
-public class IndexCurrentInfoPanel extends JPanel {
+public class IndexCurrentInfoPanel extends UltraPanel {
 
     private final int LABEL_WIDTH = 100;
 
@@ -82,8 +83,7 @@ public class IndexCurrentInfoPanel extends JPanel {
      */
     private JPanel namePanel, leftPanel, rightPanel;
 
-    public IndexCurrentInfoPanel(IndexVO index) {
-//        this.index = index;
+    public IndexCurrentInfoPanel() {
         try {
             this.index = new ShowIndexData().getLatestIndexData();
         } catch (IOException e) {

@@ -78,7 +78,7 @@ public class MarketIndexPanel extends OperationPanel {
 
     protected void createUIComponents(String type) {
         try {
-            currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
+            currentInfoPanel = new IndexCurrentInfoPanel();
 
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String date[]=index.getDate();

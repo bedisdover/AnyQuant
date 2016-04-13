@@ -48,12 +48,12 @@ public class ImageLoader {
     /**
      * ”K线图“图标
      */
-    public static ImageIcon kLine;
+    public static Image kLine;
 
     /**
      * “折线图”图标
      */
-    public static ImageIcon brokenLine;
+    public static Image brokenLine;
 
     static {
         try {
@@ -70,8 +70,8 @@ public class ImageLoader {
             decrease = new ImageIcon(IMAGE_PATH + "decrease.png");
             dull = new ImageIcon(IMAGE_PATH + "dull.png");
 
-            kLine = new ImageIcon(IMAGE_PATH + "kLine.png");
-            brokenLine = new ImageIcon(IMAGE_PATH + "brokenLine.png");
+            kLine = ImageIO.read(new File(IMAGE_PATH + "kLine.png"));
+            brokenLine = ImageIO.read(new File(IMAGE_PATH + "brokenLine.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
