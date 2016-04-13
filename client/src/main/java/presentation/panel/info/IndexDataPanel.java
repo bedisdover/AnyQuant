@@ -373,6 +373,14 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                         new MarketIndexPanel("brokenLine"));
             }
         });
+
+        labelAnalyze.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(
+                        new AnalyzePanel(IndexDataPanel.this, index));
+            }
+        });
     }
 
     /**

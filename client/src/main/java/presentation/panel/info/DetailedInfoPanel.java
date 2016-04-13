@@ -11,6 +11,7 @@ import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
+import vo.StockVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -272,7 +273,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
         labelK_Line = new JButton("K 线图");
-        labelBrokenLien = new JButton("折线图");
+        labelBrokenLien = new JButton("分时图");
         labelAnalyze = new JButton("综合分析");
 //        labelK_Line.setPreferredSize(new Dimension(100, 100));
 //        labelBrokenLien.setPreferredSize(new Dimension(100, 100));
@@ -321,10 +322,22 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        labelBrokenLien.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "开发中，敬请期待！");
+            }
+        });
+
         labelAnalyze.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                try {
+                    MainFrame.getMainFrame().addOperationPanel(
+                            new AnalyzePanel(DetailedInfoPanel.this, new StockVO(stock)));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
     }
