@@ -9,6 +9,7 @@ import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
+import presentation.panel.info.DetailedInfoPanel;
 import presentation.panel.info.StockInfoPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
@@ -123,7 +124,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!searchInput.getText().equals("")) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
 
@@ -160,7 +163,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
         });
@@ -169,7 +174,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
         });
@@ -245,7 +252,20 @@ public class PicturePanel extends OperationPanel {
     }
 
     private void showDetailedInfo() {
-        String name = (String) table.getValueAt(table.getSelectedRow(), 2);
+        int seleceRow = table1.getSelectedRow();
+        String name;
+        if(seleceRow==-1){
+            seleceRow = table2.getSelectedRow();
+            if(seleceRow==-1){
+                seleceRow = table3.getSelectedRow();
+                name = (String) table3.getValueAt(seleceRow, 2);
+            }else{
+                name = (String) table2.getValueAt(seleceRow, 2);
+            }
+        }else {
+            name = (String) table1.getValueAt(seleceRow, 2);
+        }
+
         StockPO stock = null;
         try {
             stock = new GetStockData().getStockData_name(name);
@@ -257,8 +277,7 @@ public class PicturePanel extends OperationPanel {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
         }
 
-        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
-
+        MainFrame.getMainFrame().addOperationPanel(new DetailedInfoPanel(name));
     }
 
     @Override
@@ -388,11 +407,8 @@ public class PicturePanel extends OperationPanel {
             centerPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelIncrease = new JLabel("↓  涨幅榜");
-            table1 = table;
             labelDecrease = new JLabel("↓  跌幅榜");
-            table2 = table;
             labelTurnVolume = new JLabel("↓  成交量榜");
-            table3 = table;
 
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
@@ -402,8 +418,11 @@ public class PicturePanel extends OperationPanel {
                 //TODO 重新加载股票
                 sortStock = new SortStock();
                 scrollIncrease = createRankingList(sortStock.increase_sort());
+                table1 = table;
                 scrollDecrease = createRankingList(sortStock.decrease_sort());
+                table2 = table;
                 scrollTurnVolume = createRankingList(sortStock.volume_sort());
+                table3 = table;
             } catch (IOException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(PicturePanel.this, "请检查网络连接！");

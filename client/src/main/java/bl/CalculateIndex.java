@@ -110,7 +110,7 @@ public class CalculateIndex {
         int length = stockVO.getDate().length;
         double close = stockVO.getClose()[length-1];
         int k = length-1;
-        for(int i=length-1;i>length-30;i--){
+        for(int i=length-1;i>length-22;i--){
             if(stockVO.getHigh()[i-1]>stockVO.getHigh()[k]){
                 k = i-1;
             }
@@ -118,7 +118,7 @@ public class CalculateIndex {
         double h = stockVO.getHigh()[k]; //30天内的最高价
 
         k = length-1;
-        for(int i=length-1;i>length-30;i--){
+        for(int i=length-1;i>length-22;i--){
             if(stockVO.getLow()[i-1]<stockVO.getLow()[k]){
                 k = i-1;
             }
@@ -132,7 +132,7 @@ public class CalculateIndex {
         int length = indexVO.getDate().length;
         double close = indexVO.getClose()[length-1];
         int k = length-1;
-        for(int i=length-1;i>length-30;i--){
+        for(int i=length-1;i>length-22;i--){
             if(indexVO.getHigh()[i-1]>indexVO.getHigh()[k]){
                 k = i-1;
             }
@@ -140,7 +140,7 @@ public class CalculateIndex {
         double h = indexVO.getHigh()[k]; //30天内的最高价
 
         k = length-1;
-        for(int i=length-1;i>length-30;i--){
+        for(int i=length-1;i>length-22;i--){
             if(indexVO.getLow()[i-1]<indexVO.getLow()[k]){
                 k = i-1;
             }
