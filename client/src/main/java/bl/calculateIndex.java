@@ -14,6 +14,7 @@ public class CalculateIndex {
         theIndexVO = new TheIndexVO();
         theIndexVO.setBias(calculateBias(stockVO));
         theIndexVO.setRSI(calculateRSI(stockVO));
+        theIndexVO.setWM(calculateWM(stockVO));
         return theIndexVO;
     }
 
@@ -21,6 +22,7 @@ public class CalculateIndex {
         theIndexVO = new TheIndexVO();
         theIndexVO.setBias(calculateBias(indexVO));
         theIndexVO.setRSI(calculateRSI(indexVO));
+        theIndexVO.setWM(calculateWM(indexVO));
         return theIndexVO;
     }
 
@@ -97,6 +99,50 @@ public class CalculateIndex {
         }
         double avg2 = sum2/5;
         double result = avg1/avg2*100;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateWM(StockVO stockVO){
+        int length = stockVO.getDate().length;
+        double close = stockVO.getClose()[length-1];
+        int k = length-1;
+        for(int i=length-1;i>length-30;i--){
+            if(stockVO.getHigh()[i-1]>stockVO.getHigh()[k]){
+                k = i-1;
+            }
+        }
+        double h = stockVO.getHigh()[k]; //30天内的最高价
+
+        k = length-1;
+        for(int i=length-1;i>length-30;i--){
+            if(stockVO.getLow()[i-1]<stockVO.getLow()[k]){
+                k = i-1;
+            }
+        }
+        double l = stockVO.getLow()[k]; //30天内的最低价
+        double result = (h-close)/(h-l)*100;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateWM(IndexVO indexVO){
+        int length = indexVO.getDate().length;
+        double close = indexVO.getClose()[length-1];
+        int k = length-1;
+        for(int i=length-1;i>length-30;i--){
+            if(indexVO.getHigh()[i-1]>indexVO.getHigh()[k]){
+                k = i-1;
+            }
+        }
+        double h = indexVO.getHigh()[k]; //30天内的最高价
+
+        k = length-1;
+        for(int i=length-1;i>length-30;i--){
+            if(indexVO.getLow()[i-1]<indexVO.getLow()[k]){
+                k = i-1;
+            }
+        }
+        double l = indexVO.getLow()[k]; //30天内的最低价
+        double result = (h-close)/(h-l)*100;
         return ((double)Math.round(result*100))/100;
     }
 }

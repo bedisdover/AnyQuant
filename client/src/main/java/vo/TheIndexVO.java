@@ -15,6 +15,10 @@ public class TheIndexVO {
      */
     private double RSI;
 
+    /**
+     * 威廉超买超卖指标
+     */
+    private double WM;
 
     public double getBias() {
         return bias;
@@ -30,5 +34,13 @@ public class TheIndexVO {
 
     public void setRSI(double RSI) {
         this.RSI = RSI;
+    }
+
+    public double getWM() {
+        return WM;
+    }
+
+    public void setWM(double WM) {
+        this.WM = WM;
     }
 }
