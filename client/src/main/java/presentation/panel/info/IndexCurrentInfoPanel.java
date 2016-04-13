@@ -14,7 +14,6 @@ import java.awt.event.ComponentEvent;
 import java.io.IOException;
 
 import static presentation.panel.info.LocationValue.*;
-import static presentation.panel.info.LocationValue.BUTTON_HEIGHT;
 
 /**
  * Created by 宋益明 on 16-3-31.
@@ -109,7 +108,7 @@ public class IndexCurrentInfoPanel extends UltraPanel {
      * 创建组件
      */
     private void createUIComponents() {
-        namePanel = new IndexNamePanel("沪深300", "1B0300");
+        namePanel = new IndexNamePanel("沪深300", index.getName());
         namePanel.setBounds(0, 0, LABEL_WIDTH, 100);
 
         {
@@ -176,7 +175,7 @@ public class IndexCurrentInfoPanel extends UltraPanel {
 
         leftPanel.setBounds(NAME_PANEL_WIDTH, 0,
                 (INFO_PANEL_WIDTH - NAME_PANEL_WIDTH) / 2, INFO_PANEL_HEIGHT);
-        labelPrice.setBounds(MARGIN, MARGIN * 2,
+        labelPrice.setBounds(0, MARGIN * 2,
                 labelPrice.getPreferredSize().width, labelPrice.getPreferredSize().height);
         labelIncreaseIcon.setBounds(labelPrice.getX() + labelPrice.getWidth(), MARGIN * 2,
                 ImageLoader.increase.getIconWidth(), ImageLoader.increase.getIconHeight());
@@ -212,9 +211,13 @@ public class IndexCurrentInfoPanel extends UltraPanel {
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
-        labelIncrease.setText(index.getIncrease_decreaseNum()[index.getDate().length - 1]
-                + "(" + ((double) Math.round(index.getIncrease_decreaseRate()[index.getDate().length - 1]
-                * 100 * 100)) / 100 + "%" + ")");
+        String increaseNum =
+                String.format("%.2f", index.getIncrease_decreaseNum()[index.getDate().length - 1]);
+        double increasePer = ((double) Math.round(index.getIncrease_decreaseRate()[index.getDate().length - 1]
+                * 100 * 100)) / 100;
+
+        labelIncrease.setText(increaseNum
+                + "(" + increasePer + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
@@ -228,10 +231,10 @@ public class IndexCurrentInfoPanel extends UltraPanel {
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");
 
-        if (index.getIncrease_decreaseNum()[0] > 0) {
+        if (increasePer > 0) {
             setTextColor(Color.red);
             setTextColor(Color.green);
-        } else if (index.getIncrease_decreaseNum()[0] < 0){
+        } else if (increasePer < 0){
             setTextColor(Color.green);
             labelIncreaseIcon.setIcon(ImageLoader.decrease);
         } else {
@@ -274,7 +277,7 @@ class IndexNamePanel extends JPanel {
         labelID = new JLabel(id);
 
         setLayout(null);
-        setBackground(new Color(140, 175, 146, 58));
+        setBackground(Color.lightGray);
         setBorder(new BevelBorder(BevelBorder.RAISED));
 
         createUIComponents();
@@ -294,7 +297,8 @@ class IndexNamePanel extends JPanel {
             public void componentResized(ComponentEvent e) {
                 labelName.setBounds(LocationValue.MARGIN * 2, LocationValue.MARGIN,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
-                labelID.setBounds(labelName.getX(), LocationValue.MARGIN + LocationValue.PADDING,
+                labelID.setBounds(labelName.getX() + LocationValue.MARGIN,
+                        LocationValue.MARGIN + LocationValue.PADDING,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
 
                 repaint();

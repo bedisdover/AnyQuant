@@ -26,8 +26,8 @@ import java.util.Calendar;
  * <p>
  * 大盘指数面板
  * 包含简要信息（中文名称                        今开     最高     成交量)
- *           (  ID        涨跌额（涨跌幅）      昨收     最低     成交额)
- *    及k-线图
+ * (  ID        涨跌额（涨跌幅）      昨收     最低     成交额)
+ * 及k-线图
  */
 public class MarketIndexPanel extends OperationPanel {
 
@@ -74,7 +74,8 @@ public class MarketIndexPanel extends OperationPanel {
     }
 
     @Override
-    protected void createUIComponents() {}
+    protected void createUIComponents() {
+    }
 
     protected void createUIComponents(String type) {
         String startTime = null;
@@ -82,20 +83,20 @@ public class MarketIndexPanel extends OperationPanel {
             currentInfoPanel = new IndexCurrentInfoPanel();
 
             IndexVO index = new ShowIndexData().getLatestIndexData();
-            String date[]=index.getDate();
+            String date[] = index.getDate();
             //now 2016-04-12 latest 2016-04-11
 
             SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.DATE,-1);
-            String yesterday=df.format(c.getTime()).substring(0,10);//2016-04-11
-            c.add(Calendar.DATE,-366);
-            String yesterday_365=df.format(c.getTime()).substring(0,10);//2015-04-11
+            c.add(Calendar.DATE, -1);
+            String yesterday = df.format(c.getTime()).substring(0, 10);//2016-04-11
+            c.add(Calendar.DATE, -366);
+            String yesterday_365 = df.format(c.getTime()).substring(0, 10);//2015-04-11
             startTime = yesterday_365;
 
-            String chooseD[]={yesterday_365,yesterday};
+            String chooseD[] = {yesterday_365, yesterday};
 
             if (type.equals("kLine")) {
                 chartPanel = new JPanel();
@@ -111,15 +112,15 @@ public class MarketIndexPanel extends OperationPanel {
         }
 
         btnData = new UltraButton("详细数据");
-        confirm=new UltraButton("生成");
+        confirm = new UltraButton("生成");
 
         add(currentInfoPanel);
         add(chartPanel);
         add(btnData);
         add(confirm);
 
-        dcStart=new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
-        dcEnd=new DateChooser(this, MARGIN*10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        dcStart = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
+        dcEnd = new DateChooser(this, MARGIN * 10, MARGIN, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
     }
 
     /**
@@ -142,14 +143,16 @@ public class MarketIndexPanel extends OperationPanel {
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String start=dcStart.getTime();
-                String startDate=start.substring(0,4)+"-"+start.substring(4,6)+"-"+start.substring(6,8);
-                String end=dcEnd.getTime();
-                String endDate=end.substring(0,4)+"-"+end.substring(4,6)+"-"+end.substring(6,8);
-                String chooseDate[]={startDate,endDate};
+                String start = dcStart.getTime();
+                String startDate = start.substring(0, 4) + "-" + start.substring(4, 6) + "-" + start.substring(6, 8);
+                String end = dcEnd.getTime();
+                String endDate = end.substring(0, 4) + "-" + end.substring(4, 6) + "-" + end.substring(6, 8);
+                String chooseDate[] = {startDate, endDate};
+                //         System.out.println(startDate+"你是谁哦");
+                //         System.out.println(endDate+"你又是谁哦");
                 try {
                     remove(chartPanel);
-                    chartPanel =new MarketIndexDetailPanel(chooseDate);
+                    chartPanel = new MarketIndexDetailPanel(chooseDate);
                     add(chartPanel);
 
                     update();
@@ -168,7 +171,7 @@ public class MarketIndexPanel extends OperationPanel {
 
         btnData.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH, MARGIN,
                 BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
-        confirm.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH*3, MARGIN,
+        confirm.setBounds(PANEL_WIDTH - MARGIN * 2 - BUTTON_WIDTH * 3, MARGIN,
                 BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT);
         currentInfoPanel.setBounds(MARGIN, MARGIN + BUTTON_HEIGHT + PADDING / 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT + PADDING);
@@ -208,12 +211,12 @@ public class MarketIndexPanel extends OperationPanel {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         JFrame jFrame = new JFrame();
-        JPanel panel=new JPanel();
-        DateChooser dc=new DateChooser(panel,100,400);
+        JPanel panel = new JPanel();
+        DateChooser dc = new DateChooser(panel, 100, 400);
         dc.setTime("2015-10-08");
-       // jFrame.add(new MarketIndexPanel("kLine"));
+        // jFrame.add(new MarketIndexPanel("kLine"));
         jFrame.add(panel);
         jFrame.setBounds(50, 50, 1024, 768);
         jFrame.setVisible(true);

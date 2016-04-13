@@ -31,7 +31,7 @@ public class MarketIndexDetailPanel extends JPanel {
     String chooseDate[];
 
     public MarketIndexDetailPanel(String chooseDateInit[]) throws IOException, ParseException {
-        chooseDate=chooseDateInit;
+        chooseDate = chooseDateInit;
         this.setLayout(new BorderLayout());
         init();
         initComponents();
@@ -41,25 +41,29 @@ public class MarketIndexDetailPanel extends JPanel {
         IndexVO index = new ShowIndexData().getLatestIndexData();
         String nameVolume[] = {"日期", "成交量"};
         long volume[] = index.getVolume();
-        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume,chooseDate).getChartPanel();
+        double volumeDouble[] = new double[volume.length];
+        for (int i = 0; i < volume.length; i++) {
+            volumeDouble[i] = (double) volume[i];
+        }
+        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volumeDouble, chooseDate).getChartPanel();
         String nameHigh[] = {"日期", "最高价"};
         double high[] = index.getHigh();
-        lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high,chooseDate).getChartPanel();
+        lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high, chooseDate).getChartPanel();
         String nameLow[] = {"日期", "最低价"};
         double low[] = index.getLow();
-        lineChartMarketIndexLow = new LineChartMarketIndex(nameLow, low,chooseDate).getChartPanel();
+        lineChartMarketIndexLow = new LineChartMarketIndex(nameLow, low, chooseDate).getChartPanel();
         String nameOpen[] = {"日期", "开盘价"};
         double open[] = index.getOpen();
-        lineChartMarketIndexOpen = new LineChartMarketIndex(nameOpen, open,chooseDate).getChartPanel();
+        lineChartMarketIndexOpen = new LineChartMarketIndex(nameOpen, open, chooseDate).getChartPanel();
         String nameClose[] = {"日期", "收盘价"};
         double close[] = index.getClose();
-        lineChartMarketIndexClose = new LineChartMarketIndex(nameClose, close,chooseDate).getChartPanel();
+        lineChartMarketIndexClose = new LineChartMarketIndex(nameClose, close, chooseDate).getChartPanel();
         String namePrice[] = {"日期", "最新价"};
         double price[] = index.getAdj_price();
-        lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price,chooseDate).getChartPanel();
+        lineChartMarketIndexADJPrice = new LineChartMarketIndex(namePrice, price, chooseDate).getChartPanel();
 
         tabbedPane = new JTabbedPane();
-        ImageIcon image1= new ImageIcon("client/src/main/resources/images/volume.png");
+        ImageIcon image1 = new ImageIcon("client/src/main/resources/images/volume.png");
         ImageIcon image2 = new ImageIcon("client/src/main/resources/images/high.png");
         ImageIcon image3 = new ImageIcon("client/src/main/resources/images/low.png");
         ImageIcon image4 = new ImageIcon("client/src/main/resources/images/price.png");
