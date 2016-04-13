@@ -182,13 +182,13 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private void createSouthPanel() {
         southPanel = new UltraPanel();
-        southPanel.setLayout(null);
+        southPanel.setLayout(new BorderLayout());
 
         tablePanel = createTablePanel();
         optionsPanel = createOptionsPanel();
 
-        southPanel.add(tablePanel);
-        southPanel.add(optionsPanel);
+        southPanel.add(tablePanel, BorderLayout.CENTER);
+        southPanel.add(optionsPanel, BorderLayout.EAST);
 
         add(southPanel);
     }
@@ -226,7 +226,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 
         {
             JScrollPane scrollPane = new UltraScrollPane(table);
-            scrollPane.setBounds(0, BUTTON_HEIGHT, PANEL_HEIGHT - MARGIN * 3 - BUTTON_HEIGHT * 2,
+            scrollPane.setBounds(0, BUTTON_HEIGHT, PANEL_HEIGHT,
                     table.getColumnModel().getTotalColumnWidth());
             tablePanel.add(scrollPane);
         }
@@ -317,10 +317,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                 BUTTON_HEIGHT + PADDING);
         southPanel.setBounds(MARGIN, centerPanel.getY() + centerPanel.getHeight(),
                 PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - southPanel.getY() - MARGIN * 2);
-        tablePanel.setBounds(0, 0, PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2,
-                southPanel.getHeight());
-        optionsPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2, 0,
-                BUTTON_WIDTH, southPanel.getHeight());
+//        tablePanel.setBounds(0, 0, PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2,
+//                southPanel.getHeight());
+//        optionsPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2, 0,
+//                BUTTON_WIDTH, southPanel.getHeight());
 
         revalidate();
         repaint();
@@ -404,15 +404,13 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         new Thread() {
             @Override
             public void run() {
-                super.run();
-
-//                try {
-//                    while (true) {
-//                        Thread.sleep(1000);
-//                        repaint();
-//                    }
-//                } catch (Exception e) {
-//                }
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        repaint();
+                    }
+                } catch (Exception e) {
+                }
             }
         }.start();
     }
@@ -420,7 +418,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         table = createSelectTable();
-//        table.setModel(new DefaultTableModel(data, columns));
         repaint();
     }
 }

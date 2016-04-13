@@ -2,10 +2,12 @@ package presentation.panel.info;
 
 import data.GetStockData;
 import po.StockPO;
+import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
+import presentation.util.DateChooser;
 import presentation.util.Table;
 
 import javax.swing.*;
@@ -34,6 +36,16 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 股票对象
      */
     private StockPO stock;
+
+    /**
+     * 开始日期、结束日期
+     */
+    private DateChooser dcStart, dcEnd;
+
+    /**
+     * 确认日期选择，生成对应折线图
+     */
+    private UltraButton confirm;
 
     /**
      * 关注按钮
@@ -150,13 +162,23 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
         {
             UltraPanel leftPanel = new UltraPanel();
-            leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            leftPanel.setLayout(null);
 
+            dcStart = new DateChooser(northPanel, MARGIN,
+                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
             JLabel labelTo = new JLabel("至");
+            labelTo.setBounds(BUTTON_WIDTH + MARGIN * 3, MARGIN / 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
+            dcEnd = new DateChooser(northPanel, labelTo.getX() + BUTTON_HEIGHT + MARGIN,
+                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
+            confirm = new UltraButton("生成");
+
+            confirm.setBounds(labelTo.getX() + BUTTON_WIDTH + PADDING * 4, MARGIN / 2,
+                    BUTTON_WIDTH, BUTTON_HEIGHT);
 
             leftPanel.add(labelTo);
+            leftPanel.add(confirm);
 
-            northPanel.add(leftPanel, BorderLayout.WEST);
+            northPanel.add(leftPanel, BorderLayout.CENTER);
         }
 
         {
@@ -247,7 +269,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //        labelK_Line.setIcon(ImageLoader.kLine);
 //        labelBrokenLien.setIcon(ImageLoader.brokenLine);
 
-        southPanel.setPreferredSize(new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT));
+        southPanel.setPreferredSize(
+                new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT + MARGIN * 2));
 
         southPanel.add(labelK_Line);
         southPanel.add(labelBrokenLien);
