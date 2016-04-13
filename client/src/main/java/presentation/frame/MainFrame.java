@@ -123,6 +123,7 @@ public final class MainFrame extends JFrame {
                     operationPanel.setBounds(MENU_WIDTH, 0,
                             frame.getWidth() - MENU_WIDTH, frame.getHeight());
                 }
+                menuPanel.setBounds(0, 0, MENU_WIDTH, frame.getHeight());
 
                 notifyPanel();
             }

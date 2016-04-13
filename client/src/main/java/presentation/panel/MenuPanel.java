@@ -189,6 +189,7 @@ public class MenuPanel extends JPanel {
     private void init() {
         this.setLayout(null);
         this.setOpaque(false);
+        this.setBounds(0, 0, MainFrame.MENU_WIDTH, getMainFrame().getHeight());
 
         loadPortrait();
         netConnect();
@@ -395,7 +396,6 @@ public class MenuPanel extends JPanel {
 
         revalidate();
         repaint();
-        updateUI();
     }
 
     /**
@@ -685,7 +685,7 @@ public class MenuPanel extends JPanel {
 
         //绘制菜单栏
         graphics2D.setColor(Color.gray);
-        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        graphics2D.fillRect(0, 0, getWidth(), MainFrame.getMainFrame().getHeight());
         //绘制头像
         graphics2D.fillOval(MARGIN, MARGIN, PORTRAIT_DIAMETER, PORTRAIT_DIAMETER);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));

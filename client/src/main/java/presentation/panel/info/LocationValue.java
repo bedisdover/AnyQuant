@@ -67,7 +67,7 @@ public class LocationValue {
         TEXT_FIELD_WIDTH = BUTTON_WIDTH + PADDING * 2;
 
         INFO_PANEL_HEIGHT = MARGIN * 5;
-        NAME_PANEL_WIDTH = MARGIN * 10;
+        NAME_PANEL_WIDTH = MARGIN * 8;
     }
 
     /**

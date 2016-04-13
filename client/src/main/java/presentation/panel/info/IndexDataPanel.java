@@ -8,7 +8,6 @@ import presentation.frame.MainFrame;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
-import presentation.util.ImageLoader;
 import presentation.util.Table;
 import vo.IndexVO;
 
@@ -33,20 +32,36 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private IndexVO index;
 
     /**
-     * 从北到南的三个Panel
+     * 北部面板，承载日期选择框、关注按钮
      */
-    private UltraPanel northPanel, centerPanel, southPanel;
+    private UltraPanel northPanel;
 
     /**
-     * 表格面板、选项面板
+     * 开始日期、结束日期
      */
-    private UltraPanel tablePanel, optionsPanel;
+    private DateChooser dcStart, dcEnd;
+
+
+    /**
+     * 确认日期选择，生成对应折线图
+     */
+    private UltraButton confirm;
+
+    /**
+     * 关注按钮
+     */
+    private JButton follow;
+
+    /**
+     * 表格选项面板
+     */
+    private UltraPanel columnsPanel;
 
     /**
      * 复选框，对应表格中显示的列
-     * "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"
+     * "最高", "最低", "开盘价", "收盘价", "成交量", "市净率", "市盈率", "后复权价", "周转率"
      */
-    private JCheckBox high, low, open, close, volume, adjPrice;
+    private JCheckBox high, low, open, close, volume, pb, pe_ttm, adjPrice, turnOver;
 
     /**
      * 表格的列名，包含日期及上述复选框中选择显示的列
@@ -79,17 +94,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private Table table;
 
     /**
-     * 开始日期、结束日期
-     */
-    private DateChooser dcStart, dcEnd;
-
-    /**
-     * 确认日期选择，生成对应折线图
-     */
-    private UltraButton confirm;
-
-    /**
      * K线图、折线图、综合分析
+     * TODO BUTTON
      */
     private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
@@ -128,7 +134,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                     index.getLow()[i],
                     index.getOpen()[i],
                     index.getClose()[i],
-                    index.getVolume()[i],
+                    index.getVolume()[i] / 1000 + "万",
                     index.getAdj_price()[i],
             };
         }
@@ -172,25 +178,92 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 创建中心面板，包含当前信息
      */
     private void createCenterPanel() {
-        centerPanel = new IndexCurrentInfoPanel();
+//        centerPanel = new UltraPanel();
+//        centerPanel.setLayout(new BorderLayout());
+//        centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH,
+//                PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2));
+        {
+            columnsPanel = new UltraPanel();
+            columnsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            columnsPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
+                    BUTTON_HEIGHT));
 
-        add(centerPanel);
+            high = new JCheckBox("最高价");
+            low = new JCheckBox("最低价");
+            open = new JCheckBox("开盘价");
+            close = new JCheckBox("收盘价");
+            volume = new JCheckBox("成交量");
+            pb = new JCheckBox("市净率");
+            pe_ttm = new JCheckBox("市盈率");
+            adjPrice = new JCheckBox("后复权价");
+            turnOver = new JCheckBox("转手率");
+
+            columnsPanel.add(high);
+            columnsPanel.add(low);
+            columnsPanel.add(open);
+            columnsPanel.add(close);
+            columnsPanel.add(volume);
+            columnsPanel.add(pb);
+            columnsPanel.add(pe_ttm);
+            columnsPanel.add(adjPrice);
+            columnsPanel.add(turnOver);
+
+//            columnsPanel.setPreferredSize(new Dimension(700, 100));
+//            centerPanel.add(columnsPanel, BorderLayout.NORTH);
+            add(columnsPanel);
+        }
+
+        {
+//            UltraPanel southPanel = new UltraPanel();
+//            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+//            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
+//                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
+
+            scrollPane = new UltraScrollPane(table);
+//            scrollPane.setPreferredSize(new Dimension(700, 400));
+//            southPanel.add(scrollPane);
+
+//            centerPanel.setPreferredSize(new Dimension(700, 500));
+//            centerPanel.add(scrollPane, BorderLayout.SOUTH);
+//            centerPanel.add(southPanel, BorderLayout.SOUTH);
+        }
+
+//        centerPanel.setBounds(0, BUTTON_HEIGHT + MARGIN,
+//                PANEL_WIDTH, PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2);
+//        add(centerPanel);
+        add(scrollPane);
     }
 
     /**
      * 创建南部面板，包含图表
      */
     private void createSouthPanel() {
-        southPanel = new UltraPanel();
-        southPanel.setLayout(null);
+//        southPanel = new UltraPanel();
+//        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
-        tablePanel = createTablePanel();
-        optionsPanel = createOptionsPanel();
+        labelK_Line = new JButton("K 线图");
+        labelBrokenLien = new JButton("折线图");
+        labelAnalyze = new JButton("综合分析");
+//        labelK_Line.setPreferredSize(new Dimension(100, 100));
+//        labelBrokenLien.setPreferredSize(new Dimension(100, 100));
 
-        southPanel.add(tablePanel);
-        southPanel.add(optionsPanel);
+//        labelK_Line.setIcon(ImageLoader.kLine);
+//        labelBrokenLien.setIcon(ImageLoader.brokenLine);
 
-        add(southPanel);
+//        southPanel.setPreferredSize(
+//                new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT + MARGIN * 2));
+
+//        southPanel.add(labelK_Line);
+//        southPanel.add(labelBrokenLien);
+//        southPanel.add(labelAnalyze);
+
+//        southPanel.setBounds(0, PANEL_HEIGHT - BUTTON_HEIGHT - MARGIN,
+//                PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+//        add(southPanel);
+        add(labelAnalyze);
+        add(labelK_Line);
+        add(labelBrokenLien);
     }
 
     /**
@@ -225,8 +298,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         }
 
         {
-            JScrollPane scrollPane = new UltraScrollPane(table);
-            scrollPane.setBounds(0, BUTTON_HEIGHT, PANEL_HEIGHT - MARGIN * 3 - BUTTON_HEIGHT * 2,
+            scrollPane = new UltraScrollPane(table);
+            scrollPane.setBounds(0, BUTTON_HEIGHT, PANEL_HEIGHT,
                     table.getColumnModel().getTotalColumnWidth());
             tablePanel.add(scrollPane);
         }
@@ -313,14 +386,17 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private void assignment() {
         northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
-        centerPanel.setBounds(MARGIN, northPanel.getHeight(), PANEL_WIDTH - MARGIN * 2,
-                BUTTON_HEIGHT + PADDING);
-        southPanel.setBounds(MARGIN, centerPanel.getY() + centerPanel.getHeight(),
-                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - southPanel.getY() - MARGIN * 2);
-        tablePanel.setBounds(0, 0, PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2,
-                southPanel.getHeight());
-        optionsPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2, 0,
-                BUTTON_WIDTH, southPanel.getHeight());
+        columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
+                PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
+        scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
+                table.getColumnModel().getTotalColumnWidth(),
+                PANEL_HEIGHT - (columnsPanel.getY() + columnsPanel.getHeight()) - PADDING);
+        labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+        labelBrokenLien.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_HEIGHT + PADDING,
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+        labelAnalyze.setBounds(labelK_Line.getX(), labelBrokenLien.getY() + BUTTON_HEIGHT + PADDING,
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
 
         revalidate();
         repaint();
@@ -360,6 +436,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             columns[i] = allColumns[columnSelect.get(i)];
         }
         for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[columnSelect.size()];
             for (int j = 0; j < columnSelect.size(); j++) {
                 data[i][j] = allData[i][columnSelect.get(j)];
             }
@@ -404,23 +481,23 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         new Thread() {
             @Override
             public void run() {
-                super.run();
-
-//                try {
-//                    while (true) {
-//                        Thread.sleep(1000);
-//                        repaint();
-//                    }
-//                } catch (Exception e) {
-//                }
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        repaint();
+                    }
+                } catch (Exception e) {
+                }
             }
         }.start();
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+
         table = createSelectTable();
-//        table.setModel(new DefaultTableModel(data, columns));
+//        scrollPane.add(table);
+
         repaint();
     }
 }

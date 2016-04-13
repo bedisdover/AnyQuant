@@ -2,18 +2,17 @@ package presentation.panel.info;
 
 import data.GetStockData;
 import po.StockPO;
+import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.panel.operation.OperationPanel;
+import presentation.util.DateChooser;
 import presentation.util.Table;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +35,30 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
     private StockPO stock;
 
     /**
+     * 北部面板，承载日期选择框、关注按钮
+     */
+    private UltraPanel northPanel;
+
+    /**
+     * 开始日期、结束日期
+     */
+    private DateChooser dcStart, dcEnd;
+
+
+    /**
+     * 确认日期选择，生成对应折线图
+     */
+    private UltraButton confirm;
+
+    /**
      * 关注按钮
      */
     private JButton follow;
+
+    /**
+     * 表格选项面板
+     */
+    private UltraPanel columnsPanel;
 
     /**
      * 复选框，对应表格中显示的列
@@ -121,7 +141,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
                     stock.getLow()[i],
                     stock.getOpen()[i],
                     stock.getClose()[i],
-                    stock.getVolume()[i],
+                    stock.getVolume()[i] / 1000 + "万",
                     stock.getPb()[i],
                     stock.getPe_ttm()[i],
                     stock.getAdj_price()[i],
@@ -145,18 +165,28 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 创建北部面板，包含日期选择框及关注按钮
      */
     private void createNorthPanel() {
-        UltraPanel northPanel = new UltraPanel();
+        northPanel = new UltraPanel();
         northPanel.setLayout(new BorderLayout());
 
         {
             UltraPanel leftPanel = new UltraPanel();
-            leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            leftPanel.setLayout(null);
 
+            dcStart = new DateChooser(northPanel, MARGIN,
+                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
             JLabel labelTo = new JLabel("至");
+            labelTo.setBounds(BUTTON_WIDTH + MARGIN * 3, MARGIN / 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
+            dcEnd = new DateChooser(northPanel, labelTo.getX() + BUTTON_HEIGHT + MARGIN,
+                    MARGIN / 2, BUTTON_WIDTH + MARGIN * 2, BUTTON_HEIGHT);
+            confirm = new UltraButton("生成");
+
+            confirm.setBounds(labelTo.getX() + BUTTON_WIDTH + PADDING * 4, MARGIN / 2,
+                    BUTTON_WIDTH, BUTTON_HEIGHT);
 
             leftPanel.add(labelTo);
+            leftPanel.add(confirm);
 
-            northPanel.add(leftPanel, BorderLayout.WEST);
+            northPanel.add(leftPanel, BorderLayout.CENTER);
         }
 
         {
@@ -168,7 +198,6 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             northPanel.add(rightPanel, BorderLayout.EAST);
         }
 
-        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
         add(northPanel);
     }
 
@@ -176,12 +205,12 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 创建中心面板，包含表格
      */
     private void createCenterPanel() {
-        UltraPanel centerPanel = new UltraPanel();
-        centerPanel.setLayout(new BorderLayout());
-        centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH,
-                PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2));
+//        centerPanel = new UltraPanel();
+//        centerPanel.setLayout(new BorderLayout());
+//        centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH,
+//                PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2));
         {
-            UltraPanel columnsPanel = new UltraPanel();
+            columnsPanel = new UltraPanel();
             columnsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
             columnsPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
                     BUTTON_HEIGHT));
@@ -207,36 +236,38 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             columnsPanel.add(turnOver);
 
 //            columnsPanel.setPreferredSize(new Dimension(700, 100));
-            centerPanel.add(columnsPanel, BorderLayout.NORTH);
+//            centerPanel.add(columnsPanel, BorderLayout.NORTH);
+            add(columnsPanel);
         }
 
         {
-            UltraPanel southPanel = new UltraPanel();
-            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
-                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
+//            UltraPanel southPanel = new UltraPanel();
+//            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+//            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
+//                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
 
-            JScrollPane scrollPane = new UltraScrollPane(table);
+            scrollPane = new UltraScrollPane(table);
 //            scrollPane.setPreferredSize(new Dimension(700, 400));
-            southPanel.add(scrollPane);
+//            southPanel.add(scrollPane);
 
 //            centerPanel.setPreferredSize(new Dimension(700, 500));
 //            centerPanel.add(scrollPane, BorderLayout.SOUTH);
-            centerPanel.add(southPanel, BorderLayout.SOUTH);
+//            centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
 
-        centerPanel.setBounds(0, BUTTON_HEIGHT + MARGIN,
-                PANEL_WIDTH, PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2);
-        add(centerPanel);
+//        centerPanel.setBounds(0, BUTTON_HEIGHT + MARGIN,
+//                PANEL_WIDTH, PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2);
+//        add(centerPanel);
+        add(scrollPane);
     }
 
     /**
      * 创建南部面板，包含图表类型选项
      */
     private void createSouthPanel() {
-        UltraPanel southPanel = new UltraPanel();
-        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
+//        southPanel = new UltraPanel();
+//        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+//        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
         labelK_Line = new JButton("K 线图");
         labelBrokenLien = new JButton("折线图");
@@ -247,21 +278,32 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //        labelK_Line.setIcon(ImageLoader.kLine);
 //        labelBrokenLien.setIcon(ImageLoader.brokenLine);
 
-        southPanel.setPreferredSize(new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT));
+//        southPanel.setPreferredSize(
+//                new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT + MARGIN * 2));
 
-        southPanel.add(labelK_Line);
-        southPanel.add(labelBrokenLien);
-        southPanel.add(labelAnalyze);
+//        southPanel.add(labelK_Line);
+//        southPanel.add(labelBrokenLien);
+//        southPanel.add(labelAnalyze);
 
-        southPanel.setBounds(0, PANEL_HEIGHT - BUTTON_HEIGHT - MARGIN,
-                PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
-        add(southPanel);
+//        southPanel.setBounds(0, PANEL_HEIGHT - BUTTON_HEIGHT - MARGIN,
+//                PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+//        add(southPanel);
+        add(labelAnalyze);
+        add(labelK_Line);
+        add(labelBrokenLien);
     }
 
     /**
      * 添加事件监听器
      */
     private void addListeners() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                assignment();
+            }
+        });
+
         labelK_Line.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -269,6 +311,27 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
                         new StockInfoPanel(DetailedInfoPanel.this, stock));
             }
         });
+    }
+
+    /**
+     * 界面大小发生变化时，对组件重新赋值
+     */
+    private void assignment() {
+        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
+                PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
+        scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
+                table.getColumnModel().getTotalColumnWidth(),
+                PANEL_HEIGHT - (columnsPanel.getY() + columnsPanel.getHeight()) - PADDING);
+        labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+        labelBrokenLien.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_HEIGHT + PADDING,
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+        labelAnalyze.setBounds(labelK_Line.getX(), labelBrokenLien.getY() + BUTTON_HEIGHT + PADDING,
+                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -311,10 +374,12 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             columns[i] = allColumns[columnSelect.get(i)];
         }
         for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[columnSelect.size()];
             for (int j = 0; j < columnSelect.size(); j++) {
                 data[i][j] = allData[i][columnSelect.get(j)];
             }
         }
+
         return new Table(data, columns);
     }
 
@@ -378,8 +443,11 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        table = createSelectTable();
-//        table.setModel(new DefaultTableModel(data, columns));
+        remove(scrollPane);
+        scrollPane = new JScrollPane(createSelectTable());
+
+        revalidate();
         repaint();
+        updateUI();
     }
 }

@@ -212,8 +212,9 @@ public class IndexCurrentInfoPanel extends UltraPanel {
      * 名称和涨跌额（涨跌幅）无需设置中文文本，需设置提示文本
      */
     private void setText() {
-        labelIncrease.setText(index.getIncrease_decreaseNum()[0]
-                + "(" + index.getIncrease_decreaseRate()[0] + ")");
+        labelIncrease.setText(index.getIncrease_decreaseNum()[index.getDate().length - 1]
+                + "(" + ((double) Math.round(index.getIncrease_decreaseRate()[index.getDate().length - 1]
+                * 100 * 100)) / 100 + "%" + ")");
 
         labelPrice.setToolTipText("当前股价");
         labelIncrease.setToolTipText("涨跌额（涨跌幅）");

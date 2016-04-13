@@ -32,7 +32,7 @@ public class AnyQuant extends Application {
         }
 
         //设置全局字体
-        initGlobalFontSetting(SystemConfig.getFontConfig().getFontInfo());
+//        initGlobalFontSetting(SystemConfig.getFontConfig().getFontInfo());
 
         JFrame mainFrame = MainFrame.getMainFrame();
         mainFrame.setVisible(true);
