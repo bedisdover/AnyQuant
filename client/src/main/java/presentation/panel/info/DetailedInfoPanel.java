@@ -92,7 +92,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
     }
 
     protected void init() {
-        setLayout(new BorderLayout());
+        setLayout(null);
 
         try {
             stock = new GetStockData().getStockData_name(id);
@@ -147,7 +147,6 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
     private void createNorthPanel() {
         UltraPanel northPanel = new UltraPanel();
         northPanel.setLayout(new BorderLayout());
-        northPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
         {
             UltraPanel leftPanel = new UltraPanel();
@@ -169,7 +168,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             northPanel.add(rightPanel, BorderLayout.EAST);
         }
 
-        add(northPanel, BorderLayout.NORTH);
+        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        add(northPanel);
     }
 
     /**
@@ -225,7 +225,9 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
 
-        add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setBounds(0, BUTTON_HEIGHT + MARGIN,
+                PANEL_WIDTH, PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2);
+        add(centerPanel);
     }
 
     /**
@@ -251,7 +253,9 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
         southPanel.add(labelBrokenLien);
         southPanel.add(labelAnalyze);
 
-        add(southPanel, BorderLayout.SOUTH);
+        southPanel.setBounds(0, PANEL_HEIGHT - BUTTON_HEIGHT - MARGIN,
+                PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        add(southPanel);
     }
 
     /**
