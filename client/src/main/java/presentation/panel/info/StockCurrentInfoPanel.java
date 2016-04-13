@@ -324,7 +324,7 @@ class StockNamePanel extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                labelName.setBounds(LocationValue.PADDING * 2, LocationValue.MARGIN,
+                labelName.setBounds(LocationValue.PADDING, LocationValue.MARGIN,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
                 labelID.setBounds(labelName.getX(), LocationValue.MARGIN + LocationValue.PADDING,
                         LocationValue.BUTTON_WIDTH, LocationValue.BUTTON_HEIGHT);
