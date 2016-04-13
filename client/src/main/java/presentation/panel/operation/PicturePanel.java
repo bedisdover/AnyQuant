@@ -123,7 +123,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!searchInput.getText().equals("")) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
 
@@ -160,7 +162,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
         });
@@ -169,7 +173,9 @@ public class PicturePanel extends OperationPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    table.searchStock(searchInput.getText());
+                    table1.searchStock(searchInput.getText());
+                    table2.searchStock(searchInput.getText());
+                    table3.searchStock(searchInput.getText());
                 }
             }
         });
@@ -388,11 +394,8 @@ public class PicturePanel extends OperationPanel {
             centerPanel.setBackground(new Color(0, 0, 0, 0));
 
             labelIncrease = new JLabel("↓  涨幅榜");
-            table1 = table;
             labelDecrease = new JLabel("↓  跌幅榜");
-            table2 = table;
             labelTurnVolume = new JLabel("↓  成交量榜");
-            table3 = table;
 
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
@@ -402,8 +405,11 @@ public class PicturePanel extends OperationPanel {
                 //TODO 重新加载股票
                 sortStock = new SortStock();
                 scrollIncrease = createRankingList(sortStock.increase_sort());
+                table1 = table;
                 scrollDecrease = createRankingList(sortStock.decrease_sort());
+                table2 = table;
                 scrollTurnVolume = createRankingList(sortStock.volume_sort());
+                table3 = table;
             } catch (IOException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(PicturePanel.this, "请检查网络连接！");
