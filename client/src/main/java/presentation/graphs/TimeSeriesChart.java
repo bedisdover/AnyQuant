@@ -143,10 +143,10 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         return timeseriescollection;
     }
 
-    public static JPanel createDemoPanel(String stockName) {
-        JFreeChart jfreechart = createChart(createDataset(stockName));
-        return new ChartPanel(jfreechart);
-    }
+//    public static JPanel createDemoPanel(String stockName) {
+//        JFreeChart jfreechart = createChart(createDataset(stockName));
+//        return new ChartPanel(jfreechart);
+//    }
 
 
     public static void main(String args[]) {
@@ -169,7 +169,6 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         chartpanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = chartpanel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
-        System.out.println(chartEntity.toString());
         if (info[1].equals("series")) {
             int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
             TextTitle textTitle = this.jfreechart.getTitle();
