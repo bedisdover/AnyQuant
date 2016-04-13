@@ -2,6 +2,7 @@ package presentation.panel.operation;
 
 import bl.SelfSelectStock;
 import bl.SortStock;
+import blservice.SelfSelectStockService;
 import data.GetStockData;
 import org.jb2011.lnf.beautyeye.ch4_scroll.BEScrollBarUI;
 import po.StockID;
@@ -65,7 +66,6 @@ public class PicturePanel extends OperationPanel {
 
     private JPopupMenu popupMenu1;
     private JMenuItem menuItem1;
-    private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     private JMenuItem menuItem4;
     private MainFrame mainFrame;
@@ -80,15 +80,12 @@ public class PicturePanel extends OperationPanel {
         setLayout(null);
         popupMenu1 = new JPopupMenu();
         menuItem1 = new JMenuItem();
-        menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
         menuItem4 = new JMenuItem();
         menuItem1.setText("显示详细信息");
-        menuItem2.setText("显示增幅跌幅");
         menuItem3.setText("添加关注");
         menuItem4.setText("范围查询");
         popupMenu1.add(menuItem1);
-        popupMenu1.add(menuItem2);
         popupMenu1.add(menuItem3);
         popupMenu1.add(menuItem4);
     }
@@ -120,10 +117,27 @@ public class PicturePanel extends OperationPanel {
             }
         });
 
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("baga");
+                if(e.getButton()==MouseEvent.BUTTON3){
+                    if(e.getSource()==table1){
+                        System.out.println("table1");
+                    }
+                    if(e.getSource()==table2){
+                        System.out.println("table2");
+                    }
+                }
+
+//                super.mouseClicked(e);
+            }
+        });
+
         btnSearch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!searchInput.getText().equals("")) {
+                if (e.getButton()==MouseEvent.BUTTON1 && !searchInput.getText().equals("")) {
                     table1.searchStock(searchInput.getText());
                     table2.searchStock(searchInput.getText());
                     table3.searchStock(searchInput.getText());
@@ -215,28 +229,25 @@ public class PicturePanel extends OperationPanel {
                 showDetailedInfo();
             }
         });
-        menuItem2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-
-            }
-        });
         //添加关注
         menuItem3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                int line = table.getSelectedRow();
-                if (line != -1) {
-                    try {
-                        boolean exist = new SelfSelectStock().addStock((String) table.getValueAt(line, 2));
-                        if (exist) {
-                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "添加关注成功!");
-                        } else {
-                            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "提示",
-                                    "您添加的股票已在自选列表中", JOptionPane.WARNING_MESSAGE);
-                        }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                String stockId;
+                int line = table1.getSelectedRow();
+                if(line==-1){
+                    line = table2.getSelectedRow();
+                    if(line==-1){
+                        line = table3.getSelectedRow();
+                        stockId = (String) table3.getValueAt(line , 2);
+                    }else{
+                        stockId = (String) table2.getValueAt(line , 2);
                     }
+                }else{
+                    stockId = (String) table1.getValueAt(line, 2);
                 }
+
+                System.out.println(stockId);
+                follow(stockId);
             }
         });
         menuItem4.addActionListener(new ActionListener() {
@@ -252,18 +263,18 @@ public class PicturePanel extends OperationPanel {
     }
 
     private void showDetailedInfo() {
-        int seleceRow = table1.getSelectedRow();
+        int selectRow = table1.getSelectedRow();
         String name;
-        if(seleceRow==-1){
-            seleceRow = table2.getSelectedRow();
-            if(seleceRow==-1){
-                seleceRow = table3.getSelectedRow();
-                name = (String) table3.getValueAt(seleceRow, 2);
-            }else{
-                name = (String) table2.getValueAt(seleceRow, 2);
+        if (selectRow == -1) {
+            selectRow = table2.getSelectedRow();
+            if (selectRow == -1) {
+                selectRow = table3.getSelectedRow();
+                name = (String) table3.getValueAt(selectRow, 2);
+            } else {
+                name = (String) table2.getValueAt(selectRow, 2);
             }
-        }else {
-            name = (String) table1.getValueAt(seleceRow, 2);
+        } else {
+            name = (String) table1.getValueAt(selectRow, 2);
         }
 
         StockPO stock = null;
@@ -278,6 +289,26 @@ public class PicturePanel extends OperationPanel {
         }
 
         MainFrame.getMainFrame().addOperationPanel(new DetailedInfoPanel(name));
+    }
+
+    /**
+     * 关注股票
+     *
+     * @param name 股票名称(代码)
+     */
+    private void follow(String name) {
+        SelfSelectStockService selfSelect = new SelfSelectStock();
+
+        try {
+            boolean exist = selfSelect.addStock(name);
+            if (exist) {
+                JOptionPane.showMessageDialog(this, "添加成功!");
+            } else {
+                JOptionPane.showMessageDialog(this, "您添加的股票已在关注列表中");
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "呀!出错啦...");
+        }
     }
 
     @Override
@@ -305,7 +336,7 @@ public class PicturePanel extends OperationPanel {
         StockVO stock;
         for (int i = 0; i < stockList.size(); ) {
             stock = stockList.get(i);
-            int length = stock.getDate().length-1;
+            int length = stock.getDate().length - 1;
             data[i] = new Object[]{
                     ++i, stock.getName(), stock.getId(),
                     stock.getIncrease_decreaseNum()[length],
@@ -454,6 +485,19 @@ public class PicturePanel extends OperationPanel {
 
                     revalidate();
                     repaint();
+                }
+            });
+
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("wtf?");
+                    if(e.getButton()==MouseEvent.BUTTON3){
+                        System.out.println("fuck");
+                        if(e.getSource()==scrollIncrease){
+                            System.out.println("table1");
+                        }
+                    }
                 }
             });
 
