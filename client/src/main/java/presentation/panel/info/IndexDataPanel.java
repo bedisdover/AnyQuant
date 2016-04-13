@@ -48,11 +48,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private UltraButton confirm;
 
     /**
-     * 关注按钮
-     */
-    private JButton follow;
-
-    /**
      * 表格选项面板
      */
     private UltraPanel columnsPanel;
@@ -193,20 +188,14 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             open = new JCheckBox("开盘价");
             close = new JCheckBox("收盘价");
             volume = new JCheckBox("成交量");
-            pb = new JCheckBox("市净率");
-            pe_ttm = new JCheckBox("市盈率");
             adjPrice = new JCheckBox("后复权价");
-            turnOver = new JCheckBox("转手率");
 
             columnsPanel.add(high);
             columnsPanel.add(low);
             columnsPanel.add(open);
             columnsPanel.add(close);
             columnsPanel.add(volume);
-            columnsPanel.add(pb);
-            columnsPanel.add(pe_ttm);
             columnsPanel.add(adjPrice);
-            columnsPanel.add(turnOver);
 
 //            columnsPanel.setPreferredSize(new Dimension(700, 100));
 //            centerPanel.add(columnsPanel, BorderLayout.NORTH);
@@ -355,6 +344,11 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             public void componentResized(ComponentEvent e) {
                 assignment();
             }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                assignment();
+            }
         });
 
         confirm.addMouseListener(new MouseAdapter() {
@@ -379,6 +373,14 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                         new MarketIndexPanel("brokenLine"));
             }
         });
+
+        labelAnalyze.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(
+                        new AnalyzePanel(IndexDataPanel.this, index));
+            }
+        });
     }
 
     /**
@@ -389,7 +391,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
-                table.getColumnModel().getTotalColumnWidth(),
+                table.getColumnModel().getTotalColumnWidth() + 20,
                 PANEL_HEIGHT - (columnsPanel.getY() + columnsPanel.getHeight()) - PADDING);
         labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
                 BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
@@ -494,10 +496,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-
         table = createSelectTable();
-//        scrollPane.add(table);
 
-        repaint();
+        assignment();
     }
 }

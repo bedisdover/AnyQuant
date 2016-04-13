@@ -15,6 +15,8 @@ public class CalculateIndex {
         theIndexVO.setBias(calculateBias(stockVO));
         theIndexVO.setRSI(calculateRSI(stockVO));
         theIndexVO.setWM(calculateWM(stockVO));
+        theIndexVO.setAR(calculateAR(stockVO));
+        theIndexVO.setBR(calculateBR(stockVO));
         return theIndexVO;
     }
 
@@ -23,6 +25,8 @@ public class CalculateIndex {
         theIndexVO.setBias(calculateBias(indexVO));
         theIndexVO.setRSI(calculateRSI(indexVO));
         theIndexVO.setWM(calculateWM(indexVO));
+        theIndexVO.setAR(calculateAR(indexVO));
+        theIndexVO.setBR(calculateBR(indexVO));
         return theIndexVO;
     }
 
@@ -143,6 +147,110 @@ public class CalculateIndex {
         }
         double l = indexVO.getLow()[k]; //30天内的最低价
         double result = (h-close)/(h-l)*100;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateAR(StockVO stockVO){
+        int length = stockVO.getDate().length;
+        double[] opens = new double[20];
+        double[] highs = new double[20];
+        double[] lows = new double[20];
+        for(int i=length-1;i>=length-20;i--){
+            opens[length-1-i] = stockVO.getOpen()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            highs[length-1-i] = stockVO.getHigh()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            lows[length-1-i] = stockVO.getLow()[i];
+        }
+        double sum1 = 0;
+        for(int i=0;i<opens.length;i++){
+            sum1+=(highs[i]-opens[i]);
+        }
+        double sum2 = 0;
+        for(int i=0;i<opens.length;i++){
+            sum2+=(opens[i]-lows[i]);
+        }
+        double result = sum1/sum2;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateAR(IndexVO indexVO){
+        int length = indexVO.getDate().length;
+        double[] opens = new double[20];
+        double[] highs = new double[20];
+        double[] lows = new double[20];
+        for(int i=length-1;i>=length-20;i--){
+            opens[length-1-i] = indexVO.getOpen()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            highs[length-1-i] = indexVO.getHigh()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            lows[length-1-i] = indexVO.getLow()[i];
+        }
+        double sum1 = 0;
+        for(int i=0;i<opens.length;i++){
+            sum1+=(highs[i]-opens[i]);
+        }
+        double sum2 = 0;
+        for(int i=0;i<opens.length;i++){
+            sum2+=(opens[i]-lows[i]);
+        }
+        double result = sum1/sum2;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateBR(StockVO stockVO){
+        int length = stockVO.getDate().length;
+        double[] closes = new double[20];
+        double[] highs = new double[20];
+        double[] lows = new double[20];
+        for(int i=length-2;i>=length-21;i--){
+            closes[length-2-i] = stockVO.getClose()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            highs[length-1-i] = stockVO.getHigh()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            lows[length-1-i] = stockVO.getLow()[i];
+        }
+        double sum1 = 0;
+        for(int i=0;i<closes.length;i++){
+            sum1+=(highs[i]-closes[i]);
+        }
+        double sum2 = 0;
+        for(int i=0;i<closes.length;i++){
+            sum2+=(closes[i]-lows[i]);
+        }
+        double result = sum1/sum2;
+        return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateBR(IndexVO indexVO){
+        int length = indexVO.getDate().length;
+        double[] closes = new double[20];
+        double[] highs = new double[20];
+        double[] lows = new double[20];
+        for(int i=length-2;i>=length-21;i--){
+            closes[length-2-i] = indexVO.getClose()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            highs[length-1-i] = indexVO.getHigh()[i];
+        }
+        for(int i=length-1;i>=length-20;i--){
+            lows[length-1-i] = indexVO.getLow()[i];
+        }
+        double sum1 = 0;
+        for(int i=0;i<closes.length;i++){
+            sum1+=(highs[i]-closes[i]);
+        }
+        double sum2 = 0;
+        for(int i=0;i<closes.length;i++){
+            sum2+=(closes[i]-lows[i]);
+        }
+        double result = sum1/sum2;
         return ((double)Math.round(result*100))/100;
     }
 }
