@@ -11,6 +11,7 @@ import presentation.util.DateChooser;
 import presentation.util.Table;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -36,6 +37,16 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 股票对象
      */
     private StockPO stock;
+
+    /**
+     * 从北到南的三个Panel
+     */
+    private UltraPanel northPanel, centerPanel, southPanel;
+
+    /**
+     * 表格面板、选项面板
+     */
+    private UltraPanel tablePanel, optionsPanel;
 
     /**
      * 开始日期、结束日期
@@ -157,7 +168,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 创建北部面板，包含日期选择框及关注按钮
      */
     private void createNorthPanel() {
-        UltraPanel northPanel = new UltraPanel();
+        northPanel = new UltraPanel();
         northPanel.setLayout(new BorderLayout());
 
         {
@@ -198,7 +209,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 创建中心面板，包含表格
      */
     private void createCenterPanel() {
-        UltraPanel centerPanel = new UltraPanel();
+        centerPanel = new UltraPanel();
         centerPanel.setLayout(new BorderLayout());
         centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH,
                 PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2));
@@ -256,7 +267,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 创建南部面板，包含图表类型选项
      */
     private void createSouthPanel() {
-        UltraPanel southPanel = new UltraPanel();
+        southPanel = new UltraPanel();
         southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
@@ -334,10 +345,12 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             columns[i] = allColumns[columnSelect.get(i)];
         }
         for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[columnSelect.size()];
             for (int j = 0; j < columnSelect.size(); j++) {
                 data[i][j] = allData[i][columnSelect.get(j)];
             }
         }
+
         return new Table(data, columns);
     }
 
@@ -401,8 +414,13 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        remove(centerPanel);
         table = createSelectTable();
-//        table.setModel(new DefaultTableModel(data, columns));
+        table.setModel(new DefaultTableModel(data, columns));
+        add(centerPanel);
+
+        revalidate();
         repaint();
+        updateUI();
     }
 }
