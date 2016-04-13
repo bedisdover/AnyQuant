@@ -141,7 +141,8 @@ public class StockInfoPanel extends InfoPanel {
         currentInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
                 PANEL_WIDTH - MARGIN * 2, LocationValue.INFO_PANEL_HEIGHT);
         k_line.setBounds(MARGIN, currentInfo.getY() + currentInfo.getHeight() + PADDING / 4,
-                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - k_line.getY() - PADDING);
+                PANEL_WIDTH - MARGIN * 2,
+                PANEL_HEIGHT - (currentInfo.getY() + currentInfo.getHeight() + PADDING / 4) - PADDING);
 
         revalidate();
         repaint();

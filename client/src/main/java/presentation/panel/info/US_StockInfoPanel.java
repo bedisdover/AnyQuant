@@ -4,14 +4,10 @@ import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
 import data.currentdata.CurrentStockData;
 import po.current.CurrentStockPO;
-import presentation.UltraSwing.UltraPanel;
-import presentation.frame.MainFrame;
 import presentation.graphs.TimeSeriesChart;
 import presentation.panel.operation.OperationPanel;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -56,6 +52,7 @@ public class US_StockInfoPanel extends OperationPanel {
 
         init();
         createUIComponents();
+        addListeners();
     }
 
     /**
@@ -72,9 +69,6 @@ public class US_StockInfoPanel extends OperationPanel {
      * 创建组件
      */
     protected void createUIComponents() {
-//        createNorthPanel();
-//        createCenterPanel();
-//        createSouthPanel();
         btnFollow = new JButton("关注");
 
         try {
@@ -85,6 +79,7 @@ public class US_StockInfoPanel extends OperationPanel {
         }
 
         add(btnFollow);
+        add(currentInfo);
         add(timePanel);
     }
 
@@ -115,7 +110,8 @@ public class US_StockInfoPanel extends OperationPanel {
         currentInfo.setBounds(MARGIN, btnFollow.getY() + BUTTON_HEIGHT + PADDING / 4,
                 PANEL_WIDTH - MARGIN * 2, LocationValue.INFO_PANEL_HEIGHT);
         timePanel.setBounds(MARGIN, currentInfo.getY() + currentInfo.getHeight() + PADDING / 4,
-                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - timePanel.getY() - PADDING);
+                PANEL_WIDTH - MARGIN * 2,
+                PANEL_HEIGHT - (currentInfo.getY() + currentInfo.getHeight() + PADDING / 4) - MARGIN);
 
         revalidate();
         repaint();
