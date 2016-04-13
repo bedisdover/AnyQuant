@@ -20,6 +20,16 @@ public class TheIndexVO {
      */
     private double WM;
 
+    /**
+     * 人气指标
+     */
+    private double AR;
+
+    /**
+     * 意愿指标
+     */
+    private double BR;
+
     public double getBias() {
         return bias;
     }
@@ -42,5 +52,21 @@ public class TheIndexVO {
 
     public void setWM(double WM) {
         this.WM = WM;
+    }
+
+    public double getAR() {
+        return AR;
+    }
+
+    public void setAR(double AR) {
+        this.AR = AR;
+    }
+
+    public double getBR() {
+        return BR;
+    }
+
+    public void setBR(double BR) {
+        this.BR = BR;
     }
 }
