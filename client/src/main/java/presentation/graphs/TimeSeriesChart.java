@@ -37,7 +37,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
     static String result;
     //日期
     static String date;
-
+    static String[] s;
 
     public TimeSeriesChart(String stockName) {
         super("");
@@ -80,6 +80,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         }
         DateAxis dateaxis = (DateAxis) xyplot.getDomainAxis();
         dateaxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+        dateaxis.setPositiveArrowVisible(true);
         return jfreechart;
     }
 
@@ -92,7 +93,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         ReadData rd = new ReadData();
         String str = rd.parseJSON(rd.parseJSON(rd.parseJSON(result,"result"),"timeChart"),"p");
         str = str.substring(1,str.length()-1);
-        String[] s = str.split("\\{");
+        s = str.split("\\{");
         for(int i = 1;i<s.length;i++){
             s[i] = "{"+s[i];
             if(s[i].endsWith(",")){
@@ -115,7 +116,9 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             int hour,minute;
             hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
             minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
-            timeSeries1.add(new Minute(minute,hour,day,month,year),price);
+            if(hour!=12) {
+                timeSeries1.add(new Minute(minute, hour, day, month, year), price);
+            }
         }
 
         TimeSeries timeSeries2 = new TimeSeries("average price",
@@ -134,7 +137,9 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             int hour,minute;
             hour = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[0]);
             minute = Integer.parseInt(rd.parseJSON(s[i],"time").split(":")[1]);
-            timeSeries2.add(new Minute(minute,hour,day,month,year),avg);
+            if(hour!=12) {
+                timeSeries2.add(new Minute(minute, hour, day, month, year), avg);
+            }
         }
 
         TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
@@ -189,14 +194,16 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         chartpanel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = chartpanel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
-//        System.out.println(chartEntity.toString());
+        System.out.println(chartEntity.toString());
         if(info[1].equals("series")) {
             int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
-            System.out.println(item+"Item");
+//            System.out.println(item+"Item");
 //            String getData=data[item]+"";
 //            String getDate=date[item];
             TextTitle textTitle = this.jfreechart.getTitle();
-            String text="Y:"+item;
+            ReadData rd = new ReadData();
+            String value = rd.parseJSON(s[item],"price");
+            String text="price:"+value;
             textTitle.setText(text);
             textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         }
