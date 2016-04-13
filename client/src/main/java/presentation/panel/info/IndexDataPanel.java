@@ -385,7 +385,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 界面大小发生变化时，对组件位置重新赋值
      */
     private void assignment() {
-        northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
+        northPanel.setBounds(0, MARGIN, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
