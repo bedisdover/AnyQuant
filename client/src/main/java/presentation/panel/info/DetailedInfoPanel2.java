@@ -1,13 +1,12 @@
 package presentation.panel.info;
 
-import bl.ShowIndexData;
+import data.GetStockData;
+import po.StockPO;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
-import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.Table;
-import vo.IndexVO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,23 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 宋益明 on 16-3-28.
+ * Created by 宋益明 on 16-4-12.
  * <p>
- * 大盘指数数据面板
- * 用于展示大盘指数的详细数据
+ * 股票详细数据面板
  */
-public class IndexDataPanel extends OperationPanel implements ItemListener {
+public class DetailedInfoPanel2 extends OperationPanel implements ItemListener {
 
     /**
-     * 大盘指数值对象
+     * 股票ID
      */
-    private IndexVO index;
+    private String id;
+
+    /**
+     * 股票对象
+     */
+    private StockPO stock;
+
+    /**
+     * 关注按钮
+     */
+    private JButton follow;
 
     /**
      * 复选框，对应表格中显示的列
-     * "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"
+     * "最高", "最低", "开盘价", "收盘价", "成交量", "市净率", "市盈率", "后复权价", "周转率"
      */
-    private JCheckBox high, low, open, close, volume, adjPrice;
+    private JCheckBox high, low, open, close, volume, pb, pe_ttm, adjPrice, turnOver;
 
     /**
      * 表格的列名，包含日期及上述复选框中选择显示的列
@@ -74,7 +82,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
-    public IndexDataPanel() {
+    public DetailedInfoPanel2(String id) {
+        this.id = id;
 
         init();
         createUIComponents();
@@ -86,7 +95,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         setLayout(new BorderLayout());
 
         try {
-            index = new ShowIndexData().getLatestIndexData();
+            stock = new GetStockData().getStockData_name(id);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,19 +108,24 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 初始化表格数据
      */
     private Table createTable() {
-        allData = new Object[index.getDate().length][];
+        allData = new Object[stock.getDate().length][];
         allColumns = new String[]{
-                "日期", "最高", "开盘价", "收盘价", "最低", "成交量", "后复权价"};
+                "日期", "最高", "最低", "开盘价", "收盘价",
+                "成交量", "市净率", "市盈率", "后复权价", "周转率"
+        };
 
-        for (int i = 0; i < index.getDate().length; i++) {
+        for (int i = 0; i < stock.getDate().length; i++) {
             allData[i] = new Object[]{
-                    index.getDate()[i],
-                    index.getHigh()[i],
-                    index.getLow()[i],
-                    index.getOpen()[i],
-                    index.getClose()[i],
-                    index.getVolume()[i],
-                    index.getAdj_price()[i],
+                    stock.getDate()[i],
+                    stock.getHigh()[i],
+                    stock.getLow()[i],
+                    stock.getOpen()[i],
+                    stock.getClose()[i],
+                    stock.getVolume()[i],
+                    stock.getPb()[i],
+                    stock.getPe_ttm()[i],
+                    stock.getAdj_price()[i],
+                    stock.getTurnover()[i]
             };
         }
 
@@ -149,6 +163,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         {
             UltraPanel rightPanel = new UltraPanel();
             rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            follow = new JButton("关 注");
+            rightPanel.add(follow);
 
             northPanel.add(rightPanel, BorderLayout.EAST);
         }
@@ -175,15 +191,22 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             open = new JCheckBox("开盘价");
             close = new JCheckBox("收盘价");
             volume = new JCheckBox("成交量");
+            pb = new JCheckBox("市净率");
+            pe_ttm = new JCheckBox("市盈率");
             adjPrice = new JCheckBox("后复权价");
+            turnOver = new JCheckBox("转手率");
 
             columnsPanel.add(high);
             columnsPanel.add(low);
             columnsPanel.add(open);
             columnsPanel.add(close);
             columnsPanel.add(volume);
+            columnsPanel.add(pb);
+            columnsPanel.add(pe_ttm);
             columnsPanel.add(adjPrice);
+            columnsPanel.add(turnOver);
 
+//            columnsPanel.setPreferredSize(new Dimension(700, 100));
             centerPanel.add(columnsPanel, BorderLayout.NORTH);
         }
 
@@ -194,8 +217,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                     centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
 
             JScrollPane scrollPane = new UltraScrollPane(table);
+//            scrollPane.setPreferredSize(new Dimension(700, 400));
             southPanel.add(scrollPane);
 
+//            centerPanel.setPreferredSize(new Dimension(700, 500));
 //            centerPanel.add(scrollPane, BorderLayout.SOUTH);
             centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
@@ -237,15 +262,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new MarketIndexPanel("kLine"));
-            }
-        });
-
-        labelBrokenLien.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(
-                        new MarketIndexPanel("brokenLine"));
+                        new StockInfoPanel(DetailedInfoPanel2.this, stock));
             }
         });
     }
@@ -259,14 +276,20 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         open.setSelected(true);
         close.setSelected(true);
         volume.setSelected(true);
+        pb.setSelected(true);
+        pe_ttm.setSelected(true);
         adjPrice.setSelected(true);
+        turnOver.setSelected(true);
 
         high.addItemListener(this);
         low.addItemListener(this);
         open.addItemListener(this);
         close.addItemListener(this);
         volume.addItemListener(this);
+        pb.addItemListener(this);
+        pe_ttm.addItemListener(this);
         adjPrice.addItemListener(this);
+        turnOver.addItemListener(this);
     }
 
     /**
@@ -314,8 +337,17 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         if (volume.isSelected()) {
             temp.add(5);
         }
-        if (adjPrice.isSelected()) {
+        if (pb.isSelected()) {
             temp.add(6);
+        }
+        if (pe_ttm.isSelected()) {
+            temp.add(7);
+        }
+        if (adjPrice.isSelected()) {
+            temp.add(8);
+        }
+        if (turnOver.isSelected()) {
+            temp.add(9);
         }
 
         return temp;
@@ -335,8 +367,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                         Thread.sleep(1000);
                         repaint();
                     }
-                } catch (Exception e) {
-                }
+                } catch (Exception e) {}
             }
         }.start();
     }

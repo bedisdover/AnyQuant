@@ -1,6 +1,7 @@
 package presentation.panel;
 
 import presentation.frame.MainFrame;
+import presentation.panel.info.IndexDataPanel;
 import presentation.panel.info.US_StockInfoPanel;
 import presentation.panel.operation.HistoryPanel;
 import presentation.panel.operation.MarketIndexPanel;
@@ -326,16 +327,11 @@ public class MenuPanel extends JPanel {
 
         btnMarketIndex.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!indexOptions.isVisible()) {
-                    showIndexOptions();
-                }
-            }
-
-            @Override
             public void mouseClicked(MouseEvent e) {
-                if (!indexOptions.isVisible()) {
-                    showIndexOptions();
+                if (netState) {
+                    getMainFrame().addOperationPanel(new IndexDataPanel());
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
                 }
             }
         });
@@ -343,11 +339,7 @@ public class MenuPanel extends JPanel {
         btnKLine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (netState) {
-                    getMainFrame().addOperationPanel(new MarketIndexPanel());
-                } else {
-                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
-                }
+
             }
         });
 

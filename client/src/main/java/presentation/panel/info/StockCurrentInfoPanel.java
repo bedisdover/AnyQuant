@@ -4,6 +4,7 @@ import config.SystemConfig;
 import data.currentdata.CurrentStockData;
 import dataservice.current.CurrentStockDataService;
 import org.dom4j.DocumentException;
+import po.StockType;
 import po.current.CurrentStockPO;
 import presentation.UltraSwing.UltraLabel;
 import presentation.util.ImageLoader;
@@ -86,7 +87,12 @@ public class StockCurrentInfoPanel extends JPanel {
     StockCurrentInfoPanel(String id) throws Exception {
         this.id = id;
         CurrentStockDataService stockData = new CurrentStockData();
-        stock = stockData.getCurrentStockPO(id);
+
+        if (StockType.isUS(id)) {
+            stock = stockData.getCurrentStockPO_US(id);
+        } else {
+            stock = stockData.getCurrentStockPO(id);
+        }
 
         init();
         createUIComponents();
@@ -260,7 +266,7 @@ public class StockCurrentInfoPanel extends JPanel {
                 try {
                     int lag = SystemConfig.getDataConfig().getUpdateLag();
                     CurrentStockDataService stockData = new CurrentStockData();
-                    stock = stockData.getCurrentStockPO(id);
+                    stock = stockData.getCurrentStockPO_US(id);
 
                     Thread.sleep(60000 * lag);
                     setText();

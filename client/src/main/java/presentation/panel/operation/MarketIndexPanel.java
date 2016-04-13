@@ -4,6 +4,7 @@ import bl.ShowIndexData;
 import po.IndexPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
+import presentation.panel.IndexKLines;
 import presentation.panel.info.IndexCurrentInfoPanel;
 import presentation.panel.info.IndexDataPanel;
 import presentation.util.DateChooser;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -59,9 +59,9 @@ public class MarketIndexPanel extends OperationPanel {
      */
     private boolean updateFlag;
 
-    public MarketIndexPanel() {
+    public MarketIndexPanel(String type) {
         init();
-        createUIComponents();
+        createUIComponents(type);
         addListeners();
     }
 
@@ -73,7 +73,10 @@ public class MarketIndexPanel extends OperationPanel {
         update();
     }
 
-    protected void createUIComponents() {
+    @Override
+    protected void createUIComponents() {}
+
+    protected void createUIComponents(String type) {
         try {
             currentInfoPanel = new IndexCurrentInfoPanel(new IndexVO(new IndexPO(3)));
 
@@ -91,7 +94,13 @@ public class MarketIndexPanel extends OperationPanel {
             String yesterday_365=df.format(c.getTime()).substring(0,10);//2015-04-11
 
             String chooseD[]={yesterday_365,yesterday};
-            chartPanel = new MarketIndexDetailPanel(chooseD);
+
+            if (type.equals("kLine")) {
+                chartPanel = new JPanel();
+                chartPanel.add(new IndexKLines().getjTabbedPane());
+            } else {
+                chartPanel = new MarketIndexDetailPanel(chooseD);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络链接！");
@@ -125,7 +134,7 @@ public class MarketIndexPanel extends OperationPanel {
         btnData.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel(MarketIndexPanel.this));
+                MainFrame.getMainFrame().addOperationPanel(new IndexDataPanel());
             }
         });
         confirm.addMouseListener(new MouseAdapter() {
@@ -139,9 +148,7 @@ public class MarketIndexPanel extends OperationPanel {
                 try {
                     chartPanel =new MarketIndexDetailPanel(chooseDate);
                    update();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (ParseException e1) {
+                } catch (IOException | ParseException e1) {
                     e1.printStackTrace();
                 }
             }
@@ -198,10 +205,8 @@ public class MarketIndexPanel extends OperationPanel {
 
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
-        jFrame.add(new MarketIndexPanel());
+        jFrame.add(new MarketIndexPanel("kLine"));
         jFrame.setBounds(50, 50, 1024, 768);
         jFrame.setVisible(true);
-
-
     }
 }
