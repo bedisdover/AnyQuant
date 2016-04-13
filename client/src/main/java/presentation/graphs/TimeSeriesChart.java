@@ -103,7 +103,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
         month = Integer.parseInt(d[1]);
         day = Integer.parseInt(d[2].split(" ")[0]);
 
-        TimeSeries timeSeries1 = new TimeSeries("L&G European Index Trust",
+        TimeSeries timeSeries1 = new TimeSeries("时刻价格",
                 org.jfree.data.time.Minute.class);
 
         for (int i = 1; i < s.length - 1; i++) {
@@ -116,7 +116,7 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             }
         }
 
-        TimeSeries timeSeries2 = new TimeSeries("average price",
+        TimeSeries timeSeries2 = new TimeSeries("平均价格",
                 org.jfree.data.time.Minute.class);
 
         for (int i = 1; i < s.length - 1; i++) {
@@ -174,9 +174,30 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
             TextTitle textTitle = this.jfreechart.getTitle();
             ReadData rd = new ReadData();
-            String value = rd.parseJSON(s[item+1], "price");
-            String text = "price value:" + value;
+            int seriesNum = Integer.parseInt(info[3].substring(0,1));
+            double value;
+            String text;
+            if (seriesNum == 0) {
+                value = Double.parseDouble(rd.parseJSON(s[item + 1], "price"));
+                text = "价格:" + value;
+            } else {
+                double sum = 0;
+                double avg = 0;
+                int j;
+                for (j = 1; j <= item+1; j++) {
+                    double price = Double.parseDouble(rd.parseJSON(s[j], "price"));
+                    sum += price;
+                }
+                j--;
+                avg = sum / j;
+
+                text = "平均价格:" + avg;
+            }
             textTitle.setText(text);
+            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
+        } else {
+            TextTitle textTitle = this.jfreechart.getTitle();
+            textTitle.setText("价格为空");
             textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         }
     }
