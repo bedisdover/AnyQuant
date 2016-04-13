@@ -35,6 +35,7 @@ public class NetWorkState {
             return !line.equals("");
         }
 
-        return line.equals("");
+//        return line.equals("");
+        return true;
     }
 }
