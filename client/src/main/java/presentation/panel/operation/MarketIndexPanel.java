@@ -147,6 +147,8 @@ public class MarketIndexPanel extends OperationPanel {
                 String end=dcEnd.getTime();
                 String endDate=end.substring(0,4)+"-"+end.substring(4,6)+"-"+end.substring(6,8);
                 String chooseDate[]={startDate,endDate};
+                System.out.println(startDate+"你是谁哦");
+                System.out.println(endDate+"你又是谁哦");
                 try {
                     remove(chartPanel);
                     chartPanel =new MarketIndexDetailPanel(chooseDate);

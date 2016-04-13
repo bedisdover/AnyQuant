@@ -41,7 +41,11 @@ public class MarketIndexDetailPanel extends JPanel {
         IndexVO index = new ShowIndexData().getLatestIndexData();
         String nameVolume[] = {"日期", "成交量"};
         long volume[] = index.getVolume();
-        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume,chooseDate).getChartPanel();
+        double volumeDouble[]=new double[volume.length];
+        for(int i=0;i<volume.length;i++){
+            volumeDouble[i]=(double)volume[i];
+        }
+        lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volumeDouble,chooseDate).getChartPanel();
         String nameHigh[] = {"日期", "最高价"};
         double high[] = index.getHigh();
         lineChartMarketIndexHigh = new LineChartMarketIndex(nameHigh, high,chooseDate).getChartPanel();
