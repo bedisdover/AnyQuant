@@ -494,7 +494,7 @@ public class PicturePanel extends OperationPanel {
                     System.out.println("wtf?");
                     if(e.getButton()==MouseEvent.BUTTON3){
                         System.out.println("fuck");
-                        if(e.getSource()==scrollIncrease){
+                        if(e.getSource()==btnCustom){
                             System.out.println("table1");
                         }
                     }
@@ -508,7 +508,9 @@ public class PicturePanel extends OperationPanel {
             btnCustom.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    showCustomDialog();
+                    if(e.getButton()==MouseEvent.BUTTON1) {
+                        showCustomDialog();
+                    }
                 }
             });
 
