@@ -266,7 +266,12 @@ public class StockCurrentInfoPanel extends JPanel {
                 try {
                     int lag = SystemConfig.getDataConfig().getUpdateLag();
                     CurrentStockDataService stockData = new CurrentStockData();
-                    stock = stockData.getCurrentStockPO_US(id);
+
+                    if (StockType.isUS(id)) {
+                        stock = stockData.getCurrentStockPO_US(id);
+                    } else {
+                        stock = stockData.getCurrentStockPO(id);
+                    }
 
                     Thread.sleep(60000 * lag);
                     setText();

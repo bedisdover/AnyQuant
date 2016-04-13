@@ -10,7 +10,7 @@
         </mainFrame>
 
         <panel>
-            <MenuPanel autoHidden="true"/>
+            <MenuPanel autoHidden="false"/>
         </panel>
 
         <data>
