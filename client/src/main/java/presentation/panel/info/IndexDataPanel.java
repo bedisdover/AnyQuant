@@ -241,7 +241,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private UltraPanel createOptionsPanel() {
         UltraPanel optionsPanel = new UltraPanel();
-        optionsPanel.setLayout(null);
+//        optionsPanel.setLayout(null);
+        Box box = Box.createVerticalBox();
 
         labelK_Line = new JButton("K 线图");
         labelBrokenLien = new JButton("折线图");
@@ -254,15 +255,20 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         labelBrokenLien.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_WIDTH));
 //        southPanel.setPreferredSize(new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT));
 
-        labelK_Line.setBounds(0, 0, BUTTON_WIDTH, BUTTON_WIDTH);
-        labelBrokenLien.setBounds(0, labelK_Line.getY() + labelK_Line.getHeight() + PADDING,
-                BUTTON_WIDTH, BUTTON_WIDTH);
-        labelAnalyze.setBounds(0, labelBrokenLien.getY() + labelBrokenLien.getHeight() + PADDING,
-                BUTTON_WIDTH, BUTTON_WIDTH);
+//        labelK_Line.setBounds(0, 0, BUTTON_WIDTH, BUTTON_WIDTH);
+//        labelBrokenLien.setBounds(0, labelK_Line.getY() + labelK_Line.getHeight() + PADDING,
+//                BUTTON_WIDTH, BUTTON_WIDTH);
+//        labelAnalyze.setBounds(0, labelBrokenLien.getY() + labelBrokenLien.getHeight() + PADDING,
+//                BUTTON_WIDTH, BUTTON_WIDTH);
 
-        optionsPanel.add(labelK_Line);
-        optionsPanel.add(labelBrokenLien);
-        optionsPanel.add(labelAnalyze);
+        box.add(labelK_Line);
+        box.add(labelBrokenLien);
+        box.add(labelAnalyze);
+
+        optionsPanel.add(box);
+//        optionsPanel.add(labelK_Line);
+//        optionsPanel.add(labelBrokenLien);
+//        optionsPanel.add(labelAnalyze);
 
         return optionsPanel;
     }
