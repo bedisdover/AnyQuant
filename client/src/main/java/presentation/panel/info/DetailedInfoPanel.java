@@ -2,14 +2,18 @@ package presentation.panel.info;
 
 import data.GetStockData;
 import po.StockPO;
+import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
+import presentation.frame.MainFrame;
+import presentation.panel.operation.OperationPanel;
 import presentation.util.Table;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,7 @@ import java.util.List;
  * <p>
  * 股票详细数据面板
  */
-public class DetailedInfoPanel extends JPanel implements ItemListener {
+public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     /**
      * 股票ID
@@ -73,19 +77,21 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
     private Table table;
 
     /**
-     * K线图、折线图
+     * K线图、折线图、综合分析
+     * TODO BUTTON
      */
-    private JLabel labelK_Line, labelBrokenLien;
+    private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
-    DetailedInfoPanel(String id) {
+    public DetailedInfoPanel(String id) {
         this.id = id;
 
         init();
         createUIComponents();
         initColumns();
+        addListeners();
     }
 
-    private void init() {
+    protected void init() {
         setLayout(new BorderLayout());
 
         try {
@@ -95,6 +101,7 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         }
 
         table = createTable();
+        update();
     }
 
     /**
@@ -128,7 +135,7 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
     /**
      * 创建组件
      */
-    private void createUIComponents() {
+    protected void createUIComponents() {
         createNorthPanel();
         createCenterPanel();
         createSouthPanel();
@@ -138,11 +145,12 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
      * 创建北部面板，包含日期选择框及关注按钮
      */
     private void createNorthPanel() {
-        JPanel northPanel = new JPanel();
+        UltraPanel northPanel = new UltraPanel();
         northPanel.setLayout(new BorderLayout());
+        northPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
         {
-            JPanel leftPanel = new JPanel();
+            UltraPanel leftPanel = new UltraPanel();
             leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             JLabel labelTo = new JLabel("至");
@@ -153,9 +161,9 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         }
 
         {
-            JPanel rightPanel = new JPanel();
+            UltraPanel rightPanel = new UltraPanel();
             rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            follow = new JButton("关注");
+            follow = new JButton("关 注");
             rightPanel.add(follow);
 
             northPanel.add(rightPanel, BorderLayout.EAST);
@@ -168,12 +176,15 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
      * 创建中心面板，包含表格
      */
     private void createCenterPanel() {
-        JPanel centerPanel = new JPanel();
+        UltraPanel centerPanel = new UltraPanel();
         centerPanel.setLayout(new BorderLayout());
-
+        centerPanel.setPreferredSize(new Dimension(PANEL_WIDTH,
+                PANEL_HEIGHT - BUTTON_HEIGHT * 2 - MARGIN * 2));
         {
-            JPanel columnsPanel = new JPanel();
+            UltraPanel columnsPanel = new UltraPanel();
             columnsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            columnsPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
+                    BUTTON_HEIGHT));
 
             high = new JCheckBox("最高价");
             low = new JCheckBox("最低价");
@@ -195,15 +206,22 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
             columnsPanel.add(adjPrice);
             columnsPanel.add(turnOver);
 
-            columnsPanel.setPreferredSize(new Dimension(500, 100));
+//            columnsPanel.setPreferredSize(new Dimension(700, 100));
             centerPanel.add(columnsPanel, BorderLayout.NORTH);
         }
 
         {
-            JPanel southPanel = new JPanel();
+            UltraPanel southPanel = new UltraPanel();
             southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
+                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
+
             JScrollPane scrollPane = new UltraScrollPane(table);
+//            scrollPane.setPreferredSize(new Dimension(700, 400));
             southPanel.add(scrollPane);
+
+//            centerPanel.setPreferredSize(new Dimension(700, 500));
+//            centerPanel.add(scrollPane, BorderLayout.SOUTH);
             centerPanel.add(southPanel, BorderLayout.SOUTH);
         }
 
@@ -214,16 +232,39 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
      * 创建南部面板，包含图表类型选项
      */
     private void createSouthPanel() {
-        JPanel southPanel = new JPanel();
+        UltraPanel southPanel = new UltraPanel();
         southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
-        labelK_Line = new JLabel("K 线图");
-        labelBrokenLien = new JLabel("折线图");
+        labelK_Line = new JButton("K 线图");
+        labelBrokenLien = new JButton("折线图");
+        labelAnalyze = new JButton("综合分析");
+//        labelK_Line.setPreferredSize(new Dimension(100, 100));
+//        labelBrokenLien.setPreferredSize(new Dimension(100, 100));
+
+//        labelK_Line.setIcon(ImageLoader.kLine);
+//        labelBrokenLien.setIcon(ImageLoader.brokenLine);
+
+        southPanel.setPreferredSize(new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT));
 
         southPanel.add(labelK_Line);
         southPanel.add(labelBrokenLien);
+        southPanel.add(labelAnalyze);
 
         add(southPanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * 添加事件监听器
+     */
+    private void addListeners() {
+        labelK_Line.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MainFrame.getMainFrame().addOperationPanel(
+                        new StockInfoPanel(DetailedInfoPanel.this, stock));
+            }
+        });
     }
 
     /**
@@ -310,6 +351,25 @@ public class DetailedInfoPanel extends JPanel implements ItemListener {
         }
 
         return temp;
+    }
+
+    /**
+     * 固定时间间隔刷新面板
+     */
+    private void update() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        repaint();
+                    }
+                } catch (Exception e) {}
+            }
+        }.start();
     }
 
     @Override

@@ -3,6 +3,7 @@ package presentation.util;
 import data.GetStockData;
 import po.StockPO;
 import presentation.frame.MainFrame;
+import presentation.panel.info.DetailedInfoPanel;
 import presentation.panel.info.StockInfoPanel;
 
 import javax.swing.*;
@@ -105,7 +106,9 @@ public class Table extends JTable {
                     }
 
                     if (parent != null) {
-                        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+//                        MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(parent, stock));
+                        MainFrame.getMainFrame().addOperationPanel(
+                                new DetailedInfoPanel((String) getValueAt(getSelectedRow(), 2)));
                     }
                 }
             }

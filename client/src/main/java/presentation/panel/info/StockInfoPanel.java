@@ -96,7 +96,7 @@ public class StockInfoPanel extends InfoPanel {
         }
 
         add(btnFollow);
-        add(btnInfo);
+//        add(btnInfo);
         add(currentInfo);
         add(k_line);
     }
@@ -123,7 +123,7 @@ public class StockInfoPanel extends InfoPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new DetailedInfoPanel(StockInfoPanel.this, stock));
+                        new DetailedInfoPanel(stockID));
             }
         });
     }
@@ -178,7 +178,7 @@ public class StockInfoPanel extends InfoPanel {
 
                 try {
                     while (updateFlag) {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         assignment();
                     }
                 } catch (Exception e) {}
@@ -186,64 +186,64 @@ public class StockInfoPanel extends InfoPanel {
         }.start();
     }
 
-    /**
-     * 股票详细数据面板
-     */
-    private class DetailedInfoPanel extends InfoPanel {
-
-        /**
-         * 关注按钮
-         * 无法直接复用StockInfoPanel中的关注按钮
-         * 只能再重新写一遍了。。。。。
-         */
-        private JButton follow;
-
-        DetailedInfoPanel(JPanel parent, StockPO stock) {
-            super(parent);
-
-            createUIComponents();
-            addListeners();
-
-            displayInfo(stock);
-        }
-
-        @Override
-        protected void createUIComponents() {
-            super.createUIComponents();
-
-            follow = new JButton("关注");
-            add(follow);
-        }
-
-        @Override
-        protected void addListeners() {
-            super.addListeners();
-
-            follow.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    follow(stockID);
-                }
-            });
-
-            addComponentListener(new ComponentAdapter() {
-                @Override
-                public void componentResized(ComponentEvent e) {
-                    follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
-                            MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-
-                    revalidate();
-                    repaint();
-                }
-            });
-        }
-
-        private void displayInfo(StockPO stock) {
-            try {
-                createTable(new StockVO(stock));
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
-            }
-        }
-    }
+//    /**
+//     * 股票详细数据面板
+//     */
+//    private class DetailedInfoPanel extends InfoPanel {
+//
+//        /**
+//         * 关注按钮
+//         * 无法直接复用StockInfoPanel中的关注按钮
+//         * 只能再重新写一遍了。。。。。
+//         */
+//        private JButton follow;
+//
+//        DetailedInfoPanel(JPanel parent, StockPO stock) {
+//            super(parent);
+//
+//            createUIComponents();
+//            addListeners();
+//
+//            displayInfo(stock);
+//        }
+//
+//        @Override
+//        protected void createUIComponents() {
+//            super.createUIComponents();
+//
+//            follow = new JButton("关注");
+//            add(follow);
+//        }
+//
+//        @Override
+//        protected void addListeners() {
+//            super.addListeners();
+//
+//            follow.addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mouseClicked(MouseEvent e) {
+//                    follow(stockID);
+//                }
+//            });
+//
+//            addComponentListener(new ComponentAdapter() {
+//                @Override
+//                public void componentResized(ComponentEvent e) {
+//                    follow.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH,
+//                            MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
+//
+//                    revalidate();
+//                    repaint();
+//                }
+//            });
+//        }
+//
+//        private void displayInfo(StockPO stock) {
+//            try {
+//                createTable(new StockVO(stock));
+//            } catch (IOException e) {
+//                JOptionPane.showMessageDialog(StockInfoPanel.this, "请检查网络连接！");
+//            }
+//        }
+//    }
 }
