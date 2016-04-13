@@ -27,16 +27,16 @@ public class LineChartParent implements ChartMouseListener {
     ChartPanel panel;
     JFreeChart timeSeriesChart;
     XYPlot plot;
-    int dataLength=365;
-    String title[]=new String[2];
-    String date[]=new String[dataLength];
-    double data[]=new double[dataLength];
+    int dataLength = 365;
+    String title[] = new String[2];
+    String date[] = new String[dataLength];
+    double data[] = new double[dataLength];
     TimeSeries timeSeries1 = new TimeSeries("", Day.class);
 
     public LineChartParent(String name[], String x[], double y[]) throws IOException {
-        title=name;
-        date=x;
-        data=y;
+        title = name;
+        date = x;
+        data = y;
         createTimeSeriesChart(name, x, y);
         this.panel.setMouseZoomable(true, true);
         this.panel.addChartMouseListener(this);
@@ -51,10 +51,10 @@ public class LineChartParent implements ChartMouseListener {
         LegendTitle legendTitle = timeSeriesChart.getLegend();
         legendTitle.setVisible(false);
         Font font = new Font("宋体", Font.BOLD, 16);
-     //   TextTitle title = new TextTitle(name[2], font);//副标题 
+        //   TextTitle title = new TextTitle(name[2], font);//副标题 
         //    TextTitle subtitle=new TextTitle("副标题", new Font("黑体",Font.BOLD,12));
         //   timeSeriesChart.addSubtitle(subtitle);
-   //     timeSeriesChart.setTitle(title);//标题
+        //     timeSeriesChart.setTitle(title);//标题
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
         ValueAxis domainAxis = plot.getDomainAxis();
 
@@ -122,14 +122,14 @@ public class LineChartParent implements ChartMouseListener {
         return panel;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         try {
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String nameVolume[] = {"日期", "成交量"};
             long volume[] = index.getVolume();
-    //        ChartPanel lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
-   //         jFrame.add(lineChartMarketIndexVolume);
+            //        ChartPanel lineChartMarketIndexVolume = new LineChartMarketIndex(nameVolume, volume).getChartPanel();
+            //         jFrame.add(lineChartMarketIndexVolume);
             jFrame.setBounds(50, 50, 1024, 768);
             jFrame.setVisible(true);
         } catch (IOException e) {
@@ -151,13 +151,13 @@ public class LineChartParent implements ChartMouseListener {
         ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
         System.out.println(chartEntity.toString());
-        if(info[1].equals("series")) {
+        if (info[1].equals("series")) {
             int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
-            System.out.println(item+"Item");
-            String getData=data[item]+"";
-            String getDate=date[item];
+            System.out.println(item + "Item");
+            String getData = data[item] + "";
+            String getDate = date[item];
             TextTitle textTitle = this.timeSeriesChart.getTitle();
-                 String text=title[1]+" : "+getData+" "+title[0]+" : "+getDate;
+            String text = title[1] + " : " + getData + " " + title[0] + " : " + getDate;
             textTitle.setText(text);
             textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         }
@@ -172,6 +172,6 @@ public class LineChartParent implements ChartMouseListener {
 //        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
 //        System.out.println(d1+"欸欸欸d1");
 //        System.out.println(d2+"欸欸欸d2");
-        }
     }
+}
 
