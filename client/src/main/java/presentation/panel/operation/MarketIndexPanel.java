@@ -210,7 +210,11 @@ public class MarketIndexPanel extends OperationPanel {
 
     public static void main(String[] args){
         JFrame jFrame = new JFrame();
-        jFrame.add(new MarketIndexPanel("kLine"));
+        JPanel panel=new JPanel();
+        DateChooser dc=new DateChooser(panel,100,400);
+        dc.setTime("2015-10-08");
+       // jFrame.add(new MarketIndexPanel("kLine"));
+        jFrame.add(panel);
         jFrame.setBounds(50, 50, 1024, 768);
         jFrame.setVisible(true);
     }

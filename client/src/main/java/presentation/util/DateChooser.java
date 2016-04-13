@@ -584,11 +584,12 @@ public class DateChooser extends JPanel {
      */
     public void setTime(String date) {
         int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(4, 6));
-        int day = Integer.parseInt(date.substring(6));
-        @SuppressWarnings("deprecation")
-        Date time = new Date(year, month, day);
-        new DateChooser(time, this.panel, this.x, this.y);
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8,10));
+        showDate.setText(year+""+"年"+month+""+"月"+day+""+"日");
+        Date time = new Date(year-1900, month-1, day);//我也不知道为什么会这样(●'◡'●)
+       select.setTime(time);
+        refresh();
     }
 
     public void setWidth(int w) {
