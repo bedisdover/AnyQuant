@@ -414,10 +414,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        remove(centerPanel);
-        table = createSelectTable();
-        table.setModel(new DefaultTableModel(data, columns));
-        add(centerPanel);
+        remove(scrollPane);
+        scrollPane = new JScrollPane(createSelectTable());
 
         revalidate();
         repaint();

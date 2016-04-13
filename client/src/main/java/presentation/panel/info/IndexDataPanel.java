@@ -8,7 +8,6 @@ import presentation.frame.MainFrame;
 import presentation.panel.operation.MarketIndexPanel;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
-import presentation.util.ImageLoader;
 import presentation.util.Table;
 import vo.IndexVO;
 
@@ -41,6 +40,11 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 表格面板、选项面板
      */
     private UltraPanel tablePanel, optionsPanel;
+
+    /**
+     * 承载表格
+     */
+    private JScrollPane scrollPane;
 
     /**
      * 复选框，对应表格中显示的列
@@ -225,7 +229,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         }
 
         {
-            JScrollPane scrollPane = new UltraScrollPane(table);
+            scrollPane = new UltraScrollPane(table);
             scrollPane.setBounds(0, BUTTON_HEIGHT, PANEL_HEIGHT,
                     table.getColumnModel().getTotalColumnWidth());
             tablePanel.add(scrollPane);
@@ -360,6 +364,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             columns[i] = allColumns[columnSelect.get(i)];
         }
         for (int i = 0; i < data.length; i++) {
+            data[i] = new Object[columnSelect.size()];
             for (int j = 0; j < columnSelect.size(); j++) {
                 data[i][j] = allData[i][columnSelect.get(j)];
             }
@@ -417,7 +422,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+
         table = createSelectTable();
+//        scrollPane.add(table);
+
         repaint();
     }
 }
