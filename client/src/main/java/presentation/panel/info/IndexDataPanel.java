@@ -1,6 +1,7 @@
 package presentation.panel.info;
 
 import bl.ShowIndexData;
+import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
@@ -36,6 +37,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private UltraPanel northPanel, centerPanel, southPanel;
 
+    /**
+     * 表格面板、选项面板
+     */
+    private UltraPanel tablePanel, optionsPanel;
 
     /**
      * 复选框，对应表格中显示的列
@@ -79,12 +84,16 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private DateChooser dcStart, dcEnd;
 
     /**
+     * 确认日期选择，生成对应折线图
+     */
+    private UltraButton confirm;
+
+    /**
      * K线图、折线图、综合分析
      */
-    private JLabel labelK_Line, labelBrokenLien, labelAnalyze;
+    private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
     public IndexDataPanel() {
-
         init();
         createUIComponents();
         initColumns();
@@ -148,7 +157,12 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         labelTo.setBounds(BUTTON_WIDTH + MARGIN * 2, MARGIN / 2, BUTTON_HEIGHT, BUTTON_HEIGHT);
         dcEnd = new DateChooser(northPanel, labelTo.getX() + BUTTON_HEIGHT + MARGIN,
                 MARGIN / 2, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+        confirm = new UltraButton("生成");
 
+        confirm.setBounds(labelTo.getX() + BUTTON_WIDTH + PADDING * 4, MARGIN / 2,
+                BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        northPanel.add(confirm);
         northPanel.add(labelTo);
 
         add(northPanel);
@@ -168,13 +182,13 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private void createSouthPanel() {
         southPanel = new UltraPanel();
-        southPanel.setLayout(new BorderLayout());
+        southPanel.setLayout(null);
 
-        JPanel tablePanel = createTablePanel();
-        JPanel optionsPanel = createOptionsPanel();
+        tablePanel = createTablePanel();
+        optionsPanel = createOptionsPanel();
 
-        southPanel.add(tablePanel, BorderLayout.CENTER);
-        southPanel.add(optionsPanel, BorderLayout.EAST);
+        southPanel.add(tablePanel);
+        southPanel.add(optionsPanel);
 
         add(southPanel);
     }
@@ -184,8 +198,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      *
      * @return 表格面板
      */
-    private JPanel createTablePanel() {
-        JPanel tablePanel = new UltraPanel();
+    private UltraPanel createTablePanel() {
+        UltraPanel tablePanel = new UltraPanel();
         tablePanel.setLayout(null);
 
         {//复选框面板，包含所有复选框
@@ -225,16 +239,16 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      *
      * @return 选项面板
      */
-    private JPanel createOptionsPanel() {
-        JPanel optionsPanel = new UltraPanel();
+    private UltraPanel createOptionsPanel() {
+        UltraPanel optionsPanel = new UltraPanel();
         optionsPanel.setLayout(null);
 
-        labelK_Line = new JLabel("K 线图");
-        labelBrokenLien = new JLabel("折线图");
-        labelAnalyze = new JLabel("综合分析");
+        labelK_Line = new JButton("K 线图");
+        labelBrokenLien = new JButton("折线图");
+        labelAnalyze = new JButton("综合分析");
 
-        labelK_Line.setIcon(new ImageIcon(ImageLoader.kLine));
-        labelBrokenLien.setIcon(new ImageIcon(ImageLoader.brokenLine));
+//        labelK_Line.setIcon(new ImageIcon(ImageLoader.kLine));
+//        labelBrokenLien.setIcon(new ImageIcon(ImageLoader.brokenLine));
 
         labelK_Line.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_WIDTH));
         labelBrokenLien.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_WIDTH));
@@ -264,6 +278,13 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        confirm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //TODO
+            }
+        });
+
         labelK_Line.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -289,7 +310,11 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         centerPanel.setBounds(MARGIN, northPanel.getHeight(), PANEL_WIDTH - MARGIN * 2,
                 BUTTON_HEIGHT + PADDING);
         southPanel.setBounds(MARGIN, centerPanel.getY() + centerPanel.getHeight(),
-                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - southPanel.getY() - MARGIN);
+                PANEL_WIDTH - MARGIN * 2, PANEL_HEIGHT - southPanel.getY() - MARGIN * 2);
+        tablePanel.setBounds(0, 0, PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2,
+                southPanel.getHeight());
+        optionsPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH - MARGIN * 2, 0,
+                BUTTON_WIDTH, southPanel.getHeight());
 
         revalidate();
         repaint();
