@@ -43,7 +43,7 @@ public class LineChartMarketIndex {
             for (int i = 0; i < dateArray.size(); i++) {
                 date[i] = dateArray.get(i).toString();
                 data[i] = Double.parseDouble(dataArray.get(i).toString());
-                         System.out.println(date[i]+"你们都是谁");
+                    //     System.out.println(date[i]+"你们都是谁");
             }
             lineChartParent = new LineChartParent(name, date, data);
         } catch (IOException e) {
