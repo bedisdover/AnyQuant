@@ -113,8 +113,11 @@ public class TheIndexVO {
         if(AR>=60&&AR<=120){
             return "属盘整行情,股价走势比较平稳,不会出现剧烈波动。";
         }
+        else if(AR<60){
+            return "股价有可能随时反弹上升。";
+        }
         else{
-
+            return "股价随时可能回档下跌。";
         }
     }
 
