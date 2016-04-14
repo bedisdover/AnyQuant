@@ -3,6 +3,7 @@ package presentation.panel.info;
 import bl.ShowIndexData;
 import config.IndexDataConfig;
 import config.SystemConfig;
+import data.GetIndexData;
 import org.dom4j.DocumentException;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
@@ -382,7 +383,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //TODO
+
             }
         });
 
@@ -479,6 +480,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                 data[i][j] = allData[i][columnSelect.get(j)];
             }
         }
+
         return new Table(data, columns);
     }
 
