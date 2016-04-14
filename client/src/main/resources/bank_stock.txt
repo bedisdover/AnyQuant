@@ -4,7 +4,7 @@ sh600036 招商银行 true
 sh601009 南京银行 true
 sh601166 兴业银行 true
 sz000001 平安银行 true
-sz002142 宁波银行 false
+sz002142 宁波银行 true
 sh601169 北京银行 false
 sh601818 光大银行 false
 sh601288 农业银行 false
