@@ -485,18 +485,22 @@ public class GetStockData implements GetStockDataService {
      */
     public String getID_BankStocks() {
         String stocks = "";
+        String temp = "";
         try {
-            File file = new File("client/src/main/resources/Stocks_Bank.txt");
+            File file = new File("client/src/main/resources/bank_stock.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            stocks = bufferedReader.readLine();
+            while((temp = bufferedReader.readLine())!=null){
+                String[] co = temp.split(" ");
+                if(co[2].equals("true")){
+                    stocks+=co[0]+" ";
+                }
+            }
             bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return stocks;
+        return stocks.trim();
     }
 
     public static void main(String[] args) throws IOException {
