@@ -449,9 +449,6 @@ public class PicturePanel extends OperationPanel {
             setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
             setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
             setBackground(new Color(0, 0, 0, 0));
-            //TODO ui
-            getHorizontalScrollBar().setUI(new BEScrollBarUI());
-            getVerticalScrollBar().setUI(new BEScrollBarUI());
         }
 
         /**
@@ -472,7 +469,6 @@ public class PicturePanel extends OperationPanel {
 
             SortStock sortStock;
             try {
-                //TODO 重新加载股票
                 sortStock = new SortStock();
                 scrollIncrease = createRankingList(sortStock.increase_sort());
                 table1 = table;
@@ -757,7 +753,7 @@ public class PicturePanel extends OperationPanel {
          */
         private void createUIComponents() {
             contentPane = new JPanel();
-            contentPane.setLayout(null);
+            contentPane.setLayout(new BorderLayout());
 
             setContentPane(contentPane);
 
@@ -774,7 +770,7 @@ public class PicturePanel extends OperationPanel {
             JScrollPane scrollPane = new JScrollPane(table);
 
             scrollPane.setBounds(0, 0, getWidth(), getHeight() - 45);
-            contentPane.add(scrollPane);
+            contentPane.add(scrollPane, BorderLayout.CENTER);
         }
 
         /**
@@ -792,7 +788,7 @@ public class PicturePanel extends OperationPanel {
             buttonPanel.setBounds(0, getHeight() - 45,
                     getWidth(), 45);
 
-            contentPane.add(buttonPanel);
+            contentPane.add(buttonPanel, BorderLayout.SOUTH);
 
             buttonPanel.add(btnOK);
             buttonPanel.add(btnApply);
@@ -849,6 +845,7 @@ public class PicturePanel extends OperationPanel {
          */
         private void onApply() {
             storeStockList();
+
         }
 
         /**
@@ -925,8 +922,6 @@ public class PicturePanel extends OperationPanel {
                 }
 
                 writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
