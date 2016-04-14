@@ -172,7 +172,7 @@ public class CalculateIndex {
         for(int i=0;i<opens.length;i++){
             sum2+=(opens[i]-lows[i]);
         }
-        double result = sum1/sum2;
+        double result = sum1/sum2*100;
         return ((double)Math.round(result*100))/100;
     }
 
@@ -198,7 +198,7 @@ public class CalculateIndex {
         for(int i=0;i<opens.length;i++){
             sum2+=(opens[i]-lows[i]);
         }
-        double result = sum1/sum2;
+        double result = sum1/sum2*100;
         return ((double)Math.round(result*100))/100;
     }
 
@@ -224,7 +224,7 @@ public class CalculateIndex {
         for(int i=0;i<closes.length;i++){
             sum2+=(closes[i]-lows[i]);
         }
-        double result = sum1/sum2;
+        double result = sum1/sum2*100;
         return ((double)Math.round(result*100))/100;
     }
 
@@ -250,7 +250,7 @@ public class CalculateIndex {
         for(int i=0;i<closes.length;i++){
             sum2+=(closes[i]-lows[i]);
         }
-        double result = sum1/sum2;
+        double result = sum1/sum2*100;
         return ((double)Math.round(result*100))/100;
     }
 }

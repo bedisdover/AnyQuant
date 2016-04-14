@@ -126,21 +126,36 @@ public class SystemConfig {
         return new MenuPanelConfig(menuPanel);
     }
 
-
     /**
-     * 获得数据配置
+     * 获得股票数据配置
      *
      * @return 数据配置领域对象
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static StockDataConfig getDataConfig() throws MalformedURLException, DocumentException {
+    public static StockDataConfig getStockDataConfig() throws MalformedURLException, DocumentException {
         init();
 
         Element presentation = root.element("presentation");
         Element data = presentation.element("data");
 
-        return new StockDataConfig(data);
+        return new StockDataConfig(data.element("StockData"));
+    }
+
+    /**
+     * 获得大盘指数数据配置
+     *
+     * @return 数据配置领域对象
+     * @throws MalformedURLException
+     * @throws DocumentException
+     */
+    public static IndexDataConfig getIndexDataConfig() throws MalformedURLException, DocumentException {
+        init();
+
+        Element presentation = root.element("presentation");
+        Element data = presentation.element("data");
+
+        return new IndexDataConfig(data.element("IndexData"));
     }
 
     /**

@@ -5,6 +5,7 @@ import po.StockPO;
 import po.Transfer;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 /**
  * Created by zcy on 2016/3/8.
@@ -139,4 +140,6 @@ public class StockVO {
     public double[] getIncrease_decreaseNum() {
         return increase_decreaseNum;
     }
+
+
 }

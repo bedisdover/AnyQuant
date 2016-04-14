@@ -119,6 +119,11 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      */
     private JButton back;
 
+    /**
+     * 配置对象
+     */
+    private StockDataConfig config;
+
     public DetailedInfoPanel(JPanel parent, String id) {
         this.parent = parent;
         this.id = id;
@@ -138,14 +143,14 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             e.printStackTrace();
         }
 
-        table = createTable();
+        initTable();
         update();
     }
 
     /**
      * 初始化表格数据
      */
-    private Table createTable() {
+    private void initTable() {
         allData = new Object[stock.getDate().length][];
         allColumns = new String[]{
                 "日期", "最高", "最低", "开盘价", "收盘价",
@@ -167,7 +172,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             };
         }
 
-        return new Table(allData, allColumns);
+        table = new Table(this, allData, allColumns);
     }
 
     /**
@@ -187,7 +192,6 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
         northPanel.setLayout(null);
 
         {
-
             back = new JButton("返回");
             dcStart = new DateChooser(northPanel,
                     PANEL_WIDTH - MARGIN - BUTTON_WIDTH * 2 - PADDING * 7 - BUTTON_HEIGHT * 2,
@@ -232,7 +236,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             pb = new JCheckBox("市净率");
             pe_ttm = new JCheckBox("市盈率");
             adjPrice = new JCheckBox("后复权价");
-            turnOver = new JCheckBox("转手率");
+            turnOver = new JCheckBox("周转率");
 
             columnsPanel.add(high);
             columnsPanel.add(low);
@@ -254,7 +258,8 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 //            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
 //                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
-
+            initColumns();
+            table = createSelectTable();
             scrollPane = new UltraScrollPane(table);
 //            scrollPane.setPreferredSize(new Dimension(700, 400));
 //            southPanel.add(scrollPane);
@@ -405,12 +410,13 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 初始化列名
      */
     private void initColumns() {
-        StockDataConfig config = null;
         try {
-            config = SystemConfig.getDataConfig();
+            config = SystemConfig.getStockDataConfig();
         } catch (MalformedURLException | DocumentException e) {
             e.printStackTrace();
         }
+
+        assert config != null;
         high.setSelected(config.isHighSelected());
         low.setSelected(config.isLowSelected());
         open.setSelected(config.isOpenSelected());
@@ -516,8 +522,47 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        scrollPane.getViewport().remove(table);
         table = createSelectTable();
+        scrollPane.getViewport().add(table);
+
+        storeChange((JCheckBox) e.getSource());
 
         assignment();
+    }
+
+    /**
+     * 存储变更
+     *
+     * @param item 变更的项目
+     */
+    private void storeChange(JCheckBox item) {
+        if (item == high) {
+            config.setHigh(high.isSelected());
+        }
+        if (item == low) {
+            config.setLow(low.isSelected());
+        }
+        if (item == open) {
+            config.setOpen(open.isSelected());
+        }
+        if (item == close) {
+            config.setClose(close.isSelected());
+        }
+        if (item == volume) {
+            config.setVolume(volume.isSelected());
+        }
+        if (item == pb) {
+            config.setPb(pb.isSelected());
+        }
+        if (item == pe_ttm) {
+            config.setPe_ttm(pe_ttm.isSelected());
+        }
+        if (item == adjPrice) {
+            config.setAdjPrice(adjPrice.isSelected());
+        }
+        if (item == turnOver) {
+            config.setTurnOver(turnOver.isSelected());
+        }
     }
 }

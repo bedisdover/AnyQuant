@@ -1,6 +1,9 @@
 package presentation.panel.info;
 
 import bl.ShowIndexData;
+import config.IndexDataConfig;
+import config.SystemConfig;
+import org.dom4j.DocumentException;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
@@ -16,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +98,11 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private JButton back;
 
+    /**
+     * 配置对象
+     */
+    private IndexDataConfig config;
+
     public IndexDataPanel(JPanel parent) {
         this.parent = parent;
 
@@ -122,7 +131,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private Table createTable() {
         allData = new Object[index.getDate().length][];
         allColumns = new String[]{
-                "日期", "最高", "开盘价", "收盘价", "最低", "成交量", "后复权价"};
+                "日期", "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"};
 
         for (int i = 0; i < index.getDate().length; i++) {
             allData[i] = new Object[]{
@@ -200,7 +209,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 //            southPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 //            southPanel.setPreferredSize(new Dimension(PANEL_WIDTH - MARGIN * 2,
 //                    centerPanel.getPreferredSize().height - BUTTON_HEIGHT));
-
+            initColumns();
+            table = createSelectTable();
             scrollPane = new UltraScrollPane(table);
 //            scrollPane.setPreferredSize(new Dimension(700, 400));
 //            southPanel.add(scrollPane);
@@ -422,12 +432,18 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 初始化列名
      */
     private void initColumns() {
-        high.setSelected(true);
-        low.setSelected(true);
-        open.setSelected(true);
-        close.setSelected(true);
-        volume.setSelected(true);
-        adjPrice.setSelected(true);
+        try {
+            config = SystemConfig.getIndexDataConfig();
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
+
+        high.setSelected(config.isHighSelected());
+        low.setSelected(config.isLowSelected());
+        open.setSelected(config.isOpenSelected());
+        close.setSelected(config.isCloseSelected());
+        volume.setSelected(config.isVolumeSelected());
+        adjPrice.setSelected(config.isAdjPriceSelected());
 
         high.addItemListener(this);
         low.addItemListener(this);
@@ -510,8 +526,38 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        scrollPane.getViewport().remove(table);
         table = createSelectTable();
+        scrollPane.getViewport().add(table);
+
+        storeChange((JCheckBox) e.getSource());
 
         assignment();
+    }
+
+    /**
+     * 存储变更
+     *
+     * @param item 变更的项目
+     */
+    private void storeChange(JCheckBox item) {
+        if (item == high) {
+            config.setHigh(high.isSelected());
+        }
+        if (item == low) {
+            config.setLow(low.isSelected());
+        }
+        if (item == open) {
+            config.setOpen(open.isSelected());
+        }
+        if (item == close) {
+            config.setClose(close.isSelected());
+        }
+        if (item == volume) {
+            config.setVolume(volume.isSelected());
+        }
+        if (item == adjPrice) {
+            config.setAdjPrice(adjPrice.isSelected());
+        }
     }
 }

@@ -15,7 +15,7 @@ public class StockDataConfig {
     private Element stockData;
 
     StockDataConfig(Element dataConfig) {
-        this.stockData = dataConfig.element("StockData");
+        this.stockData = dataConfig;
     }
 
     /**
@@ -81,45 +81,39 @@ public class StockDataConfig {
         return Boolean.valueOf(stockData.element("turnOver").attributeValue("selected"));
     }
 
-    public void changeHigh() {
-        Element high = stockData.element("high");
-        high.addAttribute("selected", !isHighSelected() + "");
+    public void setHigh(boolean selected) {
+        stockData.element("high").addAttribute("selected", selected + "");
     }
 
-    public void changeLow() {
-        Element low = stockData.element("low");
-        low.addAttribute("selected", !isLowSelected() + "");
+    public void setLow(boolean selected) {
+        stockData.element("low").addAttribute("selected", selected + "");
     }
 
-    public void changeOpen() {
-        Element open = stockData.element("open");
-        open.addAttribute("selected", !isOpenSelected() + "");
+    public void setOpen(boolean selected) {
+        stockData.element("open").addAttribute("selected", selected + "");
     }
 
-    public void changeClose() {
-        Element close = stockData.element("close");
-        close.addAttribute("selected", !isCloseSelected() + "");
+    public void setClose(boolean selected) {
+        stockData.element("close").addAttribute("selected", selected + "");
     }
 
-    public void changeVolume() {
-        Element volume = stockData.element("volume");
-        volume.addAttribute("selected", !isVolumeSelected() + "");
+    public void setVolume(boolean selected) {
+        stockData.element("volume").addAttribute("selected", selected + "");
     }
 
-    public void changePb() {
-        Element pb = stockData.element("pb");
-        pb.addAttribute("selected", !isPbSelected() + "");
+    public void setPb(boolean selected) {
+        stockData.element("pb").addAttribute("selected", selected + "");
     }
 
-    public void changePe_ttm() {
-        stockData.element("pe_ttm").addAttribute("selected", !isPe_ttmSelected() + "");
+    public void setPe_ttm(boolean selected) {
+        stockData.element("pe_ttm").addAttribute("selected", selected + "");
     }
 
-    public void changeAdjPrice() {
-        stockData.element("adjPrice").addAttribute("selected", !isAdjPriceSelected() + "");
+    public void setAdjPrice(boolean selected) {
+        stockData.element("adjPrice").addAttribute("selected", selected + "");
     }
 
-    public void changeTurnOver() {
-        stockData.element("").addAttribute("selected", !isTurnOverSelected() + "");
+    public void setTurnOver(boolean selected) {
+        stockData.element("turnOver").addAttribute("selected", selected + "");
     }
 }

@@ -3,7 +3,6 @@ package presentation.panel.info;
 import config.SystemConfig;
 import data.currentdata.CurrentStockData;
 import dataservice.current.CurrentStockDataService;
-import org.dom4j.DocumentException;
 import po.StockType;
 import po.current.CurrentStockPO;
 import presentation.UltraSwing.UltraLabel;
@@ -13,7 +12,6 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.MalformedURLException;
 
 import static presentation.panel.info.LocationValue.*;
 
@@ -264,7 +262,7 @@ public class StockCurrentInfoPanel extends JPanel {
             @Override
             public void run() {
                 try {
-                    int lag = SystemConfig.getDataConfig().getUpdateLag();
+                    int lag = SystemConfig.getStockDataConfig().getUpdateLag();
                     CurrentStockDataService stockData = new CurrentStockData();
 
                     if (StockType.isUS(id)) {
