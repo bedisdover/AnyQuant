@@ -35,6 +35,7 @@ public class UltraButton extends JButton {
         setBorder(null);
         setContentAreaFilled(false);
 
+
         Image imageLineChart = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/linechart.png");
         Image imageKLine = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/klineicon.jpg");
         Image imageAna = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/analysis.jpg");
@@ -48,18 +49,22 @@ public class UltraButton extends JButton {
         if(num==1){
             //K线图
             this.setIcon(iconKLine);
+            this.setToolTipText("K线图");
         }
         if(num==2){
             //折线图
             this.setIcon(iconLineChart);
+            this.setToolTipText("折线图");
         }
         if(num==3){
             //综合分析
             this.setIcon(iconAna);
+            this.setToolTipText("综合分析");
         }
         if(num==4){
             //分时图
             this.setIcon(iconTime);
+            this.setToolTipText("分时图");
         }
     }
 
