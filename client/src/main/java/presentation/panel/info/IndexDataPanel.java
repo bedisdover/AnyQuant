@@ -496,7 +496,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             public void run() {
                 try {
                     while (true) {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         repaint();
                     }
                 } catch (Exception e) {

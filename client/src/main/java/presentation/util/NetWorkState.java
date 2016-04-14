@@ -14,28 +14,27 @@ public class NetWorkState {
     private NetWorkState() {}
 
     public static boolean netConnect() throws IOException {
-//        String address = "www.baidu.com";
-//
-//        Process process = Runtime.getRuntime().exec("ping " + address);
-//
-//        BufferedReader reader = new BufferedReader(
-//                new InputStreamReader(process.getInputStream()));
-//
-//        String line = reader.readLine();
-//
-//        if (line == null) {
-//            return false;
-//        }
-//
-//        String osName = (String) System.getProperties().get("os.name");
-//
-//        if (osName.toUpperCase().contains("WINDOWS")) {
-//            return line.equals("");
-//        } else if (osName.toUpperCase().contains("LINUX")) {
-//            return !line.equals("");
-//        }
-//
-//        return line.equals("");
-        return true;
+        String address = "www.baidu.com";
+
+        Process process = Runtime.getRuntime().exec("ping " + address);
+
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(process.getInputStream()));
+
+        String line = reader.readLine();
+
+        if (line == null) {
+            return false;
+        }
+
+        String osName = (String) System.getProperties().get("os.name");
+
+        if (osName.toUpperCase().contains("WINDOWS")) {
+            return line.equals("");
+        } else if (osName.toUpperCase().contains("LINUX")) {
+            return !line.equals("");
+        }
+
+        return line.equals("");
     }
 }
