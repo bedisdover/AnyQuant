@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -79,6 +80,11 @@ public class IndexBrokenLinePanel extends OperationPanel {
         try {
             currentInfoPanel = new IndexCurrentInfoPanel();
 
+            dcStart = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
+                    MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+            dcEnd = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT
+                    , MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+
             IndexVO index = new ShowIndexData().getLatestIndexData();
             String date[] = index.getDate();
             //now 2016-04-12 latest 2016-04-11
@@ -94,6 +100,20 @@ public class IndexBrokenLinePanel extends OperationPanel {
             startTime = yesterday_365;
 
             String chooseD[] = {yesterday_365, yesterday};
+            remove(dcStart);
+            remove(dcEnd);
+            int yearS = Integer.parseInt(yesterday_365.substring(0, 4));
+            int monthS = Integer.parseInt(yesterday_365.substring(5, 7));
+            int dayS = Integer.parseInt(yesterday_365.substring(8,10));
+            Date startDate=new Date(yearS,monthS,dayS);
+            int yearE = Integer.parseInt(yesterday.substring(0, 4));
+            int monthE = Integer.parseInt(yesterday.substring(5, 7));
+            int dayE = Integer.parseInt(yesterday.substring(8,10));
+            Date endDate=new Date(yearE,monthE,dayE);
+            dcStart=new DateChooser(startDate, this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
+                    MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+            dcEnd=new DateChooser( endDate,this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT
+                    , MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
 
             chartPanel = new MarketIndexDetailPanel(chooseD);
         } catch (IOException e) {
@@ -111,10 +131,7 @@ public class IndexBrokenLinePanel extends OperationPanel {
         add(chartPanel);
         add(confirm);
 
-        dcStart = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
-                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-        dcEnd = new DateChooser(this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT
-                , MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+
     }
 
     /**

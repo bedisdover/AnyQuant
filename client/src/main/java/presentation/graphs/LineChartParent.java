@@ -14,14 +14,13 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import vo.IndexVO;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by pc on 2016/3/31.
+ * Created by zmj on 2016/3/31.
  */
 public class LineChartParent implements ChartMouseListener {
     ChartPanel panel;

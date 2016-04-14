@@ -38,17 +38,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private UltraPanel northPanel;
 
     /**
-     * 开始日期、结束日期
-     */
-    private DateChooser dcStart, dcEnd;
-
-
-    /**
-     * 确认日期选择，生成对应折线图
-     */
-    private UltraButton confirm;
-
-    /**
      * 表格选项面板
      */
     private UltraPanel columnsPanel;
@@ -167,15 +156,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         northPanel.setLayout(null);
 
         back = new JButton("返回");
-        dcStart = new DateChooser(northPanel,
-                PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
-                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-        dcEnd = new DateChooser(northPanel,
-                PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT,
-                MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-        confirm = new UltraButton("生成");
 
-        northPanel.add(confirm);
         northPanel.add(back);
 
         add(northPanel);
@@ -370,13 +351,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             }
         });
 
-        confirm.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //TODO
-            }
-        });
-
         labelK_Line.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -407,8 +381,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private void assignment() {
         back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-        confirm.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH, MARGIN,
-                BUTTON_WIDTH, BUTTON_HEIGHT);
         northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
         columnsPanel.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN * 2,
                 PANEL_WIDTH - MARGIN * 2, BUTTON_HEIGHT);
