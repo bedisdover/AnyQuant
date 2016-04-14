@@ -201,9 +201,6 @@ public abstract class OperationPanel extends JPanel {
                     stock.getClose()[0], stock.getOpen()[0],
                     stock.getTurnover()[0]
             };
-            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1]);
-            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100);
-            System.out.println(stock.getIncrease_decreaseRate()[stock.getDate().length - 1] * 100 + "%");
         }
         return createTable(this, columnNames);
     }
