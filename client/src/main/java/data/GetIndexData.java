@@ -79,6 +79,68 @@ public class GetIndexData implements GetIndexDataService {
         return indexPO;
     }
 
+    public IndexPO getIndexDataBetween(String date1,String date2) throws IOException {
+        ReadData rdt = new ReadData();
+        String url = "http://121.41.106.89:8010/api/benchmark/hs300?start="+date1+"&end="+date2;
+        String result = rdt.getData(url);
+        String s1 = rdt.parseJSON(result, "data");
+        String[] trading_info = rdt.parseJSON_array(s1, "trading_info");
+
+        int num=0;
+        for(int i=0;i<trading_info.length;i++){
+            JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
+            if(jsonObject.getString("volume").equals("0")){
+                num++;
+            }
+        }//计算无用数据的个数
+        long[] volume = new long[trading_info.length-num];
+        double[] high = new double[trading_info.length-num];
+        double[] adj_price = new double[trading_info.length-num];
+        double[] low = new double[trading_info.length-num];
+        double[] close = new double[trading_info.length-num];
+        double[] open = new double[trading_info.length-num];
+        String[] date = new String[trading_info.length-num];
+        double[] increase_decreaseRate = new double[trading_info.length-num];
+        double[] increase_decreaseNum = new double[trading_info.length-num];
+        IndexPO indexPO = new IndexPO(trading_info.length-num);
+        int k = 0;
+        for (int i = 0; i < trading_info.length; i++) {
+
+            JSONObject jsonObject = JSONObject.fromObject(trading_info[i]);
+
+            if(jsonObject.getString("volume").equals("0")){
+                continue;
+            }
+
+            volume[k] = Long.parseLong(jsonObject.getString("volume"));
+            high[k] = Double.parseDouble(jsonObject.getString("high"));
+            adj_price[k] = Double.parseDouble(jsonObject.getString("adj_price"));
+            low[k] = Double.parseDouble(jsonObject.getString("low"));
+            date[k] = jsonObject.getString("date");
+            close[k] = Double.parseDouble(jsonObject.getString("close"));
+            open[k] = Double.parseDouble(jsonObject.getString("open"));
+
+            if(k>=1){
+                increase_decreaseRate[k] = (close[k]-close[k-1])/close[k-1];
+                increase_decreaseNum[k] = close[k]-close[k-1];
+            }
+
+            k++;
+        }
+        indexPO.setVolume(volume);
+        indexPO.setHigh(high);
+        indexPO.setAdj_price(adj_price);
+        indexPO.setLow(low);
+        indexPO.setDate(date);
+        indexPO.setClose(close);
+        indexPO.setOpen(open);
+        indexPO.setIncrease_decreaseRate(increase_decreaseRate);
+        indexPO.setIncrease_decreaseNum(increase_decreaseNum);
+        JSONObject jsonObject1 = JSONObject.fromObject(s1);
+        indexPO.setName(jsonObject1.getString("name"));
+
+        return indexPO;
+    }
     /**
      * 获得api中的最新大盘数据对应的日期
      *
