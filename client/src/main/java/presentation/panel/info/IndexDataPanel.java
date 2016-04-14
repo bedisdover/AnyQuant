@@ -224,9 +224,29 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 //        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 //        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
-        labelK_Line = new JButton("K 线图");
-        labelBrokenLien = new JButton("折线图");
-        labelAnalyze = new JButton("综合分析");
+
+//        this.setOpaque(false);
+//        this.setContentAreaFilled(false);
+//        setBorderPainted(false);
+//        setBorder(null);
+//        setContentAreaFilled(false);
+
+
+        labelK_Line = new JButton();
+        labelBrokenLien = new JButton();
+        labelAnalyze = new JButton();
+        Image imageLineChart = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/linechart.png");
+        Image imageKLine = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/klineicon.png");
+        Image imageAna = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/analysis.png");
+        ImageIcon iconLineChart = new ImageIcon(imageLineChart);
+        ImageIcon iconKLine = new ImageIcon(imageKLine);
+        ImageIcon iconAna = new ImageIcon(imageAna);
+        labelK_Line.setIcon(iconKLine);
+        labelBrokenLien.setIcon(iconLineChart);
+        labelAnalyze.setIcon(iconAna);
+
+
+
 //        labelK_Line.setPreferredSize(new Dimension(100, 100));
 //        labelBrokenLien.setPreferredSize(new Dimension(100, 100));
 
