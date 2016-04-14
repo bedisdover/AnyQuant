@@ -4,21 +4,18 @@ import bl.SelfSelectStock;
 import bl.SortStock;
 import blservice.SelfSelectStockService;
 import data.GetStockData;
-import org.jb2011.lnf.beautyeye.ch4_scroll.BEScrollBarUI;
 import po.StockID;
 import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
 import presentation.panel.info.DetailedInfoPanel;
-import presentation.panel.info.StockInfoPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
 import vo.StockVO;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
@@ -434,6 +431,11 @@ public class PicturePanel extends OperationPanel {
          */
         private Map<JScrollPane, Boolean> expand;
 
+        /**
+         * 股票排序对象
+         */
+        private SortStock sortStock;
+
         public ListPanel() {
             super();
 
@@ -467,7 +469,6 @@ public class PicturePanel extends OperationPanel {
             btnCustom = new UltraButton("自定义");
             btnCustom.setToolTipText("自定义股票列表");
 
-            SortStock sortStock;
             try {
                 sortStock = new SortStock();
                 scrollIncrease = createRankingList(sortStock.increase_sort());
@@ -625,6 +626,22 @@ public class PicturePanel extends OperationPanel {
         private void showCustomDialog() {
             JDialog dialog = new CustomDialog();
             dialog.setVisible(true);
+        }
+
+        /**
+         * 自定义对话框操作后更新数据
+         */
+        void updateData() {
+            try {
+                sortStock = new SortStock();
+                scrollIncrease = createRankingList(sortStock.increase_sort());
+                scrollDecrease = createRankingList(sortStock.decrease_sort());
+                scrollTurnVolume = createRankingList(sortStock.volume_sort());
+
+                assignment();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         /**
@@ -842,10 +859,11 @@ public class PicturePanel extends OperationPanel {
 
         /**
          * 应用操作
+         * 存储更改，并刷新界面
          */
         private void onApply() {
             storeStockList();
-
+            listPanel.updateData();
         }
 
         /**

@@ -63,7 +63,6 @@ public class IndexKLine_Daily implements ChartMouseListener{
 
         indexVO = getIndexData.getLatestIndexData();
         num = indexVO.getDate().length;
-        System.out.println(num);
 
         OHLCSeries series = new OHLCSeries("");// 高开低收数据序列，股票K线图的四个数据，依次是开，高，低，收
         for(int i=num-1;i>=num-90;i--){
