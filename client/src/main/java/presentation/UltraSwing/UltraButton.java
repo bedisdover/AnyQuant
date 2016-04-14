@@ -38,9 +38,11 @@ public class UltraButton extends JButton {
         Image imageLineChart = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/linechart.png");
         Image imageKLine = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/klineicon.jpg");
         Image imageAna = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/analysis.jpg");
+        Image imageTime = Toolkit.getDefaultToolkit().getImage("client/src/main/resources/images/timeseries.png");
         ImageIcon iconLineChart = new ImageIcon(imageLineChart);
         ImageIcon iconKLine = new ImageIcon(imageKLine);
         ImageIcon iconAna = new ImageIcon(imageAna);
+        ImageIcon iconTime= new ImageIcon(imageTime);
 
 
         if(num==1){
@@ -54,6 +56,10 @@ public class UltraButton extends JButton {
         if(num==3){
             //综合分析
             this.setIcon(iconAna);
+        }
+        if(num==4){
+            //分时图
+            this.setIcon(iconTime);
         }
     }
 

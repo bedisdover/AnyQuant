@@ -107,7 +107,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * K线图、折线图、综合分析
      * TODO BUTTON
      */
-    private UltraButton labelK_Line, labelBrokenLien, labelAnalyze;
+    private UltraButton labelK_Line, labelTimeSeries, labelAnalyze;
 
     /**
      * 父面板
@@ -284,14 +284,14 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
         labelK_Line = new UltraButton(1);
-        labelBrokenLien = new UltraButton(2);
+        labelTimeSeries = new UltraButton(4);
         labelAnalyze = new UltraButton(3);
         labelK_Line.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
-        labelBrokenLien.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
+        labelTimeSeries.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
         labelAnalyze.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
         add(labelAnalyze);
         add(labelK_Line);
-        add(labelBrokenLien);
+        add(labelTimeSeries);
     }
 
     /**
@@ -346,7 +346,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             }
         });
 
-        labelBrokenLien.addMouseListener(new MouseAdapter() {
+        labelTimeSeries.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "开发中，敬请期待！");
@@ -404,9 +404,9 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 
         labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
                 BUTTON_WIDTH,BUTTON_WIDTH);
-        labelBrokenLien.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_WIDTH+ PADDING,
+        labelTimeSeries.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_WIDTH+ PADDING,
                 BUTTON_WIDTH, BUTTON_WIDTH);
-        labelAnalyze.setBounds(labelK_Line.getX(), labelBrokenLien.getY() + BUTTON_WIDTH + PADDING,
+        labelAnalyze.setBounds(labelK_Line.getX(), labelTimeSeries.getY() + BUTTON_WIDTH + PADDING,
                 BUTTON_WIDTH, BUTTON_WIDTH);
 
 
