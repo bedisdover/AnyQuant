@@ -312,6 +312,25 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
             }
         });
 
+        confirm.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    stock = new GetStockData().getStockData_name(stock.getId(),
+                            dcStart.getTime(), dcEnd.getTime());
+
+                    initTable();
+                    scrollPane.getViewport().remove(table);
+                    table = createSelectTable();
+                    scrollPane.getViewport().add(table);
+
+                    assignment();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         btnFollow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

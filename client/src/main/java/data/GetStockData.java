@@ -311,8 +311,16 @@ public class GetStockData implements GetStockDataService {
      */
     public StockPO getStockData_name(String name, String date1, String date2) throws IOException {
 //        int interval = intervalBetweenTwoDates(date1, date2);
+        String url;
+        if(date1.length()==8){
+            String d1 = date1.substring(0,4)+"-"+date1.substring(4,6)+"-"+date1.substring(6);//给date1加上-
+            String d2 = date2.substring(0,4)+"-"+date2.substring(4,6)+"-"+date2.substring(6);//给date2加上-
+            url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + d1 + "&end=" + d2;
+        }
+        else{
+            url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
+        }
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
         String s1 = rdt.getData(url);
         String s2 = rdt.parseJSON(s1, "data");
         String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
@@ -426,23 +434,23 @@ public class GetStockData implements GetStockDataService {
         return stockPOs;
     }
 
-    public double getIncrease_decreaseRate(String stockID) throws IOException {
-        ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-        String[] strings = s.split(",");
-        double close_yesterday = Double.parseDouble(strings[2]);
-        double currentPrice = Double.parseDouble(strings[3]);
-        return ((double) Math.round((currentPrice - close_yesterday) / close_yesterday * 10000)) / 10000;
-    }
-
-    public double getIncrease_decreaseNum(String stockID) throws IOException {
-        ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-        String[] strings = s.split(",");
-        double close_yesterday = Double.parseDouble(strings[2]);
-        double currentPrice = Double.parseDouble(strings[3]);
-        return Math.round((currentPrice - close_yesterday) * 100) / 100;
-    }
+//    public double getIncrease_decreaseRate(String stockID) throws IOException {
+//        ReadData readData = new ReadData();
+//        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
+//        String[] strings = s.split(",");
+//        double close_yesterday = Double.parseDouble(strings[2]);
+//        double currentPrice = Double.parseDouble(strings[3]);
+//        return ((double) Math.round((currentPrice - close_yesterday) / close_yesterday * 10000)) / 10000;
+//    }
+//
+//    public double getIncrease_decreaseNum(String stockID) throws IOException {
+//        ReadData readData = new ReadData();
+//        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
+//        String[] strings = s.split(",");
+//        double close_yesterday = Double.parseDouble(strings[2]);
+//        double currentPrice = Double.parseDouble(strings[3]);
+//        return Math.round((currentPrice - close_yesterday) * 100) / 100;
+//    }
 
     /**
      * 获得api中的最新股票数据对应的日期
@@ -458,17 +466,17 @@ public class GetStockData implements GetStockDataService {
         return dates[dates.length - 1];
     }
 
-    private int intervalBetweenTwoDates(String d1, String d2) {
-        String[] date1 = d1.split("-");
-        String[] date2 = d2.split("-");
-        Calendar c1 = new GregorianCalendar();
-        c1.set(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]) - 1, Integer.parseInt(date1[2]));
-        Calendar c2 = new GregorianCalendar();
-        c2.set(Integer.parseInt(date2[0]), Integer.parseInt(date2[1]) - 1, Integer.parseInt(date2[2]));
-        long t1 = c1.getTimeInMillis();
-        long t2 = c2.getTimeInMillis();
-        return (int) ((t2 - t1) / (1000 * 3600 * 24));
-    }
+//    private int intervalBetweenTwoDates(String d1, String d2) {
+//        String[] date1 = d1.split("-");
+//        String[] date2 = d2.split("-");
+//        Calendar c1 = new GregorianCalendar();
+//        c1.set(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]) - 1, Integer.parseInt(date1[2]));
+//        Calendar c2 = new GregorianCalendar();
+//        c2.set(Integer.parseInt(date2[0]), Integer.parseInt(date2[1]) - 1, Integer.parseInt(date2[2]));
+//        long t1 = c1.getTimeInMillis();
+//        long t2 = c2.getTimeInMillis();
+//        return (int) ((t2 - t1) / (1000 * 3600 * 24));
+//    }
 
     /**
      * 从文件中读取所有银行股的代号

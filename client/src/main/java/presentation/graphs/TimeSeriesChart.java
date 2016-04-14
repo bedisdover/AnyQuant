@@ -195,9 +195,9 @@ public class TimeSeriesChart extends ApplicationFrame implements ChartMouseListe
             textTitle.setText(text);
             textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         } else {
-            TextTitle textTitle = this.jfreechart.getTitle();
-            textTitle.setText("价格为空");
-            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
+//            TextTitle textTitle = this.jfreechart.getTitle();
+//            textTitle.setText("价格为空");
+//            textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         }
     }
 }
