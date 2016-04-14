@@ -20,10 +20,11 @@ public class DateChooserTest extends JPanel {
     public DateChooserTest() {
         dc = new DateChooser(this, 100, 200);
         button = new JButton("生成");
+        button.setBounds(0,0,30,30);
+        this.add(button);
+        dc.setTime("2016-02-04");
 
-        remove(dc);
-        Date date=new Date(2016,2,4);
-        dc=new DateChooser(date,this,100,200);
+
 
     }
 
