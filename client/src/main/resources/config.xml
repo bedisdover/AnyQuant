@@ -26,14 +26,14 @@
                 <turnOver selected="true"/>
             </StockData>
 
-            <indexData updateLag="2">
+            <IndexData updateLag="2">
                 <high selected="true"/>
                 <low selected="true"/>
                 <open selected="true"/>
                 <close selected="true"/>
                 <volume selected="true"/>
                 <adjPrice selected="true"/>
-            </indexData>
+            </IndexData>
         </data>
 
         <font name="微软雅黑" style="0" size="14"/>
