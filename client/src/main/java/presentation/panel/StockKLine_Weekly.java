@@ -163,7 +163,6 @@ public class StockKLine_Weekly implements ChartMouseListener{
         }
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         s = simpleDateFormat.format(d);
-        System.out.println(s);
         return s;
     }
 
