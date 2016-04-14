@@ -114,6 +114,6 @@ public class StockDataConfig {
     }
 
     public void setTurnOver(boolean selected) {
-        stockData.element("").addAttribute("selected", selected + "");
+        stockData.element("turnOver").addAttribute("selected", selected + "");
     }
 }
