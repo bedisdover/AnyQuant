@@ -46,7 +46,10 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 日期选择框
      */
     private DateChooser dcStart, dcEnd;
-
+    /**
+     * 开始、结束日期
+     */
+    String startTime,endTime;
     /**
      * 生成按钮
      */
@@ -129,6 +132,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private Table initTable() {
         allData = new Object[index.getDate().length][];
+        startTime=index.getDate()[0];
+        endTime=index.getDate()[index.getDate().length-1];
         allColumns = new String[]{
                 "日期", "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"};
 
@@ -170,7 +175,8 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                 PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT,
                 MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
         confirm = new UltraButton("生成");
-
+        dcEnd.setTime(endTime);
+        dcStart.setTime(startTime);
         northPanel.add(confirm);
 
 

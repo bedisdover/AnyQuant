@@ -97,10 +97,13 @@ public class IndexBrokenLinePanel extends OperationPanel {
             String yesterday = df.format(c.getTime()).substring(0, 10);//2016-04-11
             c.add(Calendar.DATE, -366);
             String yesterday_365 = df.format(c.getTime()).substring(0, 10);//2015-04-11
+            System.out.println(yesterday+"hhh");
+            System.out.println(yesterday_365+"hhh");
             startTime = yesterday_365;
 
             String chooseD[] = {yesterday_365, yesterday};
-
+            dcStart.setTime(yesterday_365);
+            dcEnd.setTime(yesterday);
 
             chartPanel = new MarketIndexDetailPanel(chooseD);
         } catch (IOException e) {
