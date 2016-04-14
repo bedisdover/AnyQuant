@@ -107,7 +107,7 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * K线图、折线图、综合分析
      * TODO BUTTON
      */
-    private JButton labelK_Line, labelBrokenLien, labelAnalyze;
+    private UltraButton labelK_Line, labelBrokenLien, labelAnalyze;
 
     /**
      * 父面板
@@ -283,25 +283,12 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
 //        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 //        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
-        labelK_Line = new JButton("K 线图");
-        labelBrokenLien = new JButton("分时图");
-        labelAnalyze = new JButton("综合分析");
-//        labelK_Line.setPreferredSize(new Dimension(100, 100));
-//        labelBrokenLien.setPreferredSize(new Dimension(100, 100));
-
-//        labelK_Line.setIcon(ImageLoader.kLine);
-//        labelBrokenLien.setIcon(ImageLoader.brokenLine);
-
-//        southPanel.setPreferredSize(
-//                new Dimension(MainFrame.getMainFrame().getWidth(), BUTTON_HEIGHT + MARGIN * 2));
-
-//        southPanel.add(labelK_Line);
-//        southPanel.add(labelBrokenLien);
-//        southPanel.add(labelAnalyze);
-
-//        southPanel.setBounds(0, PANEL_HEIGHT - BUTTON_HEIGHT - MARGIN,
-//                PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
-//        add(southPanel);
+        labelK_Line = new UltraButton(1);
+        labelBrokenLien = new UltraButton(2);
+        labelAnalyze = new UltraButton(3);
+        labelK_Line.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
+        labelBrokenLien.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
+        labelAnalyze.setSize(BUTTON_WIDTH,BUTTON_WIDTH);
         add(labelAnalyze);
         add(labelK_Line);
         add(labelBrokenLien);
@@ -395,12 +382,15 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
         scrollPane.setBounds(MARGIN, columnsPanel.getY() + columnsPanel.getHeight(),
                 table.getColumnModel().getTotalColumnWidth() + 20,
                 PANEL_HEIGHT - (columnsPanel.getY() + columnsPanel.getHeight()) - PADDING);
+
         labelK_Line.setBounds(PANEL_WIDTH - PADDING - BUTTON_WIDTH, scrollPane.getY(),
-                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
-        labelBrokenLien.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_HEIGHT + PADDING,
-                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
-        labelAnalyze.setBounds(labelK_Line.getX(), labelBrokenLien.getY() + BUTTON_HEIGHT + PADDING,
-                BUTTON_WIDTH + BUTTON_HEIGHT, BUTTON_HEIGHT);
+                BUTTON_WIDTH,BUTTON_WIDTH);
+        labelBrokenLien.setBounds(labelK_Line.getX(), labelK_Line.getY() + BUTTON_WIDTH+ PADDING,
+                BUTTON_WIDTH, BUTTON_WIDTH);
+        labelAnalyze.setBounds(labelK_Line.getX(), labelBrokenLien.getY() + BUTTON_WIDTH + PADDING,
+                BUTTON_WIDTH, BUTTON_WIDTH);
+
+
 
         revalidate();
         repaint();

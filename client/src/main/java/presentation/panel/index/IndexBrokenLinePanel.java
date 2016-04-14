@@ -100,20 +100,7 @@ public class IndexBrokenLinePanel extends OperationPanel {
             startTime = yesterday_365;
 
             String chooseD[] = {yesterday_365, yesterday};
-            remove(dcStart);
-            remove(dcEnd);
-            int yearS = Integer.parseInt(yesterday_365.substring(0, 4));
-            int monthS = Integer.parseInt(yesterday_365.substring(5, 7));
-            int dayS = Integer.parseInt(yesterday_365.substring(8,10));
-            Date startDate=new Date(yearS,monthS,dayS);
-            int yearE = Integer.parseInt(yesterday.substring(0, 4));
-            int monthE = Integer.parseInt(yesterday.substring(5, 7));
-            int dayE = Integer.parseInt(yesterday.substring(8,10));
-            Date endDate=new Date(yearE,monthE,dayE);
-            dcStart=new DateChooser(startDate, this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
-                    MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
-            dcEnd=new DateChooser( endDate,this, PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 3 - BUTTON_HEIGHT
-                    , MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+
 
             chartPanel = new MarketIndexDetailPanel(chooseD);
         } catch (IOException e) {
