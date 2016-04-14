@@ -1,6 +1,7 @@
 package presentation.panel.index;
 
 import bl.ShowIndexData;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import presentation.UltraSwing.UltraButton;
 import presentation.frame.MainFrame;
 import presentation.panel.info.IndexCurrentInfoPanel;
@@ -152,7 +153,24 @@ public class IndexBrokenLinePanel extends OperationPanel {
                 String chooseDate[] = {startDate, endDate};
                 //         System.out.println(startDate+"你是谁哦");
                 //         System.out.println(endDate+"你又是谁哦");
+
+
                 try {
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+                    Calendar c = Calendar.getInstance();
+                    c.add(Calendar.DATE, -1);
+                    String eDate= df.format(c.getTime()).substring(0, 10);//结束日期
+
+                    int compareSE=startDate.compareTo(eDate);
+
+                    int compareEE=endDate.compareTo(eDate);
+                    int valid=startDate.compareTo(endDate);
+                    if(valid>=0 || (compareSE>0&&compareEE>0)){
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "输入日期不合法！");
+                    }
+
+                    IndexVO index = new ShowIndexData().getLatestIndexData();
+                    String date[] = index.getDate();
                     remove(chartPanel);
                     chartPanel = new MarketIndexDetailPanel(chooseDate);
                     add(chartPanel);

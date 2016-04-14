@@ -21,7 +21,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -363,6 +365,30 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
+                    String start = dcStart.getTime();
+                    String startDate = start.substring(0, 4) + "-" + start.substring(4, 6) + "-" + start.substring(6, 8);
+                    String end = dcEnd.getTime();
+                    String endDate = end.substring(0, 4) + "-" + end.substring(4, 6) + "-" + end.substring(6, 8);
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+                    Calendar c = Calendar.getInstance();
+                    c.add(Calendar.DATE, -1);
+                    String eDate= df.format(c.getTime()).substring(0, 10);//结束日期
+
+                    System.out.println(eDate);
+                    int compareSE=startDate.compareTo(eDate);
+                    System.out.println(startDate+"startDate");
+                    System.out.println(endDate+"endDate");
+
+                    int compareEE=endDate.compareTo(eDate);
+                    System.out.println(compareEE);
+                    int valid=startDate.compareTo(endDate);
+                    if(valid>=0 || (compareSE>0&&compareEE>0)){
+                        System.out.println("aaaaaa");
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "输入日期不合法！");
+                    }
+
+
+
                     index = new IndexVO(new GetIndexData().getIndexDataBetween(
                                     dcStart.getTime(), dcEnd.getTime()));
 
