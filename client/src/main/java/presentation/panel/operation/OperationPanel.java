@@ -6,6 +6,7 @@ import vo.IndexVO;
 import vo.StockVO;
 
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -138,7 +139,30 @@ public abstract class OperationPanel extends JPanel {
     }
 
     private Table createTable(JPanel parent, String[] columnNames) {
-        table = new Table(parent, data, columnNames);
+        table = new Table(parent, data, columnNames) {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                int modelRow = convertRowIndexToModel(row);
+                int modelColumn = convertColumnIndexToModel(column);
+                Component comp = super.prepareRenderer(renderer, row, column);
+
+                double increase = Double.parseDouble(this.getModel().getValueAt(modelRow, 3).toString());
+                if (increase > 0) {
+                    if (modelColumn == 3 || modelColumn == 4) {
+                        comp.setForeground(new Color(179, 43, 56));
+                    } else {
+                        comp.setForeground(new Color(62, 56, 49, 240));
+                    }
+                } else if (increase < 0) {
+                    if (modelColumn == 3 || modelColumn == 4) {
+                        comp.setForeground(new Color(37, 120, 38));
+                    } else {
+                        comp.setForeground(new Color(62, 56, 49, 240));
+                    }
+                }
+
+                return comp;
+            }
+        };
 
         scrollPane = table.drawTable();
 

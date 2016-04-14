@@ -14,9 +14,28 @@
         </panel>
 
         <data>
-            <StockData updateLag="2"/>
+            <StockData updateLag="2">
+                <high selected="false"/>
+                <low selected="true"/>
+                <open selected="true"/>
+                <close selected="true"/>
+                <volume selected="true"/>
+                <pb selected="true"/>
+                <pe_ttm selected="true"/>
+                <adjPrice selected="true"/>
+                <turnOver selected="true"/>
+            </StockData>
+
+            <indexData updateLag="2">
+                <high selected="true"/>
+                <low selected="true"/>
+                <open selected="true"/>
+                <close selected="true"/>
+                <volume selected="true"/>
+                <adjPrice selected="true"/>
+            </indexData>
         </data>
 
-        <font name="新宋体" style="0" size="14"/>
+        <font name="微软雅黑" style="0" size="14"/>
     </presentation>
 </project>

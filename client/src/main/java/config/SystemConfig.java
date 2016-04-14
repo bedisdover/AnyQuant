@@ -134,13 +134,13 @@ public class SystemConfig {
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static DataConfig getDataConfig() throws MalformedURLException, DocumentException {
+    public static StockDataConfig getDataConfig() throws MalformedURLException, DocumentException {
         init();
 
         Element presentation = root.element("presentation");
         Element data = presentation.element("data");
 
-        return new DataConfig(data);
+        return new StockDataConfig(data);
     }
 
     /**

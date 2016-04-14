@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -52,7 +53,8 @@ public class Table extends JTable {
     private void init() {
         // TODO 行宽
         setRowHeight(30);
-
+        setSelectionBackground(new Color(88, 93, 103, 200));
+        setSelectionForeground(new Color(255, 255, 255, 230));
         //无法修改表头大小
         getTableHeader().setResizingAllowed(false);
         //无法拖动表头

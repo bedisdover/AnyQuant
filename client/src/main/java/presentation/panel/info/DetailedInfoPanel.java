@@ -2,7 +2,10 @@ package presentation.panel.info;
 
 import bl.SelfSelectStock;
 import blservice.SelfSelectStockService;
+import config.StockDataConfig;
+import config.SystemConfig;
 import data.GetStockData;
+import org.dom4j.DocumentException;
 import po.StockPO;
 import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
@@ -17,6 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -401,15 +405,21 @@ public class DetailedInfoPanel extends OperationPanel implements ItemListener {
      * 初始化列名
      */
     private void initColumns() {
-        high.setSelected(true);
-        low.setSelected(true);
-        open.setSelected(true);
-        close.setSelected(true);
-        volume.setSelected(true);
-        pb.setSelected(true);
-        pe_ttm.setSelected(true);
-        adjPrice.setSelected(true);
-        turnOver.setSelected(true);
+        StockDataConfig config = null;
+        try {
+            config = SystemConfig.getDataConfig();
+        } catch (MalformedURLException | DocumentException e) {
+            e.printStackTrace();
+        }
+        high.setSelected(config.isHighSelected());
+        low.setSelected(config.isLowSelected());
+        open.setSelected(config.isOpenSelected());
+        close.setSelected(config.isCloseSelected());
+        volume.setSelected(config.isVolumeSelected());
+        pb.setSelected(config.isPbSelected());
+        pe_ttm.setSelected(config.isPe_ttmSelected());
+        adjPrice.setSelected(config.isAdjPriceSelected());
+        turnOver.setSelected(config.isTurnOverSelected());
 
         high.addItemListener(this);
         low.addItemListener(this);

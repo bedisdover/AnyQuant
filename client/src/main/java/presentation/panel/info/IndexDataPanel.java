@@ -55,9 +55,9 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 
     /**
      * 复选框，对应表格中显示的列
-     * "最高", "最低", "开盘价", "收盘价", "成交量", "市净率", "市盈率", "后复权价", "周转率"
+     * "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"
      */
-    private JCheckBox high, low, open, close, volume, pb, pe_ttm, adjPrice, turnOver;
+    private JCheckBox high, low, open, close, volume, adjPrice;
 
     /**
      * 表格的列名，包含日期及上述复选框中选择显示的列
