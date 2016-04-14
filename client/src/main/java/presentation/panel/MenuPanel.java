@@ -26,6 +26,7 @@ import java.io.IOException;
 
 import static presentation.frame.MainFrame.MENU_WIDTH;
 import static presentation.frame.MainFrame.getMainFrame;
+import static presentation.frame.MainFrame.operationPanel;
 
 /**
  * Created by 宋益明 on 16-3-2.
@@ -241,8 +242,8 @@ public class MenuPanel extends JPanel {
         this.add(btnPicture);
         this.add(btnMarketIndex);
         this.add(btnHistory);
-        this.add(btnSettings);
-        this.add(btnSkin);
+//        this.add(btnSettings);
+//        this.add(btnSkin);
     }
 
     private void addListeners() {
@@ -329,7 +330,7 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (netState) {
-                    getMainFrame().addOperationPanel(new IndexDataPanel(MenuPanel.this));
+                    getMainFrame().addOperationPanel(new IndexDataPanel());
                 } else {
                     JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "请检查网络连接！");
                 }

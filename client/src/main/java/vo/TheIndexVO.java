@@ -70,53 +70,44 @@ public class TheIndexVO {
         this.BR = BR;
     }
 
-    public String conclusion1(){
-        if(bias>=2){
+    public String conclusion1() {
+        if (bias >= 2) {
             return "短期获利较大，获利回吐的可能性较高。";
-        }
-        else if(bias<=-2){
+        } else if (bias <= -2) {
             return "空头回补的可能性较高。";
-        }
-        else{
+        } else {
             return "股价小幅波动，比较稳定。";
         }
     }
 
-    public String conclusion2(){
-        if(RSI>80){
+    public String conclusion2() {
+        if (RSI > 80) {
             return "进入超买区，股价随时可能形成短期回档。";
-        }
-        else if(RSI<20){
+        } else if (RSI < 20) {
             return "进入超卖区，股价随时可能形成短期反弹。";
-        }
-        else if(RSI>=50){
+        } else if (RSI >= 50) {
             return "处于多头行情";
-        }
-        else{
+        } else {
             return "处于空头行情";
         }
     }
 
-    public String conclusion3(){
-        if(WM>80){
+    public String conclusion3() {
+        if (WM > 80) {
             return "处于超卖状态，行情即将见底。";
-        }
-        else if (WM<20){
+        } else if (WM < 20) {
             return "处于超买状态，行情即将见顶。";
-        }
-        else{
+        } else {
             return "尚未进入超买超卖状态。";
         }
     }
 
-    public String conclusion4(){
-        if(AR>=60&&AR<=120){
-            return "属盘整行情,股价走势比较平稳,不会出现剧烈波动。";
-        }
-        else if(AR<60){
+    public String conclusion4() {
+        if (AR >= 60 && AR <= 120) {
+            return "属盘整行情,股价走势平稳,不会出现剧烈波动。";
+        } else if (AR < 60) {
             return "股价有可能随时反弹上升。";
-        }
-        else{
+        } else {
             return "股价随时可能回档下跌。";
         }
     }

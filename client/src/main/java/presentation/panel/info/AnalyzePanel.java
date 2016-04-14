@@ -42,9 +42,9 @@ public class AnalyzePanel extends OperationPanel {
     private String name, id;
 
     /**
-     * 名称面板、指标面板
+     * 名称面板、指标面板、结论面板
      */
-    private JPanel namePanel, indexPanel;
+    private JPanel namePanel, indexPanel, conclusionPanel;
 
     AnalyzePanel(JPanel parent, StockVO stock) {
         this.index = new CalculateIndex().getTheIndex(stock);
@@ -71,6 +71,7 @@ public class AnalyzePanel extends OperationPanel {
     @Override
     protected void init() {
         setLayout(null);
+        update();
     }
 
     @Override
@@ -79,10 +80,12 @@ public class AnalyzePanel extends OperationPanel {
 
         namePanel = new NamePanel(name, id);
         indexPanel = new IndexPanel(index);
+        conclusionPanel = new ConclusionPanel();
 
         add(back);
         add(namePanel);
         add(indexPanel);
+        add(conclusionPanel);
     }
 
     private void assignment() {
@@ -93,8 +96,9 @@ public class AnalyzePanel extends OperationPanel {
                 BUTTON_WIDTH * 6, BUTTON_HEIGHT + MARGIN / 2);
         indexPanel.setBounds(MARGIN, (PANEL_HEIGHT - BUTTON_HEIGHT * 6) / 2,
                 BUTTON_WIDTH * 2 + MARGIN, BUTTON_HEIGHT * 6);
+        conclusionPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH * 6 - MARGIN, indexPanel.getY(),
+                BUTTON_WIDTH * 6, BUTTON_HEIGHT * 6);
     }
-
 
     protected void addListeners() {
         addComponentListener(new ComponentAdapter() {
@@ -127,6 +131,24 @@ public class AnalyzePanel extends OperationPanel {
      */
     private void onBack() {
         MainFrame.getMainFrame().addOperationPanel(parent);
+    }
+
+    /**
+     * 固定时间间隔刷新面板
+     */
+    private void update() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        repaint();
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }.start();
     }
 
     /**
@@ -263,6 +285,54 @@ public class AnalyzePanel extends OperationPanel {
             WM.setToolTipText("威廉超买超卖指标");
             AR.setToolTipText("人气指标");
             BR.setToolTipText("意愿指标");
+        }
+    }
+
+    /**
+     * 结论面板
+     */
+    private class ConclusionPanel extends JPanel {
+
+        /**
+         * 对应结论
+         * BR和AR只有一个
+         */
+        private JLabel biasConclusion, RSIConclusion, WMConclusion, ARConclusion;
+
+        ConclusionPanel() {
+            init();
+            createUIComponents();
+        }
+
+        private void init() {
+            setLayout(null);
+            setBackground(Color.lightGray);
+            setBorder(new BevelBorder(BevelBorder.LOWERED));
+        }
+
+        private void createUIComponents() {
+            biasConclusion = new JLabel(index.conclusion1());
+            RSIConclusion = new JLabel(index.conclusion2());
+            WMConclusion = new JLabel(index.conclusion3());
+            ARConclusion = new JLabel(index.conclusion4());
+
+            biasConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+            RSIConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+            WMConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+            ARConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+
+            biasConclusion.setBounds(MARGIN, MARGIN / 2, BUTTON_WIDTH * 6, BUTTON_HEIGHT);
+            RSIConclusion.setBounds(MARGIN, biasConclusion.getY() + PADDING,
+                    BUTTON_WIDTH * 6, BUTTON_HEIGHT);
+            WMConclusion.setBounds(MARGIN, RSIConclusion.getY() + PADDING,
+                    BUTTON_WIDTH * 6, BUTTON_HEIGHT);
+            ARConclusion.setBounds(MARGIN, WMConclusion.getY() + PADDING,
+                    BUTTON_WIDTH * 6, BUTTON_HEIGHT);
+
+            add(biasConclusion);
+            add(RSIConclusion);
+            add(WMConclusion);
+            add(ARConclusion);
         }
     }
 }

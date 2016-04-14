@@ -100,23 +100,11 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
     private JButton labelK_Line, labelBrokenLien, labelAnalyze;
 
     /**
-     * 父面板
-     */
-    private JPanel parent;
-
-    /**
-     * 返回按钮
-     */
-    private JButton back;
-
-    /**
      * 配置对象
      */
     private IndexDataConfig config;
 
-    public IndexDataPanel(JPanel parent) {
-        this.parent = parent;
-
+    public IndexDataPanel() {
         init();
         createUIComponents();
         initColumns();
@@ -175,7 +163,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         northPanel = new UltraPanel();
         northPanel.setLayout(null);
 
-        back = new JButton("返回");
         dcStart = new DateChooser(northPanel,
                 PANEL_WIDTH - MARGIN - BUTTON_WIDTH - PADDING * 6 - BUTTON_HEIGHT * 2,
                 MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
@@ -185,7 +172,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         confirm = new UltraButton("生成");
 
         northPanel.add(confirm);
-        northPanel.add(back);
 
         add(northPanel);
     }
@@ -373,13 +359,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             }
         });
 
-        back.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                MainFrame.getMainFrame().addOperationPanel(parent);
-            }
-        });
-
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -416,7 +395,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      * 界面大小发生变化时，对组件位置重新赋值
      */
     private void assignment() {
-        back.setBounds(MARGIN, MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
         confirm.setBounds(PANEL_WIDTH - MARGIN - BUTTON_WIDTH, MARGIN,
                 BUTTON_WIDTH, BUTTON_HEIGHT);
         northPanel.setBounds(0, 0, PANEL_WIDTH, BUTTON_HEIGHT + MARGIN);
