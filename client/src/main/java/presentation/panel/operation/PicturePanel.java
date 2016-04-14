@@ -324,7 +324,7 @@ public class PicturePanel extends OperationPanel {
      * @param stockList 股票列表
      * @return 目标榜单
      */
-    private UltraScrollPane createRankingList(List<StockVO> stockList) {
+    private UltraScrollPane createRankingTable(List<StockVO> stockList) {
         data = new Object[stockList.size()][];
 
         String[] columnNames = {
@@ -431,12 +431,7 @@ public class PicturePanel extends OperationPanel {
          */
         private Map<JScrollPane, Boolean> expand;
 
-        /**
-         * 股票排序对象
-         */
-        private SortStock sortStock;
-
-        public ListPanel() {
+        ListPanel() {
             super();
 
             init();
@@ -470,12 +465,12 @@ public class PicturePanel extends OperationPanel {
             btnCustom.setToolTipText("自定义股票列表");
 
             try {
-                sortStock = new SortStock();
-                scrollIncrease = createRankingList(sortStock.increase_sort());
+                SortStock sortStock = new SortStock();
+                scrollIncrease = createRankingTable(sortStock.increase_sort());
                 table1 = table;
-                scrollDecrease = createRankingList(sortStock.decrease_sort());
+                scrollDecrease = createRankingTable(sortStock.decrease_sort());
                 table2 = table;
-                scrollTurnVolume = createRankingList(sortStock.volume_sort());
+                scrollTurnVolume = createRankingTable(sortStock.volume_sort());
                 table3 = table;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -633,12 +628,25 @@ public class PicturePanel extends OperationPanel {
          */
         void updateData() {
             try {
-                sortStock = new SortStock();
-                scrollIncrease = createRankingList(sortStock.increase_sort());
-                scrollDecrease = createRankingList(sortStock.decrease_sort());
-                scrollTurnVolume = createRankingList(sortStock.volume_sort());
+                centerPanel.remove(scrollIncrease);
+                centerPanel.remove(scrollDecrease);
+                centerPanel.remove(scrollTurnVolume);
+
+                SortStock sortStock = new SortStock();
+                scrollIncrease = createRankingTable(sortStock.increase_sort());
+                scrollDecrease = createRankingTable(sortStock.decrease_sort());
+                scrollTurnVolume = createRankingTable(sortStock.volume_sort());
+
+                expand = new HashMap<>();
+                centerPanel.add(scrollIncrease);
+                centerPanel.add(scrollDecrease);
+                centerPanel.add(scrollTurnVolume);
+                expand.put(scrollIncrease, true);
+                expand.put(scrollDecrease, true);
+                expand.put(scrollTurnVolume, true);
 
                 assignment();
+                repaint();
             } catch (IOException e) {
                 e.printStackTrace();
             }
