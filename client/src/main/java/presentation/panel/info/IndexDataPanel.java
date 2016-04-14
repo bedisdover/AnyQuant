@@ -120,14 +120,14 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             e.printStackTrace();
         }
 
-        table = createTable();
+        table = initTable();
         update();
     }
 
     /**
      * 初始化表格数据
      */
-    private Table createTable() {
+    private Table initTable() {
         allData = new Object[index.getDate().length][];
         allColumns = new String[]{
                 "日期", "最高", "最低", "开盘价", "收盘价", "成交量", "后复权价"};
@@ -356,7 +356,19 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
         confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                try {
+                    index = new IndexVO(new GetIndexData().getIndexDataBetween(
+                                    dcStart.getTime(), dcEnd.getTime()));
 
+                    initTable();
+                    scrollPane.getViewport().remove(table);
+                    table = createSelectTable();
+                    scrollPane.getViewport().add(table);
+
+                    assignment();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
