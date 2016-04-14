@@ -311,8 +311,16 @@ public class GetStockData implements GetStockDataService {
      */
     public StockPO getStockData_name(String name, String date1, String date2) throws IOException {
 //        int interval = intervalBetweenTwoDates(date1, date2);
+        String url;
+        if(date1.length()==8){
+            String d1 = date1.substring(0,4)+"-"+date1.substring(4,6)+"-"+date1.substring(6);//给date1加上-
+            String d2 = date2.substring(0,4)+"-"+date2.substring(4,6)+"-"+date2.substring(6);//给date2加上-
+            url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + d1 + "&end=" + d2;
+        }
+        else{
+            url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
+        }
         ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/" + name + "/?start=" + date1 + "&end=" + date2;
         String s1 = rdt.getData(url);
         String s2 = rdt.parseJSON(s1, "data");
         String[] trading_info = rdt.parseJSON_array(s2, "trading_info");
