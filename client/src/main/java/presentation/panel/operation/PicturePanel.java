@@ -86,13 +86,13 @@ public class PicturePanel extends OperationPanel {
         }
         popupMenu[0] = new JPopupMenu();
         popupMenu[0].add(menuItem[0]);
-        popupMenu[0].add(menuItem[1]);
+//        popupMenu[0].add(menuItem[1]);
         popupMenu[1] = new JPopupMenu();
         popupMenu[1].add(menuItem[2]);
-        popupMenu[1].add(menuItem[3]);
+//        popupMenu[1].add(menuItem[3]);
         popupMenu[2] = new JPopupMenu();
         popupMenu[2].add(menuItem[4]);
-        popupMenu[2].add(menuItem[5]);
+//        popupMenu[2].add(menuItem[5]);
     }
 
     protected void createUIComponents() {
@@ -197,7 +197,7 @@ public class PicturePanel extends OperationPanel {
                     int row = table.rowAtPoint(p);
                     int column = table.columnAtPoint(p);
                     if (!e.isControlDown() & !e.isShiftDown() & row != -1 & column != -1) {
-                        table.changeSelection(row, column, e.isControlDown(), e.isShiftDown());
+                        table.changeSelection(row, column, true , e.isShiftDown());
                     }
                 }
             }
@@ -215,7 +215,7 @@ public class PicturePanel extends OperationPanel {
         //显示详细信息
         menuItem[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("this is menuItem 0");
+//                System.out.println("this is menuItem 0");
                 showDetailedInfo();
             }
         });
@@ -301,7 +301,7 @@ public class PicturePanel extends OperationPanel {
     private void showMenuList(int x, int y, int i) {
         mainFrame = MainFrame.getMainFrame();
         popupMenu[i - 1].show(mainFrame, x - mainFrame.getX(), y - mainFrame.getY());
-        System.out.println("this is popupmenu" + (i - 1));
+//        System.out.println("this is popupmenu " + (i - 1));
     }
 
     private void showDetailedInfo() {
@@ -548,19 +548,6 @@ public class PicturePanel extends OperationPanel {
 
                     revalidate();
                     repaint();
-                }
-            });
-
-            addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("wtf?");
-                    if (e.getButton() == MouseEvent.BUTTON3) {
-                        System.out.println("fuck");
-                        if (e.getSource() == btnCustom) {
-                            System.out.println("table1");
-                        }
-                    }
                 }
             });
 
