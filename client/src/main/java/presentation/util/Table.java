@@ -139,8 +139,7 @@ public class Table extends JTable {
      */
     public void searchStock(String name) {
         for (int i = 0; i < data.length; i++) {
-            if (name.equals(data[i][2])) {
-                System.out.println(i);
+            if (name.equals(data[i][2])||name.equals(data[i][1])) {
                 this.setRowSelectionInterval(i, i);
                 return;
             }
