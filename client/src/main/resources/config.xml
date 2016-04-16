@@ -28,14 +28,14 @@
 
             <IndexData updateLag="2">
                 <high selected="true"/>
-                <low selected="true"/>
-                <open selected="true"/>
-                <close selected="true"/>
+                <low selected="false"/>
+                <open selected="false"/>
+                <close selected="false"/>
                 <volume selected="true"/>
                 <adjPrice selected="true"/>
             </IndexData>
         </data>
 
-        <font name="微软雅黑" style="0" size="14"/>
+        <font name="" style="0" size="14"/>
     </presentation>
 </project>
