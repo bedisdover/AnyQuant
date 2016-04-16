@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Class-Path: lib\commons-logging-1.1.1.jar lib\dom4j-1.1.jar lib\jfreec
- hart-1.0.19.jar lib\commons-lang-2.4.jar lib\ezmorph-1.0.6.jar lib\ez
- morph-1.0.6.jar lib\jcommon-1.0.23.jar lib\SwingSets3(BeautyEyeLNFDem
- o).jar lib\jfreechart-1.0.19.jar lib\gnujaxp.jar lib\junit-4.8.1.jar 
- lib\json-lib-2.3-jdk15.jar lib\jcommon-1.0.23.jar lib\commons-beanuti
- ls-1.8.0.jar lib\commons-collections-3.2.1.jar
+Class-Path: lib\jcommon-1.0.23.jar lib\jcommon-1.0.23.jar lib\commons-
+ collections-3.2.1.jar lib\commons-lang-2.4.jar lib\commons-logging-1.
+ 1.1.jar lib\dom4j-1.1.jar lib\junit-4.8.1.jar lib\jfreechart-1.0.19.j
+ ar lib\commons-beanutils-1.8.0.jar lib\gnujaxp.jar lib\json-lib-2.3-j
+ dk15.jar lib\SwingSets3(BeautyEyeLNFDemo).jar lib\jfreechart-1.0.19.j
+ ar lib\ezmorph-1.0.6.jar lib\ezmorph-1.0.6.jar
 Main-Class: main.AnyQuant
 

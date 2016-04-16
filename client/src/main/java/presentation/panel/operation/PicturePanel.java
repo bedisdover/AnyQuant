@@ -43,11 +43,11 @@ public class PicturePanel extends OperationPanel {
      */
     private UltraButton btnSearch;
 
-    /**
-     * 日期选择框
-     * 通过日期选择框改变日期查看其它日期的数据
-     */
-    private DateChooser dateChooser;
+//    /**
+//     * 日期选择框
+//     * 通过日期选择框改变日期查看其它日期的数据
+//     */
+//    private DateChooser dateChooser;
 
     /**
      * 榜单面板
@@ -89,7 +89,7 @@ public class PicturePanel extends OperationPanel {
     }
 
     protected void createUIComponents() {
-        dateChooser = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
+//        dateChooser = new DateChooser(this, MARGIN, MARGIN, BUTTON_WIDTH + PADDING, BUTTON_HEIGHT);
         btnSearch = new UltraButton("搜索");
         searchInput = new JTextField();
 
