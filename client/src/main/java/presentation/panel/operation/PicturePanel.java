@@ -62,10 +62,8 @@ public class PicturePanel extends OperationPanel {
     private Table table2;
     private Table table3;
 
-    private JPopupMenu popupMenu1;
-    private JMenuItem menuItem1;
-    private JMenuItem menuItem3;
-    private JMenuItem menuItem4;
+    private JPopupMenu[] popupMenu;
+    private JMenuItem[] menuItem;
     private MainFrame mainFrame;
 
     public PicturePanel() {
@@ -76,16 +74,25 @@ public class PicturePanel extends OperationPanel {
 
     protected void init() {
         setLayout(null);
-        popupMenu1 = new JPopupMenu();
-        menuItem1 = new JMenuItem();
-        menuItem3 = new JMenuItem();
-        menuItem4 = new JMenuItem();
-        menuItem1.setText("显示详细信息");
-        menuItem3.setText("添加关注");
-        menuItem4.setText("范围查询");
-        popupMenu1.add(menuItem1);
-        popupMenu1.add(menuItem3);
-        popupMenu1.add(menuItem4);
+        popupMenu = new JPopupMenu[3];
+        menuItem = new JMenuItem[6];
+        for (int i = 0; i < 6; i++) {
+            menuItem[i] = new JMenuItem();
+            if (i % 2 == 0) {
+                menuItem[i].setText("显示详细信息");
+            } else {
+                menuItem[i].setText("添加关注");
+            }
+        }
+        popupMenu[0] = new JPopupMenu();
+        popupMenu[0].add(menuItem[0]);
+        popupMenu[0].add(menuItem[1]);
+        popupMenu[1] = new JPopupMenu();
+        popupMenu[1].add(menuItem[2]);
+        popupMenu[1].add(menuItem[3]);
+        popupMenu[2] = new JPopupMenu();
+        popupMenu[2].add(menuItem[4]);
+        popupMenu[2].add(menuItem[5]);
     }
 
     protected void createUIComponents() {
@@ -115,27 +122,10 @@ public class PicturePanel extends OperationPanel {
             }
         });
 
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("baga");
-                if(e.getButton()==MouseEvent.BUTTON3){
-                    if(e.getSource()==table1){
-                        System.out.println("table1");
-                    }
-                    if(e.getSource()==table2){
-                        System.out.println("table2");
-                    }
-                }
-
-//                super.mouseClicked(e);
-            }
-        });
-
         btnSearch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton()==MouseEvent.BUTTON1 && !searchInput.getText().equals("")) {
+                if (e.getButton() == MouseEvent.BUTTON1 && !searchInput.getText().equals("")) {
                     table1.searchStock(searchInput.getText());
                     table2.searchStock(searchInput.getText());
                     table3.searchStock(searchInput.getText());
@@ -194,10 +184,11 @@ public class PicturePanel extends OperationPanel {
         });
     }
 
-    private void addTableListener(Table t) {
+    private void addTableListener(Table t, int i) {
         /**
-         * todo 给table添加鼠标右键监听
+         * todo 给table[i]添加鼠标右键监听
          */
+        final int finalI = i;
         t.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
@@ -213,7 +204,7 @@ public class PicturePanel extends OperationPanel {
 
             public void mouseReleased(MouseEvent e) {
                 if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
-                    showMenuList(e.getXOnScreen(), e.getYOnScreen());
+                    showMenuList(e.getXOnScreen(), e.getYOnScreen(), finalI);
                 }
             }
         });
@@ -222,42 +213,95 @@ public class PicturePanel extends OperationPanel {
          * todo 给JMenuItem添加事件监听
          */
         //显示详细信息
-        menuItem1.addActionListener(new ActionListener() {
+        menuItem[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                System.out.println("this is menuItem 0");
                 showDetailedInfo();
             }
         });
         //添加关注
-        menuItem3.addActionListener(new ActionListener() {
+        menuItem[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                System.out.println("this is menuItem 1");
                 String stockId;
                 int line = table1.getSelectedRow();
-                if(line==-1){
+                if (line == -1) {
                     line = table2.getSelectedRow();
-                    if(line==-1){
+                    if (line == -1) {
                         line = table3.getSelectedRow();
-                        stockId = (String) table3.getValueAt(line , 2);
-                    }else{
-                        stockId = (String) table2.getValueAt(line , 2);
+                        stockId = (String) table3.getValueAt(line, 2);
+                    } else {
+                        stockId = (String) table2.getValueAt(line, 2);
                     }
-                }else{
+                } else {
                     stockId = (String) table1.getValueAt(line, 2);
                 }
-
                 System.out.println(stockId);
                 follow(stockId);
             }
         });
-        menuItem4.addActionListener(new ActionListener() {
+        //显示详细信息
+        menuItem[2].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("hhhhhhhh");
+                System.out.println("this is menuItem 2");
+                showDetailedInfo();
+            }
+        });
+        //添加关注
+        menuItem[3].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("this is menuItem 3");
+                String stockId;
+                int line = table1.getSelectedRow();
+                if (line == -1) {
+                    line = table2.getSelectedRow();
+                    if (line == -1) {
+                        line = table3.getSelectedRow();
+                        stockId = (String) table3.getValueAt(line, 2);
+                    } else {
+                        stockId = (String) table2.getValueAt(line, 2);
+                    }
+                } else {
+                    stockId = (String) table1.getValueAt(line, 2);
+                }
+                System.out.println(stockId);
+                follow(stockId);
+            }
+        });
+        //显示详细信息
+        menuItem[4].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("this is menuItem 4");
+                showDetailedInfo();
+            }
+        });
+        //添加关注
+        menuItem[5].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("this is menuItem 5");
+                String stockId;
+                int line = table1.getSelectedRow();
+                if (line == -1) {
+                    line = table2.getSelectedRow();
+                    if (line == -1) {
+                        line = table3.getSelectedRow();
+                        stockId = (String) table3.getValueAt(line, 2);
+                    } else {
+                        stockId = (String) table2.getValueAt(line, 2);
+                    }
+                } else {
+                    stockId = (String) table1.getValueAt(line, 2);
+                }
+                System.out.println(stockId);
+                follow(stockId);
             }
         });
     }
 
-    private void showMenuList(int x, int y) {
+    private void showMenuList(int x, int y, int i) {
         mainFrame = MainFrame.getMainFrame();
-        popupMenu1.show(mainFrame, x - mainFrame.getX(), y - mainFrame.getY());
+        popupMenu[i - 1].show(mainFrame, x - mainFrame.getX(), y - mainFrame.getY());
+        System.out.println("this is popupmenu" + (i - 1));
     }
 
     private void showDetailedInfo() {
@@ -373,8 +417,6 @@ public class PicturePanel extends OperationPanel {
                 return comp;
             }
         };
-        
-        addTableListener(table);
 
         UltraScrollPane resultScrollPane = new UltraScrollPane(table);
 
@@ -468,10 +510,13 @@ public class PicturePanel extends OperationPanel {
                 SortStock sortStock = new SortStock();
                 scrollIncrease = createRankingTable(sortStock.increase_sort());
                 table1 = table;
+                addTableListener(table1, 1);
                 scrollDecrease = createRankingTable(sortStock.decrease_sort());
                 table2 = table;
+                addTableListener(table2, 2);
                 scrollTurnVolume = createRankingTable(sortStock.volume_sort());
                 table3 = table;
+                addTableListener(table3, 3);
             } catch (IOException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(PicturePanel.this, "请检查网络连接！");
@@ -510,9 +555,9 @@ public class PicturePanel extends OperationPanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     System.out.println("wtf?");
-                    if(e.getButton()==MouseEvent.BUTTON3){
+                    if (e.getButton() == MouseEvent.BUTTON3) {
                         System.out.println("fuck");
-                        if(e.getSource()==btnCustom){
+                        if (e.getSource() == btnCustom) {
                             System.out.println("table1");
                         }
                     }
@@ -526,7 +571,7 @@ public class PicturePanel extends OperationPanel {
             btnCustom.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(e.getButton()==MouseEvent.BUTTON1) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
                         showCustomDialog();
                     }
                 }
