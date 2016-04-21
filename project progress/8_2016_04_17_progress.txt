@@ -1,0 +1,23 @@
+who : 章承尧
+when : 2016-04-17
+what : Debug，完善图表，导出jar包。
+problem : jar包运行乱码。
+todo : 准备迭代三的计划。
+
+who : 
+when : 
+what : 
+problem : 
+todo : 
+
+who : 
+when : 
+what : 
+problem : 
+todo : 
+
+who : 
+when : 
+what : 
+problem : 
+todo : 
