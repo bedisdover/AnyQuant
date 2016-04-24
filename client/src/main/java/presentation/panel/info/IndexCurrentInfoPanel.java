@@ -11,7 +11,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static presentation.panel.info.LocationValue.*;
 
@@ -83,25 +84,46 @@ public class IndexCurrentInfoPanel extends UltraPanel {
     private JPanel namePanel, leftPanel, rightPanel;
 
     public IndexCurrentInfoPanel() {
-        try {
-            this.index = new ShowIndexData().getLatestIndexData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         init();
-        createUIComponents();
-        setText();
-        addListeners();
     }
 
     /**
      * 初始化
      */
     private void init() {
+        initData();
         setLayout(null);
         setBorder(new BevelBorder(BevelBorder.LOWERED));
         setBackground(new Color(175, 152, 139, 56));
+    }
+
+    /**
+     * 加载数据（indexVO）
+     */
+    private void initData() {
+        new SwingWorker<IndexVO, IndexVO>() {
+            @Override
+            protected void process(List<IndexVO> chunks) {
+                super.process(chunks);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    index = get();
+                    createUIComponents();
+                    setText();
+                    addListeners();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected IndexVO doInBackground() throws Exception {
+                return new ShowIndexData().getLatestIndexData();
+            }
+        }.execute();
     }
 
     /**

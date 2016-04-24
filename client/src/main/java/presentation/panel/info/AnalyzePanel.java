@@ -57,7 +57,7 @@ public class AnalyzePanel extends OperationPanel {
         addListeners();
     }
 
-    AnalyzePanel(JPanel parent, IndexVO indexVO) {
+    public AnalyzePanel(JPanel parent, IndexVO indexVO) {
         this.index = new CalculateIndex().getTheIndex(indexVO);
         this.parent = parent;
         this.name = "沪深300";

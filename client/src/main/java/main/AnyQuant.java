@@ -24,18 +24,21 @@ public class AnyQuant extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        if (SystemConfig.getStyle().equals("Nimbus")) {
-            UIManager.setLookAndFeel(new NimbusLookAndFeel());
-        } else if (SystemConfig.getStyle().equals("BeautyEye")) {
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        }
-
+        SwingUtilities.invokeLater(() -> {
+            try {
         //设置全局字体
 //        initGlobalFontSetting(SystemConfig.getFontConfig().getFontInfo());
-
-        JFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setVisible(true);
+                if (SystemConfig.getStyle().equals("Nimbus")) {
+                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                } else if (SystemConfig.getStyle().equals("BeautyEye")) {
+                    org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            JFrame mainFrame = MainFrame.getMainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 
     public static void initGlobalFontSetting(Font font) {

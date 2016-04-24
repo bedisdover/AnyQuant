@@ -1,4 +1,4 @@
-package presentation.panel.info;
+package presentation.panel.index;
 
 import bl.ShowIndexData;
 import config.IndexDataConfig;
@@ -9,8 +9,7 @@ import presentation.UltraSwing.UltraButton;
 import presentation.UltraSwing.UltraPanel;
 import presentation.UltraSwing.UltraScrollPane;
 import presentation.frame.MainFrame;
-import presentation.panel.index.IndexBrokenLinePanel;
-import presentation.panel.index.IndexKLinePanel;
+import presentation.panel.info.AnalyzePanel;
 import presentation.panel.operation.OperationPanel;
 import presentation.util.DateChooser;
 import presentation.util.Table;
@@ -29,10 +28,10 @@ import java.util.List;
 /**
  * Created by 宋益明 on 16-3-28.
  * <p>
- * 大盘指数数据面板
- * 用于展示大盘指数的详细数据
+ * 大盘指数面板
+ * 用于展示大盘指数的信息
  */
-public class IndexDataPanel extends OperationPanel implements ItemListener {
+public class MarketIndexPanel extends OperationPanel implements ItemListener {
 
     /**
      * 大盘指数值对象
@@ -109,7 +108,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
      */
     private IndexDataConfig config;
 
-    public IndexDataPanel() {
+    public MarketIndexPanel() {
         init();
         createUIComponents();
         initColumns();
@@ -248,9 +247,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
 //        southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 //        southPanel.setPreferredSize(new Dimension(PANEL_WIDTH, BUTTON_HEIGHT + MARGIN));
 
-
-
-
         labelK_Line = new UltraButton(1);
         labelBrokenLien = new UltraButton(2);
         labelAnalyze = new UltraButton(3);
@@ -387,8 +383,6 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
                         JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "输入日期不合法！");
                     }
 
-
-
                     index = new IndexVO(new GetIndexData().getIndexDataBetween(
                                     dcStart.getTime(), dcEnd.getTime()));
 
@@ -408,7 +402,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new IndexKLinePanel(IndexDataPanel.this));
+                        new IndexKLinePanel(MarketIndexPanel.this));
             }
         });
 
@@ -416,7 +410,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new IndexBrokenLinePanel(IndexDataPanel.this));
+                        new IndexBrokenLinePanel(MarketIndexPanel.this));
             }
         });
 
@@ -424,7 +418,7 @@ public class IndexDataPanel extends OperationPanel implements ItemListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 MainFrame.getMainFrame().addOperationPanel(
-                        new AnalyzePanel(IndexDataPanel.this, index));
+                        new AnalyzePanel(MarketIndexPanel.this, index));
             }
         });
     }
