@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+body {
+    background: url(../images/background.jpg);
+}
+
+.top {
+    background: url(../images/sky.jpg);
+    margin: 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+    height: 80px;
+}
+
+.top .page-title {
+    color: #ffffcc;
+    width: 50px;
+    /*margin-top: 40px;*/
+    margin-left: 40px;
+    float: left;
+}
+
+.top .menu {
+    color: #ffffcc;
+    margin-left: 10px;
+    float: inherit;
+}
+
+.top .menu ul {
+    width: 600px;
+    margin: 0 auto;
+    overflow: auto;
+    zoom: 1;
+    padding: 40px;
+}
+
+.top .menu ul li {
+    padding: 10px;
+    font-size: 30px;
+    width: 200px;
+    height: 24px;
+    line-height: 5px;
+    margin-left: 20px;
+    display: inline;
+    margin-top: 5px;
+    overflow: hidden;
+}
