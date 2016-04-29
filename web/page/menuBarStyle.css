@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+body {
+    background: url(../images/background.jpg);
+    margin: 0 0;
+    padding: 0 0;
+}
+
+div {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+.top {
+    background: url(../images/sky.jpg);
+}
+
+.top .ue-bar {
+    margin: 0 40px;
+    padding: 0 auto;
+    width: 1200px;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+}
+
+.top .ue-bar .page-title {
+    color: #ffffcc;
+    width: 200px;
+    line-height: 10px;
+    margin-left: 40px;
+    float: left;
+}
+
+.top .ue-bar .menu {
+    margin: 0 0 0 10px;
+    float: left;
+}
+
+.top .ue-bar .menu ul {
+    margin: 0 auto;
+    overflow: hidden;
+    height: 70px;
+}
+
+.top .ue-bar .menu ul li {
+    padding-right: 10px;
+    font-size: 25px;
+    margin-left: 20px;
+    height: 70px;
+    display: inline;
+    overflow: hidden;
+}
+
+.top .ue-bar .menu ul li a {
+    color: #ffffcc;
+    height: 70px;
+    line-height: 60px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.top .ue-bar .menu ul li a:hover {
+    background-color: #333333;
+}
+
+
