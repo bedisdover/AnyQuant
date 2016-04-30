@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 /**
  * Created by zmj on 2016/4/30.
  */
+//带刻度问题比较复杂，JFreeChart本身没有提供其功能，需要继承SpiderWebPlot，覆盖drawLabel方法。
 public class MySpiderWebPlot extends SpiderWebPlot {
     private int ticks = DEFAULT_TICKS;
     private static final int DEFAULT_TICKS = 5;
