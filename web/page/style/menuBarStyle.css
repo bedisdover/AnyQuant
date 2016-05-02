@@ -1,7 +1,12 @@
 @charset "UTF-8";
 
+* {
+    font-family: "Arial", "Hiragino Sans GB", "Microsoft YaHei",
+    \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+}
+
 body {
-    background: url(../images/background.jpg);
+    background: url(../../images/background.jpg);
     margin: 0 0;
     padding: 0 0;
 }
@@ -12,27 +17,32 @@ div {
 
 a {
     text-decoration: none;
+    color: #ffffcc;
 }
 
 .top {
-    background: url(../images/sky.jpg);
+    background: url(../../images/sky.jpg);
+    width: 100%;
+    min-width: 800px;
 }
 
 .top .ue-bar {
     margin: 0 40px;
     padding: 0 auto;
-    width: 1200px;
     height: 60px;
     overflow: hidden;
     position: relative;
 }
 
 .top .ue-bar .page-title {
-    color: #ffffcc;
     width: 200px;
     line-height: 10px;
     margin-left: 40px;
     float: left;
+}
+
+.top .ue-bar .page-title a:hover {
+    cursor: pointer;
 }
 
 .top .ue-bar .menu {
@@ -43,21 +53,21 @@ a {
 .top .ue-bar .menu ul {
     margin: 0 auto;
     overflow: hidden;
-    height: 70px;
+    height: 60px;
 }
 
 .top .ue-bar .menu ul li {
     padding-right: 10px;
     font-size: 25px;
     margin-left: 20px;
-    height: 70px;
+    height: 60px;
     display: inline;
     overflow: hidden;
 }
 
 .top .ue-bar .menu ul li a {
     color: #ffffcc;
-    height: 70px;
+    height: 60px;
     line-height: 60px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -67,4 +77,24 @@ a {
     background-color: #333333;
 }
 
+.top .ue-bar .account {
+    margin-left: auto;
+    margin-right: 0;
+    float: right;
+    height: 60px;
+}
+
+.top .ue-bar .account span {
+    color: #ffffcc;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.top .ue-bar .account span:hover {
+    background-color: #333333;
+    cursor: pointer;
+}
 

@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <!--全局菜单栏-->
     <meta charset="UTF-8">
     <title>AnyQuant</title>
-    <link href="menuBarStyle.css" rel="stylesheet" type="text/css"/>
+    <meta name="description" content="AnyQuant是一个在线电话交易平台"/>
+    <meta name="keyword" content="AnyQuant,股票,电话交易"/>
+    <meta name="author" content="Ultraviolet"/>
+    <link href="/images/icon.png" rel="icon"/>
+    <link href="style/menuBarStyle.css" rel="stylesheet" type="text/css"/>
+
+    <script src="js/menuBar.js"></script>
+    <script src="js/account.js"></script>
 </head>
 <body>
 <div class="top">
     <div class="ue-bar">
         <div class="page-title"><!--网页标题-->
-            <h1>AnyQuant</h1>
+            <h1><a href="home.jsp">AnyQuant</a></h1>
         </div>
         <div class="menu">
             <ul>
-                <li><a href="home.html" target="_parent">首页</a></li>
-                <li><a href="portfolio.html" target="_parent">自选</a></li>
-                <li><a href="market.html" target="_parent">大盘</a></li>
-                <li><a href="picture.html" target="_parent">行情</a></li>
-                <li><a href="history.html" target="_parent">历史</a></li>
+                <li><a href="home.jsp" target="_parent">首页</a></li>
+                <li><a href="portfolio.jsp" target="_parent">自选</a></li>
+                <li><a href="market.jsp" target="_parent">大盘</a></li>
+                <li><a href="picture.jsp" target="_parent">行情</a></li>
+                <li><a href="history.jsp" target="_parent">历史</a></li>
             </ul>
+        </div>
+        <div class="account">
+            <span class="login" id="login">登录</span>
         </div>
     </div>
 </div>
