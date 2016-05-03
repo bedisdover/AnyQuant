@@ -6,8 +6,8 @@ body {
 
 .menu-bar iframe {
     width: 100%;
-    min-width: 2000px;
-    height: 60px;
+    min-width: 800px;
+    height: 50px;
     border: none;
 }
 
