@@ -7,6 +7,7 @@
     <meta name="author" content="Ultraviolet"/>
     <link href="/images/icon.png" rel="icon"/>
     <link href="style/homeStyle.css" rel="stylesheet" type="text/css"/>
+    <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="menu-bar">

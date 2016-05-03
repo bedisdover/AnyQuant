@@ -2,12 +2,12 @@
 
 body {
     margin: 0;
+    /*padding-top: 70px;*/
 }
 
 .menu-bar iframe {
     width: 100%;
-    min-width: 1000px;
-    height: 60px;
-    border: none;
+    min-width: 800px;
+    height: 50px;
 }
 

@@ -6,9 +6,7 @@
 }
 
 body {
-    background: url(../../images/background.jpg);
     margin: 0 0;
-    padding: 0 0;
 }
 
 div {
@@ -21,9 +19,9 @@ a {
 }
 
 .top {
-    background: url(../../images/sky.jpg);
     width: 100%;
     min-width: 800px;
+    height: 50px;
 }
 
 .top .ue-bar {
@@ -32,6 +30,7 @@ a {
     height: 60px;
     overflow: hidden;
     position: relative;
+    z-index: 1030;
 }
 
 .top .ue-bar .page-title {
@@ -66,7 +65,7 @@ a {
 }
 
 .top .ue-bar .menu ul li a {
-    color: #ffffcc;
+    color: red;
     height: 60px;
     line-height: 60px;
     padding-top: 15px;
