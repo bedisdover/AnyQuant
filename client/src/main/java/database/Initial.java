@@ -4,6 +4,8 @@ import data.GetStockData;
 import po.StockPO;
 
 import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,9 +29,35 @@ public class Initial {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Connect co=new Connect();
+        String sql="INSERT INTO stockinfo values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement pstmt=co.getPreparedStatement(sql);
+
         for(int i=0;i<list.size();i++){
-            System.out.println(list.get(i).getDate()[0]);
+            for(int j=0;j<list.get(i).getDate().length;j++){
+                try {
+                    pstmt.setString(1,list.get(i).getId());
+                    pstmt.setInt(2,(int)list.get(i).getVolume()[j]);
+                    pstmt.setDouble(3,list.get(i).getPb()[j]);
+                    pstmt.setDouble(4,list.get(i).getHigh()[j]);
+                    pstmt.setDouble(5,list.get(i).getPe_ttm()[j]);
+                    pstmt.setDouble(6,list.get(i).getAdj_price()[j]);
+                    pstmt.setDouble(7,list.get(i).getLow()[j]);
+                    pstmt.setString(8,list.get(i).getDate()[j]);
+                    pstmt.setDouble(9,list.get(i).getClose()[j]);
+                    pstmt.setDouble(10,list.get(i).getOpen()[j]);
+                    pstmt.setDouble(11,list.get(i).getTurnover()[j]);
+                    pstmt.setDouble(12,list.get(i).getIncrease_decreaseRate()[j]);
+                    pstmt.setDouble(13,list.get(i).getIncrease_decreaseNum()[j]);
+                    pstmt.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        co.closeConnection();
     }
 
     public static void main(String[] args){
