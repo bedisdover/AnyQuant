@@ -4,11 +4,11 @@ what : 研究迭代三需求，完成雷达图。
 problem : 无。
 todo : 完善雷达图，开发新的图表。
 
-who : 
-when : 
-what : 
-problem : 
-todo : 
+who : 宋益明
+when : 2016-05-01
+what : 网络界面、部署服务器。
+problem : 压力山大。
+todo : 继续努力，写好代码搬好砖。
 
 who : 
 when : 

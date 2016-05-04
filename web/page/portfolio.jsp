@@ -1,3 +1,6 @@
+<%@ page import="bl.SelfSelectStock" %>
+<%@ page import="blservice.SelfSelectStockService" %>
+<%@ page import="java.util.Iterator" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -44,6 +47,10 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+<%!
+    SelfSelectStock selfSelect = new SelfSelectStock();
+    Iterator<String> stockList = selfSelect.getFollowed();
+%>
 <div class="stockList-div">
     <table class="table table-hover stockList">
         <tr>
@@ -51,7 +58,7 @@
             <td>代码</td>
         </tr>
         <tr>
-            <td class="stock">test</td>
+            <td class="stock"><%=stockList.next()%></td>
             <td>test1</td>
         </tr>
         <tr>
