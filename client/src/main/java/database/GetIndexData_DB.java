@@ -1,6 +1,7 @@
 package database;
 
 
+import data.GetIndexData;
 import po.IndexPO;
 
 import java.sql.ResultSet;
@@ -99,5 +100,20 @@ public class GetIndexData_DB {
         String today = simpleDateFormat.format(d);//今天的日期
 
         return getIndexDataBetween("2012-10-10",today);
+    }
+
+    public static void main(String[] args){
+        GetIndexData_DB getIndexData_db = new GetIndexData_DB();
+        IndexPO indexPO = getIndexData_db.getLatestIndexData();
+        System.out.println(indexPO.getName());
+        System.out.println(indexPO.getDate()[0]);
+        System.out.println(indexPO.getHigh()[0]);
+        System.out.println(indexPO.getOpen()[0]);
+        System.out.println(indexPO.getLow()[0]);
+        System.out.println(indexPO.getClose()[0]);
+        System.out.println(indexPO.getAdj_price()[0]);
+        System.out.println(indexPO.getVolume()[0]);
+        System.out.println(indexPO.getIncrease_decreaseRate()[0]);
+        System.out.println(indexPO.getIncrease_decreaseNum()[0]);
     }
 }

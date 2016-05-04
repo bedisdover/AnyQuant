@@ -66,7 +66,7 @@ public class Initial {
         GetIndexData getIndexData = new GetIndexData();
         IndexPO po = new IndexPO(1);
         try {
-            po = getIndexData.getIndexDataBetween("2016-05-03",getToday_date());
+            po = getIndexData.getIndexDataBetween("2005-01-01",getToday_date());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class Initial {
         for(int i=0;i<po.getDate().length;i++){
             try {
                 pstmt.setString(1,po.getName());
-                pstmt.setInt(2,(int)po.getVolume()[i]);
+                pstmt.setLong(2,po.getVolume()[i]);
                 pstmt.setDouble(3,po.getHigh()[i]);
                 pstmt.setDouble(4,po.getAdj_price()[i]);
                 pstmt.setDouble(5,po.getLow()[i]);
