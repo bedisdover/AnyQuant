@@ -172,9 +172,19 @@ public class GetStockData_DB {
 
     public static void main(String[] args) throws IOException {
         GetStockData_DB getStockData_db = new GetStockData_DB();
-        List<StockPO> stockPO = getStockData_db.getAllInterestedStock();
-        for(int i=0;i<stockPO.size();i++){
-            System.out.println(stockPO.get(i).getDate()[0]);
-        }
+        StockPO stockPO = getStockData_db.getStockData_name("sh600016","2016-4-28","2016-4-28");
+        System.out.println(stockPO.getId());
+        System.out.println(stockPO.getDate()[0]);
+        System.out.println(stockPO.getVolume()[0]);
+        System.out.println(stockPO.getPb()[0]);
+        System.out.println(stockPO.getHigh()[0]);
+        System.out.println(stockPO.getPe_ttm()[0]);
+        System.out.println(stockPO.getAdj_price()[0]);
+        System.out.println(stockPO.getLow()[0]);
+        System.out.println(stockPO.getClose()[0]);
+        System.out.println(stockPO.getOpen()[0]);
+        System.out.println(stockPO.getTurnover()[0]);
+        System.out.println(stockPO.getIncrease_decreaseRate()[0]);
+        System.out.println(stockPO.getIncrease_decreaseNum()[0]);
     }
 }

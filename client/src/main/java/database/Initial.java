@@ -26,7 +26,7 @@ public class Initial {
             String stocks = getID_bankStock();
             String[] names = stocks.split(" ");
             for (int i = 0; i < names.length; i++) {
-                list.add(getStockData.getStockData_name(names[i], "2005-01-01", getToday_date()));
+                list.add(getStockData.getStockData_name(names[i], "2016-05-03", getToday_date()));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class Initial {
 
     public static void main(String[] args){
         Initial initial = new Initial();
-        initial.initialTable_Indexinfo();
+        initial.initialTable_StockInfo();
     }
 
     /**
