@@ -1,13 +1,18 @@
 package database;
 
+import data.GetStockData;
 import po.StockPO;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zcy on 2016/5/4.
@@ -94,6 +99,50 @@ public class GetStockData_DB {
     }
 
     /**
+     * 得到所有我们感兴趣的股票数据（默认为近一个月的）
+     *
+     * @return List<StockPO>
+     */
+    public List<StockPO> getAllInterestedStock() throws IOException {
+        GetStockData getStockData = new GetStockData();
+        String stocks = getStockData.getID_BankStocks();
+        String[] names = stocks.split(" ");
+        List<StockPO> stockPOs = new ArrayList<>();
+
+        Calendar c = Calendar.getInstance();
+        Date d = c.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = simpleDateFormat.format(d);//今天的日期
+        c.add(c.DATE,-30);
+        d = c.getTime();
+        String aMonthAgo = simpleDateFormat.format(d);//一个月前的日期
+
+        for (int i = 0; i < names.length; i++) {
+            stockPOs.add(getStockData_name(names[i],aMonthAgo,today));
+        }
+
+        return stockPOs;
+    }
+
+    /**
+     * 得到指定时间段内的我们感兴趣的所有股票数据
+     *
+     * @param date1
+     * @param date2
+     * @return List<StockPO>
+     */
+    public List<StockPO> getAllInterestedStock(String date1, String date2) throws IOException {
+        GetStockData getStockData = new GetStockData();
+        String stocks = getStockData.getID_BankStocks();
+        String[] names = stocks.split(" ");
+        List<StockPO> stockPOs = new ArrayList<StockPO>();
+        for (int i = 0; i < names.length; i++) {
+            stockPOs.add(getStockData_name(names[i], date1, date2));
+        }
+        return stockPOs;
+    }
+
+    /**
      * @param date1
      * @param date2
      * @return int
@@ -121,11 +170,11 @@ public class GetStockData_DB {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         GetStockData_DB getStockData_db = new GetStockData_DB();
-        StockPO stockPO = getStockData_db.getStockData_name("sh600016","2016-01-01","2016-02-10");
-        for(int i=0;i<stockPO.getDate().length;i++){
-            System.out.println(stockPO.getDate()[i]);
+        List<StockPO> stockPO = getStockData_db.getAllInterestedStock();
+        for(int i=0;i<stockPO.size();i++){
+            System.out.println(stockPO.get(i).getDate()[0]);
         }
     }
 }
