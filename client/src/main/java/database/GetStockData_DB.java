@@ -149,7 +149,7 @@ public class GetStockData_DB {
      * 如果date1小于等于date2，返回0
      * 如果date1大于等于date2，返回1
      */
-    private int compareDate(String date1,String date2){
+    protected int compareDate(String date1,String date2){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = null;
         Date d2 = null;
