@@ -1,13 +1,7 @@
 @charset "UTF-8";
 
 body {
-    margin: 0;
-    /*padding-top: 70px;*/
-}
-
-.menu-bar iframe {
-    width: 100%;
-    min-width: 800px;
-    height: 50px;
+    padding-top: 70px;
+    background-image: url("/images/background.jpg");
 }
 

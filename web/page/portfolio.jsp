@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
     <title>AnyQuant--自选</title>
@@ -30,14 +31,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="home.jsp">首页 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="portfolio.jsp" >自选</a></li>
-                    <li><a href="market.jsp" target="_parent">大盘</a></li>
-                    <li><a href="picture.jsp" target="_parent">行情</a></li>
-                    <li><a href="history.jsp" target="_parent">历史</a></li>
+                    <li><a href="home.jsp">首页</a></li>
+                    <li class="active"><a href="portfolio.jsp">自选<span class="sr-only">(current)</span></a></li>
+                    <li><a href="market.jsp">大盘</a></li>
+                    <li><a href="picture.jsp">行情</a></li>
+                    <li><a href="history.jsp">历史</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">登录</a></li>
+                    <li><a href="login.jsp">登录</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -54,7 +55,7 @@
             <td>test1</td>
         </tr>
         <tr>
-            <td class="stock">test-------</td>
+            <td class="stock">test</td>
             <td>test1</td>
         </tr>
         <tr>

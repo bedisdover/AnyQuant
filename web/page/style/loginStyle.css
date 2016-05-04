@@ -1,8 +1,9 @@
-@charset "UTF-8";
-
 body {
     padding-top: 70px;
     background-image: url("/images/background.jpg");
 }
 
-
+.login-form {
+    width: 600px;
+    height: 300px;
+}

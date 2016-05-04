@@ -36,10 +36,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="home.jsp">首页 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="portfolio.jsp">自选</a></li>
-                    <li><a href="market.jsp">大盘</a></li>
-                    <li><a href="picture.jsp">行情</a></li>
-                    <li><a href="history.jsp">历史</a></li>
+                    <li><a href="page/portfolio.jsp">自选</a></li>
+                    <li><a href="page/market.jsp">大盘</a></li>
+                    <li><a href="page/picture.jsp">行情</a></li>
+                    <li><a href="page/history.jsp">历史</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="page/login.jsp">登录</a></li>
