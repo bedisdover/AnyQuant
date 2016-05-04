@@ -17,18 +17,14 @@ import java.awt.*;
 public class RadarChartParent {
 
 
-    public static JPanel erstelleSpinnenDiagramm() {
+    public static JPanel erstelleSpinnenDiagramm(double data[],String name[]) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String group1 = "大盘指数 ";
+        int length=data.length;
+        for(int i=0;i<length;i++){
+            dataset.addValue(data[i],group1,name[i]);
+        }
 
-        dataset.addValue(5, group1, "w1");
-        dataset.addValue(6, group1, "w2");
-        dataset.addValue(4, group1, "w3");
-        dataset.addValue(2, group1, "w4");
-        dataset.addValue(5, group1, "w5");
-        dataset.addValue(5, group1, "w6");
-        dataset.addValue(5, group1, "w7");
-        dataset.addValue(8, group1, "w8");
         MySpiderWebPlot spiderwebplot = new MySpiderWebPlot(dataset);
         JFreeChart jfreechart = new JFreeChart("标题", TextTitle.DEFAULT_FONT,spiderwebplot, false);
         LegendTitle legendtitle = new LegendTitle(spiderwebplot);
@@ -42,7 +38,9 @@ public class RadarChartParent {
 
     public static void main(String args[]) {
         JFrame jf = new JFrame();
-        jf.add(erstelleSpinnenDiagramm());
+        double data[]={5,6,4,2,5,5,5,8};
+        String name[]={"w1","w2","w3","w4","w5","w6","w7","w8"};
+        jf.add(erstelleSpinnenDiagramm(data,name));
         jf.pack();//这句不加会变成最小化
         jf.setVisible(true);
     }
