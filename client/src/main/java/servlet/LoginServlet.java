@@ -13,6 +13,11 @@ import java.io.IOException;
  */
 public class LoginServlet extends HttpServlet {
 
+    public LoginServlet() {
+        super();
+        System.out.println("LoginServlet.LoginServlet");
+    }
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");
@@ -20,5 +25,12 @@ public class LoginServlet extends HttpServlet {
 
         System.out.println(userName);
         System.out.println(password);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+
+
     }
 }

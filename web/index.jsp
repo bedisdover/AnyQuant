@@ -48,8 +48,5 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
-<script>
-    var test = document.getElementById("nave");
-</script>
 </body>
 </html>
