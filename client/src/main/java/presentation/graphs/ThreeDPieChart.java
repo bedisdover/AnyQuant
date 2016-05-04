@@ -24,7 +24,7 @@ public class ThreeDPieChart {
             for(int i=0;i<length;i++){
                  dataset.setValue(name[i],data[i]);
             }
-            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, true, true, true);
+            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, true, true, false);
             chart.setBackgroundPaint(Color.gray);
             // 设置标题文字
             ChartFrame frame = new ChartFrame(title,chart, true);

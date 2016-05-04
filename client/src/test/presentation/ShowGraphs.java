@@ -38,7 +38,7 @@ public class ShowGraphs {
         panel = new ChartPanel(timeSeriesChart,true);
         LegendTitle legendTitle = timeSeriesChart.getLegend();
         legendTitle.setVisible(false);
-//        ChartFrame frame = new ChartFrame("Test", timeSeriesChart);
+//        ChartFrame frame = new ChartFrame("vo.Test", timeSeriesChart);
 //        frame.pack();
 //        frame.setVisible(true);
     }

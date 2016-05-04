@@ -88,9 +88,15 @@ public class GetIndexData implements GetIndexDataService {
      */
     public IndexPO getIndexDataBetween(String date1,String date2) throws IOException {
         ReadData rdt = new ReadData();
-        String d1 = date1.substring(0,4)+"-"+date1.substring(4,6)+"-"+date1.substring(6);//给date1加上-
-        String d2 = date2.substring(0,4)+"-"+date2.substring(4,6)+"-"+date2.substring(6);//给date2加上-
-        String url = "http://121.41.106.89:8010/api/benchmark/hs300?start="+d1+"&end="+d2;
+        String url;
+        if(date1.charAt(4)!='-'){
+            String d1 = date1.substring(0,4)+"-"+date1.substring(4,6)+"-"+date1.substring(6);//给date1加上-
+            String d2 = date2.substring(0,4)+"-"+date2.substring(4,6)+"-"+date2.substring(6);//给date2加上-
+            url = "http://121.41.106.89:8010/api/benchmark/hs300?start="+d1+"&end="+d2;
+        }
+        else{
+            url = "http://121.41.106.89:8010/api/benchmark/hs300?start="+date1+"&end="+date2;
+        }
         String result = rdt.getData(url);
         String s1 = rdt.parseJSON(result, "data");
         String[] trading_info = rdt.parseJSON_array(s1, "trading_info");

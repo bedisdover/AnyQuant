@@ -20,7 +20,7 @@ public class Connect {
         try {
             Class.forName(Connect.DBDRIVER);
             conn = DriverManager.getConnection(Connect.DBURL, Connect.DBUSER, Connect.DBPASS);
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

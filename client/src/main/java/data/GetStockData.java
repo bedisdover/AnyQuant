@@ -434,49 +434,6 @@ public class GetStockData implements GetStockDataService {
         return stockPOs;
     }
 
-//    public double getIncrease_decreaseRate(String stockID) throws IOException {
-//        ReadData readData = new ReadData();
-//        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-//        String[] strings = s.split(",");
-//        double close_yesterday = Double.parseDouble(strings[2]);
-//        double currentPrice = Double.parseDouble(strings[3]);
-//        return ((double) Math.round((currentPrice - close_yesterday) / close_yesterday * 10000)) / 10000;
-//    }
-//
-//    public double getIncrease_decreaseNum(String stockID) throws IOException {
-//        ReadData readData = new ReadData();
-//        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-//        String[] strings = s.split(",");
-//        double close_yesterday = Double.parseDouble(strings[2]);
-//        double currentPrice = Double.parseDouble(strings[3]);
-//        return Math.round((currentPrice - close_yesterday) * 100) / 100;
-//    }
-
-    /**
-     * 获得api中的最新股票数据对应的日期
-     *
-     * @return String
-     */
-    private String getDateOfLatestData() throws IOException {
-        ReadData rdt = new ReadData();
-        String url = "http://121.41.106.89:8010/api/stock/sh600000";
-        String s1 = rdt.getData(url);
-        String s2 = rdt.parseJSON(s1, "data");
-        String[] dates = rdt.parseJson(s2, "trading_info", "date");
-        return dates[dates.length - 1];
-    }
-
-//    private int intervalBetweenTwoDates(String d1, String d2) {
-//        String[] date1 = d1.split("-");
-//        String[] date2 = d2.split("-");
-//        Calendar c1 = new GregorianCalendar();
-//        c1.set(Integer.parseInt(date1[0]), Integer.parseInt(date1[1]) - 1, Integer.parseInt(date1[2]));
-//        Calendar c2 = new GregorianCalendar();
-//        c2.set(Integer.parseInt(date2[0]), Integer.parseInt(date2[1]) - 1, Integer.parseInt(date2[2]));
-//        long t1 = c1.getTimeInMillis();
-//        long t2 = c2.getTimeInMillis();
-//        return (int) ((t2 - t1) / (1000 * 3600 * 24));
-//    }
 
     /**
      * 从文件中读取所有银行股的代号
@@ -503,24 +460,4 @@ public class GetStockData implements GetStockDataService {
         return stocks.trim();
     }
 
-    public static void main(String[] args) throws IOException {
-//        ReadData rdt = new ReadData();
-//        String url = "http://121.41.106.89:8010/api/stock/sh600000/?start=2016-02-25&end=2016-02-26";
-//        rdt.getData(url);
-//        System.out.println();
-
-        GetStockData g = new GetStockData();
-//        g.getStockData_name("sh600000");
-//        g.getDateOfLatestData();
-//        StockPO stockPO = g.getStockData_name("sh600000");
-//        System.out.println(stockPO.getVolume()[0]+" "+stockPO.getPb()[0]+" "+stockPO.getAdj_price()[0]+" "+stockPO.getHigh()[0]+" "+stockPO.getLow()[0]+" "+stockPO.getOpen()[0]+" "+stockPO.getClose()[0]+" "+stockPO.getTurnover()[0]+" "+stockPO.getDate()[0]);
-
-//        Calendar c = Calendar.getInstance();
-//        c.add(c.DATE,1);
-//        Date d = c.getTime();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        String s = simpleDateFormat.format(d);
-//        System.out.println(s);
-        System.out.println(g.getAllInterestedStock().get(0).getDate()[g.getAllInterestedStock().get(0).getDate().length - 1]);
-    }
 }

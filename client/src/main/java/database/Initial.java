@@ -1,6 +1,8 @@
 package database;
 
+import data.GetIndexData;
 import data.GetStockData;
+import po.IndexPO;
 import po.StockPO;
 
 import java.io.*;
@@ -60,9 +62,43 @@ public class Initial {
         co.closeConnection();
     }
 
+    public void initialTable_Indexinfo(){
+        GetIndexData getIndexData = new GetIndexData();
+        IndexPO po = new IndexPO(1);
+        try {
+            po = getIndexData.getIndexDataBetween("2016-05-03",getToday_date());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Connect co=new Connect();
+        String sql="INSERT INTO indexinfo values (?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement pstmt=co.getPreparedStatement(sql);
+
+        for(int i=0;i<po.getDate().length;i++){
+            try {
+                pstmt.setString(1,po.getName());
+                pstmt.setInt(2,(int)po.getVolume()[i]);
+                pstmt.setDouble(3,po.getHigh()[i]);
+                pstmt.setDouble(4,po.getAdj_price()[i]);
+                pstmt.setDouble(5,po.getLow()[i]);
+                pstmt.setString(6,po.getDate()[i]);
+                pstmt.setDouble(7,po.getClose()[i]);
+                pstmt.setDouble(8,po.getOpen()[i]);
+                pstmt.setDouble(9,po.getIncrease_decreaseRate()[i]);
+                pstmt.setDouble(10,po.getIncrease_decreaseNum()[i]);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        co.closeConnection();
+    }
+
     public static void main(String[] args){
         Initial initial = new Initial();
-        initial.initialTable_StockInfo();
+        initial.initialTable_Indexinfo();
     }
 
     /**
