@@ -66,7 +66,7 @@ public class Initial {
         GetIndexData getIndexData = new GetIndexData();
         IndexPO po = new IndexPO(1);
         try {
-            po = getIndexData.getIndexDataBetween("2005-01-01",getToday_date());
+            po = getIndexData.getIndexDataBetween("2016-05-03",getToday_date());
         } catch (IOException e) {
             e.printStackTrace();
         }
