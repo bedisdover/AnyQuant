@@ -65,7 +65,7 @@
     </properties>
 
     <build>
-        <finalName>GitlabMonitor</finalName>
+        <finalName>AnyQuant</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
