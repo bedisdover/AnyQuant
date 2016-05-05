@@ -1,6 +1,6 @@
 .idea/
 *.iml
 *.data
-/lib
-/web/WEB-INF/target
+/src/test/test-classes
+/src/main/web/WEB-INF/classes
 /src/main/resources/config.xml
