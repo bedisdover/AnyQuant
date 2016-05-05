@@ -17,6 +17,12 @@ import javax.swing.*;
  * Created by zmj on 2016/5/3.
  */
 public class ThreeDPieChart {
+    boolean flagLegend=true;
+    boolean flagTooltips=true;
+    boolean flagURL=true;
+    String standardPieSectionLabelGenerator="{0}:{1}";  //显示名称：数值
+    boolean flagShape=true; //圆还是椭圆
+
 
   public JPanel generateThreeDPieChart(String title,String name[],double data[]){
             DefaultPieDataset dataset = new DefaultPieDataset();
@@ -24,13 +30,14 @@ public class ThreeDPieChart {
             for(int i=0;i<length;i++){
                  dataset.setValue(name[i],data[i]);
             }
-            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, true, true, false);
+            //可设置
+            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, flagLegend, flagTooltips, flagURL);
             chart.setBackgroundPaint(Color.gray);
-            // 设置标题文字
+            // 标题文字
             ChartFrame frame = new ChartFrame(title,chart, true);
             PiePlot3D plot = (PiePlot3D) chart.getPlot();
-            //显示名称：数值
-            plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{1}"));
+            //显示名称：数值  可设置
+            plot.setLabelGenerator(new StandardPieSectionLabelGenerator(standardPieSectionLabelGenerator));
             // 图形边框颜色
             plot.setBaseSectionOutlinePaint(Color.GRAY);
             // plot.setBaseSectionPaint(Color.WHITE);
@@ -39,8 +46,8 @@ public class ThreeDPieChart {
 
             // 指定图片的透明度(0.0-1.0)
             plot.setForegroundAlpha(1f);
-            // 指定显示的饼图上圆形(false)还椭圆形(true)
-            plot.setCircular(true);
+            // 指定显示的饼图上圆形(false)还椭圆形(true)  可设置
+            plot.setCircular(flagShape);
 
             // 设置第一个 饼块section 的开始位置，默认是12点钟方向
             plot.setStartAngle(360);
@@ -63,6 +70,27 @@ public class ThreeDPieChart {
             ChartPanel chartPanel=new ChartPanel(chart);
             return chartPanel;
         }
+
+    public void setLegend(boolean flag){
+        flagLegend=flag;
+    }
+
+    public void setTooltips(boolean flag){
+        flagTooltips=flag;
+    }
+
+    public void setURL(boolean flag){
+        flagURL=flag;
+    }
+
+    public void setLabelGenerator(String labelGenerator){
+        standardPieSectionLabelGenerator=labelGenerator;
+    }
+
+    public void setShape(boolean flag){
+        flagShape=flag;
+    }
+
 
     public static void main(String[] args){
         String name[]={"管理人员","市场人员","开发人员","后勤人员","财务人员"};
