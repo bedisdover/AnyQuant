@@ -3,4 +3,4 @@
 *.data
 /lib
 /web/WEB-INF/target
-/client/src/main/resources/config.xml
+/src/main/resources/config.xml

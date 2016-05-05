@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+* {
+    font-family: "Arial", "Hiragino Sans GB", "Microsoft YaHei",
+    \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+}
+
+body {
+    margin: 0 0;
+}
+
+div {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffcc;
+}
+
+.top {
+    width: 100%;
+    min-width: 800px;
+    height: 50px;
+}
+
+.top .ue-bar {
+    margin: 0 40px;
+    padding: 0 auto;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1030;
+}
+
+.top .ue-bar .page-title {
+    width: 200px;
+    line-height: 10px;
+    margin-left: 40px;
+    float: left;
+}
+
+.top .ue-bar .page-title a:hover {
+    cursor: pointer;
+}
+
+.top .ue-bar .menu {
+    margin: 0 0 0 10px;
+    float: left;
+}
+
+.top .ue-bar .menu ul {
+    margin: 0 auto;
+    overflow: hidden;
+    height: 60px;
+}
+
+.top .ue-bar .menu ul li {
+    padding-right: 10px;
+    font-size: 25px;
+    margin-left: 20px;
+    height: 60px;
+    display: inline;
+    overflow: hidden;
+}
+
+.top .ue-bar .menu ul li a {
+    color: red;
+    height: 60px;
+    line-height: 60px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.top .ue-bar .menu ul li a:hover {
+    background-color: #333333;
+}
+
+.top .ue-bar .account {
+    margin-left: auto;
+    margin-right: 0;
+    float: right;
+    height: 60px;
+}
+
+.top .ue-bar .account span {
+    color: #ffffcc;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.top .ue-bar .account span:hover {
+    background-color: #333333;
+    cursor: pointer;
+}
+

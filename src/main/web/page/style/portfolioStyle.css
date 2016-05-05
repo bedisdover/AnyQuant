@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding-top: 70px;
+    background-image: url("/images/background.jpg");
+    font-family: "Arial", "Hiragino Sans GB", "Microsoft YaHei",
+    \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+}
+
+nav {
+    font-size: 17px;
+}
+
+.stockList-div {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 200px;
+    min-width: 200px;
+    background: #999999;
+    border: 5px solid #cccccc;
+    box-shadow: #999999;
+    border-radius: 5px;
+}
+
+/*.stockList-div table {*/
+    /*border-style: dashed;*/
+/*}*/
+
+.stockList-div .stockList {
+    width: 170px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.stockList-div .stockList tr {
+    padding: 10px;
+}
+
+.stockList-div .stockList .stock:hover {
+    cursor: pointer;
+}
+
+
+

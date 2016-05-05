@@ -8,9 +8,6 @@
     <artifactId>AnyQuant</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>client</module>
-    </modules>
 
     <dependencies>
         <dependency>
@@ -40,9 +37,14 @@
             <version>1.0.23</version>
         </dependency>
         <dependency>
-            <groupId>edu.nju.ultraviolet</groupId>
-            <artifactId>client</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
         </dependency>
     </dependencies>
 
