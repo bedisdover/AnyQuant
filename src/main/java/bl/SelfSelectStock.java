@@ -26,7 +26,7 @@ public class SelfSelectStock implements SelfSelectStockService {
     private List<String> list;
 
     public SelfSelectStock() {
-        FILE = new File("client/src/main/resources/follow.data");
+        FILE = new File("src/main/resources/follow.data");
         list = new ArrayList<>();
 
         load();
@@ -70,6 +70,15 @@ public class SelfSelectStock implements SelfSelectStockService {
      */
     public Iterator<String> getFollowed() {
         return list.iterator();
+    }
+
+    /**
+     * 获得关注股票列表
+     *
+     * @return 股票代码列表
+     */
+    public List<String> getFollowedStocks() {
+        return list;
     }
 
     /**

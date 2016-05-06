@@ -2,6 +2,7 @@ package blservice;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by user on 2016/3/4.
@@ -31,6 +32,13 @@ public interface SelfSelectStockService {
      * @return 股票代码列表的迭代器
      */
     Iterator<String> getFollowed();
+
+    /**
+     * 获得关注股票列表
+     *
+     * @return 股票代码列表
+     */
+    List<String> getFollowedStocks();
 
     /**
      * 判断是否已关注股票

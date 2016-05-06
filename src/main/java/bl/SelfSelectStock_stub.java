@@ -45,6 +45,11 @@ return false;
         return list.iterator();
     }
 
+    @Override
+    public List<String> getFollowedStocks() {
+        return null;
+    }
+
     /**
      * 判断是否已关注股票
      *

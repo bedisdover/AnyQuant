@@ -1,5 +1,6 @@
 <%@ page import="bl.SelfSelectStock" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -48,7 +49,7 @@
 </nav>
 <%!
     SelfSelectStock selfSelect = new SelfSelectStock();
-    Iterator<String> stockList = selfSelect.getFollowed();
+    List<String> stockList = selfSelect.getFollowedStocks();
 %>
 <div class="stockList-div">
     <table class="table table-hover stockList">
@@ -57,7 +58,7 @@
             <td>代码</td>
         </tr>
         <tr>
-            <td class="stock"><%=stockList.next()%></td>
+            <td class="stock"><%=stockList.size()%></td>
             <td>test1</td>
         </tr>
         <tr>
