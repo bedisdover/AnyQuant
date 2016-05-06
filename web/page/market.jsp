@@ -44,5 +44,39 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+<div class="row">
+    <div class="col-md-2 vertical-nav">
+        <div class="container-fluid">
+            <div class="market-index-list">
+                <ul class="nav nav-pills nav-stacked market-index-list">
+                    <li role="presentation" class="active"><a href="#">上证指数</a></li>
+                    <li role="presentation"><a href="#">深证成指</a></li>
+                    <li role="presentation"><a href="#">沪深300</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 content">
+        <div class="row latest-data">
+            <!--最新数据-->
+            <div class="col-md-2 name-code">
+                <P class="text-center name">沪深300</P>
+                <p class="text-center code">（1B0300）</p>
+            </div>
+            <div class="col-md-4 inc-dec">test</div>
+            <div class="col-md-6 data">test</div>
+        </div>
+        <div class="chart">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">分时图</a></li>
+                <li role="presentation"><a href="#">K线图</a></li>
+                <li role="presentation"><a href="#">折线图</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+</div>
 </body>
 </html>
