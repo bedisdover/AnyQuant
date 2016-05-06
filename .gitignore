@@ -1,7 +1,7 @@
 .idea/
 *.iml
 *.data
-/web/WEB-INF/classes
 /src/test/test-classes
+/target
 /src/main/resources/config.xml
 /out
