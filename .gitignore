@@ -2,5 +2,6 @@
 *.iml
 *.data
 /src/test/test-classes
+/target
 /src/main/resources/config.xml
 /out
