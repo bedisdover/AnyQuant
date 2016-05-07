@@ -2,13 +2,15 @@ package presentation.graphs;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import java.io.IOException;
+import java.net.URL;
+
+import org.jfree.chart.*;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.labels.StandardPieToolTipGenerator;
 import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.chart.servlet.ServletUtilities;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
@@ -19,19 +21,18 @@ import javax.swing.*;
 public class ThreeDPieChart {
     boolean flagLegend=true;
     boolean flagTooltips=true;
-    boolean flagURL=true;
     String standardPieSectionLabelGenerator="{0}:{1}";  //显示名称：数值
     boolean flagShape=true; //圆还是椭圆
 
 
-  public JPanel generateThreeDPieChart(String title,String name[],double data[]){
+  public JFreeChart generateThreeDPieChart(String title,String name[],double data[]){
             DefaultPieDataset dataset = new DefaultPieDataset();
             int length=data.length;
             for(int i=0;i<length;i++){
                  dataset.setValue(name[i],data[i]);
             }
             //可设置
-            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, flagLegend, flagTooltips, flagURL);
+            JFreeChart chart = ChartFactory.createPieChart3D(title,dataset, flagLegend, flagTooltips, true);
             chart.setBackgroundPaint(Color.gray);
             // 标题文字
             ChartFrame frame = new ChartFrame(title,chart, true);
@@ -67,9 +68,28 @@ public class ThreeDPieChart {
             TextTitle title1 = new TextTitle(title);
             title1.setFont(font);
             chart.setTitle(title1);
-            ChartPanel chartPanel=new ChartPanel(chart);
-            return chartPanel;
+         //   ChartPanel chartPanel=new ChartPanel(chart);
+
+            return chart;
         }
+
+    public String getURL(JFreeChart jFreeChart){
+        ChartRenderingInfo info=new ChartRenderingInfo(new StandardEntityCollection());
+        String fileName = null;
+        String graphURL=null;
+        try {
+            fileName = ServletUtilities.saveChartAsPNG(jFreeChart, 700,300, info, null);//生成图片
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        graphURL = "/AnyQuant/DisplayChart?filename=" + fileName;
+        //projectname为对应项目的路径path,一般就是项目名称
+        //jsp中这样使用： String graphURL = request.getContextPath() + "/servlet/DisplayChart?filename=" + filename;
+        return graphURL;
+        //返回生成图片的地址
+    }
+
+
 
     public void setLegend(boolean flag){
         flagLegend=flag;
@@ -77,10 +97,6 @@ public class ThreeDPieChart {
 
     public void setTooltips(boolean flag){
         flagTooltips=flag;
-    }
-
-    public void setURL(boolean flag){
-        flagURL=flag;
     }
 
     public void setLabelGenerator(String labelGenerator){
@@ -97,7 +113,7 @@ public class ThreeDPieChart {
         double data[]={25,35,20,5,15};
         JFrame jFrame=new JFrame();
         ThreeDPieChart chart=new ThreeDPieChart();
-        jFrame.add(chart.generateThreeDPieChart("aaa",name,data));
+    //   jFrame.add(chart.generateThreeDPieChart("aaa",name,data));
         jFrame.pack();
         jFrame.setVisible(true);
     }
