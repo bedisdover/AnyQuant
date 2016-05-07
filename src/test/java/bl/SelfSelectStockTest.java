@@ -30,7 +30,6 @@ public class SelfSelectStockTest {
         while(selfSelectStock.getFollowed().hasNext()){
             assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
         }
-
     }
 
     @Test

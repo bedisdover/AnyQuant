@@ -1,3 +1,5 @@
+<%@ page import="data.currentdata.CurrentStockData" %>
+<%@ page import="data.currentdata.CurrentIndexData" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -63,7 +65,12 @@
                 <P class="text-center name">沪深300</P>
                 <p class="text-center code">（1B0300）</p>
             </div>
-            <div class="col-md-4 inc-dec">test</div>
+            <div class="col-md-4 inc-dec">
+                <%
+//                    CurrentIndexData indexData = new CurrentIndexData();
+//                    indexData.getCurrentIndexPO_SH();
+                %>
+            </div>
             <div class="col-md-6 data">test</div>
         </div>
         <div class="chart">

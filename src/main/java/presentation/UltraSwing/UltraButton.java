@@ -28,7 +28,8 @@ public class UltraButton extends JButton {
 
         init();
     }
-    public UltraButton(int num){
+
+    public UltraButton(int num) {
         this.setOpaque(false);
         this.setContentAreaFilled(false);
         setBorderPainted(false);
@@ -43,25 +44,25 @@ public class UltraButton extends JButton {
         ImageIcon iconLineChart = new ImageIcon(imageLineChart);
         ImageIcon iconKLine = new ImageIcon(imageKLine);
         ImageIcon iconAna = new ImageIcon(imageAna);
-        ImageIcon iconTime= new ImageIcon(imageTime);
+        ImageIcon iconTime = new ImageIcon(imageTime);
 
 
-        if(num==1){
+        if (num == 1) {
             //K线图
             this.setIcon(iconKLine);
             this.setToolTipText("K线图");
         }
-        if(num==2){
+        if (num == 2) {
             //折线图
             this.setIcon(iconLineChart);
             this.setToolTipText("折线图");
         }
-        if(num==3){
+        if (num == 3) {
             //综合分析
             this.setIcon(iconAna);
             this.setToolTipText("综合分析");
         }
-        if(num==4){
+        if (num == 4) {
             //分时图
             this.setIcon(iconTime);
             this.setToolTipText("分时图");
