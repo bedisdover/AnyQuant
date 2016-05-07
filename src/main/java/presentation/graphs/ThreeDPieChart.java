@@ -25,7 +25,7 @@ public class ThreeDPieChart {
     boolean flagShape=true; //圆还是椭圆
 
 
-  public JFreeChart generateThreeDPieChart(String title,String name[],double data[]){
+  public String generateThreeDPieChart(String title,String name[],double data[]){
             DefaultPieDataset dataset = new DefaultPieDataset();
             int length=data.length;
             for(int i=0;i<length;i++){
@@ -70,24 +70,21 @@ public class ThreeDPieChart {
             chart.setTitle(title1);
          //   ChartPanel chartPanel=new ChartPanel(chart);
 
-            return chart;
-        }
+          ChartRenderingInfo info=new ChartRenderingInfo(new StandardEntityCollection());
+          String fileName = null;
+          try {
+              fileName = ServletUtilities.saveChartAsPNG(chart, 700,300, info, null);//生成图片
+          } catch (IOException e){
+              e.printStackTrace();
+          }
+         // graphURL = "/AnyQuant/DisplayChart?filename=" + fileName;
+          //projectname为对应项目的路径path,一般就是项目名称
+          //jsp中这样使用： String graphURL = request.getContextPath() + "/servlet/DisplayChart?filename=" + filename;
+          return fileName;
+          //返回生成图片的地址
 
-    public String getURL(JFreeChart jFreeChart){
-        ChartRenderingInfo info=new ChartRenderingInfo(new StandardEntityCollection());
-        String fileName = null;
-        String graphURL=null;
-        try {
-            fileName = ServletUtilities.saveChartAsPNG(jFreeChart, 700,300, info, null);//生成图片
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        graphURL = "/AnyQuant/DisplayChart?filename=" + fileName;
-        //projectname为对应项目的路径path,一般就是项目名称
-        //jsp中这样使用： String graphURL = request.getContextPath() + "/servlet/DisplayChart?filename=" + filename;
-        return graphURL;
-        //返回生成图片的地址
-    }
+            }
+
 
 
 
