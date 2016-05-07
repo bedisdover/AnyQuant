@@ -10,11 +10,11 @@ what : 网络界面、部署服务器。
 problem : 压力山大。
 todo : 继续努力，写好代码搬好砖。
 
-who : 
-when : 
-what : 
-problem : 
-todo : 
+who : 苏琰梓
+when : 2016-05-01
+what : 研究股票分析方法。
+problem : 不知道怎么分析股票。
+todo : 完成股票分析的研究。
 
 who : 
 when : 
