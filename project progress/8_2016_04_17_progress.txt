@@ -16,8 +16,8 @@ what : 修改界面
 problem : 各种并bug心累
 todo : 继续写界面
 
-who : 
-when : 
-what : 
-problem : 
-todo : 
+who : 苏琰梓
+when : 2016-04-17
+what : dubug，完善图表，需求规格说明文档书写。
+problem : 无。
+todo : 迭代三开始阶段需求分析等。
