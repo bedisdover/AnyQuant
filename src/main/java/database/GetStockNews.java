@@ -17,7 +17,7 @@ public class GetStockNews {
     public List<String> getNewsTitle(String stockID){
         List<String> titles = new ArrayList<>();
         Connect co=new Connect();
-        String sql="SELECT * FROM stockinfo where id = \'"+stockID+"\'";
+        String sql="SELECT * FROM companynews where id = \'"+stockID+"\'";
         ResultSet result=co.getResultSet(sql);
 
         try {
