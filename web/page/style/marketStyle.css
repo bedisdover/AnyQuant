@@ -8,6 +8,10 @@ body {
     min-width: 800px;
 }
 
+ul li {
+    display: none; 
+}
+
 nav {
     font-size: 17px;
 }
