@@ -56,5 +56,10 @@ public class LineChartMarketIndex {
         return chartPanel;
     }
 
+    public String getURL(){
+        String filename=lineChartParent.getURL();
+        return filename;
+    }
+
 
 }

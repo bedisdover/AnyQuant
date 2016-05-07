@@ -4,9 +4,11 @@ import bl.ShowIndexData;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.entity.ChartEntity;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.servlet.ServletUtilities;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Day;
@@ -49,7 +51,6 @@ public class LineChartParent implements ChartMouseListener {
         panel = new ChartPanel(timeSeriesChart, true);
         LegendTitle legendTitle = timeSeriesChart.getLegend();
         legendTitle.setVisible(false);
-        Font font = new Font("宋体", Font.BOLD, 16);
         //   TextTitle title = new TextTitle(name[2], font);//副标题 
         //    TextTitle subtitle=new TextTitle("副标题", new Font("黑体",Font.BOLD,12));
         //   timeSeriesChart.addSubtitle(subtitle);
@@ -59,7 +60,6 @@ public class LineChartParent implements ChartMouseListener {
 
         //设置日期显示格式
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
-        SimpleDateFormat frm = new SimpleDateFormat("MM.dd");
 
         //   dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 30, frm));
 
@@ -121,6 +121,17 @@ public class LineChartParent implements ChartMouseListener {
         return panel;
     }
 
+    public String getURL(){
+        ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+        String fileName = null;
+        try {
+            fileName = ServletUtilities.saveChartAsPNG(timeSeriesChart, 700, 300, info, null);//生成图片
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         try {
@@ -149,10 +160,8 @@ public class LineChartParent implements ChartMouseListener {
         panel.setVerticalAxisTrace(true);
         ChartEntity chartEntity = panel.getEntityForPoint(xPos, yPos);
         String[] info = chartEntity.toString().split(" ");
-       // System.out.println(chartEntity.toString());
         if (info[1].equals("series")) {
             int item = Integer.parseInt(info[6].substring(0, info[6].length() - 1));
-         //   System.out.println(item + "Item");
             String getData = data[item] + "";
             String getDate = date[item];
             TextTitle textTitle = this.timeSeriesChart.getTitle();
@@ -160,17 +169,7 @@ public class LineChartParent implements ChartMouseListener {
             textTitle.setText(text);
             textTitle.setFont(new Font("黑体", Font.PLAIN, 18));
         }
-//       Point2D point2D = this.panel.translateScreenToJava2D(new Point(xPos, yPos));
-//        ChartRenderingInfo chartRenderingInfo = this.panel.getChartRenderingInfo();
-//        Rectangle2D rectangle2D = chartRenderingInfo.getPlotInfo().getDataArea();
-//        ValueAxis valueAxis1 = plot.getDomainAxis();
-//        RectangleEdge rectangleEdge1 = plot.getDomainAxisEdge();
-//        ValueAxis valueAxis2 = plot.getRangeAxis();
-//        RectangleEdge rectangleEdge2 = plot.getRangeAxisEdge();
-//        double d1 = valueAxis1.java2DToValue(point2D.getX(), rectangle2D, rectangleEdge1);
-//        double d2 = valueAxis2.java2DToValue(point2D.getY(), rectangle2D, rectangleEdge2);
-//        System.out.println(d1+"欸欸欸d1");
-//        System.out.println(d2+"欸欸欸d2");
+
     }
 }
 
