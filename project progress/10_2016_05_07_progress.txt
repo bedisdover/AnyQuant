@@ -1,0 +1,23 @@
+who : 
+when : 
+what :
+problem : 
+todo : 
+
+who :
+when : 
+what : 
+problem : 
+todo : 
+
+who : 苏琰梓
+when : 2016-05-07
+what : 继续研究股票分析方法。
+problem : 不知道怎么分析股票。
+todo : 完成股票分析的研究。
+
+who : 
+when : 
+what : 
+problem : 
+todo : 
