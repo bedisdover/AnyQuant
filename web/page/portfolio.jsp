@@ -1,6 +1,15 @@
 <%@ page import="bl.SelfSelectStock" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
+<%@ page import="presentation.graphs.ThreeDPieChart" %>
+<%@ page import="presentation.graphs.MySpiderWebPlot" %>
+<%@ page import="presentation.graphs.RadarChartParent" %>
+<%@ page import="presentation.frame.MainFrame" %>
+<%@ page import="presentation.panel.BackgroundPanel" %>
+<%@ page import="presentation.panel.MenuPanel" %>
+<%@ page import="bl.CalculateIndex" %>
+<%@ page import="bl.ShowIndexData" %>
+<%@ page import="po.IndexPO" %>
+<%@ page import="presentation.UltraSwing.UltraButton" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -51,6 +60,8 @@
     SelfSelectStock selfSelect = new SelfSelectStock();
     List<String> stockList = selfSelect.getFollowedStocks();
 %>
+<h1><%=stockList.size()%>
+</h1>
 <div class="stockList-div">
     <table class="table table-hover stockList">
         <tr>
@@ -58,7 +69,8 @@
             <td>代码</td>
         </tr>
         <tr>
-            <td class="stock"><%=stockList.size()%></td>
+            <td class="stock"><%=stockList.size()%>
+            </td>
             <td>test1</td>
         </tr>
         <tr>
@@ -70,6 +82,16 @@
             <td>test1</td>
         </tr>
     </table>
+</div>
+<%
+    ThreeDPieChart pieChart = new ThreeDPieChart();
+    String name[] = {"管理人员", "市场人员", "开发人员", "后勤人员", "财务人员"};
+    double data[] = {25, 35, 20, 5, 15};
+    String fileName = pieChart.generateThreeDPieChart("test", name, data);
+    String graphURL = request.getContextPath() + "/servlet/DisplayChart?fileName=" + fileName;
+%>
+<div class="container">
+    <img src="<%=graphURL%>" alt="" width="100" height="100">
 </div>
 </body>
 </html>

@@ -109,8 +109,6 @@ public class SelfSelectStock implements SelfSelectStockService {
             }
 
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,10 +128,9 @@ public class SelfSelectStock implements SelfSelectStockService {
         writer.close();
     }
 
-
-    public static void main(String[] args){
-        SelfSelectStock selfSelectStock=new SelfSelectStock();
-        selfSelectStock.exist("");
+    public static void main(String[] args) {
+        SelfSelectStock selfSelectStock = new SelfSelectStock();
+        System.out.println(selfSelectStock.getFollowedStocks());
     }
 }
 
