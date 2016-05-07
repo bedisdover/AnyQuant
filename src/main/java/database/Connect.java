@@ -6,10 +6,10 @@ import java.sql.*;
  * Created by zcy on 2016/5/3.
  */
 public class Connect {
-    public static final String DBDRIVER = "org.gjt.mm.mysql.Driver";
-    public static final String DBURL = "jdbc:mysql://"+"127.0.0.1"+":3306/anyquant";
-    public static final String DBUSER = "root";
-    public static final String DBPASS = "admin";
+    public static final String DB_DRIVER = "org.gjt.mm.mysql.Driver";
+    public static final String DB_URL = "jdbc:mysql://"+"127.0.0.1"+":3306/anyquant";
+    public static final String DB_USER = "root";
+    public static final String DB_PASS = "admin";
 
     private Connection conn = null;
     private PreparedStatement pstmt = null;
@@ -18,8 +18,8 @@ public class Connect {
     public PreparedStatement getPreparedStatement(String sql) {
 
         try {
-            Class.forName(Connect.DBDRIVER);
-            conn = DriverManager.getConnection(Connect.DBURL, Connect.DBUSER, Connect.DBPASS);
+            Class.forName(Connect.DB_DRIVER);
+            conn = DriverManager.getConnection(Connect.DB_URL, Connect.DB_USER, Connect.DB_PASS);
             pstmt = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
