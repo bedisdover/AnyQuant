@@ -1,5 +1,4 @@
-<%@ page import="data.currentdata.CurrentStockData" %>
-<%@ page import="data.currentdata.CurrentIndexData" %>
+<%@ page import="javax.json.JsonArray" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -59,25 +58,51 @@
         </div>
     </div>
     <div class="col-md-9 content">
-        <div class="row latest-data">
-            <!--最新数据-->
+        <div class="row latest-data"><!--最新数据-->
             <div class="col-md-2 name-code">
                 <P class="text-center name">沪深300</P>
                 <p class="text-center code">（1B0300）</p>
             </div>
-            <div class="col-md-4 inc-dec">
-                <%
-//                    CurrentIndexData indexData = new CurrentIndexData();
-//                    indexData.getCurrentIndexPO_SH();
-                %>
+            <div class="col-md-4">
+                <div class="inc-dec">
+                    <p class="text-left price">
+                        366.68
+                        <small><small><small>-6.16 (-1.65%)</small></small></small>
+                    </p>
+                </div>
             </div>
-            <div class="col-md-6 data">test</div>
+            <div class="col-md-6">
+                <div class="data">
+                    <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                        <div class="col-md-4">
+                            <p class="text-left">今开：372.72</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-left">最高：373.64</p>
+                        </div>
+                        <div class="col-md-4">
+                            <P class="text-left">成交量：60.03万手</P>
+                        </div>
+                    </div>
+                    <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                        <div class="col-md-4">
+                            <p class="text-left">昨收：372.84</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-left">最低：366.50</p>
+                        </div>
+                        <div class="col-md-4">
+                            <P class="text-left">成交额：4.92亿</P>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="chart">
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#">分时图</a></li>
-                <li role="presentation"><a href="#">K线图</a></li>
-                <li role="presentation"><a href="#">折线图</a></li>
+                <li role="presentation" class="active"><a href="javascript:void(0)">分时图</a></li>
+                <li role="presentation"><a href="javascript:void(0)">K线图</a></li>
+                <li role="presentation"><a href="javascript:void(0)">折线图</a></li>
             </ul>
         </div>
     </div>
