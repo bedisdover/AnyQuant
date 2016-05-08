@@ -5,6 +5,11 @@ body {
     background-image: url("/images/background.jpg");
     font-family: "Arial", "Hiragino Sans GB", "Microsoft YaHei",
     \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+    min-width: 800px;
+}
+
+ul li {
+    display: none; 
 }
 
 nav {
@@ -26,32 +31,43 @@ nav {
 }
 
 .content {
-    min-width: 1000px;
+    min-width: 800px;
 }
 
 .content .latest-data {
     height: 70px;
+    min-width: 1000px;
     background: #c7ddef;
     margin-bottom: 5px;
 }
 
-.latest-data .name-code {
+.content .latest-data .name-code {
     height: 70px;
     background: #999999;
 }
 
-.latest-data .name-code .name {
+.content .latest-data .name-code .name {
     font-size: 20px;
     height: 30px;
     line-height: 50px;
     margin-bottom: 5px;
 }
 
-.latest-data .name-code .code {
+.content .latest-data .name-code .code {
     font-size: 16px;
     height: 30px;
     line-height: 30px;
     margin: 0 auto;
+}
+
+.content .latest-data .inc-dec {
+    font-size: 28px;
+    padding-top: 25px;
+}
+
+.content .latest-data .data {
+    height: 70px;
+    padding: 10px;
 }
 
 
