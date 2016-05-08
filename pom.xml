@@ -160,6 +160,7 @@
                         <format>xml</format>
                         <format>html</format>
                     </formats>
+                    <forceMojoExecution>true</forceMojoExecution>
                     <check/>
                 </configuration>
             </plugin>
