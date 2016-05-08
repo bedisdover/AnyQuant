@@ -1,0 +1,23 @@
+who : 章承尧
+when : 2016-04-17
+what : Debug，完善图表，导出jar包。
+problem : jar包运行乱码。
+todo : 准备迭代三的计划。
+
+who : 周梦佳
+when : 2016-04-17
+what : dubug，完善图表，需求规格说明文档书写。
+problem : 无。
+todo : 迭代三开始阶段需求分析等。
+
+who : 宋益明
+when : 2016-04-17
+what : 修改界面
+problem : 各种并bug心累
+todo : 继续写界面
+
+who : 苏琰梓
+when : 2016-04-17
+what : dubug，完善图表，需求规格说明文档书写。
+problem : 无。
+todo : 迭代三开始阶段需求分析等。
