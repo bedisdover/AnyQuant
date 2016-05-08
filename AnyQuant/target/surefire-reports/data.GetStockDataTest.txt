@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: data.GetStockDataTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
 getStockData_nameTest(data.GetStockDataTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.VerifyError: Instruction type does not match stack map
 Exception Details:

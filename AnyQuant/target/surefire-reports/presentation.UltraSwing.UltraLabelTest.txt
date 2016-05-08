@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: presentation.UltraSwing.UltraLabelTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.103 sec <<< FAILURE!
-testPreferredSize(presentation.UltraSwing.UltraLabelTest)  Time elapsed: 0.101 sec  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.102 sec <<< FAILURE!
+testPreferredSize(presentation.UltraSwing.UltraLabelTest)  Time elapsed: 0.102 sec  <<< FAILURE!
 java.lang.AssertionError: expected:<java.awt.Dimension[width=32,height=22]> but was:<java.awt.Dimension[width=100,height=100]>
 	at org.junit.Assert.fail(Assert.java:91)
 	at org.junit.Assert.failNotEquals(Assert.java:645)

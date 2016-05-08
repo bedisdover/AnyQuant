@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: data.GetIndexDataTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
-getLatestIndexDataTest(data.GetIndexDataTest)  Time elapsed: 0.001 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.003 sec <<< FAILURE!
+getLatestIndexDataTest(data.GetIndexDataTest)  Time elapsed: 0.002 sec  <<< ERROR!
 java.lang.VerifyError: Instruction type does not match stack map
 Exception Details:
   Location:

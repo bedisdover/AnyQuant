@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: database.GetStockData_DBTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.004 sec <<< FAILURE!
-getAllInterestedStockTest(database.GetStockData_DBTest)  Time elapsed: 0.002 sec  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.003 sec <<< FAILURE!
+getAllInterestedStockTest(database.GetStockData_DBTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.VerifyError: Expecting a stackmap frame at branch target 180
 Exception Details:
   Location:
@@ -149,7 +149,7 @@ Exception Details:
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
 
-getStockData_nameTest(database.GetStockData_DBTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getStockData_nameTest(database.GetStockData_DBTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.VerifyError: Expecting a stackmap frame at branch target 180
 Exception Details:
   Location:

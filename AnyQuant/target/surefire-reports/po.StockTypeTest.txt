@@ -2,7 +2,7 @@
 Test set: po.StockTypeTest
 -------------------------------------------------------------------------------
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE!
-isUS(po.StockTypeTest)  Time elapsed: 0 sec  <<< ERROR!
+isUS(po.StockTypeTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.VerifyError: Expecting a stackmap frame at branch target 49
 Exception Details:
   Location:
