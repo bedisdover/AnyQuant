@@ -1,7 +1,0 @@
-who: 宋益明, 苏琰梓, 章承尧, 周梦佳
-when: 2016.5.3
-what:迭代三开始阶段
-how long: 2h
-arrived solutions:安装TomCat，统一IDE。
-		之前进度有些缓慢，需要加快脚步。
-		大家一起开发。

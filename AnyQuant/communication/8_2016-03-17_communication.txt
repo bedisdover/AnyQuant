@@ -1,5 +1,0 @@
-who: 宋益明, 苏琰梓, 章承尧, 周梦佳
-when: 2016.3.17
-what:迭代一收尾阶段，讨论最后收尾分工。
-how long: 0.5h
-arrived solutions:完成测试文档（syz，sym，由syz整合）；导出jar包，并且完成安装部署说明（zmj）；界面完善（sym）；筛选功能完善（zcy）。迭代一本周六全部结束。

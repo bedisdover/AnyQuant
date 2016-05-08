@@ -1,5 +1,0 @@
-who: 宋益明, 苏琰梓, 章承尧, 周梦佳
-when: 2016.5.7
-what:迭代三开发阶段
-how long: 3h
-arrived solutions:大家一起开发。解决数据库编码问题，转向Web开发。
