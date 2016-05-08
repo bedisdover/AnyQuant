@@ -92,36 +92,7 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!--added-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>resources</goal>
-                            <goal>testResources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>src/main/generated-groovy-stubs</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
