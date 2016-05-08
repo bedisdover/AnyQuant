@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="data.GetIndexDataTest" time="0.002" errors="1" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/local/jdk1.8.0_91/jre/lib/amd64"/>
+    <property name="java.vm.version" value="25.91-b14"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/song/program/java/AnyQuant"/>
+    <property name="java.runtime.version" value="1.8.0_91-b14"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="basedir" value="/home/song/program/java/AnyQuant"/>
+    <property name="java.endorsed.dirs" value="/usr/local/jdk1.8.0_91/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="surefire.real.class.path" value="/home/song/program/java/AnyQuant/target/surefire/surefirebooter4168996545814765804.jar"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="surefire.test.class.path" value="/home/song/program/java/AnyQuant/target/test-classes:/home/song/program/java/AnyQuant/target/generated-classes/cobertura:/home/song/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar:/home/song/.m2/repository/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar:/home/song/.m2/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar:/home/song/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/home/song/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar:/home/song/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/song/.m2/repository/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar:/home/song/.m2/repository/dom4j/dom4j/1.1/dom4j-1.1.jar:/home/song/.m2/repository/org/jfree/jfreechart/1.0.19/jfreechart-1.0.19.jar:/home/song/.m2/repository/org/jfree/jcommon/1.0.23/jcommon-1.0.23.jar:/home/song/.m2/repository/javax/servlet/servlet-api/3.0-alpha-1/servlet-api-3.0-alpha-1.jar:/home/song/.m2/repository/javax/javaee-api/7.0/javaee-api-7.0.jar:/home/song/.m2/repository/com/sun/mail/javax.mail/1.5.0/javax.mail-1.5.0.jar:/home/song/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/song/.m2/repository/net/sourceforge/cobertura/cobertura/1.9.4.1/cobertura-1.9.4.1.jar:/home/song/.m2/repository/org/apache/ant/ant/1.7.0/ant-1.7.0.jar:/home/song/.m2/repository/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar:"/>
+    <property name="sun.awt.enableExtraMouseButtons" value="true"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="4.4.0-21-generic"/>
+    <property name="user.home" value="/home/song"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="song"/>
+    <property name="java.class.path" value="/home/song/program/java/AnyQuant/target/test-classes:/home/song/program/java/AnyQuant/target/generated-classes/cobertura:/home/song/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar:/home/song/.m2/repository/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar:/home/song/.m2/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar:/home/song/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/home/song/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar:/home/song/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/song/.m2/repository/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar:/home/song/.m2/repository/dom4j/dom4j/1.1/dom4j-1.1.jar:/home/song/.m2/repository/org/jfree/jfreechart/1.0.19/jfreechart-1.0.19.jar:/home/song/.m2/repository/org/jfree/jcommon/1.0.23/jcommon-1.0.23.jar:/home/song/.m2/repository/javax/servlet/servlet-api/3.0-alpha-1/servlet-api-3.0-alpha-1.jar:/home/song/.m2/repository/javax/javaee-api/7.0/javaee-api-7.0.jar:/home/song/.m2/repository/com/sun/mail/javax.mail/1.5.0/javax.mail-1.5.0.jar:/home/song/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/song/.m2/repository/net/sourceforge/cobertura/cobertura/1.9.4.1/cobertura-1.9.4.1.jar:/home/song/.m2/repository/org/apache/ant/ant/1.7.0/ant-1.7.0.jar:/home/song/.m2/repository/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar:"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/local/jdk1.8.0_91/jre"/>
+    <property name="sun.java.command" value="/home/song/program/java/AnyQuant/target/surefire/surefirebooter4168996545814765804.jar /home/song/program/java/AnyQuant/target/surefire/surefire5569316339189582692tmp /home/song/program/java/AnyQuant/target/surefire/surefire5164451147703860879tmp"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="zh"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_91"/>
+    <property name="java.ext.dirs" value="/usr/local/jdk1.8.0_91/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="sun.boot.class.path" value="/usr/local/jdk1.8.0_91/jre/lib/resources.jar:/usr/local/jdk1.8.0_91/jre/lib/rt.jar:/usr/local/jdk1.8.0_91/jre/lib/sunrsasign.jar:/usr/local/jdk1.8.0_91/jre/lib/jsse.jar:/usr/local/jdk1.8.0_91/jre/lib/jce.jar:/usr/local/jdk1.8.0_91/jre/lib/charsets.jar:/usr/local/jdk1.8.0_91/jre/lib/jfr.jar:/usr/local/jdk1.8.0_91/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="localRepository" value="/home/song/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.font.fontmanager" value="sun.awt.X11FontManager"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase classname="data.GetIndexDataTest" name="getLatestIndexDataTest" time="0.001">
+    <error message="Instruction type does not match stack map
+Exception Details:
+  Location:
+    data/GetIndexData.getLatestIndexData()Lpo/IndexPO; @128: iload
+  Reason:
+    Type integer (current frame, locals[1]) is not assignable to &apos;data/ReadData&apos; (stack map, locals[1])
+  Current Frame:
+    bci: @128
+    flags: { }
+    locals: { &apos;data/GetIndexData&apos;, integer, integer, &apos;data/ReadData&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;[Ljava/lang/String;&apos;, integer, integer }
+    stack: { }
+  Stackmap Frame:
+    bci: @128
+    flags: { }
+    locals: { &apos;data/GetIndexData&apos;, &apos;data/ReadData&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;[Ljava/lang/String;&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0x0000000: 033c 11ff ff3d 120d 1100 14b8 0013 bb00
+    0x0000010: 2059 b700 214e 120d 1100 15b8 0013 bb00
+    0x0000020: 2359 b700 2412 26b6 002a 2ab7 002e b600
+    0x0000030: 2ab6 0031 3a04 120d 1100 16b8 0013 2d19
+    0x0000040: 04b6 0035 3a05 120d 1100 17b8 0013 2d19
+    0x0000050: 0512 37b6 003b 3a06 120d 1100 18b8 0013
+    0x0000060: 2d19 0612 3db6 0041 3a07 120d 1100 1ab8
+    0x0000070: 0013 0336 0812 0d11 001b b800 1303 3609
+    0x0000080: 1509 1907 be11 001b 3c11 0000 3da2 0091
+    0x0000090: 1b11 001b a000 161c 1100 00a0 000f 120d
+    0x00000a0: 1b1c 04b8 0049 11ff ff3d 120d 1100 1cb8
+    0x00000b0: 0013 1907 1509 32b8 004f 3a0a 120d 1100
+    0x00000c0: 1db8 0013 190a 1251 b600 5412 56b6 005a
+    0x00000d0: 1100 1d3c 1100 003d 9900 281b 1100 1da0
+    0x00000e0: 0016 1c11 0000 a000 0f12 0d1b 1c04 b800
+    0x00000f0: 4911 ffff 3d12 0d11 001e b800 1384 0801
+    0x0000100: 1c9b 000f 120d 1b1c 03b8 0049 11ff ff3d
+    0x0000110: 120d 1100 1bb8 0013 8409 01a7 ff65 1c9b
+    0x0000120: 000f 120d 1b1c 03b8 0049 11ff ff3d 120d
+    0x0000130: 1100 21b8 0013 1907 be15 0864 bc0b 3a09
+    0x0000140: 120d 1100 22b8 0013 1907 be15 0864 bc07
+    0x0000150: 3a0a 120d 1100 23b8 0013 1907 be15 0864
+    0x0000160: bc07 3a0b 120d 1100 24b8 0013 1907 be15
+    0x0000170: 0864 bc07 3a0c 120d 1100 25b8 0013 1907
+    0x0000180: be15 0864 bc07 3a0d 120d 1100 26b8 0013
+    0x0000190: 1907 be15 0864 bc07 3a0e 120d 1100 27b8
+    0x00001a0: 0013 1907 be15 0864 bd00 433a 0f12 0d11
+    0x00001b0: 0028 b800 1319 07be 1508 64bc 073a 1012
+    0x00001c0: 0d11 0029 b800 1319 07be 1508 64bc 073a
+    0x00001d0: 1112 0d11 002a b800 13bb 005c 5919 07be
+    0x00001e0: 1508 64b7 005f 3a12 120d 1100 2bb8 0013
+    0x00001f0: 0336 1312 0d11 002c b800 1303 3614 1514
+    0x0000200: 1907 be11 002c 3c11 0000 3da2 01b6 1b11
+    0x0000210: 002c a000 161c 1100 00a0 000f 120d 1b1c
+    0x0000220: 04b8 0049 11ff ff3d 120d 1100 2eb8 0013
+    0x0000230: 1907 1514 32b8 004f 3a15 120d 1100 30b8
+    0x0000240: 0013 1915 1251 b600 5412 56b6 005a 1100
+    0x0000250: 303c 1100 003d 9900 281b 1100 30a0 0016
+    0x0000260: 1c11 0000 a000 0f12 0d1b 1c04 b800 4911
+    0x0000270: ffff 3d12 0d11 0031 b800 13a7 0138 1c9b
+    0x0000280: 000f 120d 1b1c 03b8 0049 11ff ff3d 120d
+    0x0000290: 1100 34b8 0013 1909 1513 1915 1251 b600
+    0x00002a0: 54b8 0069 5012 0d11 0035 b800 1319 0a15
+    0x00002b0: 1319 1512 6bb6 0054 b800 7152 120d 1100
+    0x00002c0: 36b8 0013 190b 1513 1915 1273 b600 54b8
+    0x00002d0: 0071 5212 0d11 0037 b800 1319 0c15 1319
+    0x00002e0: 1512 75b6 0054 b800 7152 120d 1100 38b8
+    0x00002f0: 0013 190f 1513 1915 1277 b600 5453 120d
+    0x0000300: 1100 39b8 0013 190d 1513 1915 1279 b600
+    0x0000310: 54b8 0071 5212 0d11 003a b800 1319 0e15
+    0x0000320: 1319 1512 7bb6 0054 b800 7152 120d 1100
+    0x0000330: 3cb8 0013 1513 0411 003c 3c11 0000 3da1
+    0x0000340: 0059 1b11 003c a000 161c 1100 00a0 000f
+    0x0000350: 120d 1b1c 04b8 0049 11ff ff3d 120d 1100
+    0x0000360: 3db8 0013 1910 1513 190d 1513 3119 0d15
+    0x0000370: 1304 6431 6719 0d15 1304 6431 6f52 120d
+    0x0000380: 1100 3eb8 0013 1911 1513 190d 1513 3119
+    0x0000390: 0d15 1304 6431 6752 1c9b 000f 120d 1b1c
+    0x00003a0: 03b8 0049 11ff ff3d 120d 1100 41b8 0013
+    0x00003b0: 8413 0112 0d11 002c b800 1384 1401 a7fe
+    0x00003c0: 401c 9b00 0f12 0d1b 1c03 b800 4911 ffff
+    0x00003d0: 3d12 0d11 0043 b800 1319 1219 09b6 007f
+    0x00003e0: 120d 1100 44b8 0013 1912 190a b600 8312
+    0x00003f0: 0d11 0045 b800 1319 1219 0bb6 0086 120d
+    0x0000400: 1100 46b8 0013 1912 190c b600 8912 0d11
+    0x0000410: 0047 b800 1319 1219 0fb6 008d 120d 1100
+    0x0000420: 48b8 0013 1912 190d b600 9012 0d11 0049
+    0x0000430: b800 1319 1219 0eb6 0093 120d 1100 4ab8
+    0x0000440: 0013 1912 1910 b600 9612 0d11 004b b800
+    0x0000450: 1319 1219 11b6 0099 120d 1100 4cb8 0013
+    0x0000460: 1906 b800 4f3a 1412 0d11 004d b800 1319
+    0x0000470: 1219 1412 9bb6 0054 b600 9f12 0d11 004f
+    0x0000480: b800 1319 12b0                         
+  Stackmap Table:
+    full_frame(@128,{Object[#2],Object[#32],Object[#67],Object[#67],Object[#67],Object[#69],Integer,Integer},{})
+    same_frame_extended(@280)
+    chop_frame(@310,1)
+    full_frame(@510,{Object[#2],Object[#32],Object[#67],Object[#67],Object[#67],Object[#69],Integer,Object[#97],Object[#99],Object[#99],Object[#99],Object[#99],Object[#99],Object[#69],Object[#99],Object[#99],Object[#92],Integer,Integer},{})
+    append_frame(@662,Object[#75])
+    same_frame_extended(@944)
+    chop_frame(@955,1)
+    chop_frame(@985,1)
+" type="java.lang.VerifyError">java.lang.VerifyError: Instruction type does not match stack map
+Exception Details:
+  Location:
+    data/GetIndexData.getLatestIndexData()Lpo/IndexPO; @128: iload
+  Reason:
+    Type integer (current frame, locals[1]) is not assignable to &apos;data/ReadData&apos; (stack map, locals[1])
+  Current Frame:
+    bci: @128
+    flags: { }
+    locals: { &apos;data/GetIndexData&apos;, integer, integer, &apos;data/ReadData&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;[Ljava/lang/String;&apos;, integer, integer }
+    stack: { }
+  Stackmap Frame:
+    bci: @128
+    flags: { }
+    locals: { &apos;data/GetIndexData&apos;, &apos;data/ReadData&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;java/lang/String&apos;, &apos;[Ljava/lang/String;&apos;, integer, integer }
+    stack: { }
+  Bytecode:
+    0x0000000: 033c 11ff ff3d 120d 1100 14b8 0013 bb00
+    0x0000010: 2059 b700 214e 120d 1100 15b8 0013 bb00
+    0x0000020: 2359 b700 2412 26b6 002a 2ab7 002e b600
+    0x0000030: 2ab6 0031 3a04 120d 1100 16b8 0013 2d19
+    0x0000040: 04b6 0035 3a05 120d 1100 17b8 0013 2d19
+    0x0000050: 0512 37b6 003b 3a06 120d 1100 18b8 0013
+    0x0000060: 2d19 0612 3db6 0041 3a07 120d 1100 1ab8
+    0x0000070: 0013 0336 0812 0d11 001b b800 1303 3609
+    0x0000080: 1509 1907 be11 001b 3c11 0000 3da2 0091
+    0x0000090: 1b11 001b a000 161c 1100 00a0 000f 120d
+    0x00000a0: 1b1c 04b8 0049 11ff ff3d 120d 1100 1cb8
+    0x00000b0: 0013 1907 1509 32b8 004f 3a0a 120d 1100
+    0x00000c0: 1db8 0013 190a 1251 b600 5412 56b6 005a
+    0x00000d0: 1100 1d3c 1100 003d 9900 281b 1100 1da0
+    0x00000e0: 0016 1c11 0000 a000 0f12 0d1b 1c04 b800
+    0x00000f0: 4911 ffff 3d12 0d11 001e b800 1384 0801
+    0x0000100: 1c9b 000f 120d 1b1c 03b8 0049 11ff ff3d
+    0x0000110: 120d 1100 1bb8 0013 8409 01a7 ff65 1c9b
+    0x0000120: 000f 120d 1b1c 03b8 0049 11ff ff3d 120d
+    0x0000130: 1100 21b8 0013 1907 be15 0864 bc0b 3a09
+    0x0000140: 120d 1100 22b8 0013 1907 be15 0864 bc07
+    0x0000150: 3a0a 120d 1100 23b8 0013 1907 be15 0864
+    0x0000160: bc07 3a0b 120d 1100 24b8 0013 1907 be15
+    0x0000170: 0864 bc07 3a0c 120d 1100 25b8 0013 1907
+    0x0000180: be15 0864 bc07 3a0d 120d 1100 26b8 0013
+    0x0000190: 1907 be15 0864 bc07 3a0e 120d 1100 27b8
+    0x00001a0: 0013 1907 be15 0864 bd00 433a 0f12 0d11
+    0x00001b0: 0028 b800 1319 07be 1508 64bc 073a 1012
+    0x00001c0: 0d11 0029 b800 1319 07be 1508 64bc 073a
+    0x00001d0: 1112 0d11 002a b800 13bb 005c 5919 07be
+    0x00001e0: 1508 64b7 005f 3a12 120d 1100 2bb8 0013
+    0x00001f0: 0336 1312 0d11 002c b800 1303 3614 1514
+    0x0000200: 1907 be11 002c 3c11 0000 3da2 01b6 1b11
+    0x0000210: 002c a000 161c 1100 00a0 000f 120d 1b1c
+    0x0000220: 04b8 0049 11ff ff3d 120d 1100 2eb8 0013
+    0x0000230: 1907 1514 32b8 004f 3a15 120d 1100 30b8
+    0x0000240: 0013 1915 1251 b600 5412 56b6 005a 1100
+    0x0000250: 303c 1100 003d 9900 281b 1100 30a0 0016
+    0x0000260: 1c11 0000 a000 0f12 0d1b 1c04 b800 4911
+    0x0000270: ffff 3d12 0d11 0031 b800 13a7 0138 1c9b
+    0x0000280: 000f 120d 1b1c 03b8 0049 11ff ff3d 120d
+    0x0000290: 1100 34b8 0013 1909 1513 1915 1251 b600
+    0x00002a0: 54b8 0069 5012 0d11 0035 b800 1319 0a15
+    0x00002b0: 1319 1512 6bb6 0054 b800 7152 120d 1100
+    0x00002c0: 36b8 0013 190b 1513 1915 1273 b600 54b8
+    0x00002d0: 0071 5212 0d11 0037 b800 1319 0c15 1319
+    0x00002e0: 1512 75b6 0054 b800 7152 120d 1100 38b8
+    0x00002f0: 0013 190f 1513 1915 1277 b600 5453 120d
+    0x0000300: 1100 39b8 0013 190d 1513 1915 1279 b600
+    0x0000310: 54b8 0071 5212 0d11 003a b800 1319 0e15
+    0x0000320: 1319 1512 7bb6 0054 b800 7152 120d 1100
+    0x0000330: 3cb8 0013 1513 0411 003c 3c11 0000 3da1
+    0x0000340: 0059 1b11 003c a000 161c 1100 00a0 000f
+    0x0000350: 120d 1b1c 04b8 0049 11ff ff3d 120d 1100
+    0x0000360: 3db8 0013 1910 1513 190d 1513 3119 0d15
+    0x0000370: 1304 6431 6719 0d15 1304 6431 6f52 120d
+    0x0000380: 1100 3eb8 0013 1911 1513 190d 1513 3119
+    0x0000390: 0d15 1304 6431 6752 1c9b 000f 120d 1b1c
+    0x00003a0: 03b8 0049 11ff ff3d 120d 1100 41b8 0013
+    0x00003b0: 8413 0112 0d11 002c b800 1384 1401 a7fe
+    0x00003c0: 401c 9b00 0f12 0d1b 1c03 b800 4911 ffff
+    0x00003d0: 3d12 0d11 0043 b800 1319 1219 09b6 007f
+    0x00003e0: 120d 1100 44b8 0013 1912 190a b600 8312
+    0x00003f0: 0d11 0045 b800 1319 1219 0bb6 0086 120d
+    0x0000400: 1100 46b8 0013 1912 190c b600 8912 0d11
+    0x0000410: 0047 b800 1319 1219 0fb6 008d 120d 1100
+    0x0000420: 48b8 0013 1912 190d b600 9012 0d11 0049
+    0x0000430: b800 1319 1219 0eb6 0093 120d 1100 4ab8
+    0x0000440: 0013 1912 1910 b600 9612 0d11 004b b800
+    0x0000450: 1319 1219 11b6 0099 120d 1100 4cb8 0013
+    0x0000460: 1906 b800 4f3a 1412 0d11 004d b800 1319
+    0x0000470: 1219 1412 9bb6 0054 b600 9f12 0d11 004f
+    0x0000480: b800 1319 12b0                         
+  Stackmap Table:
+    full_frame(@128,{Object[#2],Object[#32],Object[#67],Object[#67],Object[#67],Object[#69],Integer,Integer},{})
+    same_frame_extended(@280)
+    chop_frame(@310,1)
+    full_frame(@510,{Object[#2],Object[#32],Object[#67],Object[#67],Object[#67],Object[#69],Integer,Object[#97],Object[#99],Object[#99],Object[#99],Object[#99],Object[#99],Object[#69],Object[#99],Object[#99],Object[#92],Integer,Integer},{})
+    append_frame(@662,Object[#75])
+    same_frame_extended(@944)
+    chop_frame(@955,1)
+    chop_frame(@985,1)
+
+	at data.GetIndexDataTest.getLatestIndexDataTest(GetIndexDataTest.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:119)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at com.sun.proxy.$Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+</error>
+    <system-out>@SLTests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.102 sec &lt;&lt;&lt; FAILURE!
+@SLRunning data.GetIndexDataTest
+</system-out>
+  </testcase>
+</testsuite>
