@@ -64,6 +64,19 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+
+                    <excludes>
+                        <exclude>presentation/UltraSwing/*.class</exclude>
+                        <exclude>presentation/frame/*.class</exclude>
+                        <exclude>presentation/graphs/*.class</exclude>
+                        <exclude>presentation/panel/*.java</exclude>
+                        <exclude>presentation/panel/index/*.java</exclude>
+                        <exclude>presentation/panel/info/*.java</exclude>
+                        <exclude>presentation/panel/operation/*.java</exclude>
+                        <exclude>presentation/settings/*.java</exclude>
+                        <exclude>presentation/util/*.java</exclude>
+                        <exclude>vo/*.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <!--added-->
