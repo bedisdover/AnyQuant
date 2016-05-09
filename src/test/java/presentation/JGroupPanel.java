@@ -473,7 +473,7 @@ class JGroupPanel extends JPanel {
                     if (w < d.width) {
                         w = d.width;
                     }
-                    h += d.height + vgap;
+                    h = h + d.height + vgap;
                 }
                 return new Dimension(insets.left + insets.right + w + 2 * hgap,
                         insets.top + insets.bottom + h + 2 * vgap);
@@ -499,7 +499,7 @@ class JGroupPanel extends JPanel {
                             y,
                             parent.getWidth() - insets.left - insets.right - 2
                                     * hgap, h);
-                    y += h + vgap;
+                    y = y + h + vgap;
                 }
             }
         }
