@@ -49,6 +49,15 @@ public class GetStockData_DBTest {
             e.printStackTrace();
         }
         assertEquals("2016-03-28",stockPOList.get(0).getDate()[0]);
+
+        try {
+            stockPOList = getStockData_db.getAllInterestedStock();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertNotNull(stockPOList.get(0));
+
         GetStockData.underTest=false;
     }
+
 }

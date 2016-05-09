@@ -85,6 +85,7 @@ public class GetIndexData_DB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        co.closeConnection();
 
         return indexPO;
     }
