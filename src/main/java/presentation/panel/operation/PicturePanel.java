@@ -763,7 +763,7 @@ public class PicturePanel extends OperationPanel {
         /**
          * 股票列表文件路径
          */
-        private final String FILE_NAME = "client/src/main/resources/bank_stock.txt";
+        private final String FILE_NAME = "src/main/resources/bank_stock.txt";
 
         /**
          * 主面板

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CustomDialog extends JDialog {
 
-    private final String FILE_NAME = "client/src/main/resources/bank_stock.txt";
+    private final String FILE_NAME = "src/main/resources/bank_stock.txt";
 
     /**
      * 主面板

@@ -12,7 +12,7 @@ import java.io.IOException;
  * 图片加载类,负责所有图片的加载
  */
 public class ImageLoader {
-    private static final String IMAGE_PATH = "client/src/main/resources/images/";
+    private static final String IMAGE_PATH = "src/main/resources/images/";
 
     /**
      * 设置

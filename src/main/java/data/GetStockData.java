@@ -292,7 +292,7 @@ public class GetStockData implements GetStockDataService {
                 file = new File("src/test/resources/bank_stock.txt");
             }
             else{
-                file = new File("client/src/main/resources/bank_stock.txt");
+                file = new File("src/main/resources/bank_stock.txt");
             }
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

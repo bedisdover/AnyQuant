@@ -19,9 +19,9 @@ public class IndexKLines {
 
     public IndexKLines() throws IOException {
         jTabbedPane = new JTabbedPane();
-        ImageIcon image1 = new ImageIcon("client/src/main/resources/images/dayK.png");
-        ImageIcon image2 = new ImageIcon("client/src/main/resources/images/weekK.png");
-        ImageIcon image3 = new ImageIcon("client/src/main/resources/images/monthK.png");
+        ImageIcon image1 = new ImageIcon("src/main/resources/images/dayK.png");
+        ImageIcon image2 = new ImageIcon("src/main/resources/images/weekK.png");
+        ImageIcon image3 = new ImageIcon("src/main/resources/images/monthK.png");
         chartPanel1 = new IndexKLine_Daily().getChartPanel();
         chartPanel2 = new IndexKLine_Weekly().getChartPanel();
         chartPanel3 = new IndexKLine_Monthly().getChartPanel();

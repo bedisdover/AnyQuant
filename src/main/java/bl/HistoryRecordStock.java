@@ -17,7 +17,7 @@ public class HistoryRecordStock implements HistoryRecordStockService {
     private List<String> list;
 
     public HistoryRecordStock() {
-        file = new File("client/src/main/resources/historyRecord.data");
+        file = new File("src/main/resources/historyRecord.data");
         list = new ArrayList<>();
 
         load();
