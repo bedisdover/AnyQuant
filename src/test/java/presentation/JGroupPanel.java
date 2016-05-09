@@ -2,6 +2,7 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -31,9 +32,12 @@ class JGroupPanel extends JPanel {
     /* 当前激活的组 */
     private JGroupContainer activeGroup = null;
 
-    transient ActionListener al = e -> {
-        JButton bttTitle = (JButton) e.getSource();
-        expandGroup((JGroupContainer) bttTitle.getParent());
+    transient ActionListener al = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton bttTitle = (JButton) e.getSource();
+            expandGroup((JGroupContainer) bttTitle.getParent());
+        }
     };
 
     public boolean hasCreateDefaultGroup = false;

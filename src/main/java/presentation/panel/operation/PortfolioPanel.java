@@ -72,7 +72,7 @@ public class PortfolioPanel extends OperationPanel {
                 list.add(new StockVO(getStockData.getStockData_name(string)));
             } catch (IOException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
+                JOptionPane.showMessageDialog(PortfolioPanel.this, "请检查网络连接！");
             }
         }
 
@@ -94,7 +94,7 @@ public class PortfolioPanel extends OperationPanel {
             stock = new GetStockData().getStockData_name(name);
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(PortfolioPanel.this,"请检查网络连接！");
+            JOptionPane.showMessageDialog(PortfolioPanel.this, "请检查网络连接！");
         }
 
         MainFrame.getMainFrame().addOperationPanel(new StockInfoPanel(this, stock));
@@ -172,7 +172,12 @@ public class PortfolioPanel extends OperationPanel {
          * todo 给JMenuItem添加事件监听
          */
         //显示详细信息
-        menuItem1.addActionListener(e -> showDetailedInfo());
+        menuItem1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showDetailedInfo();
+            }
+        });
 
         menuItem2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -180,18 +185,21 @@ public class PortfolioPanel extends OperationPanel {
             }
         });
         //取消关注
-        menuItem3.addActionListener(e -> {
-            int line = table.getSelectedRow();
-            if (line != -1) {
-                try {
-                    new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
-                    new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
-                    JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+        menuItem3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int line = table.getSelectedRow();
+                if (line != -1) {
+                    try {
+                        new SelfSelectStock().removeStock((String) table.getValueAt(line, 2));
+                        new HistoryRecordStock().addStock((String) table.getValueAt(line, 2));
+                        JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "取消关注成功!可在历史记录中查看");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
 
-                MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+                    MainFrame.getMainFrame().addOperationPanel(new PortfolioPanel());
+                }
             }
         });
 
