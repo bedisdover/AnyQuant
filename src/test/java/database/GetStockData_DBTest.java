@@ -16,7 +16,7 @@ public class GetStockData_DBTest {
     @Test
     public void getStockData_nameTest(){
         GetStockData_DB getStockData_db = new GetStockData_DB();
-        StockPO stockPO = getStockData_db.getStockData_name("sh600016","2016-4-28","2016-4-28");
+        StockPO stockPO = getStockData_db.getStockData_name("sh600016","2016-04-28","2016-04-28");
         assertEquals("sh600016",stockPO.getId());
         assertEquals("2016-04-28",stockPO.getDate()[0]);
         assertEquals(44022700,stockPO.getVolume()[0]);
@@ -30,6 +30,12 @@ public class GetStockData_DBTest {
         assertEquals(0.15,stockPO.getTurnover()[0],0.001);
         assertEquals(-0.0021,stockPO.getIncrease_decreaseRate()[0],0.001);
         assertEquals(-0.02,stockPO.getIncrease_decreaseNum()[0],0.001);
+
+        stockPO = getStockData_db.getStockData_name("sh600016","20160428","20160428");
+        assertEquals("2016-04-28",stockPO.getDate()[0]);
+
+        stockPO = getStockData_db.getStockData_name("sh500016","20160428","20160428");
+        assertNull(stockPO);
     }
 
     @Test

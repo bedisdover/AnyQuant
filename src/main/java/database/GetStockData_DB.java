@@ -43,6 +43,9 @@ public class GetStockData_DB {
                     num++;
                 }
             }
+            if(num==0){
+                return null;
+            }
             stockPO = new StockPO(num);
             result.beforeFirst();
             long[] volume = new long[num];
