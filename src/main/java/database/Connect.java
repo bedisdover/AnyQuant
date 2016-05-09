@@ -7,7 +7,7 @@ import java.sql.*;
  */
 public class Connect {
     public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String DB_URL = "jdbc:mysql://"+"172.26.27.105"+":3306/anyquant?useUnicode=true&characterEncoding=utf-8";
+    public static final String DB_URL = "jdbc:mysql://"+"127.0.0.1"+":3306/anyquant?useUnicode=true&characterEncoding=utf-8";
     public static final String DB_USER = "root";
     public static final String DB_PASS = "admin";
 

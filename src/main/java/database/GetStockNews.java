@@ -42,6 +42,7 @@ public class GetStockNews {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        co.closeConnection();
         return results;
     }
 

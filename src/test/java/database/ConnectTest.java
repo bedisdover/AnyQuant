@@ -15,6 +15,7 @@ public class ConnectTest {
         Connect connect = new Connect();
         String sql = "select * from indexinfo";
         assertNotNull(connect.getPreparedStatement(sql));
+        connect.closeConnection();
     }
 
     @Test
@@ -22,5 +23,6 @@ public class ConnectTest {
         Connect connect = new Connect();
         String sql = "select * from indexinfo";
         assertNotNull(connect.getResultSet(sql));
+        connect.closeConnection();
     }
 }
