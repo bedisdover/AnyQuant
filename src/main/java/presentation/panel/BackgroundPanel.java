@@ -15,13 +15,14 @@ import java.util.Iterator;
 
 /**
  * Created by 宋益明 on 16-3-5.
- *
+ * <p>
  * 背景面板
  * 负责绘制最底层的背景,可通过getBackdrop方法和setBackdrop方法获取或设置背景
  */
 public class BackgroundPanel extends JPanel {
 
-    /**w
+    /**
+     * w
      * 背景图片
      */
     private Image backdrop;
@@ -62,25 +63,34 @@ public class BackgroundPanel extends JPanel {
             }
         });
 
-        registerKeyboardAction(e -> MainFrame.getMainFrame().showMenuPanel(),
+        registerKeyboardAction(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        MainFrame.getMainFrame().showMenuPanel();
+                    }
+                },
                 KeyStroke.getKeyStroke(KeyEvent.VK_M, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        registerKeyboardAction(e -> {
-                try {//若未选择自动隐藏，结束
-                    if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
-                        return;
-                    }
-                } catch (MalformedURLException | DocumentException e1) {
-                    e1.printStackTrace();
-                }
+        registerKeyboardAction(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {//若未选择自动隐藏，结束
+                            if (!SystemConfig.getMenuPanelConfig().isAutoHidden()) {
+                                return;
+                            }
+                        } catch (MalformedURLException | DocumentException e1) {
+                            e1.printStackTrace();
+                        }
 
-                MainFrame.getMainFrame().hideMenuPanel();
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                        MainFrame.getMainFrame().hideMenuPanel();
+                    }
+                }
+                , KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
-
-
 
     @Override
     public void paintComponent(Graphics g) {
@@ -99,7 +109,7 @@ public class BackgroundPanel extends JPanel {
         Iterator<String> stockID = new SelfSelectStock().getFollowed();
 
         Object[][] data = new Object[2][];
-        String[] columns = new String[] {"名称", "编号"};
+        String[] columns = new String[]{"名称", "编号"};
 
         Table table = new Table(data, columns);
     }

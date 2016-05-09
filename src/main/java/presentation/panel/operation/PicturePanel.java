@@ -197,7 +197,7 @@ public class PicturePanel extends OperationPanel {
                     int row = table.rowAtPoint(p);
                     int column = table.columnAtPoint(p);
                     if (!e.isControlDown() & !e.isShiftDown() & row != -1 & column != -1) {
-                        table.changeSelection(row, column, true , e.isShiftDown());
+                        table.changeSelection(row, column, true, e.isShiftDown());
                     }
                 }
             }
@@ -551,9 +551,19 @@ public class PicturePanel extends OperationPanel {
                 }
             });
 
-            getVerticalScrollBar().addAdjustmentListener(e -> repaint());
+            getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+                @Override
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                    repaint();
+                }
+            });
 
-            getHorizontalScrollBar().addAdjustmentListener(e -> repaint());
+            getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+                @Override
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                    repaint();
+                }
+            });
 
             btnCustom.addMouseListener(new MouseAdapter() {
                 @Override
@@ -753,7 +763,7 @@ public class PicturePanel extends OperationPanel {
         /**
          * 股票列表文件路径
          */
-        private final String FILE_NAME = "client/src/main/resources/bank_stock.txt";
+        private final String FILE_NAME = "src/main/resources/bank_stock.txt";
 
         /**
          * 主面板
@@ -858,11 +868,26 @@ public class PicturePanel extends OperationPanel {
          * 添加时间监听器
          */
         private void addListeners() {
-            btnOK.addActionListener(e -> onOK());
+            btnOK.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onOK();
+                }
+            });
 
-            btnApply.addActionListener(e -> onApply());
+            btnApply.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onApply();
+                }
+            });
 
-            btnCancel.addActionListener(e -> onCancel());
+            btnCancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onCancel();
+                }
+            });
 
             addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
@@ -870,7 +895,13 @@ public class PicturePanel extends OperationPanel {
                 }
             });
 
-            contentPane.registerKeyboardAction(e -> onCancel(),
+            contentPane.registerKeyboardAction(
+                    new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            onCancel();
+                        }
+                    },
                     KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                     JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 

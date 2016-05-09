@@ -18,7 +18,7 @@ public class PingTest {
         String returnMsg = "";
         String line;
         if ((line = returnData.readLine()) != null) {
-            returnMsg += line;
+            returnMsg = returnMsg + line;
         }
 
         System.out.println(returnMsg + "....");

@@ -129,7 +129,7 @@ public class DateChooser extends JPanel {
         showDate.setRequestFocusEnabled(true);
         showDate.setVisible(true);
         showDate.setBounds(x, y, width, length);
-        ImageIcon dateIcon = new ImageIcon("client/src/main/resources/images/time.jpg");
+        ImageIcon dateIcon = new ImageIcon("src/main/resources/images/time.jpg");
         choose = new JButton(dateIcon);
         choose.setBounds(x + width, y, 23, length);
         choose.setVisible(true);

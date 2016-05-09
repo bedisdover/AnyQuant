@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CustomDialog extends JDialog {
 
-    private final String FILE_NAME = "client/src/main/resources/bank_stock.txt";
+    private final String FILE_NAME = "src/main/resources/bank_stock.txt";
 
     /**
      * 主面板
@@ -124,11 +124,26 @@ public class CustomDialog extends JDialog {
      * 添加时间监听器
      */
     private void addListeners() {
-        btnOK.addActionListener(e -> onOK());
+        btnOK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onOK();
+            }
+        });
 
-        btnApply.addActionListener(e -> onApply());
+        btnApply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onApply();
+            }
+        });
 
-        btnCancel.addActionListener(e -> onCancel());
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        });
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -136,7 +151,13 @@ public class CustomDialog extends JDialog {
             }
         });
 
-        contentPane.registerKeyboardAction(e -> onCancel(),
+        contentPane.registerKeyboardAction(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        onCancel();
+                    }
+                },
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 

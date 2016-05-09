@@ -77,7 +77,7 @@ public class MenuPanel extends JPanel {
     /**
      * 头像文件
      */
-    private static final File PORTRAIT = new File("client/src/main/resources/images/portrait.png");
+    private static final File PORTRAIT = new File("src/main/resources/images/portrait.png");
 
     /**
      * 原始图片

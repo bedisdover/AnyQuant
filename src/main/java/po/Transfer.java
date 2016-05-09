@@ -36,7 +36,7 @@ public class Transfer {
     static {
         name_ID = new HashMap<>();
 
-        FILE_NAME = new File("client/src/main/resources/bank_stock.txt");
+        FILE_NAME = new File("src/main/resources/bank_stock.txt");
         TEST_FILE = new File("src/main/resources/bank_stock.txt");
 
         init();

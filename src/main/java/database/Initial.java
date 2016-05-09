@@ -109,7 +109,7 @@ public class Initial {
         String stocks = "";
         String temp;
         try {
-            File file = new File("client/src/main/resources/bank_stock.txt");
+            File file = new File("src/main/resources/bank_stock.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             while((temp = bufferedReader.readLine())!=null){

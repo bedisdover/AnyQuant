@@ -169,11 +169,26 @@ public class SettingsDialog extends JDialog {
          * 添加监听事件
          */
         private void addListeners() {
-            btnOK.addActionListener(e -> onOk());
+            btnOK.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onOk();
+                }
+            });
 
-            btnApply.addActionListener(e -> onApply());
+            btnApply.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onApply();
+                }
+            });
 
-            btnCancel.addActionListener(e -> onCancel());
+            btnCancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    onCancel();
+                }
+            });
 
             btnStyle.addMouseListener(new MouseAdapter() {
                 @Override
@@ -196,7 +211,13 @@ public class SettingsDialog extends JDialog {
                 }
             });
 
-            registerKeyboardAction(e -> onCancel(),
+            registerKeyboardAction(
+                    new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            onCancel();
+                        }
+                    },
                     KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                     JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         }

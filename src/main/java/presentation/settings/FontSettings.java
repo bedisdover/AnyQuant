@@ -8,6 +8,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 
 /**
@@ -101,7 +103,12 @@ class FontSettings extends JPanel {
      * 当字体发生变化时,在预览框中显示字体效果
      */
     private void addListeners() {
-        fontList.addItemListener(e -> changeFont());
+        fontList.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                changeFont();
+            }
+        });
 
         fontSize.getDocument().addDocumentListener(new DocumentListener() {
             @Override

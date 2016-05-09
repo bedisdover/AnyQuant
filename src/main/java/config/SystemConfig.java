@@ -20,7 +20,7 @@ public class SystemConfig {
     /**
      * 配置文件路径
      */
-    private static final File FILE_NAME = new File("client/src/main/resources/config.xml");
+    private static final File FILE_NAME = new File("src/main/resources/config.xml");
 
     /**
      * 不知为何,单元测试和运行程序时使用的文件路径居然不一致
