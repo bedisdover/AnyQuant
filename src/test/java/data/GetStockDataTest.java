@@ -4,26 +4,41 @@ import org.junit.Test;
 import po.StockPO;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by user on 2016/3/12.
+ * Created by zcy on 2016/3/12.
+ *
  */
+
 public class GetStockDataTest {
     @Test
     public void getStockData_nameTest() throws IOException {
         GetStockData getStockData = new GetStockData();
-        String name = "sh600000";
+        String name = "sh600015";
         StockPO stockPO = getStockData.getStockData_name(name);
-        assertEquals("784134",Long.toString(stockPO.getVolume()[0]));
-        assertEquals("1.27",Double.toString(stockPO.getPb()[0]));
-        assertEquals("18.38",Double.toString(stockPO.getAdj_price()[0]));
-        assertEquals("18.39",Double.toString(stockPO.getHigh()[0]));
-        assertEquals("17.15",Double.toString(stockPO.getLow()[0]));
-        assertEquals("17.24",Double.toString(stockPO.getOpen()[0]));
-        assertEquals("18.38",Double.toString(stockPO.getClose()[0]));
-        assertEquals("0.42",Double.toString(stockPO.getTurnover()[0]));
-        assertEquals("2016-02-09",stockPO.getDate()[0]);
+        assertNotNull(stockPO.getDate()[0]);
+
+        stockPO = getStockData.getStockData_name(name,"2016-04-28");
+        assertEquals("2016-04-28",stockPO.getDate()[0]);
+
+        stockPO = getStockData.getStockData_name(name,"2016-04-28","2016-04-29");
+        assertEquals("2016-04-28",stockPO.getDate()[0]);
+    }
+
+    @Test
+    public void getAllInterestedStockTest() throws IOException {
+        GetStockData getStockData = new GetStockData();
+        List<StockPO> list = getStockData.getAllInterestedStock();
+        assertNotNull(list);
+
+        list = getStockData.getAllInterestedStock("2016-04-28");
+        assertNotNull(list);
+
+        list = getStockData.getAllInterestedStock("2016-04-28","2016-04-29");
+        assertNotNull(list);
     }
 }

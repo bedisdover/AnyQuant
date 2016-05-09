@@ -10,6 +10,7 @@ import java.util.*;
 
 /**
  * Created by user on 2016/3/7.
+ *
  */
 public class GetStockData implements GetStockDataService {
     public static boolean underTest = false; //在JUnit测试中将它设置为true
@@ -309,8 +310,4 @@ public class GetStockData implements GetStockDataService {
         return stocks.trim();
     }
 
-    public static void main(String[] args){
-        GetStockData getStockData = new GetStockData();
-        getStockData.getID_BankStocks();
-    }
 }

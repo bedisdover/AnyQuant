@@ -4,12 +4,14 @@ import java.sql.*;
 
 /**
  * Created by zcy on 2016/5/3.
+ *
  */
-public class Connect {
-    public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String DB_URL = "jdbc:mysql://"+"127.0.0.1"+":3306/anyquant?useUnicode=true&characterEncoding=utf-8";
-    public static final String DB_USER = "root";
-    public static final String DB_PASS = "admin";
+
+class Connect {
+    private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://"+"114.212.43.242"+":3306/anyquant?useUnicode=true&characterEncoding=utf-8";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "admin";
 
     private Connection conn = null;
     private PreparedStatement pstmt = null;
