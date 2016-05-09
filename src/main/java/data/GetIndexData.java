@@ -173,23 +173,5 @@ public class GetIndexData implements GetIndexDataService {
         return dates[dates.length - 1];
     }
 
-    public static void main(String[] args) {
-//        ReadData rdt = new ReadData();
-//        String url = "http://121.41.106.89:8010/api/benchmark/hs300?start=2016-01-06&end=2015-03-07";
-//        String result = rdt.getData(url);System.out.println(result);
-//        String[] info = rdt.parseJson(result,"data","link");
-//        String str = info[0];
-        GetIndexData getIndexData = new GetIndexData();
-        try {
-            getIndexData.getLatestIndexData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            System.out.println(getIndexData.getLatestIndexData().getName() + " " + getIndexData.getLatestIndexData().getVolume()[0] + " " + getIndexData.getLatestIndexData().getAdj_price()[0] + " " + getIndexData.getLatestIndexData().getHigh()[0] + " " + getIndexData.getLatestIndexData().getLow()[0] + " " + getIndexData.getLatestIndexData().getOpen()[0] + " " + getIndexData.getLatestIndexData().getClose()[0] + " " + getIndexData.getLatestIndexData().getDate()[0]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
 }
