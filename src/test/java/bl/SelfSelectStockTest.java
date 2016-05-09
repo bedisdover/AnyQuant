@@ -25,12 +25,12 @@ public class SelfSelectStockTest {
         assertEquals(false,selfSelectStock.removeStock("sh111"));
     }
 
-    @Test
-    public void testGetFollowed() throws Exception {
-        while(selfSelectStock.getFollowed().hasNext()){
-            assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
-        }
-    }
+//    @Test
+//    public void testGetFollowed() throws Exception {
+//        while(selfSelectStock.getFollowed().hasNext()){
+//            assertEquals(true, selfSelectStock.exist(selfSelectStock.getFollowed().next()));
+//        }
+//    }
 
     @Test
     public void testExist() throws Exception {
