@@ -13,7 +13,10 @@
     <meta name="viewport" content="width=device-width,inital-scale=1">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <link href="/images/icon.png" rel="icon"/>
     <link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="container">
@@ -35,11 +38,10 @@
                 <div class="col-md-4" id="passwordSpan"></div>
             </div>
             <div class="form-group" id="butDiv">
-                <label class="col-md-3 control-label" for="password">用户名</label>
-                <div class="col-md-5">
-                    <input type="text" id="password" name="password" class="form-control" placeholder="请输入登录密码">
+                <div class="col-md-5 col-md-offset-3">
+                    <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
+                    <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
                 </div>
-                <div class="col-md-4" id="passwordSpan"></div>
             </div>
         </fieldset>
     </form>
