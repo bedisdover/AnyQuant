@@ -13,6 +13,15 @@
     <link href="style/marketStyle.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.min.js"></script>
     <script src="js/tab.js"></script>
+
+    <script src="js/excanvas.js"></script>
+    <script src="js/excanvas.min.js"></script>
+    <script src="js/jquery.jqplot.js"></script>
+    <script src="js/jquery.jqplot.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <link href="style/jquery.jqplot.css" rel="stylesheet" type="text/css"/>
+    <link href="style/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -140,6 +149,12 @@
                 String graphURL_1 = request.getContextPath() + "/DisplayChart?filename=" + fileName_1;
                 String graphURL_2 = request.getContextPath() + "/DisplayChart?filename=" + fileName_2;
                 String graphURL_3 = request.getContextPath() + "/DisplayChart?filename=" + fileName_3;
+            %>
+            <%
+                long volume[]= (long[]) request.getAttribute("volume");
+                String date[]= (String[]) request.getAttribute("date");
+
+
             %>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="time-series">
