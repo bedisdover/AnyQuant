@@ -13,8 +13,37 @@
     <meta name="viewport" content="width=device-width,inital-scale=1">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+    <form id="loginForm" action="check.jsp" method="post" class="form-horizontal">
+        <fieldset>
+            <legend><label><span class="glyphicon glyphicon-user"></span>&nbsp;用户登录</label></legend>
+            <div class="form-group" id="midDiv">
+                <label class="col-md-3 control-label" for="mid">用户名</label>
+                <div class="col-md-5">
+                    <input type="text" id="mid" name="mid" class="form-control" placeholder="请输入登录名">
+                </div>
+                <div class="col-md-4" id="midSpan"></div>
+            </div>
+            <div class="form-group" id="passwordDiv">
+                <label class="col-md-3 control-label" for="password">用户名</label>
+                <div class="col-md-5">
+                    <input type="text" id="password" name="password" class="form-control" placeholder="请输入登录密码">
+                </div>
+                <div class="col-md-4" id="passwordSpan"></div>
+            </div>
+            <div class="form-group" id="butDiv">
+                <label class="col-md-3 control-label" for="password">用户名</label>
+                <div class="col-md-5">
+                    <input type="text" id="password" name="password" class="form-control" placeholder="请输入登录密码">
+                </div>
+                <div class="col-md-4" id="passwordSpan"></div>
+            </div>
+        </fieldset>
+    </form>
 
+</div>
 </body>
 </html>
