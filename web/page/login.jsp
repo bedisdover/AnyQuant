@@ -29,13 +29,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="home.jsp">AnyQuant</a>
+                <a class="navbar-brand" href="../index.jsp">AnyQuant</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="home.jsp">首页</a></li>
+                    <li><a href="../index.jsp">首页</a></li>
                     <li><a href="portfolio.jsp">自选</a></li>
                     <li><a href="market.jsp">大盘</a></li>
                     <li><a href="picture.jsp">行情</a></li>
