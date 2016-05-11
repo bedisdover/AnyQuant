@@ -16,8 +16,10 @@ what : 研究股票分析方法。
 problem : 不知道怎么分析股票。
 todo : 完成股票分析的研究。
 
-who : 
+who : 章承尧
 when : 
-what : 
-problem : 
+2016-05-01
+what : 将网上读取的股票数据写入数据库。
+problem : 五一放假没有工作。
 todo : 
+从网上爬取股票新闻等信息。

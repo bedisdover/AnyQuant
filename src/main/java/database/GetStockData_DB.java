@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by zcy on 2016/5/4.
+ *
  */
 public class GetStockData_DB {
     /**

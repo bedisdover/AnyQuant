@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by zcy on 2016/5/6.
+ *
  */
 public class GetStockNews {
     /**
@@ -46,10 +47,4 @@ public class GetStockNews {
         return results;
     }
 
-    public static void main(String[] args){
-        GetStockNews getStockNews = new GetStockNews();
-        for(int i=0;i<5;i++){
-            System.out.println(getStockNews.getNewsContent("sh600015").get(i).substring(0,10));
-        }
-    }
 }

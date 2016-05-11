@@ -1,23 +1,43 @@
 who : 宋益明
+
 when : 2016-05-07
+
 what : web
+
 problem : 从零学习
+
 todo : 努力写代码
 
+
+
 who :
+
 when : 
+
 what : 
+
 problem : 
+
 todo : 
+
+
 
 who : 苏琰梓
+
 when : 2016-05-07
+
 what : 继续研究股票分析方法。
+
 problem : 不知道怎么分析股票。
+
 todo : 完成股票分析的研究。
 
-who : 
-when : 
-what : 
-problem : 
+
+
+who : 章承尧
+
+when : 2016-05-07
+what : 用Python从网页上获取股票新闻等信息并存入数据库。
+problem : 数据库中出现乱码。
 todo : 
+完善数据库，丰富数据。
