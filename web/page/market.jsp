@@ -19,6 +19,7 @@
     <script src="js/jquery.jqplot.js"></script>
     <script src="js/jquery.jqplot.min.js"></script>
     <script src="js/jquery.js"></script>
+    <script type="text/javascript"></script>
     <link href="style/jquery.jqplot.css" rel="stylesheet" type="text/css"/>
     <link href="style/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
 
@@ -107,45 +108,64 @@
                     <a href="#monthly_k" aria-controls="monthly_k" role="tab" data-toggle="tab">月K线</a>
                 </li>
             </ul>
-            <%
-                ThreeDPieChart pieChart = new ThreeDPieChart();
-                String name[] = {"管理人员", "市场人员", "开发人员", "后勤人员", "财务人员"};
-                double data[] = {25, 35, 20, 5, 15};
-                String fileName_1 = pieChart.generateThreeDPieChart("test1", name, data);
-                String fileName_2 = pieChart.generateThreeDPieChart("test2", name, data);
-                String fileName_3 = pieChart.generateThreeDPieChart("test3", name, data);
-
-                String graphURL_1 = request.getContextPath() + "/DisplayChart?filename=" + fileName_1;
-                String graphURL_2 = request.getContextPath() + "/DisplayChart?filename=" + fileName_2;
-                String graphURL_3 = request.getContextPath() + "/DisplayChart?filename=" + fileName_3;
-            %>
-            <%
-                long volume[]= (long[]) request.getAttribute("volume");
-                String date[]= (String[]) request.getAttribute("date");
 
 
-            %>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="time-series">
-                    <img src="<%=graphURL_1%>">
-                </div>
-                <div role="tabpanel" class="tab-pane" id="broken-line">
-                    <img src="<%=graphURL_2%>">
-                </div>
-                <div role="tabpanel" class="tab-pane" id="daily_k">
-                    <img src="<%=graphURL_3%>">
-                </div>
+
+                <div class="tab-content">
+                <%--<div role="tabpanel" class="tab-pane active" id="time-series">--%>
+                    <%--<img src="<%=graphURL_1%>">--%>
+                <%--</div>--%>
+                <%--<div role="tabpanel" class="tab-pane" id="broken-line">--%>
+                    <%--<img src="<%=graphURL_2%>">--%>
+                <%--</div>--%>
+                <%--<div role="tabpanel" class="tab-pane" id="daily_k">--%>
+                    <%--<img src="<%=graphURL_3%>">--%>
+                <%--</div>--%>
                 <div role="tabpanel" class="tab-pane" id="weekly_k">test4</div>
                 <div role="tabpanel" class="tab-pane" id="monthly_k">test5</div>
             </div>
         </div>
-        <%-- chart-list --%>
+         chart-list
     </div>
-    <%--content--%>
+    content
     <div class="col-md-1">
 
     </div>
-</div>
+        <%
+                long volume[]= (long[]) request.getAttribute("volume");
+                String date[]= (String[]) request.getAttribute("date");
+            %>
+    <div id="chart" style="width: 800px; height: 500px;"></div>
+    <script>
+        $(document).ready(function(){
+            var n = 0;
+            var line1 = [[]];
+            <% for(int i=0;i<volume.length;i++){%>
+            line1[n].push([<%=date[i]%>,<%=volume[i]%>]);
+            n++;
+            <% } %>
+            var plot1 = $.jqplot('chart', [line1], {
+                title: '大盘指数',
+                // 选择使用柱状图渲染器
+                series:[{renderer:$.jqplot.BarRenderer}],
+                axesDefaults: {
+                    // 设置tick的渲染器为CanvasAxisTickRenderer
+                    tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+                    tickOptions: {
+                        // 字体旋转-30度
+                        angle: -30,
+                        fontSize: '10pt'
+                    }
+                },
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.CategoryAxisRenderer
+                    }
+                }
+            }).replot();
+        });
+
+    </script>
 <%--row--%>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
