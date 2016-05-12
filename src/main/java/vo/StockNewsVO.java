@@ -1,0 +1,56 @@
+package vo;
+
+import po.StockNewsPO;
+
+/**
+ * Created by zcy on 2016/5/12.
+ *
+ */
+public class StockNewsVO {
+    /**
+     * 对应的股票ID
+     */
+    private String id;
+    /**
+     * 新闻标题
+     */
+    private String title;
+    /**
+     * 新闻正文
+     */
+    private String content;
+
+    public StockNewsVO(StockNewsPO stockNewsPO){
+        id = stockNewsPO.getId();
+        title = stockNewsPO.getTitle();
+        content = stockNewsPO.getContent();
+    }
+
+    public StockNewsVO(){
+
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+}

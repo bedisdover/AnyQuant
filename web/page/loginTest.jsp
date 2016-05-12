@@ -19,28 +19,29 @@
     <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<jsp:include page="navBar.jsp"/>
 <div class="container">
     <form id="loginForm" action="check.jsp" method="post" class="form-horizontal">
         <fieldset>
             <legend><label><span class="glyphicon glyphicon-user"></span>&nbsp;用户登录</label></legend>
             <div class="form-group" id="midDiv">
-                <label class="col-md-3 control-label" for="mid">用户名</label>
+                <label class="col-md-3 control-label" for="mid">Email Address</label>
                 <div class="col-md-5">
-                    <input type="text" id="mid" name="mid" class="form-control" placeholder="请输入登录名">
+                    <input type="text" id="mid" name="mid" class="form-control" placeholder="Email">
                 </div>
                 <div class="col-md-4" id="midSpan"></div>
             </div>
             <div class="form-group" id="passwordDiv">
-                <label class="col-md-3 control-label" for="password">用户名</label>
+                <label class="col-md-3 control-label" for="password">Password</label>
                 <div class="col-md-5">
-                    <input type="text" id="password" name="password" class="form-control" placeholder="请输入登录密码">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                 </div>
                 <div class="col-md-4" id="passwordSpan"></div>
             </div>
             <div class="form-group" id="butDiv">
                 <div class="col-md-5 col-md-offset-3">
-                    <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
-                    <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
+                    <button type="submit" id="subBut" class="btn btn-primary">Submit</button>
+                    <button type="reset" id="rstBut" class="btn btn-warning">Reset</button>
                 </div>
             </div>
         </fieldset>
