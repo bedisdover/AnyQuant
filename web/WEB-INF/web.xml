@@ -13,5 +13,14 @@
         <servlet-name>DisplayChart</servlet-name>
         <url-pattern>/DisplayChart</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>portfolio</servlet-name>
+        <servlet-class>servlet.PortfolioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>portfolio</servlet-name>
+        <url-pattern>/portfolio</url-pattern>
+    </servlet-mapping>
 </web-app>
 

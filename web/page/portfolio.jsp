@@ -1,6 +1,6 @@
-<%@ page import="bl.SelfSelectStock" %>
 <%@ page import="presentation.graphs.ThreeDPieChart" %>
-<%@ page import="java.util.List" %>
+<%@ page import="servlet.PortfolioServlet" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,42 +15,13 @@
     <link href="style/portfolioStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <!--todo icon-->
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../index.jsp">AnyQuant</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="../index.jsp">首页</a></li>
-                    <li class="active"><a href="portfolio.jsp">自选<span class="sr-only">(current)</span></a></li>
-                    <li><a href="market.jsp">大盘</a></li>
-                    <li><a href="picture.jsp">行情</a></li>
-                    <li><a href="history.jsp">历史</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.jsp">登录</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </div>
-</nav>
-<%!
-    SelfSelectStock selfSelect = new SelfSelectStock();
-    List<String> stockList = selfSelect.getFollowedStocks();
+<jsp:include page="navBar.jsp"/>
+<%
+    String test = (String) request.getAttribute("test");
 %>
+
+<h1><%=test%></h1>
+
 <div class="stockList-div">
     <table class="table table-hover stockList">
         <tr>
@@ -58,7 +29,7 @@
             <td>代码</td>
         </tr>
         <tr>
-            <td class="stock"><%=stockList.size()%>
+            <td class="stock">
             </td>
             <td>test1</td>
         </tr>
@@ -82,5 +53,9 @@
 <div class="container">
     <img src="<%=graphURL%>" alt="" width="400" height="300">
 </div>
+
+<footer class=bs-docs-footer role=contentinfo>
+    <jsp:include page="footer.jsp"/>
+</footer>
 </body>
 </html>

@@ -154,7 +154,7 @@ public class AnalyzePanel extends OperationPanel {
     /**
      * 名称面板，包含名称和ID
      */
-    private class NamePanel extends JPanel {
+    private static class NamePanel extends JPanel {
 
         /**
          * 名称
