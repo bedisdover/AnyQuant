@@ -132,8 +132,15 @@
 
     </div>
         <%
-                long volume[]= (long[]) request.getAttribute("volume");
-                String date[]= (String[]) request.getAttribute("date");
+            long volume[]=new long[0];
+            String date[]=new String[0];
+            if(request.getAttribute("volume")==null ||request.getAttribute("date")==null ){
+            System.out.println("哎哟喂空的欸！");
+            }else {
+                volume= (long[]) request.getAttribute("volume");
+                date= (String[]) request.getAttribute("date");
+             System.out.println(volume[0]+"aiyowei");
+             }
             %>
     <div id="chart" style="width: 800px; height: 500px;"></div>
     <script>
