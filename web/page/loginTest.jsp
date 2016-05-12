@@ -21,7 +21,7 @@
 <body>
 <jsp:include page="navBar.jsp"/>
 <div class="container">
-    <form id="loginForm" action="check.jsp" method="post" class="form-horizontal">
+    <form id="loginForm" action="other.jsp" method="post" class="form-horizontal">
         <fieldset>
             <legend><label><span class="glyphicon glyphicon-user"></span>&nbsp;用户登录</label></legend>
             <div class="form-group" id="midDiv">
