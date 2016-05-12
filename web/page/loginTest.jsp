@@ -19,6 +19,7 @@
     <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<jsp:include page="navBar.jsp"/>
 <div class="container">
     <form id="loginForm" action="check.jsp" method="post" class="form-horizontal">
         <fieldset>
