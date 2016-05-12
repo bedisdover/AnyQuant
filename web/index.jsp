@@ -65,7 +65,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="page/login.jsp">
+                        <a href="page/loginTest.jsp">
                             <span class="glyphicon glyphicon-user"></span> 登录
                         </a>
                     </li>
