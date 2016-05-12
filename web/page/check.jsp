@@ -32,6 +32,8 @@
     UserInfo ui = new UserInfo();
     UserPO userPO = new UserPO();
     userPO = ui.getUserInfo(mid,password);
+    System.out.println(mid);
+    System.out.println(password);
     if(userPO!=null){
         flag = true;
     }
