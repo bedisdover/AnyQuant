@@ -4,7 +4,8 @@
   Date: 16-5-12
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ page import="java.sql.*" %>
+<%@ page import="po.UserPO" %>
+<%@ page import="database.UserInfo" %>
 <html>
 <head>
     <title>AnyQuant--login</title>
@@ -28,28 +29,22 @@
 %>
 <%
     boolean flag = false;
-    Class.forName(DBDRIVER);
-    Connection conn = DriverManager.getConnection(DBURL, DBUSER, PASSWORD);
-    String sql = "SELECT COUNT(*) FROM member WHERE mid=? AND password=?";
-    PreparedStatement stmt = conn.prepareStatement(sql);
-    stmt.setString(1,mid);
-    stmt.setString(2,password);
-    ResultSet rs = stmt.executeQuery();
-    if(rs.next()){
-        if(rs.getInt(1)>0){
-            flag = true;
-        }
+    UserInfo ui = new UserInfo();
+    UserPO userPO = new UserPO();
+    userPO = ui.getUserInfo(mid,password);
+    if(userPO!=null){
+        flag = true;
     }
-    conn.close();
 %>
 <%
     if(flag){
 %>
-<h1>用户登录成功，欢迎光临</h1>
+<h1>用户登录成功，欢迎光临！</h1>
+<meta http-equiv="Refresh" content="1;url= portfolio.jsp">
 <%
 }else{
 %>
-<h1>用户登录失败，<a href="loginTest.jsp">重新登录</a></h1>
+<h1>用户登录失败，请<a href="loginTest.jsp">重新登录</a></h1>
 <%
     }
 %>
