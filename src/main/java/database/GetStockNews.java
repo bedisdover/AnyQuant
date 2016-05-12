@@ -1,5 +1,7 @@
 package database;
 
+import vo.StockNewsVO;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +12,25 @@ import java.util.List;
  *
  */
 public class GetStockNews {
+    /**
+     * @param stockID
+     * @return List<StockNewsVO>
+     */
+    public List<StockNewsVO> getStockNews(String stockID){
+        List<String> titles = getNewsTitle(stockID);
+        List<String> contents = getNewsContent(stockID);
+        int size = titles.size();
+        List<StockNewsVO> news = new ArrayList<>();
+        for(int i=0;i<size;i++){
+            StockNewsVO stockNewsVO = new StockNewsVO();
+            stockNewsVO.setId(stockID);
+            stockNewsVO.setTitle(titles.get(i));
+            stockNewsVO.setContent(contents.get(i));
+            news.add(stockNewsVO);
+        }
+        return news;
+    }
+
     /**
      * @param stockID
      * @return List<String>
