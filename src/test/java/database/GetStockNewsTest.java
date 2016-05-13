@@ -25,6 +25,12 @@ public class GetStockNewsTest {
         assertEquals("2015年华夏银行归",results.get(0).substring(0,10));
     }
     @Test
+    public void getNewsDateTest(){
+        GetStockNews getStockNews = new GetStockNews();
+        List<String> results = getStockNews.getNewsDate("sh600015");
+        assertEquals("2016-05-12",results.get(0));
+    }
+    @Test
     public void getStockNewsTest(){
         GetStockNews getStockNews = new GetStockNews();
         List<StockNewsVO> results = getStockNews.getStockNews("sh600015");

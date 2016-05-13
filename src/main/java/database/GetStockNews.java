@@ -19,6 +19,7 @@ public class GetStockNews {
     public List<StockNewsVO> getStockNews(String stockID){
         List<String> titles = getNewsTitle(stockID);
         List<String> contents = getNewsContent(stockID);
+        List<String> dates = getNewsDate(stockID);
         int size = titles.size();
         List<StockNewsVO> news = new ArrayList<>();
         for(int i=0;i<size;i++){
@@ -26,6 +27,7 @@ public class GetStockNews {
             stockNewsVO.setId(stockID);
             stockNewsVO.setTitle(titles.get(i));
             stockNewsVO.setContent(contents.get(i));
+            stockNewsVO.setDate(dates.get(i));
             news.add(stockNewsVO);
         }
         return news;
@@ -49,6 +51,11 @@ public class GetStockNews {
     public List<String> getNewsContent(String stockID){
         List<String> contents = getNews(stockID,3);
         return contents;
+    }
+
+    public List<String> getNewsDate(String stockID){
+        List<String> dates = getNews(stockID,4);
+        return dates;
     }
 
     private List<String> getNews(String stockID,int n){

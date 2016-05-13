@@ -19,11 +19,16 @@ public class StockNewsVO {
      * 新闻正文
      */
     private String content;
+    /**
+     * 新闻时间
+     */
+    private String date;
 
     public StockNewsVO(StockNewsPO stockNewsPO){
         id = stockNewsPO.getId();
         title = stockNewsPO.getTitle();
         content = stockNewsPO.getContent();
+        date = stockNewsPO.getDate();
     }
 
     public StockNewsVO(){
@@ -52,5 +57,13 @@ public class StockNewsVO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
