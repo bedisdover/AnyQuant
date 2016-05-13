@@ -72,6 +72,15 @@
 </nav>
 </body>
 <script>
+    window.onload = function () {
+        var nav = document.getElementsByClassName("navbar-left");
+        var list = nav.getElementsByTagName("li");
 
+        for (var i = 0; i < list.length; i++) {
+            list.onclick = function () {
+                alert(this.innerHTML);
+            }
+        }
+    }
 </script>
 </html>
