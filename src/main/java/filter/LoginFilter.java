@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 //        System.out.println(request.getRequestURL());
         System.out.println(request.getServletPath());
         if (session.getAttribute("UserSession") == null) {
-            request.getRequestDispatcher("loginTest.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
         chain.doFilter(req, resp);
