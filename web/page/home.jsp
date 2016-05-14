@@ -37,7 +37,7 @@
                     <li><a href="history.jsp">历史</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.jsp">登录</a></li>
+                    <li><a href="loginTest.jsp">登录</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
