@@ -22,16 +22,6 @@ public class GetStockData implements GetStockDataService {
      * @return StockPO
      */
     public StockPO getStockData_name(String name) throws IOException {
-//        GetStockData getStockData = new GetStockData();
-//        String d = getStockData.getDateOfLatestData();//获得最新的股票数据对应的日期
-//        String[] time = d.split("-");
-//        Calendar c = new GregorianCalendar();
-//        c.set(Integer.parseInt(time[0]),Integer.parseInt(time[1])-1,Integer.parseInt(time[2]));
-//        c.add(c.DATE,-30);
-//        Date date1 = c.getTime();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        String d1 = simpleDateFormat.format(date1);//得到最新股票数据对应的日期的前30天
-
         ReadData rdt = new ReadData();
         String url = "http://121.41.106.89:8010/api/stock/" + name;
         String s1 = rdt.getData(url);
