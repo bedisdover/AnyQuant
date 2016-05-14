@@ -1,4 +1,6 @@
-<%@ page import="servlet.PortfolioServlet" %><%--
+<%@ page import="servlet.PortfolioServlet" %>
+<%@ page import="vo.StockNewsVO" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: song
   Date: 16-4-28
@@ -161,6 +163,13 @@
         <hr class="half-rule">
     </div>
 </div>
+
+<%
+    List<StockNewsVO> stockNews = (List<StockNewsVO>) request.getAttribute("news");
+%>
+
+<h1><%=stockNews.size()%></h1>
+
 <footer class=bs-docs-footer role=contentinfo>
     <div class=container>
         <ul class=bs-docs-footer-links>

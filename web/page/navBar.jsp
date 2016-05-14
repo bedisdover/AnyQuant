@@ -76,11 +76,9 @@
         var nav = document.getElementsByClassName("navbar-left");
         var list = nav.getElementsByTagName("li");
 
-        for (var i = 0; i < list.length; i++) {
-            list.onclick = function () {
-                alert(this.innerHTML);
-            }
-        }
-    }
+//        for (var temp in list) {
+        list[2].style.className = "active";
+//        }
+    };
 </script>
 </html>
