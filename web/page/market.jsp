@@ -147,10 +147,15 @@
         $(document).ready(function(){
             var n = 0;
             var line1 = [[]];
-            <% for(int i=0;i<volume.length;i++){%>
-            line1[n].push([<%=date[i]%>,<%=volume[i]%>]);
-            n++;
-            <% } %>
+            <%--<% for(int i=0;i<volume.length;i++){%>--%>
+            <%--line1[n].push([<%=date[i]%>,<%=volume[i]%>]);--%>
+            <%--n++;--%>
+            <%--<% } %>--%>
+            line1[n].push("20160510",1);
+            line1[n].push("20160511",2);
+            line1[n].push("20160512",3);
+            line1[n].push("20160513",4);
+            line1[n].push("20160514",5);
             var plot1 = $.jqplot('chart', [line1], {
                 title: '大盘指数',
                 // 选择使用柱状图渲染器

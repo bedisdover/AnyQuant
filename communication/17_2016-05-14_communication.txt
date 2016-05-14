@@ -1,0 +1,9 @@
+who: 宋益明, 苏琰梓, 章承尧, 周梦佳
+when: 2016.5.14
+what:迭代三开发阶段
+how long: 3h
+arrived solutions:大家一起开发。布置下一阶段任务。
+		登录功能完善syz
+		画图zmj
+		自选、新闻sym
+		各种数据，借口完善zcy
