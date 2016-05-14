@@ -47,6 +47,15 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>NewsFilter</filter-name>
+        <filter-class>filter.NewsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NewsFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>TestFilter</filter-name>
         <filter-class>filter.TestFilter</filter-class>
     </filter>
