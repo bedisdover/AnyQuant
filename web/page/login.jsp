@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>bootstrap+jsp</title>
+    <title>AnyQuant--登录</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,inital-scale=1">
     <script type="text/javascript" src="js/jquery.min.js"></script>
