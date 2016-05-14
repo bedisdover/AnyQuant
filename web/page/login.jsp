@@ -18,7 +18,7 @@
 <body>
 <jsp:include page="navBar.jsp"/>
 <%--todo action--%>
-<form action="/loginServlet" method="post" class="container login-form">
+<form action="login" method="post" class="container login-form">
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">

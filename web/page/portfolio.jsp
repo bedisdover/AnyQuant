@@ -1,6 +1,7 @@
 <%@ page import="presentation.graphs.ThreeDPieChart" %>
 <%@ page import="servlet.PortfolioServlet" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
@@ -19,10 +20,12 @@
 
 <form method="get" action="portfolio"></form>
 <%
-String test = (String) request.getAttribute("test");
+    String test = (String) request.getAttribute("test");
+    List<String> stockList = (List<String>) request.getAttribute("list");
 %>
 
 <h1><%=test%></h1>
+<h1><%=stockList.get(0)%></h1>
 
 <div class="stockList-div">
     <table class="table table-hover stockList">
