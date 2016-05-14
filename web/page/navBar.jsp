@@ -61,7 +61,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="loginTest.jsp">
+                        <a href="login.jsp">
                             <span class="glyphicon glyphicon-user"></span> 登录
                         </a>
                     </li>
@@ -76,11 +76,9 @@
         var nav = document.getElementsByClassName("navbar-left");
         var list = nav.getElementsByTagName("li");
 
-        for (var i = 0; i < list.length; i++) {
-            list.onclick = function () {
-                alert(this.innerHTML);
-            }
-        }
-    }
+//        for (var temp in list) {
+        list[2].style.className = "active";
+//        }
+    };
 </script>
 </html>

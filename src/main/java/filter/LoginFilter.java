@@ -17,8 +17,7 @@ import java.io.IOException;
 public class LoginFilter implements Filter {
     public void destroy() {
     }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+        public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
@@ -30,7 +29,7 @@ public class LoginFilter implements Filter {
 //        System.out.println(request.getRequestURL());
         System.out.println(request.getServletPath());
         if (session.getAttribute("UserSession") == null) {
-            request.getRequestDispatcher("loginTest.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
         chain.doFilter(req, resp);
