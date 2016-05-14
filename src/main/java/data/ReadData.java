@@ -14,6 +14,7 @@ import java.net.URLConnection;
 
 /**
  * Created by zcy on 2016/3/3.
+ *
  */
 public class ReadData implements ReadDataService {
 
@@ -98,42 +99,4 @@ public class ReadData implements ReadDataService {
         return result;
     }
 
-    public static void main(String[] args) {
-//        String url = "http://121.41.106.89:8010/api/stocks/?year=2014&exchange=sh";
-        ReadData rdt = new ReadData();
-//        String result = rdt.getData(url);
-//        String[] info = rdt.parseJson(result, "data", "link");
-//        for (int i = 0; i < info.length; i++) {
-//            System.out.println(info[i]);
-//        }
-//
-//        String[] names = new String[info.length];
-//        String[][] volume = null;
-//        for (int n = 0; n < info.length; n++) {
-//            if (n == 7) {
-//                continue;
-//            }
-//            String s1 = rdt.getData(info[n]);
-//            String s = rdt.parseJSON(s1, "data");
-//            names[n] = rdt.parseJSON(s, "name");
-//            System.out.println(names[n]);
-//            String[] sa = rdt.parseJSON_array(s,"trading_info");
-//            if(volume==null){
-//                volume = new String[info.length][sa.length];
-//            }
-//            for(int i=0;i<sa.length;i++){
-//                volume[n][i] = rdt.parseJSON(sa[i],"volume");
-//                System.out.print(volume[n][i]+" ");
-//            }
-//            System.out.println();
-//        }
-        String str = null;
-        try {
-            str = rdt.getCurrentData("http://hq.sinajs.cn/list=sh600000");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] s = str.split(",");
-        System.out.println(s[3]);
-    }
 }
