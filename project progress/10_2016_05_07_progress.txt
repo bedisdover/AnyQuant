@@ -11,16 +11,16 @@ todo : 努力写代码
 
 
 who :
+周梦佳
+when :2016-05-07 
 
-when : 
-
-what : 
+what :饼图，完善其他图表，开始转向web开发 
 
 problem : 
-
+web零基础，进度缓慢
 todo : 
 
-
+努力学习web
 
 who : 苏琰梓
 
