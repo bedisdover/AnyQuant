@@ -47,7 +47,7 @@
 <%
     }else{
 %>
-        <h1>用户登录失败，重新<a href="loginTest.jsp">登录</a></h1>
+        <h1>用户登录失败，重新<a href="login.jsp">登录</a></h1>
 <%
     }
 %>
