@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../graph">
+                        <a href="market.jsp">
                             <span class="glyphicon glyphicon-signal"></span> 大盘
                         </a>
                     </li>
