@@ -24,10 +24,16 @@ public class PortfolioFilter implements Filter {
         SelfSelectStock selfSelectStock = new SelfSelectStock();
         List<String> stockList = selfSelectStock.getFollowedStocks();
 
-        if (request.getAttribute("UserSession") != null) {
-            request.setAttribute("stockList", stockList);
-        }
+        stockList.add("sh600004");
+        stockList.add("sh600005");
+        stockList.add("sh600006");
 
+        //todo 登陆状态
+//        if (request.getAttribute("UserSession") != null) {
+            request.setAttribute("stockList", stockList);
+//        }
+
+        System.out.println("PortfolioFilter.doFilter");
         chain.doFilter(req, resp);
     }
 

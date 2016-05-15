@@ -72,28 +72,121 @@
     List<String> stockList = (List<String>) request.getAttribute("stockList");
 %>
 
-<div class="stockList-div">
-    <table class="table table-hover stockList">
-        <tr>
-            <td>名称</td>
-            <td>代码</td>
-        </tr>
+<div class="row">
+    <div class="col-xs-6 col-md-2">
+        <div class="stockList">
+            <div class="panel-collapse" id="accordion-102144">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <td>名称</td>
+                        <td>代码</td>
+                    </tr>
+                    <%
+                        for (int i = 0; i < stockList.size(); i++) {
+                    %>
+                    <tr>
+                        <td class="stock" id="stock-<%=i%>">
+                            <a data-toggle="collapse" data-parent="#accordion-102144"
+                               href="#accordion-element-<%=i%>"><%=stockList.get(i)%>
+                            </a>
+                        </td>
+                        <td><%=stockList.get(i)%>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-9">
         <%
-            for (String stock : stockList) {
+            for (int i = 0; i < stockList.size(); i++) {
         %>
-        <tr>
-            <td class="stock"><%=stock%>
-            </td>
-            <td><%=stock%>
-            </td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
-</div>
+        <div id="accordion-element-<%=i%>" class="panel-collapse collapse">
+            <div class="row latest-data panel panel-primary"><!--最新数据-->
+                <div class="col-md-2 name-code">
+                    <P class="text-center name">沪深300</P>
+                    <p class="text-center code">（1B0300）</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="inc-dec">
+                        <p class="text-left price">
+                            366.68
+                            <small>
+                                <small>
+                                    <small>-6.16 (-1.65%)</small>
+                                </small>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="data">
+                        <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                            <div class="col-md-4">
+                                <p class="text-left">今开：372.72</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-left">最高：373.64</p>
+                            </div>
+                            <div class="col-md-4">
+                                <P class="text-left">成交量：60.03万手</P>
+                            </div>
+                        </div>
+                        <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                            <div class="col-md-4">
+                                <p class="text-left">昨收：372.84</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-left">最低：366.50</p>
+                            </div>
+                            <div class="col-md-4">
+                                <P class="text-left">成交额：4.92亿</P>
+                            </div>
+                        </div>
+                    </div>
+                    <%--data--%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%
+        }
+    %>
+</div><%--简要信息--%>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+    var stockNum = <%=stockList.size()%>;//股票数量
+
+    window.onload = function () {
+        $('#accordion-element-0').collapse('show');
+    };
+
+
+    for (var i = 0; i < stockNum; i++) {
+        $('#accordion-element-' + i).on('show.bs.collapse', function () {
+            hideAll();
+        });
+//        $('#accordion-element-' + i).on('shown.bs.collapse', function () {
+//            $('#stock-' + i).className("disable");
+//        };
+//        $('#accordion-element-' + i).on('hide.bs.collapse', function () {
+//
+//        });
+    }
+
+    function hideAll() {//隐藏所有股票信息
+        for (var i = 0; i < stockNum; i++) {
+            $('#accordion-element-' + i).collapse('hide');
+        }
+    }
+</script>
 </body>
 </html>

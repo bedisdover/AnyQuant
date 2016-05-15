@@ -1,6 +1,4 @@
-package listener; /**
- * Created by song on 16-5-14.
- */
+package listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,6 +8,10 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+/**
+ * Created by song on 16-5-14.
+ *
+ */
 @WebListener()
 public class TestListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
