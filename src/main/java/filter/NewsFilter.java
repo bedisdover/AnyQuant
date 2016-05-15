@@ -23,8 +23,9 @@ public class NewsFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
 
+
         GetStockNews stockNews = new GetStockNews();
-        List<StockNewsVO> news = stockNews.getStockNews("sh60004");
+        List<StockNewsVO> news = stockNews.getStockNews("sh600015");
 
         request.setAttribute("news", news);
 

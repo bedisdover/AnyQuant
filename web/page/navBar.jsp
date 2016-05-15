@@ -71,14 +71,4 @@
     </div>
 </nav>
 </body>
-<script>
-    window.onload = function () {
-        var nav = document.getElementsByClassName("navbar-left");
-        var list = nav.getElementsByTagName("li");
-
-//        for (var temp in list) {
-        list[2].style.className = "active";
-//        }
-    };
-</script>
 </html>

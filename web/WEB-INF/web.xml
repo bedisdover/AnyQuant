@@ -37,13 +37,22 @@
         <filter-name>LoginFilter</filter-name>
         <filter-class>filter.LoginFilter</filter-class>
     </filter>
-    <!--<filter-mapping>-->
-        <!--<filter-name>LoginFilter</filter-name>-->
-        <!--<url-pattern>/page/portfolio.jsp</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/page/portfolio.jsp</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/page/history.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>PortfolioFilter</filter-name>
+        <filter-class>filter.PortfolioFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PortfolioFilter</filter-name>
+        <url-pattern>/page/portfolio.jsp</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -55,14 +64,6 @@
         <url-pattern>/index.jsp</url-pattern>
     </filter-mapping>
 
-    <filter>
-        <filter-name>TestFilter</filter-name>
-        <filter-class>filter.TestFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>TestFilter</filter-name>
-        <url-pattern>/page/portfolio.jsp</url-pattern>
-    </filter-mapping>
 
     <listener>
         <listener-class>listener.TestListener</listener-class>
