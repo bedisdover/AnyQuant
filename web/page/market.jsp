@@ -1,7 +1,10 @@
-<%@ page import="presentation.graphs.ThreeDPieChart" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <meta charset="UTF-8">
     <title>AnyQuant--大盘指数</title>
@@ -11,15 +14,98 @@
     <link href="/images/icon.png" rel="icon"/>
     <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="style/marketStyle.css" rel="stylesheet" type="text/css"/>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/tab.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/tab.js"></script>
 
-    <script src="js/excanvas.js"></script>
-    <script src="js/excanvas.min.js"></script>
-    <script src="js/jquery.jqplot.js"></script>
-    <script src="js/jquery.jqplot.min.js"></script>
-    <script src="js/jquery.js"></script>
-    <script type="text/javascript"></script>
+
+    <%--柱状图引包--%>
+    <script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.barRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
+
+    <%--折线图引包--%>
+    <script type="text/javascript" src="js/jqplot.dateAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.logAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasTextRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.ohlcRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot.cursor.min.js"></script>
+    <link rel="stylesheet" type="text/css" hrf="style/jquery.jqplot.min.css"/>
+
+
+    <%
+        long volume[] = new long[0];
+        String date[] = new String[0];
+        double high[] = new double[0];
+        double adj_price[] = new double[0];
+        double low[] = new double[0];
+        double close[] = new double[0];
+        double open[] = new double[0];
+        double increase_decreaseRate[] = new double[0];
+        double increase_decreaseNum[] = new double[0];
+        if (request.getAttribute("volume") == null) {
+            System.out.println("哎哟喂空的欸！volume");
+        } else if (request.getAttribute("date") == null) {
+            System.out.println("哎哟喂空的欸！date");
+        } else {
+            volume = (long[]) request.getAttribute("volume");
+            date = (String[]) request.getAttribute("date");
+            high = (double[]) request.getAttribute("high");
+            adj_price = (double[]) request.getAttribute("adj_price");
+            low = (double[]) request.getAttribute("low");
+            close = (double[]) request.getAttribute("close");
+            increase_decreaseRate = (double[]) request.getAttribute("open");
+            increase_decreaseNum = (double[]) request.getAttribute("increase_decreaseRate");
+//             System.out.println(volume[0]+"aiyowei");
+//             System.out.println(date[0]+"yoyoyo");
+        }
+    %>
+
+
+    <script type="text/javascript">
+
+        <!--
+        zooming.html-->
+        function lineChart() {
+
+            var line1 = [[]];
+            <!-- data和volume是request中属性的名字-->
+            <c:forEach items="${date}" var="date1" varStatus="loop">
+            var date1 = "${date1}"
+            var quantity = "${volume[loop.count-1]}"
+            line1[0].push([date1, quantity]);
+            </c:forEach>
+            //alert(line1);
+
+
+            var plot1 = $.jqplot('chart', line1, {
+                title: 'Google, Inc.',
+                series: [{
+                    label: 'Google, Inc.',
+                    neighborThreshold: -1
+                }],
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.DateAxisRenderer,
+                        tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                        tickOptions: {
+                            angle: -30
+                        }
+                    },
+                    yaxis: {
+                        renderer: $.jqplot.LogAxisRenderer,
+                        tickOptions: {prefix: '$'}
+                    }
+                },
+                cursor: {
+                    show: true,
+                    zoom: true
+                }
+            });
+        }
+
+    </script>
     <link href="style/jquery.jqplot.css" rel="stylesheet" type="text/css"/>
     <link href="style/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
 
@@ -96,7 +182,8 @@
                     <a href="#time-series" aria-controls="time-series" role="tab" data-toggle="tab">分时图</a>
                 </li>
                 <li role="presentation">
-                    <a href="#broken-line" aria-controls="broken-line" role="tab" data-toggle="tab">折线图</a>
+                    <a href="#broken-line" aria-controls="broken-line" role="tab" data-toggle="tab"
+                       onclick="lineChart()">折线图</a>
                 </li>
                 <li role="presentation">
                     <a href="#daily_k" aria-controls="daily_k" role="tab" data-toggle="tab">日K线</a>
@@ -110,77 +197,31 @@
             </ul>
 
 
-
-                <div class="tab-content">
+            <div class="tab-content">
                 <%--<div role="tabpanel" class="tab-pane active" id="time-series">--%>
-                    <%--<img src="<%=graphURL_1%>">--%>
+                <%--<img src="<%=graphURL_1%>">--%>
                 <%--</div>--%>
                 <%--<div role="tabpanel" class="tab-pane" id="broken-line">--%>
-                    <%--<img src="<%=graphURL_2%>">--%>
+                <%--<img src="<%=graphURL_2%>">--%>
                 <%--</div>--%>
                 <%--<div role="tabpanel" class="tab-pane" id="daily_k">--%>
-                    <%--<img src="<%=graphURL_3%>">--%>
+                <%--<img src="<%=graphURL_3%>">--%>
                 <%--</div>--%>
                 <div role="tabpanel" class="tab-pane" id="weekly_k">test4</div>
                 <div role="tabpanel" class="tab-pane" id="monthly_k">test5</div>
             </div>
         </div>
-         chart-list
     </div>
     content
     <div class="col-md-1">
 
     </div>
-        <%
-            long volume[]=new long[0];
-            String date[]=new String[0];
-            if(request.getAttribute("volume")==null ||request.getAttribute("date")==null ){
-            System.out.println("哎哟喂空的欸！");
-            }else {
-                volume= (long[]) request.getAttribute("volume");
-                date= (String[]) request.getAttribute("date");
-             System.out.println(volume[0]+"aiyowei");
-             }
-            %>
-    <div id="chart" style="width: 800px; height: 500px;"></div>
-    <script>
-        $(document).ready(function(){
-            var n = 0;
-            var line1 = [[]];
-            <%--<% for(int i=0;i<volume.length;i++){%>--%>
-            <%--line1[n].push([<%=date[i]%>,<%=volume[i]%>]);--%>
-            <%--n++;--%>
-            <%--<% } %>--%>
-            line1[n].push("20160510",1);
-            line1[n].push("20160511",2);
-            line1[n].push("20160512",3);
-            line1[n].push("20160513",4);
-            line1[n].push("20160514",5);
-            var plot1 = $.jqplot('chart', [line1], {
-                title: '大盘指数',
-                // 选择使用柱状图渲染器
-                series:[{renderer:$.jqplot.BarRenderer}],
-                axesDefaults: {
-                    // 设置tick的渲染器为CanvasAxisTickRenderer
-                    tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-                    tickOptions: {
-                        // 字体旋转-30度
-                        angle: -30,
-                        fontSize: '10pt'
-                    }
-                },
-                axes: {
-                    xaxis: {
-                        renderer: $.jqplot.CategoryAxisRenderer
-                    }
-                }
-            }).replot();
-        });
 
-    </script>
-<%--row--%>
-<footer class=bs-docs-footer role=contentinfo>
-    <jsp:include page="footer.jsp"/>
-</footer>
+    <div id="chart" style="width: 800px; height: 500px;"></div>
+
+    <footer class=bs-docs-footer role=contentinfo>
+        <jsp:include page="footer.jsp"/>
+    </footer>
 </body>
+
 </html>
