@@ -2,12 +2,14 @@ package vo;
 
 import po.IndexPO;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * Created by user on 2016/3/9.
+ * Created by zcy on 2016/3/9.
+ *
  */
-public class IndexVO {
+public class IndexVO implements Serializable{
     private String name;
     private long[] volume;
     private double[] high;
@@ -36,6 +38,10 @@ public class IndexVO {
         name = indexPO.getName();
         increase_decreaseRate = indexPO.getIncrease_decreaseRate();
         increase_decreaseNum = indexPO.getIncrease_decreaseNum();
+    }
+
+    public IndexVO(){
+
     }
 
 

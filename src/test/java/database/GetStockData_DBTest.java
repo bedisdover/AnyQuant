@@ -38,26 +38,5 @@ public class GetStockData_DBTest {
         assertNull(stockPO);
     }
 
-    @Test
-    public void getAllInterestedStockTest(){
-        GetStockData_DB getStockData_db = new GetStockData_DB();
-        GetStockData.underTest=true;
-        List<StockPO> stockPOList = null;
-        try {
-            stockPOList = getStockData_db.getAllInterestedStock("2016-03-28","2016-04-28");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assertEquals("2016-03-28",stockPOList.get(0).getDate()[0]);
-
-        try {
-            stockPOList = getStockData_db.getAllInterestedStock();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assertNotNull(stockPOList.get(0));
-
-        GetStockData.underTest=false;
-    }
 
 }

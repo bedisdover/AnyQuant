@@ -198,12 +198,15 @@
                     %>
                     <div class="panel-heading">
                         <h1 class="panel-title">
-                            <a href="#element-<%=i%>" data-toggle="collapse" data-parent="#accordion-102"><%=title%></a>
+                            <a href="#element-<%=i%>" data-toggle="collapse" data-parent="#accordion-102"><%=title%>
+                            </a>
                         </h1>
                     </div>
                     <div id="element-<%=i%>" class="panel-collapse collapse">
                         <div class="panel-body well">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=content%>
+                            <blockquote>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=content%>
+                            </blockquote>
                         </div>
                     </div>
                     <%
@@ -212,26 +215,26 @@
                 </div>
             </div>
             <%--<div class="accordion" id="accordion-102144">--%>
-                <%--<div class="accordion-group">--%>
-                    <%--<%--%>
-                        <%--for (int i = 0; i < stockNews.size(); i++) {--%>
-                            <%--String title = stockNews.get(i).getTitle();--%>
-                            <%--String content = stockNews.get(i).getContent();--%>
-                    <%--%>--%>
-                    <%--<h2>--%>
-                        <%--<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-102144"--%>
-                           <%--href="#accordion-element-<%=i%>"><%=title%>--%>
-                        <%--</a>--%>
-                    <%--</h2>--%>
-                    <%--<div id="accordion-element-<%=i%>" class="accordion-body collapse">--%>
-                        <%--<div class="accordion-inner well">--%>
-                            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=content%>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<%--%>
-                        <%--}--%>
-                    <%--%>--%>
-                <%--</div>--%>
+            <%--<div class="accordion-group">--%>
+            <%--<%--%>
+            <%--for (int i = 0; i < stockNews.size(); i++) {--%>
+            <%--String title = stockNews.get(i).getTitle();--%>
+            <%--String content = stockNews.get(i).getContent();--%>
+            <%--%>--%>
+            <%--<h2>--%>
+            <%--<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-102144"--%>
+            <%--href="#accordion-element-<%=i%>"><%=title%>--%>
+            <%--</a>--%>
+            <%--</h2>--%>
+            <%--<div id="accordion-element-<%=i%>" class="accordion-body collapse">--%>
+            <%--<div class="accordion-inner well">--%>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=content%>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<%--%>
+            <%--}--%>
+            <%--%>--%>
+            <%--</div>--%>
             <%--</div>--%>
         </div>
     </div>

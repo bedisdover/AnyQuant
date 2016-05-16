@@ -1,6 +1,7 @@
 package vo;
 
 import data.GetStockData;
+import data.StockId2Name;
 import po.StockPO;
 import po.Transfer;
 
@@ -9,6 +10,7 @@ import java.math.BigInteger;
 
 /**
  * Created by zcy on 2016/3/8.
+ *
  */
 public class StockVO {
     /**
@@ -70,7 +72,7 @@ public class StockVO {
 
     public StockVO(StockPO spo) throws IOException {
         id = spo.getId();
-        name = Transfer.getName(id);
+        name = StockId2Name.getStockName(id);
         volume = spo.getVolume();
         pb = spo.getPb();
         high = spo.getHigh();
@@ -85,61 +87,116 @@ public class StockVO {
         increase_decreaseNum = spo.getIncrease_decreaseNum();
     }
 
-    public String getId() {
-        return id;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long[] getVolume() {
         return volume;
     }
 
+    public void setVolume(long[] volume) {
+        this.volume = volume;
+    }
+
     public double[] getPb() {
         return pb;
+    }
+
+    public void setPb(double[] pb) {
+        this.pb = pb;
     }
 
     public double[] getHigh() {
         return high;
     }
 
+    public void setHigh(double[] high) {
+        this.high = high;
+    }
+
     public double[] getPe_ttm() {
         return pe_ttm;
+    }
+
+    public void setPe_ttm(double[] pe_ttm) {
+        this.pe_ttm = pe_ttm;
     }
 
     public double[] getAdj_price() {
         return adj_price;
     }
 
+    public void setAdj_price(double[] adj_price) {
+        this.adj_price = adj_price;
+    }
+
     public double[] getLow() {
         return low;
+    }
+
+    public void setLow(double[] low) {
+        this.low = low;
     }
 
     public String[] getDate() {
         return date;
     }
 
+    public void setDate(String[] date) {
+        this.date = date;
+    }
+
     public double[] getClose() {
         return close;
+    }
+
+    public void setClose(double[] close) {
+        this.close = close;
     }
 
     public double[] getOpen() {
         return open;
     }
 
+    public void setOpen(double[] open) {
+        this.open = open;
+    }
+
     public double[] getTurnover() {
         return turnover;
     }
 
-    public String getName() {
-        return name;
+    public void setTurnover(double[] turnover) {
+        this.turnover = turnover;
     }
 
     public double[] getIncrease_decreaseRate() {
         return increase_decreaseRate;
     }
 
+    public void setIncrease_decreaseRate(double[] increase_decreaseRate) {
+        this.increase_decreaseRate = increase_decreaseRate;
+    }
+
     public double[] getIncrease_decreaseNum() {
         return increase_decreaseNum;
     }
 
+    public void setIncrease_decreaseNum(double[] increase_decreaseNum) {
+        this.increase_decreaseNum = increase_decreaseNum;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

@@ -2,11 +2,13 @@ package vo;
 
 import po.StockNewsPO;
 
+import java.io.Serializable;
+
 /**
  * Created by zcy on 2016/5/12.
  *
  */
-public class StockNewsVO {
+public class StockNewsVO implements Serializable{
     /**
      * 对应的股票ID
      */
