@@ -65,8 +65,7 @@
 
     <script type="text/javascript">
 
-        <!--
-        zooming.html-->
+//        zooming.html
         function lineChart() {
 
             var line1 = [[]];
@@ -222,6 +221,7 @@
     <footer class=bs-docs-footer role=contentinfo>
         <jsp:include page="footer.jsp"/>
     </footer>
+    </div>
 </body>
 
 </html>
