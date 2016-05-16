@@ -21,21 +21,14 @@
     String mid = request.getParameter("mid");
     String password = request.getParameter("password");
 %>
-<%!
-    public static final String DBDRIVER = "org.gjt.mm.mysql.Driver";
-    public static final String DBURL = "jdbc:mysql://localhost:3306/yootk";
-    public static final String DBUSER = "root";
-    public static final String PASSWORD = "mysqladmin";
-%>
 <%
     boolean flag = false;
     UserInfo ui = new UserInfo();
     UserPO userPO = new UserPO();
     userPO = ui.getUserInfo(mid,password);
-    System.out.println(mid);
-    System.out.println(password);
     if(userPO!=null){
         flag = true;
+        session.setAttribute("UserId",userPO.getId());
     }
 %>
 <%
