@@ -38,6 +38,10 @@ public class IndexVO {
         increase_decreaseNum = indexPO.getIncrease_decreaseNum();
     }
 
+    public IndexVO(){
+
+    }
+
 
     public long[] getVolume() {
         return volume;

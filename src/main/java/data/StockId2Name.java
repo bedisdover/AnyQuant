@@ -15,7 +15,7 @@ public class StockId2Name {
      * @return String
      * 根据股票ID从数据库中得到股票名称
      */
-    public String getStockName(String id){
+    public static String getStockName(String id){
         Connect co=new Connect();
         String sql="SELECT * FROM stockname where id = '"+id+"\'";
         ResultSet result=co.getResultSet(sql);
