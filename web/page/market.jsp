@@ -32,7 +32,8 @@
     <script type="text/javascript" src="js/jqplot.ohlcRenderer.min.js"></script>
     <script type="text/javascript" src="js/jqplot.cursor.min.js"></script>
     <link rel="stylesheet" type="text/css" hrf="style/jquery.jqplot.min.css"/>
-
+<%--echarts引包--%>
+    <script src="${pageContext.request.contextPath}/page/js/echarts.js"></script>
 
     <%
         long volume[] = new long[0];
@@ -104,6 +105,102 @@
             });
         }
 
+//日K线 undone
+        function dailyKLine(){
+            var line1 = [[]];
+            <!-- data和volume是request中属性的名字-->
+            <c:forEach items="${date}" var="dateShow" varStatus="loop">
+            var dateShow = "${dateShow}"
+            var highShow = "${high[loop.count-1]}"
+            var lowShow= "${low[loop.count-1]}"
+            var openShow= "${open[loop.count-1]}"
+            var closeShow= "${close[loop.count-1]}"
+            line1[0].push([dateShow, highShow,lowShow,openShow,closeShow]);
+            </c:forEach>
+
+            var option = {
+                title : {
+                    text: '2013年上半年上证指数'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        var res = params[0].seriesName + ' ' + params[0].name;
+                        res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
+                        res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
+                        return res;
+                    }
+                },
+                legend: {
+                    data:['上证指数']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataZoom : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                dataZoom : {
+                    show : true,
+                    realtime: true,
+                    start : 50,
+                    end : 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        axisTick: {onGap:false},
+                        splitLine: {show:false},
+                        data : [
+                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
+                            "2013/1/31", "2013/2/1", "2013/2/4", "2013/2/5", "2013/2/6",
+                            "2013/2/7", "2013/2/8", "2013/2/18", "2013/2/19", "2013/2/20",
+                            "2013/2/21", "2013/2/22", "2013/2/25", "2013/2/26", "2013/2/27",
+                            "2013/2/28", "2013/3/1", "2013/3/4", "2013/3/5", "2013/3/6",
+
+                        ]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale:true,
+                        boundaryGap: [0.01, 0.01]
+                    }
+                ],
+                series : [
+                    {
+                        name:'上证指数',
+                        type:'k',
+                        data:[ // 开盘，收盘，最低，最高
+                            [2320.26,2302.6,2287.3,2362.94],
+                            [2300,2291.3,2288.26,2308.38],
+                            [2295.35,2346.5,2295.35,2346.92],
+                            [2347.22,2358.98,2337.35,2363.8],
+                            [2360.75,2382.48,2347.89,2383.76],
+                            [2383.43,2385.42,2371.23,2391.82],
+                            [2377.41,2419.02,2369.57,2421.15],
+                            [2425.92,2428.15,2417.58,2440.38],
+                            [2411,2433.13,2403.3,2437.42],
+                            [2432.68,2434.48,2427.7,2441.73],
+                            [2430.69,2418.53,2394.22,2433.89],
+                            [2416.62,2432.4,2414.4,2443.03],
+                            [2441.91,2421.56,2415.43,2444.8],
+                            [2190.1,2148.35,2126.22,2190.1]
+                        ]
+                    }
+                ]
+            };
+
+
+
+        }
     </script>
     <link href="style/jquery.jqplot.css" rel="stylesheet" type="text/css"/>
     <link href="style/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
@@ -185,7 +282,8 @@
                        onclick="lineChart()">折线图</a>
                 </li>
                 <li role="presentation">
-                    <a href="#daily_k" aria-controls="daily_k" role="tab" data-toggle="tab">日K线</a>
+                    <a href="#daily_k" aria-controls="daily_k" role="tab" data-toggle="tab"
+                    onclick="dailyKLine()">日K线</a>
                 </li>
                 <li role="presentation">
                     <a href="#weekly_k" aria-controls="weekly_k" role="tab" data-toggle="tab">周K线</a>

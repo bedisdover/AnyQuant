@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class RadarChartParent {
 
-    public static String erstelleSpinnenDiagramm(String title,double data[],String name[]) {
+    public static JPanel erstelleSpinnenDiagramm(String title,double data[],String name[]) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String group1 = title;
         int length=data.length;
@@ -30,20 +30,20 @@ public class RadarChartParent {
         LegendTitle legendtitle = new LegendTitle(spiderwebplot);
         legendtitle.setPosition(RectangleEdge.BOTTOM);
         jfreechart.addSubtitle(legendtitle);
-     //   ChartPanel chartpanel = new ChartPanel(jfreechart);
-     //   chartpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-        ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
-        String fileName = null;
-        try {
-            fileName = ServletUtilities.saveChartAsPNG(jfreechart, 700, 300, info, null);//生成图片
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return fileName;
+        ChartPanel chartpanel = new ChartPanel(jfreechart);
+        chartpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+//        ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+//        String fileName = null;
+//        try {
+//            fileName = ServletUtilities.saveChartAsPNG(jfreechart, 700, 300, info, null);//生成图片
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return chartpanel;
     }
 //这个可以做两个的对比，画在一个里面
     //title是图的标题，firstGroup和secondGroup可以是两个股票的名字，两个name应该是一样的=。=
-    public static String erstelleSpinnenDiagramm(String title,String firstGroup,String secondGroup,double firstData[],double secondData[],String firstName[],String secondName[]) {
+    public static JPanel erstelleSpinnenDiagramm(String title,String firstGroup,String secondGroup,double firstData[],double secondData[],String firstName[],String secondName[]) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String group1 = firstGroup;
         String group2=secondGroup;
@@ -60,17 +60,17 @@ public class RadarChartParent {
         LegendTitle legendtitle = new LegendTitle(spiderwebplot);
         legendtitle.setPosition(RectangleEdge.BOTTOM);
         jfreechart.addSubtitle(legendtitle);
-//        ChartPanel chartpanel = new ChartPanel(jfreechart);
-//        chartpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        ChartPanel chartpanel = new ChartPanel(jfreechart);
+        chartpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 
-        ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
-        String fileName = null;
-        try {
-            fileName = ServletUtilities.saveChartAsPNG(jfreechart, 700, 300, info, null);//生成图片
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return fileName;
+//        ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+//        String fileName = null;
+//        try {
+//            fileName = ServletUtilities.saveChartAsPNG(jfreechart, 700, 300, info, null);//生成图片
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return chartpanel;
     }
 
     public static void main(String args[]) {
