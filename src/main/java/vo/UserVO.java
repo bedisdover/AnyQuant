@@ -2,13 +2,14 @@ package vo;
 
 import po.UserPO;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by zcy on 2016/5/9.
  *
  */
-public class UserVO {
+public class UserVO implements Serializable{
     /**
      * 用户账号
      */

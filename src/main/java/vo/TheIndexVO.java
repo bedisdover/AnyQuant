@@ -1,10 +1,12 @@
 package vo;
 
+import java.io.Serializable;
+
 /**
  * Created by zcy on 2016/4/13.
  * 股票和大盘的各项指标
  */
-public class TheIndexVO {
+public class TheIndexVO implements Serializable{
     /**
      * 乖离率
      */

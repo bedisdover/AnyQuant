@@ -19,6 +19,8 @@ import java.util.List;
  *
  */
 public class GetStockData_DB {
+    String[] stock_id = {"sh601818","sh600015","sh600016","sh600036","sh601009","sh601166","sh601169",
+    "sh601288","sh601328","sh601398","sh601939","sh601988","sh601998","sz000001","sz002142"};
     /**
      * @param name
      * @param date1

@@ -7,7 +7,10 @@ import po.StockPO;
 import vo.StockVO;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -133,16 +136,10 @@ public class SortStock implements SortStockService{
         return Double.parseDouble(strings[8]) / 100;
     }
 
-    public static void main(String[] args){
-        try {
-            SortStock sortStock = new SortStock();
-            int length = sortStock.stockVOs.get(0).getDate().length;
-            List<StockVO> stockVOs = sortStock.increase_sort();
-            for(int i=0;i<stockVOs.size();i++){
-                System.out.println(stockVOs.get(i).getId()+" "+stockVOs.get(i).getIncrease_decreaseRate()[length-1]);
-             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String getDate_Today(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
     }
 }

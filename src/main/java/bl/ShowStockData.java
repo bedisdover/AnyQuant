@@ -40,8 +40,4 @@ public class ShowStockData {
         return simpleDateFormat.format(date);
     }
 
-    public static void main(String[] args){
-        ShowStockData showStockData = new ShowStockData();
-        System.out.println(showStockData.getDate_Today());
-    }
 }
