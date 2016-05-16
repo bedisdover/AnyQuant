@@ -30,7 +30,7 @@
 <h1>用户登录成功，欢迎光临！</h1>
 <meta http-equiv="Refresh" content="1;url= history.jsp">
 <%
-    }else if(session.getAttribute("which_button").equals("h")){
+    }else if(session.getAttribute("which_button").equals("p")){
 %>
 <h1>用户登录成功，欢迎光临！</h1>
 <meta http-equiv="Refresh" content="1;url= portfolio.jsp">

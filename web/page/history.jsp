@@ -12,7 +12,9 @@
     <link href="style/historyStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<<<<<<< HEAD
+<%
+    session.setAttribute("which_button","h");
+%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="container-fluid">
