@@ -1,5 +1,6 @@
 package filter;
 
+import bl.ShowStockNews;
 import database.GetStockNews;
 import vo.StockNewsVO;
 
@@ -24,8 +25,8 @@ public class NewsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
 
 
-        GetStockNews stockNews = new GetStockNews();
-        List<StockNewsVO> news = stockNews.getStockNews("sh600015");
+        ShowStockNews stockNews = new ShowStockNews();
+        List<StockNewsVO> news = stockNews.showStockNews("sh600015");
 
         request.setAttribute("news", news);
 
