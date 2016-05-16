@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 2016/3/17.
+ * Created by zcy on 2016/3/17.
+ *
  */
 public class SortStock implements SortStockService{
 

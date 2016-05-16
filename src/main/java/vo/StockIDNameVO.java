@@ -1,10 +1,12 @@
 package vo;
 
+import java.io.Serializable;
+
 /**
  * Created by zcy on 2016/5/14.
  *
  */
-public class StockIDNameVO {
+public class StockIDNameVO implements Serializable{
     /**
      * 股票id
      */

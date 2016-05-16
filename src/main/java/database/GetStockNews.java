@@ -1,5 +1,6 @@
 package database;
 
+import po.StockNewsPO;
 import vo.StockNewsVO;
 
 import java.sql.ResultSet;
@@ -14,21 +15,21 @@ import java.util.List;
 public class GetStockNews {
     /**
      * @param stockID
-     * @return List<StockNewsVO>
+     * @return List<StockNewsPO>
      */
-    public List<StockNewsVO> getStockNews(String stockID){
+    public List<StockNewsPO> getStockNews(String stockID){
         List<String> titles = getNewsTitle(stockID);
         List<String> contents = getNewsContent(stockID);
         List<String> dates = getNewsDate(stockID);
         int size = titles.size();
-        List<StockNewsVO> news = new ArrayList<>();
+        List<StockNewsPO> news = new ArrayList<>();
         for(int i=0;i<size;i++){
-            StockNewsVO stockNewsVO = new StockNewsVO();
-            stockNewsVO.setId(stockID);
-            stockNewsVO.setTitle(titles.get(i));
-            stockNewsVO.setContent(contents.get(i));
-            stockNewsVO.setDate(dates.get(i));
-            news.add(stockNewsVO);
+            StockNewsPO stockNewsPO = new StockNewsPO();
+            stockNewsPO.setId(stockID);
+            stockNewsPO.setTitle(titles.get(i));
+            stockNewsPO.setContent(contents.get(i));
+            stockNewsPO.setDate(dates.get(i));
+            news.add(stockNewsPO);
         }
         return news;
     }

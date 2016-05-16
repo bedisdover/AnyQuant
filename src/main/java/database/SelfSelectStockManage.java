@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SelfSelectStockManage {
     /**
-     * @param userid
+     * @param userid 用户账号
      * @return List<String>
      * 得到这个用户所有自选股代号
      */
@@ -34,7 +34,7 @@ public class SelfSelectStockManage {
     }
 
     /**
-     * @param userid
+     * @param userid 用户账号
      * @param stockid
      * 向数据库中添加该用户的自选股
      */
@@ -53,7 +53,7 @@ public class SelfSelectStockManage {
     }
 
     /**
-     * @param userid
+     * @param userid 用户账号
      * @param stockid
      * 从数据库中删除该用户自选股
      */
