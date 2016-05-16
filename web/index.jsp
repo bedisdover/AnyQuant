@@ -1,6 +1,7 @@
 <%@ page import="servlet.PortfolioServlet" %>
 <%@ page import="vo.StockNewsVO" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="vo.BusinessNewsVO" %><%--
   Created by IntelliJ IDEA.
   User: song
   Date: 16-4-28
@@ -183,7 +184,7 @@
 </div>
 
 <%
-    List<StockNewsVO> stockNews = (List<StockNewsVO>) request.getAttribute("news");
+    List<BusinessNewsVO> businessNews = (List<BusinessNewsVO>) request.getAttribute("news");
 %>
 
 <div class="container-fluid">
@@ -192,9 +193,9 @@
             <div id="accordion-102">
                 <div class="panel panel-primary">
                     <%
-                        for (int i = 0; i < stockNews.size(); i++) {
-                            String title = stockNews.get(i).getTitle();
-                            String content = stockNews.get(i).getContent();
+                        for (int i = 0; i < businessNews.size(); i++) {
+                            String title = businessNews.get(i).getTitle();
+                            String content = businessNews.get(i).getContent();
                     %>
                     <div class="panel-heading">
                         <h1 class="panel-title">
@@ -217,9 +218,9 @@
             <%--<div class="accordion" id="accordion-102144">--%>
             <%--<div class="accordion-group">--%>
             <%--<%--%>
-            <%--for (int i = 0; i < stockNews.size(); i++) {--%>
-            <%--String title = stockNews.get(i).getTitle();--%>
-            <%--String content = stockNews.get(i).getContent();--%>
+            <%--for (int i = 0; i < businessNews.size(); i++) {--%>
+            <%--String title = businessNews.get(i).getTitle();--%>
+            <%--String content = businessNews.get(i).getContent();--%>
             <%--%>--%>
             <%--<h2>--%>
             <%--<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-102144"--%>

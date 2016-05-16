@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page import="vo.StockVO" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +12,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link href="../images/icon.png" rel="icon"/>
     <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="style/daterangepicker.css"/>
     <link href="style/portfolioStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <%
-    session.setAttribute("which_button","p");
+    session.setAttribute("which_button", "p");
 %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -71,12 +73,22 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+<%--导航栏End--%>
+
 <%
-    List<String> stockList = (List<String>) request.getAttribute("stockList");
+    List<StockVO> stockList = (List<StockVO>) request.getAttribute("stockList");
 %>
 
 <div class="row">
-    <div class="col-xs-6 col-md-2">
+    <div class="col-xs-6 col-md-2" id="sidebar">
+        <div class="menu list-group">
+            <a href="#" class="list-group-item active">实时数据</a>
+            <a href="#" class="list-group-item">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</a>
+            <a href="#" class="list-group-item">详细数据</a>
+            <a href="#" class="list-group-item">行情预测</a>
+            <a href="#" class="list-group-item">最新资讯</a>
+
+        </div>
         <div class="stockList">
             <div class="accordion-group">
                 <table class="table table-hover text-center">
@@ -85,16 +97,18 @@
                         <td>代码</td>
                     </tr>
                     <%
+                        StockVO stock;
                         for (int i = 0; i < stockList.size(); i++) {
+                            stock = stockList.get(i);
                     %>
                     <tr>
                         <td class="stock">
                             <a class="accordion-toggle collapsed" data-toggle="collapse"
                                data-parent="#accordion-102144"
-                               href="#accordion-element-<%=i%>"><%=stockList.get(i)%>
+                               href="#accordion-element-<%=i%>"><%=stock.getName()%>
                             </a>
                         </td>
-                        <td><%=stockList.get(i)%>
+                        <td><%=stock.getId()%>
                         </td>
                     </tr>
                     <%
@@ -104,17 +118,19 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-6 col-md-9">
+    <div class="col-xs-6 col-md-9" id="main-content">
         <%
             for (int i = 0; i < stockList.size(); i++) {
+                stock = stockList.get(i);
         %>
         <div id="accordion-element-<%=i%>" class="accordion-body collapse">
             <div class="accordion-inner">
                 <div class="primary-info">
                     <div class="row latest-data panel panel-primary"><!--最新数据-->
                         <div class="col-md-2 name-code">
-                            <P class="text-center name">沪深300</P>
-                            <p class="text-center code">（<%=stockList.get(i)%>）</p>
+                            <P class="text-center name"><%=stock.getName()%>
+                            </P>
+                            <p class="text-center code">（<%=stock.getId()%>）</p>
                         </div>
                         <div class="col-md-4">
                             <div class="inc-dec">
@@ -157,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <%--简要信息栏--%>
+                <%--简要信息栏End--%>
                 <div class="graphs panel panel-primary">
                     <ul class="nav nav-tabs">
                         <li class="active">
@@ -184,7 +200,59 @@
                         <div class="tab-pane fade" id="日K线">...</div>
                     </div>
                 </div>
-                <%--统计图--%>
+                <%--统计图End--%>
+                <div class="history-data well">
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th class="text-center">日期</th>
+                                <th class="text-center">最高</th>
+                                <th class="text-center">最低</th>
+                                <th class="text-center">涨跌额</th>
+                                <th class="text-center">涨跌幅</th>
+                                <th class="text-center">开盘</th>
+                                <th class="text-center">收盘</th>
+                                <th class="text-center">成交量</th>
+                                <th class="text-center">市盈率</th>
+                                <th class="text-center">市净率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+
+                                for (int j = stock.getDate().length - 1; j >= 0; j--) {
+                            %>
+                            <tr>
+                                <td><%=stock.getDate()[j]%>
+                                </td>
+                                <td><%=stock.getHigh()[j]%>
+                                </td>
+                                <td><%=stock.getLow()[j]%>
+                                </td>
+                                <td><%=stock.getIncrease_decreaseNum()[j]%>
+                                </td>
+                                <td><%=stock.getIncrease_decreaseRate()[j]%>
+                                </td>
+                                <td><%=stock.getOpen()[j]%>
+                                </td>
+                                <td><%=stock.getClose()[j]%>
+                                </td>
+                                <td><%=stock.getVolume()[j]%>
+                                </td>
+                                <td><%=stock.getPe_ttm()[j]%>
+                                </td>
+                                <td><%=stock.getPb()[j]%>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <%--历史数据--%>
             </div>
         </div>
         <%
@@ -198,7 +266,11 @@
 </footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script src="js/moment.min.js"></script>
+<script src="js/jquery.daterangepicker.js"></script>
+<script>//日期选择框
+$('#dom-id').dateRangePicker(configObject);
+</script>
 <script>
     var stockNum = <%=stockList.size()%>;//股票数量
 
