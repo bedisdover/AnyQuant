@@ -7,15 +7,6 @@
 <%@ page import="po.UserPO" %>
 <%@ page import="database.UserInfo" %>
 <html>
-<head>
-    <title>AnyQuant--login</title>
-    <meta name="description" content="AnyQuant是一个在线电话交易平台"/>
-    <meta name="keyword" content="AnyQuant,股票,电话交易"/>
-    <meta name="author" content="Ultraviolet"/>
-    <link href="../images/icon.png" rel="icon"/>
-    <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
-</head>
 <body>
 <%
     String mid = request.getParameter("mid");
@@ -33,10 +24,18 @@
 %>
 <%
     if(flag){
+        if (session.getAttribute("which_button").equals("h")) {
+
+%>
+<h1>用户登录成功，欢迎光临！</h1>
+<meta http-equiv="Refresh" content="1;url= history.jsp">
+<%
+    }else if(session.getAttribute("which_button").equals("h")){
 %>
 <h1>用户登录成功，欢迎光临！</h1>
 <meta http-equiv="Refresh" content="1;url= portfolio.jsp">
 <%
+    }
 }else{
 %>
 <h1>用户登录失败，请<a href="login.jsp">重新登录</a></h1>
@@ -44,4 +43,13 @@
     }
 %>
 </body>
+<head>
+    <title>AnyQuant--login</title>
+    <meta name="description" content="AnyQuant是一个在线电话交易平台"/>
+    <meta name="keyword" content="AnyQuant,股票,电话交易"/>
+    <meta name="author" content="Ultraviolet"/>
+    <link href="../images/icon.png" rel="icon"/>
+    <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
+</head>
 </html>

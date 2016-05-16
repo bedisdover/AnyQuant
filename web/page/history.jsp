@@ -13,6 +13,9 @@
 </head>
 <body>
 <jsp:include page="navBar.jsp"/>
+<%
+    session.setAttribute("which_button","h");
+%>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>

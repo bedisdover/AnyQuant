@@ -14,6 +14,9 @@
     <link href="style/portfolioStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<%
+    session.setAttribute("which_button","p");
+%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="container-fluid">
