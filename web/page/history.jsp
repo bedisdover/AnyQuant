@@ -12,6 +12,7 @@
     <link href="style/historyStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<<<<<<< HEAD
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="container-fluid">
@@ -79,6 +80,7 @@
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>

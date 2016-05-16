@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession();
 
         System.out.println(request.getServletPath());
-        if (session.getAttribute("UserSession") == null) {
+        if (session.getAttribute("UserId") == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
