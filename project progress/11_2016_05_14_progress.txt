@@ -1,0 +1,23 @@
+who : 宋益明
+when : 2016-05-14
+what : 写界面、写界面、写界面
+problem : 内容繁琐
+todo : 完成基本框架
+
+who : 
+when : 2016-05-14
+what : 
+problem : 
+todo : 
+
+who : 
+when : 2016-05-14
+what : 
+problem : 
+todo : 
+
+who : 
+when : 2016-05-14
+what : 
+problem : 
+todo : 
