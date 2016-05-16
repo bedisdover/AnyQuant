@@ -3,6 +3,7 @@ package bl;
 import blservice.SortStockService;
 import data.GetStockData;
 import data.ReadData;
+import database.GetStockData_DB;
 import po.StockPO;
 import vo.StockVO;
 
@@ -34,7 +35,7 @@ public class SortStock implements SortStockService{
      * 加载股票列表
      */
     private void loadStockList() throws IOException {
-        List<StockPO> stockPOs = new GetStockData().getAllInterestedStock();
+        List<StockPO> stockPOs = new GetStockData_DB().getAllStock();
 
         for (StockPO stockPO : stockPOs) {
             stockVOs.add(new StockVO(stockPO));

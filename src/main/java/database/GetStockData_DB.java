@@ -19,8 +19,12 @@ import java.util.List;
  *
  */
 public class GetStockData_DB {
-    String[] stock_id = {"sh601818","sh600015","sh600016","sh600036","sh601009","sh601166","sh601169",
-    "sh601288","sh601328","sh601398","sh601939","sh601988","sh601998","sz000001","sz002142"};
+    final String[] stock_id = {"sh601818","sh600015","sh600016",
+            "sh600036","sh601009","sh601166",
+            "sh601169", "sh601288","sh601328",
+            "sh601398","sh601939","sh601988",
+            "sh601998","sz000001","sz002142"};
+
     /**
      * @param name
      * @param date1
@@ -106,48 +110,18 @@ public class GetStockData_DB {
     }
 
     /**
-     * 得到所有我们感兴趣的股票数据（默认为近一个月的）
-     *
      * @return List<StockPO>
+     * 得到所有银行股数据（近一个月的）
      */
-    public List<StockPO> getAllInterestedStock() throws IOException {
-        GetStockData getStockData = new GetStockData();
-        String stocks = getStockData.getID_BankStocks();
-        String[] names = stocks.split(" ");
-        List<StockPO> stockPOs = new ArrayList<>();
-
-        Calendar c = Calendar.getInstance();
-        Date d = c.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String today = simpleDateFormat.format(d);//今天的日期
-        c.add(c.DATE,-30);
-        d = c.getTime();
-        String aMonthAgo = simpleDateFormat.format(d);//一个月前的日期
-
-        for (int i = 0; i < names.length; i++) {
-            stockPOs.add(getStockData_name(names[i],aMonthAgo,today));
+    public List<StockPO> getAllStock() {
+        List<StockPO> stockPOList = new ArrayList<>();
+        for(int i=0;i<stock_id.length;i++){
+            StockPO stockPO = getStockData_name(stock_id[i],getDate_OneMonthAgo(),getDate_Today());
+            stockPOList.add(stockPO);
         }
-
-        return stockPOs;
+        return stockPOList;
     }
 
-    /**
-     * 得到指定时间段内的我们感兴趣的所有股票数据
-     *
-     * @param date1
-     * @param date2
-     * @return List<StockPO>
-     */
-    public List<StockPO> getAllInterestedStock(String date1, String date2) throws IOException {
-        GetStockData getStockData = new GetStockData();
-        String stocks = getStockData.getID_BankStocks();
-        String[] names = stocks.split(" ");
-        List<StockPO> stockPOs = new ArrayList<StockPO>();
-        for (int i = 0; i < names.length; i++) {
-            stockPOs.add(getStockData_name(names[i], date1, date2));
-        }
-        return stockPOs;
-    }
 
     /**
      * @param date1
@@ -175,6 +149,21 @@ public class GetStockData_DB {
         else{
             return -1;
         }
+    }
+
+    private String getDate_Today(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
+    }
+
+    private String getDate_OneMonthAgo(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,-30);
+        Date date = calendar.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
     }
 
 }
