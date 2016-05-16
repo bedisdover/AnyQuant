@@ -1,7 +1,9 @@
 package filter;
 
+import bl.ShowBusinessNews;
 import bl.ShowStockNews;
 import database.GetStockNews;
+import vo.BusinessNewsVO;
 import vo.StockNewsVO;
 
 import javax.servlet.*;
@@ -24,9 +26,8 @@ public class NewsFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
 
-
-        ShowStockNews stockNews = new ShowStockNews();
-        List<StockNewsVO> news = stockNews.showStockNews("sh600015");
+        ShowBusinessNews businessNews = new ShowBusinessNews();
+        List<BusinessNewsVO> news = businessNews.showBusinessNews();
 
         request.setAttribute("news", news);
 

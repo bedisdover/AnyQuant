@@ -37,10 +37,10 @@
         <filter-name>LoginFilter</filter-name>
         <filter-class>filter.LoginFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/page/portfolio.jsp</url-pattern>
-    </filter-mapping>
+    <!--<filter-mapping>-->
+        <!--<filter-name>LoginFilter</filter-name>-->
+        <!--<url-pattern>/page/portfolio.jsp</url-pattern>-->
+    <!--</filter-mapping>-->
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/page/history.jsp</url-pattern>

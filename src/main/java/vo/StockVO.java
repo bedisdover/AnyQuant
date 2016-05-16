@@ -6,13 +6,13 @@ import po.StockPO;
 import po.Transfer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
  * Created by zcy on 2016/3/8.
- *
  */
-public class StockVO {
+public class StockVO implements Serializable {
     /**
      * 该股票的名称
      */
