@@ -1,6 +1,7 @@
 package database;
 
 
+import bl.util.MyDate;
 import data.GetIndexData;
 import po.IndexPO;
 
@@ -22,7 +23,6 @@ public class GetIndexData_DB {
      * 根据起止日期从数据库中读取大盘数据
      */
     public IndexPO getIndexDataBetween(String date1, String date2){
-        GetStockData_DB g = new GetStockData_DB();
         if(date1.charAt(4)!='-'){
             date1 = date1.substring(0,4)+"-"+date1.substring(4,6)+"-"+date1.substring(6);//给date1加上-
             date2 = date2.substring(0,4)+"-"+date2.substring(4,6)+"-"+date2.substring(6);//给date2加上-
@@ -36,7 +36,7 @@ public class GetIndexData_DB {
         IndexPO indexPO = null;
         try {
             while(result.next()){
-                if((g.compareDate(date1,result.getString(6))==0)&&(g.compareDate(result.getString(6),date2)==0)
+                if((MyDate.compareDate(date1,result.getString(6))==0)&&(MyDate.compareDate(result.getString(6),date2)==0)
                         &&(result.getLong(2)!=0)&&(result.getDouble(3)!=0)){
                     num++;
                 }
@@ -55,7 +55,7 @@ public class GetIndexData_DB {
 
             int k = 0;
             while(result.next()){
-                if((g.compareDate(date1,result.getString(6))==0)&&(g.compareDate(result.getString(6),date2)==0)
+                if((MyDate.compareDate(date1,result.getString(6))==0)&&(MyDate.compareDate(result.getString(6),date2)==0)
                         &&(result.getLong(2)!=0)&&(result.getDouble(3)!=0)){
                     volume[k] = result.getLong(2);
                     high[k] = result.getDouble(3);

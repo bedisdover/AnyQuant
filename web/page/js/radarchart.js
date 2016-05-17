@@ -33,8 +33,8 @@ require(
             toolbox: {
                 show : true,
                 feature : {
-                    mark : {show: true},
-                    dataView : {show: true, readOnly: false},
+                    mark : {show: false},
+                    dataView : {show: false, readOnly: false},
                     restore : {show: true},
                     saveAsImage : {show: true}
                 }
@@ -44,8 +44,8 @@ require(
                 {
                     indicator : [
                         {text : '乖离率', max  : 100},
-                        {text : '相对强弱', max  : 100},
-                        {text : '威廉超买超卖', max  : 100},
+                        {text : '相对强弱指标', max  : 100},
+                        {text : '威廉超买超卖指标', max  : 100},
                         {text : '人气指标', max  : 100},
                         {text : '意愿指标', max  : 100}
                     ],

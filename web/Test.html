@@ -10,4 +10,91 @@
 <!-- ECharts单文件引入 -->
 <script src="page/js/dist/echarts.js"></script>
 <script type="text/javascript" src="page/js/radarchart.js"></script>
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" id="head"></div>
+
+
+<div class="container-fluid">
+    <div class="row-fluid example">
+        <div id="sidebar-code" class="col-md-4">
+            <div class="well sidebar-nav">
+                <div class="nav-header"><a href="#" onclick="autoResize()" class="glyphicon glyphicon-resize-full" id ="icon-resize" ></a>option</div>
+                    <textarea id="code" name="code">
+option = {
+    title : {
+        text: '罗纳尔多 vs 舍普琴科',
+        subtext: '完全实况球员数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        x : 'center',
+        data:['罗纳尔多','舍普琴科']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    polar : [
+        {
+            indicator : [
+                {text : '进攻', max  : 100},
+                {text : '防守', max  : 100},
+                {text : '体能', max  : 100},
+                {text : '速度', max  : 100},
+                {text : '力量', max  : 100},
+                {text : '技巧', max  : 100}
+            ],
+            radius : 130
+        }
+    ],
+    series : [
+        {
+            name: '完全实况球员数据',
+            type: 'radar',
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data : [
+                {
+                    value : [97, 42, 88, 94, 90, 86],
+                    name : '舍普琴科'
+                },
+                {
+                    value : [97, 32, 74, 95, 88, 92],
+                    name : '罗纳尔多'
+                }
+            ]
+        }
+    ]
+};
+                    </textarea>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div id="graphic" class="col-md-8">
+            <div id="main" class="main"></div>
+            <div>
+                <button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>
+                <span class="text-primary">切换主题</span>
+                <select id="theme-select"></select>
+
+                <span id='wrong-message' style="color:red"></span>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+</div><!--/.fluid-container-->
+
+<footer id="footer"></footer>
 </body>

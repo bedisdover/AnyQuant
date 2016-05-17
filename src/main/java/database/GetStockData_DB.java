@@ -1,5 +1,6 @@
 package database;
 
+import bl.util.MyDate;
 import data.GetStockData;
 import po.StockPO;
 
@@ -19,11 +20,11 @@ import java.util.List;
  *
  */
 public class GetStockData_DB {
-    final String[] stock_id = {"sh601818","sh600015","sh600016",
+    public final static String[] stock_id = {"sh601818","sh600015","sh600016",
             "sh600036","sh601009","sh601166",
             "sh601169", "sh601288","sh601328",
             "sh601398","sh601939","sh601988",
-            "sh601998","sz000001","sz002142"};
+            "sh601998","sz000001","sz002142"}; //所有银行股的代号
 
     /**
      * @param name
@@ -46,7 +47,7 @@ public class GetStockData_DB {
         StockPO stockPO = null;
         try {
             while(result.next()){
-                if((compareDate(date1,result.getString(8))==0)&&(compareDate(result.getString(8),date2)==0)){
+                if((MyDate.compareDate(date1,result.getString(8))==0)&&(MyDate.compareDate(result.getString(8),date2)==0)){
                     num++;
                 }
             }
@@ -69,7 +70,7 @@ public class GetStockData_DB {
             double[] increase_decreaseNum = new double[num];
             int k = 0;
             while(result.next()){
-                if((compareDate(date1,result.getString(8))==0)&&(compareDate(result.getString(8),date2)==0)){
+                if((MyDate.compareDate(date1,result.getString(8))==0)&&(MyDate.compareDate(result.getString(8),date2)==0)){
                     volume[k] = result.getLong(2);
                     pb[k] = result.getDouble(3);
                     high[k] = result.getDouble(4);
@@ -116,54 +117,14 @@ public class GetStockData_DB {
     public List<StockPO> getAllStock() {
         List<StockPO> stockPOList = new ArrayList<>();
         for(int i=0;i<stock_id.length;i++){
-            StockPO stockPO = getStockData_name(stock_id[i],getDate_OneMonthAgo(),getDate_Today());
+            StockPO stockPO = getStockData_name(stock_id[i], MyDate.getDate_OneMonthAgo(),MyDate.getDate_Today());
             stockPOList.add(stockPO);
         }
         return stockPOList;
     }
 
 
-    /**
-     * @param date1
-     * @param date2
-     * @return int
-     * 如果date1小于等于date2，返回0
-     * 如果date1大于等于date2，返回1
-     */
-    protected int compareDate(String date1,String date2){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = null;
-        Date d2 = null;
-        try {
-            d1 = df.parse(date1);
-            d2 = df.parse(date2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if(d1.getTime()<=d2.getTime()){
-            return 0;
-        }
-        else if(d1.getTime()>=d2.getTime()){
-            return 1;
-        }
-        else{
-            return -1;
-        }
-    }
 
-    private String getDate_Today(){
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
-    }
 
-    private String getDate_OneMonthAgo(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,-30);
-        Date date = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
-    }
 
 }
