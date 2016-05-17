@@ -28,8 +28,16 @@ public class MyDate {
      * 得到30天前的数据
      */
     public static String getDate_OneMonthAgo(){
+        return getDate_NDaysAgo(30);
+    }
+
+    /**
+     * @return String
+     * 得到n天前的数据
+     */
+    public static String getDate_NDaysAgo(int n){
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,-30);
+        calendar.add(Calendar.DATE,-n);
         Date date = calendar.getTime();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(date);

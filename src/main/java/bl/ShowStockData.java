@@ -25,7 +25,7 @@ public class ShowStockData {
      */
 
     /**
-     * @param id
+     * @param id 股票代号
      * @return StockVO
      * @throws IOException 得到指定股票的历史数据（默认为最近一个月）
      */
@@ -36,9 +36,23 @@ public class ShowStockData {
         return stockVO;
     }
 
+    /**
+     * @param id 股票代号
+     * @param d1 开始日期
+     * @param d2 结束日期
+     * @return StockVO
+     * @throws IOException
+     * 得到指定时间段内的股票数据
+     */
     public StockVO getStockData(String id,String d1,String d2) throws IOException {
         GetStockData_DB getStockData = new GetStockData_DB();
-        StockPO stockPO = getStockData.getStockData_name(id,d1,d2);
+        StockPO stockPO;
+        if(MyDate.compareDate(d2,MyDate.getDate_OneMonthAgo())==1){
+            stockPO = getStockData.getStockData_name(id,d1,MyDate.getDate_NDaysAgo(31));
+        } //如果结束日期超过30天前的日期，只返回多出
+        else{
+            stockPO = getStockData.getStockData_name(id,d1,d2);
+        }
         StockVO stockVO = new StockVO(stockPO);
         return stockVO;
     }

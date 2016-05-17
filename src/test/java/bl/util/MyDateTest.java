@@ -15,6 +15,10 @@ public class MyDateTest {
         assertNotNull(MyDate.getDate_OneMonthAgo());
     }
     @Test
+    public void getDate_NDaysAgo(){
+        assertNotNull(MyDate.getDate_NDaysAgo(10));
+    }
+    @Test
     public void compareDateTest(){
         assertEquals(1,MyDate.compareDate("2016-05-21","2016-02-22"));
     }
