@@ -11,10 +11,13 @@
 </head>
 <body>
 <div>
-    tsdjfaldf
-    <label>
-        <input id="dom-id-1"> to <input id="dom-id-2">
-    </label>
+    <span id="dom-id-1">
+        <button type="button" class="btn btn-primary">date</button>
+    </span>
+    <%--<label for="startDate">--%>
+    <%--<input id="startDate" type="text">--%>
+    <%--<input id="endDate" type="text">--%>
+    <%--</label>--%>
 </div>
 </body>
 <script>
@@ -25,6 +28,7 @@
         startDate: '2016-01-01',
         endDate: '2016-05-17',
         autoClose: true,
+
         getValue: function () {
             if ($('#dom-id-1').val() && $('#dom-id-2').val())
                 return $('#dom-id-1').val() + ' to ' + $('#dom-id-2').val();
@@ -36,5 +40,21 @@
             $('#dom-id-2').val(s2);
         }
     });
+
+//    $('#dom-id-1').dateRangePicker().bind('datepicker-change', function (event, obj) {
+//                console.log(obj);
+//                // obj will be something like this:
+//                // {
+//                //      date1: (Date object of the earlier date),
+//                //      date2: (Date object of the later date),
+//                //      value: "2013-06-05 to 2013-06-07"
+//                // }
+//            })
+//            .bind('datepicker-apply', function (event, obj) {
+//                console.log(obj);
+//            })
+//            .bind('datepicker-close', function () {
+//                console.log('close');
+//            });
 </script>
 </html>

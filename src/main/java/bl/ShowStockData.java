@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class ShowStockData {
 
+    /**
+     * todo 刚开始默认加载最近一个月的数据
+     * todo 然后每次选择日期后，给我一个方法，根据两个时间点返回数据，最好只返回多出的那部分数据
+     */
 
     /**
      * @param id

@@ -1,5 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="vo.StockVO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.ParseException" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,6 +20,9 @@
     <link href="style/portfolioStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<%!
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+%>
 <%
     session.setAttribute("which_button", "p");
 %>
@@ -202,6 +209,25 @@
                 </div>
                 <%--统计图End--%>
                 <div class="history-data well">
+                    <div class="options">
+                        <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围</button>
+                        <label id="date" style="display: none;">
+                            <%
+                                Calendar calendar = Calendar.getInstance();
+                                String endDate = stock.getDate()[stock.getDate().length - 1];
+                                try {
+                                    calendar.setTime(dateFormat.parse(endDate));
+                                } catch (ParseException e) {
+                                    //若发生异常，设为当前时间
+                                    calendar.getTime();
+                                }
+                                calendar.add(Calendar.MONTH, -1);
+                                String startDate = dateFormat.format(calendar.getTime());
+                            %>
+                            <input id="dom-id-1" value=<%=startDate%>> 至
+                            <input id="dom-id-2" value="<%=endDate%>">
+                        </label>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped text-center">
                             <thead>
@@ -269,7 +295,44 @@
 <script src="js/moment.min.js"></script>
 <script src="js/jquery.daterangepicker.js"></script>
 <script>//日期选择框
-$('#dom-id').dateRangePicker(configObject);
+var showDatePicker = function () {//显示日期选择框
+    $('#date').css({
+        display: "inline"
+    });
+};
+$('#dom-id-1, #dom-id-2').dateRangePicker({
+    format: 'YYYY-MM-DD',
+    language: 'cn',
+    startDate: '2016-01-01',
+    endDate: '2016-05-17',
+    autoClose: true,
+
+    getValue: function () {
+        if ($('#dom-id-1').val() && $('#dom-id-2').val())
+            return $('#dom-id-1').val() + ' to ' + $('#dom-id-2').val();
+        else
+            return '';
+    },
+    setValue: function (s, s1, s2) {
+        $('#dom-id-1').val(s1);
+        $('#dom-id-2').val(s2);
+    }
+});
+//$('#dom-id-1').dateRangePicker().bind('datepicker-change', function (event, obj) {
+//    console.log(obj);
+//    // obj will be something like this:
+//    // {
+//    //      date1: (Date object of the earlier date),
+//    //      date2: (Date object of the later date),
+//    //      value: "2013-06-05 to 2013-06-07"
+//    // }
+//})
+$('#dom-id-1, #dom-id-2').dateRangePicker().bind('datepicker-apply', function (event, obj) {
+    console.log("test");
+});
+//$('#dom-id-1, #dom-id-2').dateRangePicker().bind('datepicker-close', function () {
+//    alert("test");
+//});
 </script>
 <script>
     var stockNum = <%=stockList.size()%>;//股票数量
@@ -277,7 +340,6 @@ $('#dom-id').dateRangePicker(configObject);
     window.onload = function () {
         $('#accordion-element-0').collapse('show');
     };
-
 
     for (var i = 0; i < stockNum; i++) {
         $('#accordion-element-' + i).on('show.bs.collapse', function () {
