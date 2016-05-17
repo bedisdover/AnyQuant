@@ -1,3 +1,5 @@
+<%@ page import="vo.StockVO" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -57,7 +59,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li  class="active">
+                    <li class="active">
                         <a href="javascript: void(0)">
                             <span class="glyphicon glyphicon-th-list"></span> 行情
                         </a>
@@ -80,8 +82,125 @@
     </div>
 </nav>
 
+<%
+    List<StockVO> increase_rank = (List<StockVO>) request.getAttribute("increase_rank");
+    List<StockVO> decrease_rank = (List<StockVO>) request.getAttribute("decrease_rank");
+    List<StockVO> volume_rank = (List<StockVO>) request.getAttribute("volume_rank");
+%>
+
+<div class="row">
+    <div class="col-xs-6 col-md-2" id="sidebar">
+        <div class="menu list-group">
+            <a href="#" class="list-group-item active">涨幅榜</a>
+            <a href="#" class="list-group-item">跌幅榜</a>
+            <a href="#" class="list-group-item">成交量榜</a>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-9">
+        <div class="rank-list well-lg">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               href="#collapseOne">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">名称</th>
+                                            <th class="text-center">代码</th>
+                                            <th class="text-center">最高</th>
+                                            <th class="text-center">最低</th>
+                                            <th class="text-center">涨跌额</th>
+                                            <th class="text-center">涨跌幅</th>
+                                            <th class="text-center">开盘</th>
+                                            <th class="text-center">收盘</th>
+                                            <th class="text-center">成交量</th>
+                                            <th class="text-center">市盈率</th>
+                                            <th class="text-center">市净率</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+
+                                            for (StockVO stock : increase_rank) {
+                                        %>
+                                        <tr>
+                                            <td><%=stock.getName()%></td>
+                                            <td><%=stock.getId()%></td>
+                                            <td><%=stock.getHigh()[0]%></td>
+                                            <td><%=stock.getLow()[0]%></td>
+                                            <td><%=stock.getIncrease_decreaseNum()[0]%></td>
+                                            <td><%=stock.getIncrease_decreaseRate()[0]%></td>
+                                            <td><%=stock.getOpen()[0]%></td>
+                                            <td><%=stock.getClose()[0]%></td>
+                                            <td><%=stock.getVolume()[0]%></td>
+                                            <td><%=stock.getPe_ttm()[0]%></td>
+                                            <td><%=stock.getPb()[0]%></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                            vice lomo.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               href="#collapseTwo">
+                                点击我进行展开，再次点击我进行折叠。第 2 部分
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                            vice lomo.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               href="#collapseThree">
+                                点击我进行展开，再次点击我进行折叠。第 3 部分
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+                            vice lomo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><%--排行榜End--%>
+    </div>
+</div>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>//默认展开榜单
+$(function () { $('#collapseTwo').collapse('show')});
+</script>
 </body>
 </html>

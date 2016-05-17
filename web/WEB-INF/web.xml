@@ -47,6 +47,7 @@
     </filter-mapping>
 
     <filter>
+        <description>加载自选股列表</description>
         <filter-name>PortfolioFilter</filter-name>
         <filter-class>filter.PortfolioFilter</filter-class>
     </filter>
@@ -56,12 +57,23 @@
     </filter-mapping>
 
     <filter>
+        <description>加载行业新闻</description>
         <filter-name>NewsFilter</filter-name>
         <filter-class>filter.NewsFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>NewsFilter</filter-name>
         <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <description>加载各种排行榜</description>
+        <filter-name>PictureFilter</filter-name>
+        <filter-class>filter.PictureFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PictureFilter</filter-name>
+        <url-pattern>/page/picture.jsp</url-pattern>
     </filter-mapping>
 
     <filter>

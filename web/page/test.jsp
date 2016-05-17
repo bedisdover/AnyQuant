@@ -11,23 +11,24 @@
 </head>
 <body>
 <div>
-    <span id="dom-id-1">
-        <button type="button" class="btn btn-primary">date</button>
-    </span>
-    <%--<label for="startDate">--%>
-    <%--<input id="startDate" type="text">--%>
-    <%--<input id="endDate" type="text">--%>
-    <%--</label>--%>
+    <%--<span id="dom-id-1">--%>
+    <%--<button type="button" class="btn btn-primary">date</button>--%>
+    <%--</span>--%>
+    <label>
+        <input id="dom-id-1" type="text">
+        <input id="dom-id-2" type="text">
+    </label>
 </div>
 </body>
 <script>
-    $('#dom-id-1').dateRangePicker({
+    $('#dom-id-1, #dom-id-2').dateRangePicker({
         format: 'YYYY-MM-DD',
         separator: ' to ',
         language: 'cn',
         startDate: '2016-01-01',
         endDate: '2016-05-17',
         autoClose: true,
+        showShortcuts: true,
 
         getValue: function () {
             if ($('#dom-id-1').val() && $('#dom-id-2').val())
@@ -41,20 +42,10 @@
         }
     });
 
-//    $('#dom-id-1').dateRangePicker().bind('datepicker-change', function (event, obj) {
-//                console.log(obj);
-//                // obj will be something like this:
-//                // {
-//                //      date1: (Date object of the earlier date),
-//                //      date2: (Date object of the later date),
-//                //      value: "2013-06-05 to 2013-06-07"
-//                // }
-//            })
-//            .bind('datepicker-apply', function (event, obj) {
-//                console.log(obj);
-//            })
-//            .bind('datepicker-close', function () {
-//                console.log('close');
-//            });
+    $('#dom-id-2').dateRangePicker().bind('datepicker-close', function () {
+        console.log($('#dom-id-1').val());
+        console.log($('#dom-id-2').val());
+    });
+
 </script>
 </html>

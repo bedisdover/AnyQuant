@@ -1,9 +1,8 @@
-<%@ page import="java.util.List" %>
 <%@ page import="vo.StockVO" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.ParseException" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -89,15 +88,15 @@
 <div class="row">
     <div class="col-xs-6 col-md-2" id="sidebar">
         <div class="menu list-group">
-            <a href="#" class="list-group-item active">实时数据</a>
-            <a href="#" class="list-group-item">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</a>
-            <a href="#" class="list-group-item">详细数据</a>
-            <a href="#" class="list-group-item">行情预测</a>
-            <a href="#" class="list-group-item">最新资讯</a>
-
+            <span href="#" class="list-group-item active">实时数据</span>
+            <span href="#" class="list-group-item">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</span>
+            <span href="#" class="list-group-item">详细数据</span>
+            <span href="#" class="list-group-item">行情预测</span>
+            <span href="#" class="list-group-item">最新资讯</span>
         </div>
         <div class="stockList">
             <div class="accordion-group">
+                <label>关注列表</label>
                 <table class="table table-hover text-center">
                     <tr>
                         <td>名称</td>
@@ -133,7 +132,7 @@
         <div id="accordion-element-<%=i%>" class="accordion-body collapse">
             <div class="accordion-inner">
                 <div class="primary-info">
-                    <div class="row latest-data panel panel-primary"><!--最新数据-->
+                    <div class="row latest-data panel panel-primary" id="latest-data"><!--最新数据-->
                         <div class="col-md-2 name-code">
                             <P class="text-center name"><%=stock.getName()%>
                             </P>
@@ -181,7 +180,7 @@
                     </div>
                 </div>
                 <%--简要信息栏End--%>
-                <div class="graphs panel panel-primary">
+                <div class="graphs panel panel-primary" id="graphs">
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#分时图" data-toggle="tab">分时图</a>
@@ -198,6 +197,9 @@
                         <li>
                             <a href="#日K线" data-toggle="tab">日K线</a>
                         </li>
+                        <li>
+                            <a href="#雷达图" data-toggle="tab">雷达图</a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="分时图">分时图</div>
@@ -205,10 +207,13 @@
                         <div class="tab-pane fade" id="月K线">月K线</div>
                         <div class="tab-pane fade" id="周K线">周K线</div>
                         <div class="tab-pane fade" id="日K线">...</div>
+                        <div class="tab-pane fade" id="雷达图">
+                            <div id="main" style="height:400px"></div>
+                        </div>
                     </div>
                 </div>
                 <%--统计图End--%>
-                <div class="history-data well">
+                <div class="history-data well" id="history-data">
                     <div class="options">
                         <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围</button>
                         <label id="date" style="display: none;">
@@ -225,7 +230,7 @@
                                 String startDate = dateFormat.format(calendar.getTime());
                             %>
                             <input id="dom-id-1" value=<%=startDate%>> 至
-                            <input id="dom-id-2" value="<%=endDate%>">
+                            <input id="dom-id-2" readonly value="<%=endDate%>">
                         </label>
                     </div>
                     <div class="table-responsive">
@@ -278,7 +283,7 @@
                         </table>
                     </div>
                 </div>
-                <%--历史数据--%>
+                <%--历史数据End--%>
             </div>
         </div>
         <%
@@ -286,7 +291,7 @@
         %>
     </div>
 </div>
-<%--content--%>
+<%--content End--%>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
@@ -294,6 +299,11 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/jquery.daterangepicker.js"></script>
+
+<!-- ECharts单文件引入 -->
+<script src="js/dist/echarts.js"></script>
+<script type="text/javascript" src="js/radarchart.js"></script>
+
 <script>//日期选择框
 var showDatePicker = function () {//显示日期选择框
     $('#date').css({
@@ -318,21 +328,12 @@ $('#dom-id-1, #dom-id-2').dateRangePicker({
         $('#dom-id-2').val(s2);
     }
 });
-//$('#dom-id-1').dateRangePicker().bind('datepicker-change', function (event, obj) {
-//    console.log(obj);
-//    // obj will be something like this:
-//    // {
-//    //      date1: (Date object of the earlier date),
-//    //      date2: (Date object of the later date),
-//    //      value: "2013-06-05 to 2013-06-07"
-//    // }
-//})
-$('#dom-id-1, #dom-id-2').dateRangePicker().bind('datepicker-apply', function (event, obj) {
-    console.log("test");
+$('#dom-id-2').dateRangePicker().bind('datepicker-close', function () {
+    var startDate = $('#dom-id-1').val();
+    var endDate = $('#dom-id-2').val();
+
+//    self.location.reload();
 });
-//$('#dom-id-1, #dom-id-2').dateRangePicker().bind('datepicker-close', function () {
-//    alert("test");
-//});
 </script>
 <script>
     var stockNum = <%=stockList.size()%>;//股票数量
