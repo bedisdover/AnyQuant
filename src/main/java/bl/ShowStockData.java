@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by zcy on 2016/3/8.
+ *
  */
 public class ShowStockData {
 

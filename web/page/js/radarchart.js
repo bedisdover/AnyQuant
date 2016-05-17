@@ -16,7 +16,7 @@ require(
     ],
     function (ec) {
         // 基于准备好的dom，初始化echarts图表
-        var myChart = ec.init(document.getElementById('main'));
+        var myChart = ec.init(document.getElementById('main'),'helianthus');
 
         var option = {
             title : {
