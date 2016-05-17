@@ -19,12 +19,22 @@ public class SortStockTest {
     }
 
     @Test
-    public void getStockVOsTest(){
+    public void getStockVOsTest() throws IOException {
         assertEquals(15,sortStock.getStockVOs().size());
     }
 
     @Test
-    public void increase_sortTest(){
+    public void increase_sortTest() throws IOException {
+        assertNotNull(sortStock.increase_sort());
+    }
 
+    @Test
+    public void decrease_sortTest() throws IOException {
+        assertNotNull(sortStock.decrease_sort());
+    }
+
+    @Test
+    public void volume_sortTest() throws IOException {
+        assertNotNull(sortStock.volume_sort());
     }
 }

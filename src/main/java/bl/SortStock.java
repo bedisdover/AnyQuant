@@ -54,8 +54,8 @@ public class SortStock implements SortStockService{
     public List<StockVO> increase_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
-        int length = stockVOs.get(0).getDate().length;
         for (int i = 0; i < increaseRate.length; i++) {
+            int length = stockVOs.get(i).getIncrease_decreaseRate().length;
             increaseRate[i] = stockVOs.get(i).getIncrease_decreaseRate()[length-1];
         }
         for (int i = 0; i < stockVOs.size(); i++) {
@@ -79,8 +79,8 @@ public class SortStock implements SortStockService{
     public List<StockVO> decrease_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] increaseRate = new double[stockVOs.size()];
-        int length = stockVOs.get(0).getDate().length;
         for (int i = 0; i < increaseRate.length; i++) {
+            int length = stockVOs.get(i).getDate().length;
             increaseRate[i] = stockVOs.get(i).getIncrease_decreaseRate()[length-1];
         }
         for (int i = 0; i < stockVOs.size(); i++) {
@@ -104,8 +104,9 @@ public class SortStock implements SortStockService{
     public List<StockVO> volume_sort() throws IOException {
         List<StockVO> list = new ArrayList<StockVO>();
         double[] volume = new double[stockVOs.size()];
-        int length = stockVOs.get(0).getDate().length;
+
         for (int i = 0; i < volume.length; i++) {
+            int length = stockVOs.get(i).getDate().length;
             volume[i] = stockVOs.get(i).getVolume()[length-1];
         }
         for (int i = 0; i < stockVOs.size(); i++) {
@@ -121,26 +122,5 @@ public class SortStock implements SortStockService{
         return list;
     }
 
-    private double calculateIncreaseRate(String stockID) throws IOException {
-        ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-        String[] strings = s.split(",");
-        double close_yesterday = Double.parseDouble(strings[2]);
-        double currentPrice = Double.parseDouble(strings[3]);
-        return (currentPrice - close_yesterday) / close_yesterday;
-    }
 
-    private double calculateVolume(String stockID) throws IOException {
-        ReadData readData = new ReadData();
-        String s = readData.getCurrentData("http://hq.sinajs.cn/list=" + stockID);
-        String[] strings = s.split(",");
-        return Double.parseDouble(strings[8]) / 100;
-    }
-
-    private String getDate_Today(){
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
-    }
 }

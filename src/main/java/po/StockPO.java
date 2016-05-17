@@ -1,7 +1,8 @@
 package po;
 
 /**
- * Created by user on 2016/3/7.
+ * Created by zcy on 2016/3/7.
+ *
  */
 public class StockPO {
     /**

@@ -15,7 +15,7 @@ public class ShowStockDataTest {
     @Test
     public void getStockDataTest() throws IOException {
         ShowStockData showStockData = new ShowStockData();
-        StockVO stockVO = showStockData.getStockData("sh600015");
+        StockVO stockVO = showStockData.getStockData("sh600015","2005-01-04","2005-01-06");
         assertEquals("2005-01-04",stockVO.getDate()[0]);
         assertEquals(4.16001,stockVO.getHigh()[0],0.01);
         assertEquals(4.14001,stockVO.getOpen()[0],0.01);
