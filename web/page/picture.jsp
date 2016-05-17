@@ -90,108 +90,207 @@
 
 <div class="row">
     <div class="col-xs-6 col-md-2" id="sidebar">
-        <div class="menu list-group">
+        <div class="list-group">
             <a href="#" class="list-group-item active">涨幅榜</a>
             <a href="#" class="list-group-item">跌幅榜</a>
             <a href="#" class="list-group-item">成交量榜</a>
         </div>
     </div>
     <div class="col-xs-6 col-md-9">
-        <div class="rank-list well-lg">
+        <div class="rank-list well">
             <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse"
-                               href="#collapseOne">
-                                <div class="table-responsive">
-                                    <table class="table table-striped text-center">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">名称</th>
-                                            <th class="text-center">代码</th>
-                                            <th class="text-center">最高</th>
-                                            <th class="text-center">最低</th>
-                                            <th class="text-center">涨跌额</th>
-                                            <th class="text-center">涨跌幅</th>
-                                            <th class="text-center">开盘</th>
-                                            <th class="text-center">收盘</th>
-                                            <th class="text-center">成交量</th>
-                                            <th class="text-center">市盈率</th>
-                                            <th class="text-center">市净率</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
+                            <a data-toggle="collapse" href="#increase_rank">涨幅榜</a>
+                        </h4>
+                    </div>
+                    <div id="increase_rank" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">名称</th>
+                                        <th class="text-center">代码</th>
+                                        <th class="text-center">最高</th>
+                                        <th class="text-center">最低</th>
+                                        <th class="text-center">涨跌额</th>
+                                        <th class="text-center">涨跌幅</th>
+                                        <th class="text-center">开盘</th>
+                                        <th class="text-center">收盘</th>
+                                        <th class="text-center">成交量</th>
+                                        <th class="text-center">市盈率</th>
+                                        <th class="text-center">市净率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%
 
-                                            for (StockVO stock : increase_rank) {
-                                        %>
-                                        <tr>
-                                            <td><%=stock.getName()%></td>
-                                            <td><%=stock.getId()%></td>
-                                            <td><%=stock.getHigh()[0]%></td>
-                                            <td><%=stock.getLow()[0]%></td>
-                                            <td><%=stock.getIncrease_decreaseNum()[0]%></td>
-                                            <td><%=stock.getIncrease_decreaseRate()[0]%></td>
-                                            <td><%=stock.getOpen()[0]%></td>
-                                            <td><%=stock.getClose()[0]%></td>
-                                            <td><%=stock.getVolume()[0]%></td>
-                                            <td><%=stock.getPe_ttm()[0]%></td>
-                                            <td><%=stock.getPb()[0]%></td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
+                                        for (StockVO stock : increase_rank) {
+                                    %>
+                                    <tr>
+                                        <td><%=stock.getName()%>
+                                        </td>
+                                        <td><%=stock.getId()%>
+                                        </td>
+                                        <td><%=stock.getHigh()[0]%>
+                                        </td>
+                                        <td><%=stock.getLow()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                        </td>
+                                        <td><%=stock.getOpen()[0]%>
+                                        </td>
+                                        <td><%=stock.getClose()[0]%>
+                                        </td>
+                                        <td><%=stock.getVolume()[0]%>
+                                        </td>
+                                        <td><%=stock.getPe_ttm()[0]%>
+                                        </td>
+                                        <td><%=stock.getPb()[0]%>
+                                        </td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse"
-                               href="#collapseTwo">
-                                点击我进行展开，再次点击我进行折叠。第 2 部分
-                            </a>
+                            <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
                         </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
+                    <div id="decrease_rank" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">名称</th>
+                                        <th class="text-center">代码</th>
+                                        <th class="text-center">最高</th>
+                                        <th class="text-center">最低</th>
+                                        <th class="text-center">涨跌额</th>
+                                        <th class="text-center">涨跌幅</th>
+                                        <th class="text-center">开盘</th>
+                                        <th class="text-center">收盘</th>
+                                        <th class="text-center">成交量</th>
+                                        <th class="text-center">市盈率</th>
+                                        <th class="text-center">市净率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%
+
+                                        for (StockVO stock : decrease_rank) {
+                                    %>
+                                    <tr>
+                                        <td><%=stock.getName()%>
+                                        </td>
+                                        <td><%=stock.getId()%>
+                                        </td>
+                                        <td><%=stock.getHigh()[0]%>
+                                        </td>
+                                        <td><%=stock.getLow()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                        </td>
+                                        <td><%=stock.getOpen()[0]%>
+                                        </td>
+                                        <td><%=stock.getClose()[0]%>
+                                        </td>
+                                        <td><%=stock.getVolume()[0]%>
+                                        </td>
+                                        <td><%=stock.getPe_ttm()[0]%>
+                                        </td>
+                                        <td><%=stock.getPb()[0]%>
+                                        </td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse"
-                               href="#collapseThree">
-                                点击我进行展开，再次点击我进行折叠。第 3 部分
-                            </a>
+                            <a data-toggle="collapse" href="#volume_rank">成交量榜</a>
                         </h4>
                     </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
+                    <div id="volume_rank" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">名称</th>
+                                        <th class="text-center">代码</th>
+                                        <th class="text-center">最高</th>
+                                        <th class="text-center">最低</th>
+                                        <th class="text-center">涨跌额</th>
+                                        <th class="text-center">涨跌幅</th>
+                                        <th class="text-center">开盘</th>
+                                        <th class="text-center">收盘</th>
+                                        <th class="text-center">成交量</th>
+                                        <th class="text-center">市盈率</th>
+                                        <th class="text-center">市净率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%
+
+                                        for (StockVO stock : volume_rank) {
+                                    %>
+                                    <tr>
+                                        <td><%=stock.getName()%>
+                                        </td>
+                                        <td><%=stock.getId()%>
+                                        </td>
+                                        <td><%=stock.getHigh()[0]%>
+                                        </td>
+                                        <td><%=stock.getLow()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                        </td>
+                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                        </td>
+                                        <td><%=stock.getOpen()[0]%>
+                                        </td>
+                                        <td><%=stock.getClose()[0]%>
+                                        </td>
+                                        <td><%=stock.getVolume()[0]%>
+                                        </td>
+                                        <td><%=stock.getPe_ttm()[0]%>
+                                        </td>
+                                        <td><%=stock.getPb()[0]%>
+                                        </td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><%--排行榜End--%>
+        </div>
+        <%--排行榜End--%>
     </div>
 </div>
 <footer class=bs-docs-footer role=contentinfo>
@@ -200,7 +299,9 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>//默认展开榜单
-$(function () { $('#collapseTwo').collapse('show')});
+$(function () {
+    $('#collapseTwo').collapse('show')
+});
 </script>
 </body>
 </html>

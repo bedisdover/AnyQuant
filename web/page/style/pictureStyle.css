@@ -10,3 +10,8 @@ body {
 nav {
     font-size: 17px;
 }
+
+/*侧边栏*/
+#sidebar {
+    margin: auto 20px;
+}
