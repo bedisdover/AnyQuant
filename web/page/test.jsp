@@ -10,7 +10,7 @@
 <body>
 
 <ul class="pagination" id="pagination">
-    <li class="disabled" onclick="changePage(0)"><a href="#test-1">&laquo;</a></li>
+    <li onclick="changePage(0)" class="disabled"><a href="#test-1">&laquo;</a></li>
     <li onclick="changePage(1)" class="active"><a href="#test-1">1</a></li>
     <li onclick="changePage(2)"><a href="#test-2">2</a></li>
     <li onclick="changePage(3)"><a href="#test-3">3</a></li>

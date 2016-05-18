@@ -7,6 +7,7 @@ import vo.StockVO;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PictureFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
-        System.out.println("PictureFilter.doFilter");
+        HttpSession session = request.getSession();
 
         SortStockService sortStock = new SortStock();
 
@@ -30,11 +31,12 @@ public class PictureFilter implements Filter {
         List<StockVO> decrease_rank = sortStock.decrease_sort();
         List<StockVO> volume_rank = sortStock.volume_sort();
 
-        request.setAttribute("increase_rank", increase_rank);
-        request.setAttribute("decrease_rank", decrease_rank);
-        request.setAttribute("volume_rank", volume_rank);
-
-        System.out.println(increase_rank);
+        //三个榜单同时加载，只需判断一个即可
+        if (session.getAttribute("increase_rank") == null) {
+            session.setAttribute("increase_rank", increase_rank);
+            session.setAttribute("decrease_rank", decrease_rank);
+            session.setAttribute("volume_rank", volume_rank);
+        }
 
         chain.doFilter(req, resp);
     }

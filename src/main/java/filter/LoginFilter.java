@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Created by song on 16-5-14.
- *
+ * <p>
  * 用户登陆状态过滤器
  * 判断用户是否登陆，若未登陆，转到登陆界面
  */
@@ -17,13 +17,13 @@ import java.io.IOException;
 public class LoginFilter implements Filter {
     public void destroy() {
     }
-        public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
         HttpSession session = request.getSession();
 
-        System.out.println(request.getServletPath());
         if (session.getAttribute("UserId") == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }

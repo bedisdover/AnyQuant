@@ -14,7 +14,7 @@
     <meta name="author" content="Ultraviolet"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link href="../images/icon.png" rel="icon"/>
-    <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="style/daterangepicker.css"/>
     <link href="style/portfolioStyle.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -82,231 +82,254 @@
 <%--导航栏End--%>
 
 <%
-    List<StockVO> stockList = (List<StockVO>) request.getAttribute("stockList");
+    List<StockVO> stockList = (List<StockVO>) session.getAttribute("stockList");
+    StockVO stock;
 %>
 
-<div class="row">
-    <div class="col-xs-6 col-md-2">
-        <div id="sidebar">
-            <div class="menu list-group">
-                <span href="#" class="list-group-item active">实时数据</span>
-                <span href="#" class="list-group-item">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</span>
-                <span href="#" class="list-group-item">详细数据</span>
-                <span href="#" class="list-group-item">行情预测</span>
-                <span href="#" class="list-group-item">最新资讯</span>
-            </div>
-            <div class="stockList">
-                <div class="accordion-group">
-                    <span>
-                        <label>关注列表</label>
-                        <button type="button" class="btn btn-sm btn-primary">管理</button>
-                    </span>
-                    <table class="table table-hover text-center">
-                        <tr>
-                            <td>名称</td>
-                            <td>代码</td>
-                        </tr>
-                        <%
-                            StockVO stock;
-                            for (int i = 0; i < stockList.size(); i++) {
-                                stock = stockList.get(i);
-                        %>
-                        <tr>
-                            <td class="stock">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                <%--data-parent="#accordion-102144"--%>
-                                   data-target="#accordion-element-<%=i%>"
-                                   href="javascript: void(0)"><%=stock.getName()%>
-                                </a>
-                            </td>
-                            <td><%=stock.getId()%>
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-9">
-        <%
-            for (int i = 0; i < stockList.size(); i++) {
-                stock = stockList.get(i);
-        %>
-        <div id="accordion-element-<%=i%>" class="collapse">
-            <%--<div class="accordion-inner">--%>
-            <div class="panel panel-default">
-                <div class="latest-data" id="latest-data"><!--最新数据-->
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="name-code">
-                                <P class="text-center name"><%=stock.getName()%>
-                                </P>
-                                <p class="text-center code">（<%=stock.getId()%>）</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="inc-dec">
-                                <p class="text-left text-danger price">
-                                    366.68
-                                    <small>
-                                        <small>
-                                            <small class="text-success">-6.16 (-1.65%)</small>
-                                        </small>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="data">
-                                <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
-                                    <div class="col-md-4">
-                                        <p class="text-left">今开：372.72</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p class="text-left">最高：373.64</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <P class="text-left">成交量：60.03万手</P>
-                                    </div>
-                                </div>
-                                <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
-                                    <div class="col-md-4">
-                                        <p class="text-left">昨收：372.84</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p class="text-left">最低：366.50</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <P class="text-left">成交额：4.92亿</P>
-                                    </div>
-                                </div>
-                            </div>
-                            <%--data--%>
-                        </div>
-                    </div>
-                </div>
-                <%--简要信息栏End--%>
-                <div class="graphs" id="graphs">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#分时图" data-toggle="tab">分时图</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 col-md-2">
+            <div id="sidebar">
+                <div class="list-group">
+                    <ul class="menu" id="menu">
+                        <li onclick="page_jump(this, 'latest-data')"
+                            class="list-group-item text-center active">实时数据
                         </li>
-                        <li>
-                            <a href="#折线图" data-toggle="tab">折线图</a>
+                        <li onclick="page_jump(this, 'graphs')" class="list-group-item text-center">
+                            图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表
                         </li>
-                        <li>
-                            <a href="#月K线" data-toggle="tab">月K线</a>
+                        <li onclick="page_jump(this, 'history-data')"
+                            class="list-group-item text-center">详细数据
                         </li>
-                        <li>
-                            <a href="#周K线" data-toggle="tab">周K线</a>
+                        <li onclick="page_jump(this, 'picture-prediction')"
+                            class="list-group-item text-center">行情预测
                         </li>
-                        <li>
-                            <a href="#日K线" data-toggle="tab">日K线</a>
-                        </li>
-                        <li>
-                            <a href="#雷达图" data-toggle="tab">雷达图</a>
+                        <li onclick="page_jump(this, 'stock-news')"
+                            class="list-group-item text-center">最新资讯
                         </li>
                     </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="分时图">分时图</div>
-                        <div class="tab-pane fade" id="折线图">折线图</div>
-                        <div class="tab-pane fade" id="月K线">月K线</div>
-                        <div class="tab-pane fade" id="周K线">周K线</div>
-                        <div class="tab-pane fade" id="日K线">...</div>
-                        <div class="tab-pane fade" id="雷达图">
-                            <div id="main" style="height:400px"></div>
-                        </div>
-                    </div>
                 </div>
-                <%--统计图End--%>
-                <div class="history-data well" id="history-data">
-                    <div class="options">
-                        <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围
-                        </button>
-                        <label id="date" style="display: none;">
-                            <%
-                                Calendar calendar = Calendar.getInstance();
-                                String endDate = stock.getDate()[stock.getDate().length - 1];
-                                try {
-                                    calendar.setTime(dateFormat.parse(endDate));
-                                } catch (ParseException e) {
-                                    //若发生异常，设为当前时间
-                                    calendar.getTime();
-                                }
-                                calendar.add(Calendar.MONTH, -1);
-                                String startDate = dateFormat.format(calendar.getTime());
-                            %>
-                            <input id="startDate" value=<%=startDate%>> 至
-                            <input id="endDate" readonly value="<%=endDate%>">
-                        </label>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped text-center">
-                            <thead>
+                <div class="stockList">
+                    <div class="accordion-group">
+                    <span>
+                        <label class="pull-left">关注列表</label>&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    </span>
+                        <table class="table table-hover text-center">
                             <tr>
-                                <th class="text-center">日期</th>
-                                <th class="text-center">最高</th>
-                                <th class="text-center">最低</th>
-                                <th class="text-center">涨跌额</th>
-                                <th class="text-center">涨跌幅</th>
-                                <th class="text-center">开盘</th>
-                                <th class="text-center">收盘</th>
-                                <th class="text-center">成交量</th>
-                                <th class="text-center">市盈率</th>
-                                <th class="text-center">市净率</th>
+                                <td>名称</td>
+                                <td>代码</td>
                             </tr>
-                            </thead>
-                            <tbody>
                             <%
-
-                                for (int j = stock.getDate().length - 1; j >= 0; j--) {
+                                for (int i = 0; i < stockList.size(); i++) {
+                                    stock = stockList.get(i);
                             %>
                             <tr>
-                                <td><%=stock.getDate()[j]%>
+                                <td class="stock">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                    <%--data-parent="#accordion-102144"--%>
+                                       data-target="#accordion-element-<%=i%>"
+                                       href="javascript: void(0)"><%=stock.getName()%>
+                                    </a>
                                 </td>
-                                <td><%=stock.getHigh()[j]%>
-                                </td>
-                                <td><%=stock.getLow()[j]%>
-                                </td>
-                                <td><%=stock.getIncrease_decreaseNum()[j]%>
-                                </td>
-                                <td><%=stock.getIncrease_decreaseRate()[j]%>
-                                </td>
-                                <td><%=stock.getOpen()[j]%>
-                                </td>
-                                <td><%=stock.getClose()[j]%>
-                                </td>
-                                <td><%=stock.getVolume()[j]%>
-                                </td>
-                                <td><%=stock.getPe_ttm()[j]%>
-                                </td>
-                                <td><%=stock.getPb()[j]%>
+                                <td><%=stock.getId()%>
                                 </td>
                             </tr>
                             <%
                                 }
                             %>
-                            </tbody>
                         </table>
                     </div>
                 </div>
-                <%--历史数据End--%>
             </div>
         </div>
-        <%
-            }
-        %>
+        <div class="col-xs-6 col-md-9">
+            <%
+                for (int i = 0; i < stockList.size(); i++) {
+                    stock = stockList.get(i);
+            %>
+            <div id="accordion-element-<%=i%>" class="collapse">
+                <%--<div class="accordion-inner">--%>
+                <div class="panel panel-default">
+                    <div class="latest-data" id="latest-data"><!--最新数据-->
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="name-code">
+                                    <P class="text-center name"><%=stock.getName()%>
+                                    </P>
+                                    <p class="text-center code">（<%=stock.getId()%>）</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="inc-dec">
+                                    <p class="text-left text-danger price">
+                                        366.68
+                                        <small>
+                                            <small>
+                                                <small class="text-success">-6.16 (-1.65%)</small>
+                                            </small>
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="data">
+                                    <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                                        <div class="col-md-4">
+                                            <p class="text-left">今开：372.72</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="text-left">最高：373.64</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <P class="text-left">成交量：60.03万手</P>
+                                        </div>
+                                    </div>
+                                    <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                                        <div class="col-md-4">
+                                            <p class="text-left">昨收：372.84</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="text-left">最低：366.50</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <P class="text-left">成交额：4.92亿</P>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--data--%>
+                            </div>
+                        </div>
+                    </div>
+                    <%--简要信息栏End--%>
+                    <div class="graphs" id="graphs">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#分时图" data-toggle="tab">分时图</a>
+                            </li>
+                            <li>
+                                <a href="#折线图" data-toggle="tab">折线图</a>
+                            </li>
+                            <li>
+                                <a href="#月K线" data-toggle="tab">月K线</a>
+                            </li>
+                            <li>
+                                <a href="#周K线" data-toggle="tab">周K线</a>
+                            </li>
+                            <li>
+                                <a href="#日K线" data-toggle="tab">日K线</a>
+                            </li>
+                            <li>
+                                <a href="#雷达图" data-toggle="tab">雷达图</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="分时图">分时图</div>
+                            <div class="tab-pane fade" id="折线图">折线图</div>
+                            <div class="tab-pane fade" id="月K线">月K线</div>
+                            <div class="tab-pane fade" id="周K线">周K线</div>
+                            <div class="tab-pane fade" id="日K线">...</div>
+                            <div class="tab-pane fade" id="雷达图">
+                                <div id="main" style="height:400px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--统计图End--%>
+                    <div class="history-data well" id="history-data">
+                        <div class="options">
+                            <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围
+                            </button>
+                            <label id="date" style="display: none;">
+                                <%
+                                    Calendar calendar = Calendar.getInstance();
+                                    String endDate = stock.getDate()[stock.getDate().length - 1];
+                                    try {
+                                        calendar.setTime(dateFormat.parse(endDate));
+                                    } catch (ParseException e) {
+                                        //若发生异常，设为当前时间
+                                        calendar.getTime();
+                                    }
+                                    calendar.add(Calendar.MONTH, -1);
+                                    String startDate = dateFormat.format(calendar.getTime());
+                                %>
+                                <input id="startDate" value=<%=startDate%>> 至
+                                <input id="endDate" readonly value="<%=endDate%>">
+                            </label>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped text-center">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">日期</th>
+                                    <th class="text-center">最高</th>
+                                    <th class="text-center">最低</th>
+                                    <th class="text-center">涨跌额</th>
+                                    <th class="text-center">涨跌幅</th>
+                                    <th class="text-center">开盘</th>
+                                    <th class="text-center">收盘</th>
+                                    <th class="text-center">成交量</th>
+                                    <th class="text-center">市盈率</th>
+                                    <th class="text-center">市净率</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+
+                                    for (int j = stock.getDate().length - 1; j >= 0; j--) {
+                                %>
+                                <tr>
+                                    <td><%=stock.getDate()[j]%>
+                                    </td>
+                                    <td><%=stock.getHigh()[j]%>
+                                    </td>
+                                    <td><%=stock.getLow()[j]%>
+                                    </td>
+                                    <td><%=stock.getIncrease_decreaseNum()[j]%>
+                                    </td>
+                                    <td><%=stock.getIncrease_decreaseRate()[j]%>
+                                    </td>
+                                    <td><%=stock.getOpen()[j]%>
+                                    </td>
+                                    <td><%=stock.getClose()[j]%>
+                                    </td>
+                                    <td><%=stock.getVolume()[j]%>
+                                    </td>
+                                    <td><%=stock.getPe_ttm()[j]%>
+                                    </td>
+                                    <td><%=stock.getPb()[j]%>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <%--历史数据End--%>
+                    <div id="picture-prediction">
+
+                    </div>
+                    <%--行情预测End--%>
+                    <div id="stock-news">
+
+                    </div>
+                    <%--实时资讯End--%>
+                </div>
+            </div>
+            <%
+                }
+            %>
+        </div>
     </div>
 </div>
+
 <%--content End--%>
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/jquery.daterangepicker.js"></script>
 
@@ -350,23 +373,46 @@
 <%--固定侧边栏Start--%>
 <script>
     var jWindow = $(window);
+    var window_height = window.screen.availHeight;
+
     jWindow.scroll(function () {
         var scrollHeight = jWindow.scrollTop();
-        $("#sidebar").css({
-            position: "relative",
-            left: "0px",
-            top: scrollHeight + "px"
-        });
+
+        if (scrollHeight < window_height - 157) {//157为footer高度
+            $("#sidebar").css({
+                position: "relative",
+                top: scrollHeight + "px"
+            });
+        }
     });
 </script>
 <%--固定侧边栏End--%>
 
 <%--侧边栏导航Start--%>
 <script>
-    function click_scroll(target) {
+    var menu = document.getElementById('menu');
+    var items = menu.getElementsByTagName('li');
+    function page_jump(item, target) {
+        var selected = getSelected();
+
+        items[selected].className = 'list-group-item text-center';
+        item.className = 'list-group-item text-center active';
+
+        scroll(target);
+    }
+
+    function getSelected() {
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].className == 'list-group-item text-center active') {
+                return i;
+            }
+        }
+    }
+
+    function scroll(target) {
         var scroll_offset = $("#" + target).offset();  //得到pos这个div层的offset，包含两个值，top和left
         $('body, html').animate({
-            scrollTop: scroll_offset.top - 100,  //让body的scrollTop等于pos的top，就实现了滚动
+            scrollTop: scroll_offset.top - 60,  //让body的scrollTop等于pos的top，就实现了滚动
         }, 0);
     }
 </script>

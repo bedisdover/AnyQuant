@@ -13,8 +13,16 @@ nav {
 }
 
 .menu {
-    margin-left: 15px;
-    margin-right: 25px;
+    width: 170px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.menu li:hover {
+    cursor: pointer;
+    background: #999999;
 }
 
 .stockList {

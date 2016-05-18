@@ -83,228 +83,231 @@
 </nav>
 
 <%
-    List<StockVO> increase_rank = (List<StockVO>) request.getAttribute("increase_rank");
-    List<StockVO> decrease_rank = (List<StockVO>) request.getAttribute("decrease_rank");
-    List<StockVO> volume_rank = (List<StockVO>) request.getAttribute("volume_rank");
+    List<StockVO> increase_rank = (List<StockVO>) session.getAttribute("increase_rank");
+    List<StockVO> decrease_rank = (List<StockVO>) session.getAttribute("decrease_rank");
+    List<StockVO> volume_rank = (List<StockVO>) session.getAttribute("volume_rank");
 %>
 
-<div class="row">
-    <div class="col-xs-6 col-md-2">
-        <div id="sidebar">
-            <div class="list-group nav">
-                <ul class="nav">
-                    <li onclick="click_scroll('increase_rank')">
-                        <a href="javascript: void(0)" class="list-group-item
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 col-md-2">
+            <div id="sidebar">
+                <div class="list-group">
+                    <ul>
+                        <li onclick="click_scroll('increase_rank')">
+                            <a href="javascript: void(0)" class="list-group-item
                         list-group-item-danger active">涨幅榜</a>
-                    </li>
-                    <li onclick="click_scroll('decrease_rank')">
-                        <a href="javascript: void(0)" class="list-group-item
+                        </li>
+                        <li onclick="click_scroll('decrease_rank')">
+                            <a href="javascript: void(0)" class="list-group-item
                         list-group-item-success active">跌幅榜</a>
-                    </li>
-                    <li onclick="click_scroll('volume_rank')">
-                        <a href="javascript: void(0)" class="list-group-item active">成交量榜</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-9">
-        <div class="rank-list well">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#increase_rank">涨幅榜</a>
-                        </h4>
-                    </div>
-                    <div id="increase_rank" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped text-center">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">名称</th>
-                                        <th class="text-center">代码</th>
-                                        <th class="text-center">最高</th>
-                                        <th class="text-center">最低</th>
-                                        <th class="text-center">涨跌额</th>
-                                        <th class="text-center">涨跌幅</th>
-                                        <th class="text-center">开盘</th>
-                                        <th class="text-center">收盘</th>
-                                        <th class="text-center">成交量</th>
-                                        <th class="text-center">市盈率</th>
-                                        <th class="text-center">市净率</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <%
-
-                                        for (StockVO stock : increase_rank) {
-                                    %>
-                                    <tr>
-                                        <td><%=stock.getName()%>
-                                        </td>
-                                        <td><%=stock.getId()%>
-                                        </td>
-                                        <td><%=stock.getHigh()[0]%>
-                                        </td>
-                                        <td><%=stock.getLow()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
-                                        </td>
-                                        <td><%=stock.getOpen()[0]%>
-                                        </td>
-                                        <td><%=stock.getClose()[0]%>
-                                        </td>
-                                        <td><%=stock.getVolume()[0]%>
-                                        </td>
-                                        <td><%=stock.getPe_ttm()[0]%>
-                                        </td>
-                                        <td><%=stock.getPb()[0]%>
-                                        </td>
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
-                        </h4>
-                    </div>
-                    <div id="decrease_rank" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped text-center">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">名称</th>
-                                        <th class="text-center">代码</th>
-                                        <th class="text-center">最高</th>
-                                        <th class="text-center">最低</th>
-                                        <th class="text-center">涨跌额</th>
-                                        <th class="text-center">涨跌幅</th>
-                                        <th class="text-center">开盘</th>
-                                        <th class="text-center">收盘</th>
-                                        <th class="text-center">成交量</th>
-                                        <th class="text-center">市盈率</th>
-                                        <th class="text-center">市净率</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <%
-
-                                        for (StockVO stock : decrease_rank) {
-                                    %>
-                                    <tr>
-                                        <td><%=stock.getName()%>
-                                        </td>
-                                        <td><%=stock.getId()%>
-                                        </td>
-                                        <td><%=stock.getHigh()[0]%>
-                                        </td>
-                                        <td><%=stock.getLow()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
-                                        </td>
-                                        <td><%=stock.getOpen()[0]%>
-                                        </td>
-                                        <td><%=stock.getClose()[0]%>
-                                        </td>
-                                        <td><%=stock.getVolume()[0]%>
-                                        </td>
-                                        <td><%=stock.getPe_ttm()[0]%>
-                                        </td>
-                                        <td><%=stock.getPb()[0]%>
-                                        </td>
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#volume_rank">成交量榜</a>
-                        </h4>
-                    </div>
-                    <div id="volume_rank" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped text-center">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">名称</th>
-                                        <th class="text-center">代码</th>
-                                        <th class="text-center">最高</th>
-                                        <th class="text-center">最低</th>
-                                        <th class="text-center">涨跌额</th>
-                                        <th class="text-center">涨跌幅</th>
-                                        <th class="text-center">开盘</th>
-                                        <th class="text-center">收盘</th>
-                                        <th class="text-center">成交量</th>
-                                        <th class="text-center">市盈率</th>
-                                        <th class="text-center">市净率</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <%
-
-                                        for (StockVO stock : volume_rank) {
-                                    %>
-                                    <tr>
-                                        <td><%=stock.getName()%>
-                                        </td>
-                                        <td><%=stock.getId()%>
-                                        </td>
-                                        <td><%=stock.getHigh()[0]%>
-                                        </td>
-                                        <td><%=stock.getLow()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseNum()[0]%>
-                                        </td>
-                                        <td><%=stock.getIncrease_decreaseRate()[0]%>
-                                        </td>
-                                        <td><%=stock.getOpen()[0]%>
-                                        </td>
-                                        <td><%=stock.getClose()[0]%>
-                                        </td>
-                                        <td><%=stock.getVolume()[0]%>
-                                        </td>
-                                        <td><%=stock.getPe_ttm()[0]%>
-                                        </td>
-                                        <td><%=stock.getPb()[0]%>
-                                        </td>
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                        <li onclick="click_scroll('volume_rank')">
+                            <a href="javascript: void(0)" class="list-group-item active">成交量榜</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <%--排行榜End--%>
+        <div class="col-xs-6 col-md-9">
+            <div class="rank-list well">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#increase_rank">涨幅榜</a>
+                            </h4>
+                        </div>
+                        <div id="increase_rank" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">名称</th>
+                                            <th class="text-center">代码</th>
+                                            <th class="text-center">最高</th>
+                                            <th class="text-center">最低</th>
+                                            <th class="text-center">涨跌额</th>
+                                            <th class="text-center">涨跌幅</th>
+                                            <th class="text-center">开盘</th>
+                                            <th class="text-center">收盘</th>
+                                            <th class="text-center">成交量</th>
+                                            <th class="text-center">市盈率</th>
+                                            <th class="text-center">市净率</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+
+                                            for (StockVO stock : increase_rank) {
+                                        %>
+                                        <tr>
+                                            <td><%=stock.getName()%>
+                                            </td>
+                                            <td><%=stock.getId()%>
+                                            </td>
+                                            <td><%=stock.getHigh()[0]%>
+                                            </td>
+                                            <td><%=stock.getLow()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                            </td>
+                                            <td><%=stock.getOpen()[0]%>
+                                            </td>
+                                            <td><%=stock.getClose()[0]%>
+                                            </td>
+                                            <td><%=stock.getVolume()[0]%>
+                                            </td>
+                                            <td><%=stock.getPe_ttm()[0]%>
+                                            </td>
+                                            <td><%=stock.getPb()[0]%>
+                                            </td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
+                            </h4>
+                        </div>
+                        <div id="decrease_rank" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">名称</th>
+                                            <th class="text-center">代码</th>
+                                            <th class="text-center">最高</th>
+                                            <th class="text-center">最低</th>
+                                            <th class="text-center">涨跌额</th>
+                                            <th class="text-center">涨跌幅</th>
+                                            <th class="text-center">开盘</th>
+                                            <th class="text-center">收盘</th>
+                                            <th class="text-center">成交量</th>
+                                            <th class="text-center">市盈率</th>
+                                            <th class="text-center">市净率</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+
+                                            for (StockVO stock : decrease_rank) {
+                                        %>
+                                        <tr>
+                                            <td><%=stock.getName()%>
+                                            </td>
+                                            <td><%=stock.getId()%>
+                                            </td>
+                                            <td><%=stock.getHigh()[0]%>
+                                            </td>
+                                            <td><%=stock.getLow()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                            </td>
+                                            <td><%=stock.getOpen()[0]%>
+                                            </td>
+                                            <td><%=stock.getClose()[0]%>
+                                            </td>
+                                            <td><%=stock.getVolume()[0]%>
+                                            </td>
+                                            <td><%=stock.getPe_ttm()[0]%>
+                                            </td>
+                                            <td><%=stock.getPb()[0]%>
+                                            </td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#volume_rank">成交量榜</a>
+                            </h4>
+                        </div>
+                        <div id="volume_rank" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">名称</th>
+                                            <th class="text-center">代码</th>
+                                            <th class="text-center">最高</th>
+                                            <th class="text-center">最低</th>
+                                            <th class="text-center">涨跌额</th>
+                                            <th class="text-center">涨跌幅</th>
+                                            <th class="text-center">开盘</th>
+                                            <th class="text-center">收盘</th>
+                                            <th class="text-center">成交量</th>
+                                            <th class="text-center">市盈率</th>
+                                            <th class="text-center">市净率</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+
+                                            for (StockVO stock : volume_rank) {
+                                        %>
+                                        <tr>
+                                            <td><%=stock.getName()%>
+                                            </td>
+                                            <td><%=stock.getId()%>
+                                            </td>
+                                            <td><%=stock.getHigh()[0]%>
+                                            </td>
+                                            <td><%=stock.getLow()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                            </td>
+                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                            </td>
+                                            <td><%=stock.getOpen()[0]%>
+                                            </td>
+                                            <td><%=stock.getClose()[0]%>
+                                            </td>
+                                            <td><%=stock.getVolume()[0]%>
+                                            </td>
+                                            <td><%=stock.getPe_ttm()[0]%>
+                                            </td>
+                                            <td><%=stock.getPb()[0]%>
+                                            </td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%--排行榜End--%>
+        </div>
     </div>
 </div>
+
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
@@ -320,13 +323,18 @@ $(function () {
 <%--固定侧边栏Start--%>
 <script>
     var jWindow = $(window);
+    var window_height = window.screen.availHeight;
+
     jWindow.scroll(function () {
         var scrollHeight = jWindow.scrollTop();
-        $("#sidebar").css({
-            position: "relative",
-            left: "0px",
-            top: scrollHeight + "px"
-        });
+
+        if (scrollHeight < window_height - 157) {//157为footer高度
+            $("#sidebar").css({
+                position: "relative",
+                left: "0px",
+                top: scrollHeight + "px"
+            });
+        }
     });
 </script>
 <%--固定侧边栏End--%>
