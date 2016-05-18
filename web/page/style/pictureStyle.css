@@ -15,3 +15,7 @@ nav {
 #sidebar {
     margin: auto 20px;
 }
+
+.list-group {
+    width: 120px;
+}

@@ -1,0 +1,18 @@
+.cd-btn {
+    background: #cdf199;
+    color: #053644;
+    border-radius: 10em;
+    display: inline-block;
+    padding: 0.6em 1.4em;
+    /*font-size: 1.4rem;*/
+    letter-spacing: .15em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    -webkit-transition: box-shadow .3s;
+    transition: box-shadow .3s;
+}
+
+.cd-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+

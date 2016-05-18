@@ -89,11 +89,23 @@
 %>
 
 <div class="row">
-    <div class="col-xs-6 col-md-2" id="sidebar">
-        <div class="list-group" >
-            <a href="#increase_rank" class="list-group-item list-group-item-danger active">涨幅榜</a>
-            <a href="#decrease_rank" class="list-group-item list-group-item-success">跌幅榜</a>
-            <a href="#volume_rank" class="list-group-item list-group-item-text">成交量榜</a>
+    <div class="col-xs-6 col-md-2">
+        <div id="sidebar">
+            <div class="list-group nav">
+                <ul class="nav">
+                    <li onclick="click_scroll('increase_rank')">
+                        <a href="javascript: void(0)" class="list-group-item
+                        list-group-item-danger active">涨幅榜</a>
+                    </li>
+                    <li onclick="click_scroll('decrease_rank')">
+                        <a href="javascript: void(0)" class="list-group-item
+                        list-group-item-success active">跌幅榜</a>
+                    </li>
+                    <li onclick="click_scroll('volume_rank')">
+                        <a href="javascript: void(0)" class="list-group-item active">成交量榜</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="col-xs-6 col-md-9">
@@ -298,10 +310,38 @@
 </footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
 <script>//默认展开榜单
 $(function () {
     $('#collapseTwo').collapse('show')
 });
 </script>
+
+<%--固定侧边栏Start--%>
+<script>
+    var jWindow = $(window);
+    jWindow.scroll(function () {
+        var scrollHeight = jWindow.scrollTop();
+        $("#sidebar").css({
+            position: "relative",
+            left: "0px",
+            top: scrollHeight + "px"
+        });
+    });
+</script>
+<%--固定侧边栏End--%>
+
+<%--侧边栏导航Start--%>
+<script>
+    function click_scroll(target) {
+        var scroll_offset = $("#" + target).offset();  //得到pos这个div层的offset，包含两个值，top和left
+        $('body, html').animate({
+            scrollTop: scroll_offset.top - 100,  //让body的scrollTop等于pos的top，就实现了滚动
+        }, 0);
+    }
+</script>
+<%--侧边栏导航End--%>
+
+
 </body>
 </html>
