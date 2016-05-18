@@ -90,16 +90,16 @@
 
 <div class="row">
     <div class="col-xs-6 col-md-2" id="sidebar">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">涨幅榜</a>
-            <a href="#" class="list-group-item">跌幅榜</a>
-            <a href="#" class="list-group-item">成交量榜</a>
+        <div class="list-group" >
+            <a href="#increase_rank" class="list-group-item list-group-item-danger active">涨幅榜</a>
+            <a href="#decrease_rank" class="list-group-item list-group-item-success">跌幅榜</a>
+            <a href="#volume_rank" class="list-group-item list-group-item-text">成交量榜</a>
         </div>
     </div>
     <div class="col-xs-6 col-md-9">
         <div class="rank-list well">
             <div class="panel-group" id="accordion">
-                <div class="panel panel-success">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" href="#increase_rank">涨幅榜</a>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-danger">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
