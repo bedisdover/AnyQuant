@@ -279,18 +279,18 @@ public class GetStockData implements GetStockDataService {
 
         double a = Double.parseDouble(strings[8]);
         a = a/1000000;
-        currentStockPO.setVolume(a+"万手");
+        currentStockPO.setVolume(remain2bit(a+"")+"万手");
 
         a = Double.parseDouble(strings[9]);
         a = a/10000;
-        currentStockPO.setVolume_value(a+"万元");
+        currentStockPO.setVolume_value(remain2bit(a+"")+"万元");
 
         a = Double.parseDouble(strings[3]);//当前价
         double b = Double.parseDouble(strings[2]);//昨日收盘价
         double incNum = a-b;
-        double incRate = incNum/b;
+        double incRate = incNum/b*100.0;
         currentStockPO.setIncrease_decreaseNum(remain2bit(incNum+""));
-        currentStockPO.setIncrease_decreaseRate(remain2bit(incRate+""));
+        currentStockPO.setIncrease_decreaseRate(remain2bit(incRate+"%"));
         currentStockPO.setCurrentPrice(remain2bit(strings[3]));
         currentStockPO.setHigh(remain2bit(strings[4]));
         currentStockPO.setLow(remain2bit(strings[5]));
