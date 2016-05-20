@@ -52,7 +52,7 @@ public class Initial {
                     pstmt.setDouble(9,remain2bit(list.get(i).getClose()[j]));
                     pstmt.setDouble(10,remain2bit(list.get(i).getOpen()[j]));
                     pstmt.setDouble(11,remain2bit(list.get(i).getTurnover()[j]));
-                    pstmt.setDouble(12,remain2bit(list.get(i).getIncrease_decreaseRate()[j]));
+                    pstmt.setDouble(12,remain2bit(list.get(i).getIncrease_decreaseRate()[j]*100));
                     pstmt.setDouble(13,remain2bit(list.get(i).getIncrease_decreaseNum()[j]));
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class Initial {
                 pstmt.setString(6,po.getDate()[i]);
                 pstmt.setDouble(7,remain2bit(po.getClose()[i]));
                 pstmt.setDouble(8,remain2bit(po.getOpen()[i]));
-                pstmt.setDouble(9,remain2bit(po.getIncrease_decreaseRate()[i]));
+                pstmt.setDouble(9,remain2bit(po.getIncrease_decreaseRate()[i]*100));
                 pstmt.setDouble(10,remain2bit(po.getIncrease_decreaseNum()[i]));
                 pstmt.executeUpdate();
             } catch (SQLException e) {

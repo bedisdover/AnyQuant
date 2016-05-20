@@ -58,7 +58,7 @@ public class GetIndexData implements GetIndexDataService {
             open[k] = Double.parseDouble(jsonObject.getString("open"));
 
             if(k>=1){
-                increase_decreaseRate[k] = (close[k]-close[k-1])/close[k-1];
+                increase_decreaseRate[k] = ((double) Math.round((close[k] - close[k - 1]) / close[k - 1] * 10000)) / 10000;
                 increase_decreaseNum[k] = close[k]-close[k-1];
             }
 
@@ -136,7 +136,7 @@ public class GetIndexData implements GetIndexDataService {
             open[k] = Double.parseDouble(jsonObject.getString("open"));
 
             if(k>=1){
-                increase_decreaseRate[k] = (close[k]-close[k-1])/close[k-1];
+                increase_decreaseRate[k] = ((double) Math.round((close[k] - close[k - 1]) / close[k - 1] * 10000)) / 10000;
                 increase_decreaseNum[k] = close[k]-close[k-1];
             }
 
