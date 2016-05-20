@@ -10,7 +10,11 @@
     <meta name="keyword" content="AnyQuant,股票,电话交易"/>
     <meta name="author" content="Ultraviolet"/>
     <link href="../images/icon.png" rel="icon"/>
-    <link href="style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../reference/table/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="../reference/table/css/default.css">
+    <link type="text/css" href="../reference/table/css/styles.css" media="all" rel="stylesheet"/>
+    <link type="text/css" href="../reference/table/css/stickysort.css" media="all" rel="stylesheet"/>
     <link href="style/pictureStyle.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -93,23 +97,24 @@
         <div class="col-xs-6 col-md-2">
             <div id="sidebar">
                 <div class="list-group">
-                    <ul>
+                    <ul class="menu">
                         <li onclick="click_scroll('increase_rank')">
                             <a href="javascript: void(0)" class="list-group-item
-                        list-group-item-danger active">涨幅榜</a>
+                        list-group-item-danger text-center active">涨幅榜</a>
                         </li>
                         <li onclick="click_scroll('decrease_rank')">
                             <a href="javascript: void(0)" class="list-group-item
-                        list-group-item-success active">跌幅榜</a>
+                        list-group-item-success text-center active">跌幅榜</a>
                         </li>
                         <li onclick="click_scroll('volume_rank')">
-                            <a href="javascript: void(0)" class="list-group-item active">成交量榜</a>
+                            <a href="javascript: void(0)" class="list-group-item
+                            text-center active">成交量榜</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 col-md-9">
+        <div class="col-xs-6 col-md-10">
             <div class="rank-list well">
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-danger">
@@ -121,56 +126,80 @@
                         <div id="increase_rank" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped text-center">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">名称</th>
-                                            <th class="text-center">代码</th>
-                                            <th class="text-center">最高</th>
-                                            <th class="text-center">最低</th>
-                                            <th class="text-center">涨跌额</th>
-                                            <th class="text-center">涨跌幅</th>
-                                            <th class="text-center">开盘</th>
-                                            <th class="text-center">收盘</th>
-                                            <th class="text-center">成交量</th>
-                                            <th class="text-center">市盈率</th>
-                                            <th class="text-center">市净率</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-
-                                            for (StockVO stock : increase_rank) {
-                                        %>
-                                        <tr>
-                                            <td><%=stock.getName()%>
-                                            </td>
-                                            <td><%=stock.getId()%>
-                                            </td>
-                                            <td><%=stock.getHigh()[0]%>
-                                            </td>
-                                            <td><%=stock.getLow()[0]%>
-                                            </td>
-                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
-                                            </td>
-                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
-                                            </td>
-                                            <td><%=stock.getOpen()[0]%>
-                                            </td>
-                                            <td><%=stock.getClose()[0]%>
-                                            </td>
-                                            <td><%=stock.getVolume()[0]%>
-                                            </td>
-                                            <td><%=stock.getPe_ttm()[0]%>
-                                            </td>
-                                            <td><%=stock.getPb()[0]%>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                        </tbody>
-                                    </table>
+                                    <div id="basic-sort">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            <%
+                                                String textColor = "";
+                                                for (StockVO stock : increase_rank) {
+                                                    if (stock.getIncrease_decreaseNum()[0] > 0) {
+                                                        textColor = "text-danger";
+                                                    } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+                                                        textColor = "text-success";
+                                                    } else {
+                                                        textColor = "";
+                                                    }
+                                            %>
+                                            <tr>
+                                                <td class="text-center"><%=stock.getName()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getId()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getHigh()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getLow()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getOpen()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getClose()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getVolume()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPe_ttm()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPb()[0]%>
+                                                </td>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,8 +231,14 @@
                                         </thead>
                                         <tbody>
                                         <%
-
                                             for (StockVO stock : decrease_rank) {
+                                                if (stock.getIncrease_decreaseNum()[0] > 0) {
+                                                    textColor = "text-danger";
+                                                } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+                                                    textColor = "text-success";
+                                                } else {
+                                                    textColor = "";
+                                                }
                                         %>
                                         <tr>
                                             <td><%=stock.getName()%>
@@ -214,9 +249,9 @@
                                             </td>
                                             <td><%=stock.getLow()[0]%>
                                             </td>
-                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
                                             </td>
-                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
                                             </td>
                                             <td><%=stock.getOpen()[0]%>
                                             </td>
@@ -265,8 +300,14 @@
                                         </thead>
                                         <tbody>
                                         <%
-
                                             for (StockVO stock : volume_rank) {
+                                                if (stock.getIncrease_decreaseNum()[0] > 0) {
+                                                    textColor = "text-danger";
+                                                } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+                                                    textColor = "text-success";
+                                                } else {
+                                                    textColor = "";
+                                                }
                                         %>
                                         <tr>
                                             <td><%=stock.getName()%>
@@ -277,9 +318,9 @@
                                             </td>
                                             <td><%=stock.getLow()[0]%>
                                             </td>
-                                            <td><%=stock.getIncrease_decreaseNum()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
                                             </td>
-                                            <td><%=stock.getIncrease_decreaseRate()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
                                             </td>
                                             <td><%=stock.getOpen()[0]%>
                                             </td>
@@ -314,24 +355,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
-<script>//默认展开榜单
-$(function () {
-    $('#collapseTwo').collapse('show')
-});
-</script>
-
 <%--固定侧边栏Start--%>
 <script>
     var jWindow = $(window);
-    var window_height = window.screen.availHeight;
+    var window_height = document.body.clientHeight;
 
     jWindow.scroll(function () {
         var scrollHeight = jWindow.scrollTop();
 
-        if (scrollHeight < window_height - 157) {//157为footer高度
+        if (scrollHeight < window_height) {//157为footer高度
             $("#sidebar").css({
                 position: "relative",
-                left: "0px",
                 top: scrollHeight + "px"
             });
         }
@@ -350,6 +384,15 @@ $(function () {
 </script>
 <%--侧边栏导航End--%>
 
+<%--固定表头Start--%>
+<script src="../reference/table/js/jquery.ba-throttle-debounce.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../reference/table/js/jquery.stickysort.js"></script>
+<script>
+    $(function () {
+        $('#basic-sort table').stickySort({sortable: true});
+    });
+</script>
+<%--固定表头Start--%>
 
 </body>
 </html>

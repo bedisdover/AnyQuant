@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>Bootstrap 实例 - 默认的分页</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="../page/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../page/js/jquery.min.js"></script>
+    <script src="../page/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 

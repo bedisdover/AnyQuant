@@ -3,9 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <title>Bootstrap 实例 - 模态框（Modal）插件</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="../page/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../page/js/jquery.min.js"></script>
+    <script src="../page/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 

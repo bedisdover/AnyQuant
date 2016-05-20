@@ -25,6 +25,10 @@ nav {
     background: #999999;
 }
 
+#portfolio-manager:hover {
+    cursor: pointer;
+}
+
 .stockList {
     width: 170px;
     margin-top: 10px;
