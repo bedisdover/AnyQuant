@@ -1,6 +1,7 @@
 package data;
 
 import database.Connect;
+import database.GetStockData_DB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

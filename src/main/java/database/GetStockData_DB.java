@@ -10,10 +10,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zcy on 2016/5/4.
@@ -25,6 +22,24 @@ public class GetStockData_DB {
             "sh601169", "sh601288","sh601328",
             "sh601398","sh601939","sh601988",
             "sh601998","sz000001","sz002142"}; //所有银行股的代号
+    public final static HashMap<String,String> stockId2Name = new HashMap<>();
+    static {
+        stockId2Name.put("sh601818","光大银行");
+        stockId2Name.put("sh600015","华夏银行");
+        stockId2Name.put("sh600016","民生银行");
+        stockId2Name.put("sh600036","招商银行");
+        stockId2Name.put("sh601009","南京银行");
+        stockId2Name.put("sh601166","兴业银行");
+        stockId2Name.put("sh601169","北京银行");
+        stockId2Name.put("sh601288","农业银行");
+        stockId2Name.put("sh601328","交通银行");
+        stockId2Name.put("sh601398","工商银行");
+        stockId2Name.put("sh601939","建设银行");
+        stockId2Name.put("sh601988","中国银行");
+        stockId2Name.put("sh601998","中信银行");
+        stockId2Name.put("sz000001","平安银行");
+        stockId2Name.put("sz002142","宁波银行");
+    }
 
     /**
      * @param name
