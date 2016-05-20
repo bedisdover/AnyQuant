@@ -6,6 +6,7 @@ import vo.TheIndexVO;
 
 /**
  * Created by zcy on 2016/4/13.
+ * 计算股票的各种指标
  */
 public class CalculateIndex {
     TheIndexVO theIndexVO;

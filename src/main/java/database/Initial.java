@@ -1,5 +1,6 @@
 package database;
 
+import bl.util.MyDate;
 import data.GetIndexData;
 import data.GetStockData;
 import po.IndexPO;
@@ -16,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by zcy on 2016/5/3.
+ *
  */
 public class Initial {
 
@@ -26,7 +28,7 @@ public class Initial {
             String stocks = getID_bankStock();
             String[] names = stocks.split(" ");
             for (int i = 0; i < names.length; i++) {
-                list.add(getStockData.getStockData_name(names[i], "2016-05-03", getToday_date()));
+                list.add(getStockData.getStockData_name(names[i], "2005-01-01", MyDate.getDate_Today()));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,18 +42,18 @@ public class Initial {
             for(int j=0;j<list.get(i).getDate().length;j++){
                 try {
                     pstmt.setString(1,list.get(i).getId());
-                    pstmt.setInt(2,(int)list.get(i).getVolume()[j]);
-                    pstmt.setDouble(3,list.get(i).getPb()[j]);
-                    pstmt.setDouble(4,list.get(i).getHigh()[j]);
-                    pstmt.setDouble(5,list.get(i).getPe_ttm()[j]);
-                    pstmt.setDouble(6,list.get(i).getAdj_price()[j]);
-                    pstmt.setDouble(7,list.get(i).getLow()[j]);
+                    pstmt.setLong(2,list.get(i).getVolume()[j]);
+                    pstmt.setDouble(3,remain2bit(list.get(i).getPb()[j]));
+                    pstmt.setDouble(4,remain2bit(list.get(i).getHigh()[j]));
+                    pstmt.setDouble(5,remain2bit(list.get(i).getPe_ttm()[j]));
+                    pstmt.setDouble(6,remain2bit(list.get(i).getAdj_price()[j]));
+                    pstmt.setDouble(7,remain2bit(list.get(i).getLow()[j]));
                     pstmt.setString(8,list.get(i).getDate()[j]);
-                    pstmt.setDouble(9,list.get(i).getClose()[j]);
-                    pstmt.setDouble(10,list.get(i).getOpen()[j]);
-                    pstmt.setDouble(11,list.get(i).getTurnover()[j]);
-                    pstmt.setDouble(12,list.get(i).getIncrease_decreaseRate()[j]);
-                    pstmt.setDouble(13,list.get(i).getIncrease_decreaseNum()[j]);
+                    pstmt.setDouble(9,remain2bit(list.get(i).getClose()[j]));
+                    pstmt.setDouble(10,remain2bit(list.get(i).getOpen()[j]));
+                    pstmt.setDouble(11,remain2bit(list.get(i).getTurnover()[j]));
+                    pstmt.setDouble(12,remain2bit(list.get(i).getIncrease_decreaseRate()[j]));
+                    pstmt.setDouble(13,remain2bit(list.get(i).getIncrease_decreaseNum()[j]));
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -66,7 +68,7 @@ public class Initial {
         GetIndexData getIndexData = new GetIndexData();
         IndexPO po = new IndexPO(1);
         try {
-            po = getIndexData.getIndexDataBetween("2005-01-01",getToday_date());
+            po = getIndexData.getIndexDataBetween("2005-01-01",MyDate.getDate_Today());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,14 +81,14 @@ public class Initial {
             try {
                 pstmt.setString(1,po.getName());
                 pstmt.setLong(2,po.getVolume()[i]);
-                pstmt.setDouble(3,po.getHigh()[i]);
-                pstmt.setDouble(4,po.getAdj_price()[i]);
-                pstmt.setDouble(5,po.getLow()[i]);
+                pstmt.setDouble(3,remain2bit(po.getHigh()[i]));
+                pstmt.setDouble(4,remain2bit(po.getAdj_price()[i]));
+                pstmt.setDouble(5,remain2bit(po.getLow()[i]));
                 pstmt.setString(6,po.getDate()[i]);
-                pstmt.setDouble(7,po.getClose()[i]);
-                pstmt.setDouble(8,po.getOpen()[i]);
-                pstmt.setDouble(9,po.getIncrease_decreaseRate()[i]);
-                pstmt.setDouble(10,po.getIncrease_decreaseNum()[i]);
+                pstmt.setDouble(7,remain2bit(po.getClose()[i]));
+                pstmt.setDouble(8,remain2bit(po.getOpen()[i]));
+                pstmt.setDouble(9,remain2bit(po.getIncrease_decreaseRate()[i]));
+                pstmt.setDouble(10,remain2bit(po.getIncrease_decreaseNum()[i]));
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -98,7 +100,7 @@ public class Initial {
 
     public static void main(String[] args){
         Initial initial = new Initial();
-        initial.initialTable_StockInfo();
+        initial.initialTable_Indexinfo();
     }
 
     /**
@@ -123,11 +125,8 @@ public class Initial {
         return stocks.trim();
     }
 
-    private String getToday_date(){
-        Calendar c = Calendar.getInstance();
-        Date d = c.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String s = simpleDateFormat.format(d);
-        return s;
+    private static double remain2bit(double a){
+        return ((double)Math.round(a*100))/100;
     }
+
 }
