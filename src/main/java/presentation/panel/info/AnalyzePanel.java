@@ -95,9 +95,9 @@ public class AnalyzePanel extends OperationPanel {
                 back.getY() + back.getHeight(),
                 BUTTON_WIDTH * 6, BUTTON_HEIGHT + MARGIN / 2);
         indexPanel.setBounds(MARGIN, (PANEL_HEIGHT - BUTTON_HEIGHT * 6) / 2,
-                BUTTON_WIDTH * 2 + MARGIN, BUTTON_HEIGHT * 6);
+                BUTTON_WIDTH * 2 + MARGIN, BUTTON_HEIGHT * 7);
         conclusionPanel.setBounds(PANEL_WIDTH - BUTTON_WIDTH * 6 - MARGIN, indexPanel.getY(),
-                BUTTON_WIDTH * 6, BUTTON_HEIGHT * 6);
+                BUTTON_WIDTH * 6, BUTTON_HEIGHT * 7);
     }
 
     protected void addListeners() {
@@ -197,12 +197,12 @@ public class AnalyzePanel extends OperationPanel {
         /**
          * 乖离率、相对强弱指标、威廉超买超卖指标、人气指标、意愿指标
          */
-        private JLabel labelBias, labelRSI, labelWM, labelAR, labelBR;
+        private JLabel labelBias, labelRSI, labelWM, labelAR, labelBR ,labelVR;
 
         /**
          * 上述指标对应的值
          */
-        private JLabel bias, RSI, WM, AR, BR;
+        private JLabel bias, RSI, WM, AR, BR ,VR;
 
         IndexPanel(TheIndexVO index) {
             this.index = index;
@@ -225,18 +225,21 @@ public class AnalyzePanel extends OperationPanel {
             labelWM = new JLabel("WM：");
             labelAR = new JLabel("AR：");
             labelBR = new JLabel("BR：");
+            labelVR = new JLabel("VR：");
 
             bias = new JLabel(index.getBias() + "");
             RSI = new JLabel(index.getRSI() + "");
             WM = new JLabel(index.getWM() + "");
             AR = new JLabel(index.getAR() + "");
             BR = new JLabel(index.getBR() + "");
+            VR = new JLabel(index.getVR() + "");
 
             labelBias.setBounds(MARGIN, MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             labelRSI.setBounds(MARGIN, BUTTON_HEIGHT + MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             labelWM.setBounds(MARGIN, BUTTON_HEIGHT * 2 + MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             labelAR.setBounds(MARGIN, BUTTON_HEIGHT * 3 + MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             labelBR.setBounds(MARGIN, BUTTON_HEIGHT * 4 + MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+            labelVR.setBounds(MARGIN, BUTTON_HEIGHT * 5 + MARGIN / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
             bias.setBounds(BUTTON_WIDTH + MARGIN, MARGIN / 2,
                     BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -248,17 +251,21 @@ public class AnalyzePanel extends OperationPanel {
                     BUTTON_WIDTH, BUTTON_HEIGHT);
             BR.setBounds(BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT * 4 + MARGIN / 2,
                     BUTTON_WIDTH, BUTTON_HEIGHT);
+            VR.setBounds(BUTTON_WIDTH + MARGIN, BUTTON_HEIGHT * 5 + MARGIN / 2,
+                    BUTTON_WIDTH, BUTTON_HEIGHT);
 
             add(labelBias);
             add(labelRSI);
             add(labelWM);
             add(labelAR);
             add(labelBR);
+            add(labelVR);
             add(bias);
             add(RSI);
             add(WM);
             add(AR);
             add(BR);
+            add(VR);
         }
 
         private void setTextFont() {
@@ -267,11 +274,13 @@ public class AnalyzePanel extends OperationPanel {
             labelWM.setFont(new Font("", Font.PLAIN, 16));
             labelAR.setFont(new Font("", Font.PLAIN, 16));
             labelBR.setFont(new Font("", Font.PLAIN, 16));
+            labelVR.setFont(new Font("", Font.PLAIN, 16));
             bias.setFont(new Font("", Font.PLAIN, 16));
             RSI.setFont(new Font("", Font.PLAIN, 16));
             WM.setFont(new Font("", Font.PLAIN, 16));
             AR.setFont(new Font("", Font.PLAIN, 16));
             BR.setFont(new Font("", Font.PLAIN, 16));
+            VR.setFont(new Font("", Font.PLAIN, 16));
         }
 
         private void setTips() {
@@ -280,11 +289,13 @@ public class AnalyzePanel extends OperationPanel {
             labelWM.setToolTipText("威廉超买超卖指标");
             labelAR.setToolTipText("人气指标");
             labelBR.setToolTipText("意愿指标");
+            labelVR.setToolTipText("成交量变异率");
             bias.setToolTipText("乖离率");
             RSI.setToolTipText("相对强弱指标");
             WM.setToolTipText("威廉超买超卖指标");
             AR.setToolTipText("人气指标");
             BR.setToolTipText("意愿指标");
+            VR.setToolTipText("成交量变异率");
         }
     }
 
@@ -297,7 +308,7 @@ public class AnalyzePanel extends OperationPanel {
          * 对应结论
          * BR和AR只有一个
          */
-        private JLabel biasConclusion, RSIConclusion, WMConclusion, ARConclusion;
+        private JLabel biasConclusion, RSIConclusion, WMConclusion, ARConclusion ,VRConclusion;
 
         ConclusionPanel() {
             init();
@@ -315,11 +326,13 @@ public class AnalyzePanel extends OperationPanel {
             RSIConclusion = new JLabel(index.conclusion2());
             WMConclusion = new JLabel(index.conclusion3());
             ARConclusion = new JLabel(index.conclusion4());
+            VRConclusion = new JLabel(index.conclusion5());
 
             biasConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
             RSIConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
             WMConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
             ARConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+            VRConclusion.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 
             biasConclusion.setBounds(MARGIN, MARGIN / 2, BUTTON_WIDTH * 6, BUTTON_HEIGHT);
             RSIConclusion.setBounds(MARGIN, biasConclusion.getY() + PADDING,
@@ -328,11 +341,14 @@ public class AnalyzePanel extends OperationPanel {
                     BUTTON_WIDTH * 6, BUTTON_HEIGHT);
             ARConclusion.setBounds(MARGIN, WMConclusion.getY() + PADDING,
                     BUTTON_WIDTH * 6, BUTTON_HEIGHT);
+            VRConclusion.setBounds(MARGIN, ARConclusion.getY() + PADDING,
+                    BUTTON_WIDTH * 6, BUTTON_HEIGHT);
 
             add(biasConclusion);
             add(RSIConclusion);
             add(WMConclusion);
             add(ARConclusion);
+            add(VRConclusion);
         }
     }
 }

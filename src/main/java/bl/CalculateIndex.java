@@ -18,6 +18,7 @@ public class CalculateIndex {
         theIndexVO.setWM(calculateWM(stockVO));
         theIndexVO.setAR(calculateAR(stockVO));
         theIndexVO.setBR(calculateBR(stockVO));
+        theIndexVO.setVR(calculateVR(stockVO));
         return theIndexVO;
     }
 
@@ -28,6 +29,7 @@ public class CalculateIndex {
         theIndexVO.setWM(calculateWM(indexVO));
         theIndexVO.setAR(calculateAR(indexVO));
         theIndexVO.setBR(calculateBR(indexVO));
+        theIndexVO.setVR(calculateVR(indexVO));
         return theIndexVO;
     }
 
@@ -253,5 +255,61 @@ public class CalculateIndex {
         }
         double result = sum1/sum2*100;
         return ((double)Math.round(result*100))/100;
+    }
+
+    private double calculateVR(IndexVO indexVO){
+        int AVS,BVS,CVS;
+        AVS=0;
+        BVS=0;
+        CVS=0;
+        double VR = 0;
+        int length = indexVO.getDate().length;
+        double[] closes = new double[20];
+        double[] opens = new double[20];
+        double[] volume = new double[20];
+        for(int i=length-2;i>=length-21;i--){
+            closes[length-2-i] = indexVO.getClose()[i];
+            opens[length-2-i] = indexVO.getOpen()[i];
+            volume[length-2-i] = indexVO.getVolume()[i];
+        }
+        for(int i = 0;i<opens.length;i++){
+            if(closes[i]-opens[i]>0){
+                AVS+=volume[i];
+            }else if(closes[i]-opens[i]<0){
+                BVS+=volume[i];
+            }else{
+                CVS+=volume[i];
+            }
+        }
+        VR = ((AVS+CVS*0.5)/(BVS+CVS*0.5));
+        return ((double)Math.round(VR*100))/100;
+    }
+
+    private double calculateVR(StockVO stockVO){
+        int AVS,BVS,CVS;
+        AVS=0;
+        BVS=0;
+        CVS=0;
+        double VR = 0;
+        int length = stockVO.getDate().length;
+        double[] closes = new double[20];
+        double[] opens = new double[20];
+        double[] volume = new double[20];
+        for(int i=length-2;i>=length-21;i--){
+            closes[length-2-i] = stockVO.getClose()[i];
+            opens[length-2-i] = stockVO.getOpen()[i];
+            volume[length-2-i] = stockVO.getVolume()[i];
+        }
+        for(int i = 0;i<opens.length;i++){
+            if(closes[i]-opens[i]>0){
+                AVS+=volume[i];
+            }else if(closes[i]-opens[i]<0){
+                BVS+=volume[i];
+            }else{
+                CVS+=volume[i];
+            }
+        }
+        VR = ((AVS+CVS*0.5)/(BVS+CVS*0.5));
+        return ((double)Math.round(VR*100))/100;
     }
 }

@@ -32,6 +32,11 @@ public class TheIndexVO implements Serializable{
      */
     private double BR;
 
+    /**
+     * 成交量变异率
+     */
+    private double VR;
+
     public double getBias() {
         return bias;
     }
@@ -70,6 +75,14 @@ public class TheIndexVO implements Serializable{
 
     public void setBR(double BR) {
         this.BR = BR;
+    }
+
+    public double getVR() {
+        return VR;
+    }
+
+    public void setVR(double VR) {
+        this.VR = VR;
     }
 
     public String conclusion1() {
@@ -111,6 +124,18 @@ public class TheIndexVO implements Serializable{
             return "股价有可能随时反弹上升。";
         } else {
             return "股价随时可能回档下跌。";
+        }
+    }
+
+    public String conclusion5() {
+        if (VR<7040) {
+            return "股票属于可以买进区域";
+        } else if (VR>=7040&&VR<15080) {
+            return "股票属于正常分布区域";
+        } else if(VR<450160&&VR>=15080){
+            return "股价较高，应考虑获利了结";
+        } else{
+            return "股价已过高";
         }
     }
 
