@@ -3,6 +3,9 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.util.List" %>
+<%@ page import="vo.StockIDNameVO" %>
+<%@ page import="bl.ShowCurrentData" %>
+<%@ page import="vo.CurrentStockVO" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -82,7 +85,11 @@
 <%--导航栏End--%>
 
 <%
+    //关注股票列表
     List<StockVO> stockList = (List<StockVO>) session.getAttribute("stockList");
+    //所有股票名称ID列表
+    List<StockIDNameVO> stockIDNameList =
+            (List<StockIDNameVO>) session.getAttribute("stockIDNameList");
     StockVO stock;
 %>
 
@@ -95,7 +102,8 @@
                         <li onclick="page_jump(this, 'latest-data')"
                             class="list-group-item text-center active">实时数据
                         </li>
-                        <li onclick="page_jump(this, 'graphs')" class="list-group-item text-center">
+                        <li onclick="page_jump(this, 'graphs')"
+                            class="list-group-item text-center">
                             图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表
                         </li>
                         <li onclick="page_jump(this, 'history-data')"
@@ -111,15 +119,72 @@
                 </div>
                 <div class="stockList">
                     <div class="accordion-group">
-                    <span>
-                        <label class="pull-left">关注列表</label>&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-wrench"></span>
-                    </span>
+                        <span>
+                            &nbsp;&nbsp;<label class="pull-left">关注列表</label>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-wrench" data-toggle="modal"
+                                  data-target="#myModal" id="portfolio-manager"></span>
+                        </span>
+                        <!-- 模态框（Modal） -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            股票列表
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="stock-name-id-list">
+                                            <table class="table table-responsive text-center">
+                                                <thead>
+                                                <tr>
+                                                    <td>名称</td>
+                                                    <td>代码</td>
+                                                    <td>关注</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <%
+                                                    for (int i = 0; i < stockIDNameList.size(); i++) {
+                                                %>
+                                                <tr>
+                                                    <%--glyphicon glyphicon-star--%>
+                                                    <td><%=stockIDNameList.get(i).getName()%>
+                                                    </td>
+                                                    <td><%=stockIDNameList.get(i).getId()%>
+                                                    </td>
+                                                    <td><span class="glyphicon glyphicon-star-empty"></span></td>
+                                                </tr>
+                                                <%
+                                                    }
+                                                %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary" onclick="change()">确认</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+                        <%--模态框End--%>
                         <table class="table table-hover text-center">
+                            <thead>
                             <tr>
                                 <td>名称</td>
                                 <td>代码</td>
                             </tr>
+                            </thead>
+                            <tbody>
                             <%
                                 for (int i = 0; i < stockList.size(); i++) {
                                     stock = stockList.get(i);
@@ -138,6 +203,7 @@
                             <%
                                 }
                             %>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -151,56 +217,121 @@
             <div id="accordion-element-<%=i%>" class="collapse">
                 <%--<div class="accordion-inner">--%>
                 <div class="panel panel-default">
-                    <div class="latest-data" id="latest-data"><!--最新数据-->
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="name-code">
-                                    <P class="text-center name"><%=stock.getName()%>
-                                    </P>
-                                    <p class="text-center code">（<%=stock.getId()%>）</p>
+                    <%--<div class="latest-data" id="latest-data"><!--最新数据-->--%>
+                        <%--<div class="row">--%>
+                            <%--<div class="col-md-2">--%>
+                                <%--<div class="name-code">--%>
+                                    <%--<P class="text-center name"><%=stock.getName()%>--%>
+                                    <%--</P>--%>
+                                    <%--<p class="text-center code">（<%=stock.getId()%>）</p>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<%--%>
+                                <%--ShowCurrentData currentData = new ShowCurrentData();--%>
+                                <%--CurrentStockVO currentStockVO = currentData.showCurrentData(stock.getId());--%>
+                                <%--String textColor;--%>
+                                <%--if (currentStockVO.getIncrease_decreaseNum().charAt(0) == '-') {--%>
+                                    <%--textColor = "text-success";--%>
+                                <%--} else if (currentStockVO.getIncrease_decreaseNum().equals("0")){--%>
+                                    <%--textColor = "";--%>
+                                <%--} else {--%>
+                                    <%--textColor = "text-danger";--%>
+                                <%--}--%>
+                            <%--%>--%>
+                            <%--<div class="col-md-4">--%>
+                                <%--<div class="inc-dec">--%>
+                                    <%--<p class="text-left price">--%>
+                                        <%--<%=currentStockVO.getCurrentPrice()%>--%>
+                                        <%--<small>--%>
+                                            <%--<small>--%>
+                                                <%--<small class="<%=textColor%>">--%>
+                                                    <%--<%=currentStockVO.getIncrease_decreaseNum()%>--%>
+                                                    <%--(<%=currentStockVO.getIncrease_decreaseRate()%>)--%>
+                                                <%--</small>--%>
+                                            <%--</small>--%>
+                                        <%--</small>--%>
+                                    <%--</p>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<div class="col-md-6">--%>
+                                <%--<div class="data">--%>
+                                    <%--<div class="data-top">&lt;%&ndash;顶部数据，包含今开、最高、成交量&ndash;%&gt;--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<p class="text-left">今开：<%=currentStockVO.getOpen()%></p>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<p class="text-left">最高：<%=currentStockVO.getHigh()%></p>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<P class="text-left">成交量：<%=currentStockVO.getVolume()%></P>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                    <%--<div class="data-bottom">&lt;%&ndash;底部数据，包含昨收、最低、成交额&ndash;%&gt;--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<p class="text-left">昨收：<%=currentStockVO.getClose()%></p>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<p class="text-left">最低：<%=currentStockVO.getLow()%></p>--%>
+                                        <%--</div>--%>
+                                        <%--<div class="col-md-4">--%>
+                                            <%--<P class="text-left">成交额：<%=currentStockVO.getVolume_value()%></P>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;data&ndash;%&gt;--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                        <div class="latest-data" id="latest-data"><!--最新数据-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="name-code">
+                                        <P class="text-center name"><%=stock.getName()%>
+                                        </P>
+                                        <p class="text-center code">（<%=stock.getId()%>）</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="inc-dec">
-                                    <p class="text-left text-danger price">
-                                        366.68
-                                        <small>
+                                <div class="col-md-4">
+                                    <div class="inc-dec">
+                                        <p class="text-left text-danger price">
+                                            366.68
                                             <small>
-                                                <small class="text-success">-6.16 (-1.65%)</small>
+                                                <small>
+                                                    <small class="text-success">-6.16 (-1.65%)</small>
+                                                </small>
                                             </small>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="data">
-                                    <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
-                                        <div class="col-md-4">
-                                            <p class="text-left">今开：372.72</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="text-left">最高：373.64</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <P class="text-left">成交量：60.03万手</P>
-                                        </div>
-                                    </div>
-                                    <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
-                                        <div class="col-md-4">
-                                            <p class="text-left">昨收：372.84</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="text-left">最低：366.50</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <P class="text-left">成交额：4.92亿</P>
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
-                                <%--data--%>
+                                <div class="col-md-6">
+                                    <div class="data">
+                                        <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                                            <div class="col-md-4">
+                                                <p class="text-left">今开：372.72</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p class="text-left">最高：373.64</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <P class="text-left">成交量：60.03万手</P>
+                                            </div>
+                                        </div>
+                                        <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                                            <div class="col-md-4">
+                                                <p class="text-left">昨收：372.84</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p class="text-left">最低：366.50</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <P class="text-left">成交额：4.92亿</P>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%--data--%>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <%--简要信息栏End--%>
                     <div class="graphs" id="graphs">
                         <ul class="nav nav-tabs">
@@ -230,11 +361,12 @@
                             <div class="tab-pane fade" id="周K线">周K线</div>
                             <div class="tab-pane fade" id="日K线">...</div>
                             <div class="tab-pane fade" id="雷达图">
-                                <div id="main" style="height:400px"></div>
+                                <div class="chart" id="radar-chart"></div>
                             </div>
                         </div>
                     </div>
-                    <%--统计图End--%>
+
+                <%--统计图End--%>
                     <div class="history-data well" id="history-data">
                         <div class="options">
                             <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围
@@ -274,8 +406,15 @@
                                 </thead>
                                 <tbody>
                                 <%
-
+                                    String textColor;
                                     for (int j = stock.getDate().length - 1; j >= 0; j--) {
+                                        if (stock.getIncrease_decreaseNum()[j] > 0) {
+                                            textColor = "text-danger";
+                                        } else if (stock.getIncrease_decreaseNum()[j] < 0) {
+                                            textColor = "text-success";
+                                        } else {
+                                            textColor = "";
+                                        }
                                 %>
                                 <tr>
                                     <td><%=stock.getDate()[j]%>
@@ -284,9 +423,9 @@
                                     </td>
                                     <td><%=stock.getLow()[j]%>
                                     </td>
-                                    <td><%=stock.getIncrease_decreaseNum()[j]%>
+                                    <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[j]%>
                                     </td>
-                                    <td><%=stock.getIncrease_decreaseRate()[j]%>
+                                    <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[j]%>
                                     </td>
                                     <td><%=stock.getOpen()[j]%>
                                     </td>
@@ -335,7 +474,97 @@
 
 <!-- ECharts单文件引入 -->
 <script src="js/dist/echarts.js"></script>
-<script type="text/javascript" src="js/radarchart.js"></script>
+
+<%--激活ToolTip Start--%>
+<script>
+    //    $('#portfolio-manager').tooltip(options);
+    //    $(function () {
+    //        $("[data-toggle='tooltip']").tooltip();
+    //    });
+</script>
+<%--激活ToolTip End--%>
+
+<script>
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'js/dist'
+        }
+    });
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用雷达图就加载radar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('radar-chart'), 'helianthus');
+
+                var option = {
+                    title: {
+                        text: '华夏银行 vs 南京银行',
+                        subtext: '银行股指标对比'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        x: 'center',
+                        data: ['华夏银行', '南京银行']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: false},
+                            dataView: {show: false, readOnly: false},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    calculable: true,
+                    polar: [
+                        {
+                            indicator: [
+                                {text: '乖离率', max: 100},
+                                {text: '相对强弱指标', max: 100},
+                                {text: '威廉超买超卖指标', max: 100},
+                                {text: '人气指标', max: 100},
+                                {text: '意愿指标', max: 100}
+                            ],
+                            radius: 130
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '银行股指标数据',
+                            type: 'radar',
+                            itemStyle: {
+                                normal: {
+                                    areaStyle: {
+                                        type: 'default'
+                                    }
+                                }
+                            },
+                            data: [
+                                {
+                                    value: [97, 42, 88, 94, 90],
+                                    name: '华夏银行'
+                                },
+                                {
+                                    value: [97, 32, 74, 95, 88],
+                                    name: '南京银行'
+                                }
+                            ]
+                        }
+                    ]
+                };
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+    );
+</script>
 
 <%--日期选择框Start--%>
 <script>
@@ -373,7 +602,7 @@
 <%--固定侧边栏Start--%>
 <script>
     var jWindow = $(window);
-    var window_height = window.screen.availHeight;
+    var window_height = document.body.clientHeight;
 
     jWindow.scroll(function () {
         var scrollHeight = jWindow.scrollTop();
