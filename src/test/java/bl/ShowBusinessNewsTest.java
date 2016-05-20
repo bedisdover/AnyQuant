@@ -18,6 +18,6 @@ public class ShowBusinessNewsTest {
         ShowBusinessNews showBusinessNews = new ShowBusinessNews();
         List<BusinessNewsVO> list = showBusinessNews.showBusinessNews();
         assertEquals(40,list.size());
-        assertEquals("2016-05-13",list.get(0).getDate()); //maybe changed
+        assertEquals("2016-05-17",list.get(0).getDate()); //maybe changed
     }
 }

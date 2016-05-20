@@ -18,7 +18,7 @@ public class GetBusinessNewsTest {
         GetBusinessNews getBusinessNews = new GetBusinessNews();
         List<BusinessNewsPO> list = getBusinessNews.getBusinessNews();
         assertEquals(40,list.size());
-        assertEquals("2016-05-13",list.get(0).getDate());//maybe changed
+        assertEquals("2016-05-17",list.get(0).getDate());//maybe changed
     }
 
 }

@@ -20,16 +20,16 @@ public class GetStockData_DBTest {
         assertEquals("sh600016",stockPO.getId());
         assertEquals("2016-04-28",stockPO.getDate()[0]);
         assertEquals(44022700,stockPO.getVolume()[0]);
-        assertEquals(1.13,stockPO.getPb()[0],0.001);
-        assertEquals(9.5,stockPO.getHigh()[0],0.001);
-        assertEquals(7.41,stockPO.getPe_ttm()[0],0.001);
-        assertEquals(9.37,stockPO.getAdj_price()[0],0.001);
-        assertEquals(9.33,stockPO.getLow()[0],0.001);
-        assertEquals(9.37,stockPO.getClose()[0],0.001);
-        assertEquals(9.43,stockPO.getOpen()[0],0.001);
-        assertEquals(0.15,stockPO.getTurnover()[0],0.001);
-        assertEquals(-0.0021,stockPO.getIncrease_decreaseRate()[0],0.001);
-        assertEquals(-0.02,stockPO.getIncrease_decreaseNum()[0],0.001);
+        assertEquals(1.13,stockPO.getPb()[0],0.01);
+        assertEquals(9.5,stockPO.getHigh()[0],0.01);
+        assertEquals(7.41,stockPO.getPe_ttm()[0],0.01);
+        assertEquals(9.37,stockPO.getAdj_price()[0],0.01);
+        assertEquals(9.33,stockPO.getLow()[0],0.01);
+        assertEquals(9.37,stockPO.getClose()[0],0.01);
+        assertEquals(9.43,stockPO.getOpen()[0],0.01);
+        assertEquals(0.15,stockPO.getTurnover()[0],0.01);
+        assertEquals(-0.0021,stockPO.getIncrease_decreaseRate()[0],0.01);
+        assertEquals(-0.02,stockPO.getIncrease_decreaseNum()[0],0.01);
 
         stockPO = getStockData_db.getStockData_name("sh600016","20160428","20160428");
         assertEquals("2016-04-28",stockPO.getDate()[0]);

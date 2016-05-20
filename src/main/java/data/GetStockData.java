@@ -2,6 +2,7 @@ package data;
 
 import dataservice.GetStockDataService;
 import net.sf.json.JSONObject;
+import po.CurrentStockPO;
 import po.StockPO;
 
 import java.io.*;
@@ -268,6 +269,35 @@ public class GetStockData implements GetStockDataService {
         return stockPOs;
     }
 
+    public CurrentStockPO getCurrentData(String id) throws IOException {
+        ReadData rdt = new ReadData();
+        String url = "http://hq.sinajs.cn/list=" + id;
+        String s1 = rdt.getData(url);
+        String[] strings = s1.split(",");
+        CurrentStockPO currentStockPO = new CurrentStockPO();
+        currentStockPO.setId(id);
+
+        double a = Double.parseDouble(strings[8]);
+        a = a/1000000;
+        currentStockPO.setVolume(a+"万手");
+
+        a = Double.parseDouble(strings[9]);
+        a = a/10000;
+        currentStockPO.setVolume_value(a+"万元");
+
+        a = Double.parseDouble(strings[3]);//当前价
+        double b = Double.parseDouble(strings[2]);//昨日收盘价
+        double incNum = a-b;
+        double incRate = incNum/b;
+        currentStockPO.setIncrease_decreaseNum(remain2bit(incNum+""));
+        currentStockPO.setIncrease_decreaseRate(remain2bit(incRate+""));
+        currentStockPO.setCurrentPrice(remain2bit(strings[3]));
+        currentStockPO.setHigh(remain2bit(strings[4]));
+        currentStockPO.setLow(remain2bit(strings[5]));
+        currentStockPO.setOpen(remain2bit(strings[1]));
+        currentStockPO.setClose(remain2bit(strings[2]));
+        return currentStockPO;
+    }
 
     /**
      * 从文件中读取所有银行股的代号
@@ -298,6 +328,12 @@ public class GetStockData implements GetStockDataService {
             e.printStackTrace();
         }
         return stocks.trim();
+    }
+
+    private static String remain2bit(String s){
+        double a = Double.parseDouble(s);
+        a = ((double)Math.round(a*100))/100;
+        return (a+"");
     }
 
 }
