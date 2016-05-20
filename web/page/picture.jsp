@@ -181,13 +181,13 @@
                                                 </td>
                                                 <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
                                                 </td>
-                                                <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
+                                                <td class="text-center <%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
                                                 </td>
                                                 <td class="text-center"><%=stock.getOpen()[0]%>
                                                 </td>
                                                 <td class="text-center"><%=stock.getClose()[0]%>
                                                 </td>
-                                                <td class="text-center"><%=stock.getVolume()[0]%>
+                                                <td class="text-center"><%=stock.volumeToString(stock.getVolume()[0])%>
                                                 </td>
                                                 <td class="text-center"><%=stock.getPe_ttm()[0]%>
                                                 </td>
@@ -251,13 +251,13 @@
                                             </td>
                                             <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
                                             </td>
-                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
                                             </td>
                                             <td><%=stock.getOpen()[0]%>
                                             </td>
                                             <td><%=stock.getClose()[0]%>
                                             </td>
-                                            <td><%=stock.getVolume()[0]%>
+                                            <td><%=stock.volumeToString(stock.getVolume()[0])%>
                                             </td>
                                             <td><%=stock.getPe_ttm()[0]%>
                                             </td>
@@ -320,13 +320,13 @@
                                             </td>
                                             <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
                                             </td>
-                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[0]%>
+                                            <td class="<%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
                                             </td>
                                             <td><%=stock.getOpen()[0]%>
                                             </td>
                                             <td><%=stock.getClose()[0]%>
                                             </td>
-                                            <td><%=stock.getVolume()[0]%>
+                                            <td><%=stock.volumeToString(stock.getVolume()[0])%>
                                             </td>
                                             <td><%=stock.getPe_ttm()[0]%>
                                             </td>

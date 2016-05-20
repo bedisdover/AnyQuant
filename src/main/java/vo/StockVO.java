@@ -203,6 +203,7 @@ public class StockVO implements Serializable {
 
     public String volumeToString(long v){
         double vol = v/1000000.0;
+        vol = ((double)Math.round(vol*100))/100;
         return vol+"万手";
     }
 
