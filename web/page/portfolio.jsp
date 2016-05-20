@@ -28,6 +28,8 @@
 <%
     session.setAttribute("which_button", "p");
 %>
+
+<%--导航栏Start--%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="container-fluid">
@@ -93,6 +95,7 @@
     StockVO stock;
 %>
 
+<%--content Start--%>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-6 col-md-2">
@@ -215,82 +218,7 @@
                     stock = stockList.get(i);
             %>
             <div id="accordion-element-<%=i%>" class="collapse">
-                <%--<div class="accordion-inner">--%>
                 <div class="panel panel-default">
-                    <div class="old">
-                        <%--<div class="latest-data" id="latest-data"><!--最新数据-->--%>
-                            <%--<div class="row">--%>
-                                <%--<div class="col-md-2">--%>
-                                    <%--<div class="name-code">--%>
-                                        <%--<P class="text-center name"><%=stock.getName()%>--%>
-                                        <%--</P>--%>
-                                        <%--<p class="text-center code">（<%=stock.getId()%>）</p>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<%--%>
-                                    <%--ShowCurrentData currentData = new ShowCurrentData();--%>
-                                    <%--CurrentStockVO currentStockVO = currentData.showCurrentData(stock.getId());--%>
-                                    <%--String textColor;--%>
-                                    <%--if (currentStockVO.getIncrease_decreaseNum().charAt(0) == '-') {--%>
-                                        <%--textColor = "text-success";--%>
-                                    <%--} else if (currentStockVO.getIncrease_decreaseNum().equals("0")) {--%>
-                                        <%--textColor = "";--%>
-                                    <%--} else {--%>
-                                        <%--textColor = "text-danger";--%>
-                                    <%--}--%>
-                                <%--%>--%>
-                                <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<div class="inc-dec">&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;<p class="text-left price">&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<%=currentStockVO.getCurrentPrice()%>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<small>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<small>&ndash;%&gt;--%>
-                                                    <%--&lt;%&ndash;<small class="<%=textColor%>">&ndash;%&gt;--%>
-                                                        <%--&lt;%&ndash;<%=currentStockVO.getIncrease_decreaseNum()%>&ndash;%&gt;--%>
-                                                        <%--&lt;%&ndash;(<%=currentStockVO.getIncrease_decreaseRate()%>)&ndash;%&gt;--%>
-                                                    <%--&lt;%&ndash;</small>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</small>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</small>&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;<div class="col-md-6">&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;<div class="data">&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;<div class="data-top">&lt;%&ndash;顶部数据，包含今开、最高、成交量&ndash;%&gt;&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<p class="text-left">今开：<%=currentStockVO.getOpen()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<p class="text-left">最高：<%=currentStockVO.getHigh()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<P class="text-left">成交量：<%=currentStockVO.getVolume()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</P>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;<div class="data-bottom">&lt;%&ndash;底部数据，包含昨收、最低、成交额&ndash;%&gt;&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<p class="text-left">昨收：<%=currentStockVO.getClose()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<p class="text-left">最低：<%=currentStockVO.getLow()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;<div class="col-md-4">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<P class="text-left">成交额：<%=currentStockVO.getVolume_value()%>&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;</P>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;&lt;%&ndash;data&ndash;%&gt;&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    </div>
-                    <div>
                     <div class="latest-data" id="latest-data"><!--最新数据-->
                         <div class="row">
                             <div class="col-md-2">
@@ -312,9 +240,9 @@
                                     textColor = "text-danger";
                                 }
                             %>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="inc-dec">
-                                    <p class="text-left price">
+                                    <p class="text-left <%=textColor%> price">
                                         <%=currentStockVO.getCurrentPrice()%>
                                         <small>
                                             <small>
@@ -327,27 +255,27 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="data">
                                     <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3 col-md-offset-1">
                                             <p class="text-left">今开：<%=currentStockVO.getOpen()%></p>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <p class="text-left">最高：<%=currentStockVO.getHigh()%></p>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <P class="text-left">成交量：<%=currentStockVO.getVolume()%></P>
                                         </div>
                                     </div>
                                     <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3 col-md-offset-1">
                                             <p class="text-left">昨收：<%=currentStockVO.getClose()%></p>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <p class="text-left">最低：<%=currentStockVO.getLow()%></p>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <P class="text-left">成交额：<%=currentStockVO.getVolume_value()%></P>
                                         </div>
                                     </div>
@@ -356,60 +284,7 @@
                             </div>
                         </div>
                     </div>
-                        <%--<div class="latest-data" id="latest-data"><!--最新数据-->--%>
-                            <%--<div class="row">--%>
-                                <%--<div class="col-md-2">--%>
-                                    <%--<div class="name-code">--%>
-                                        <%--<P class="text-center name"><%=stock.getName()%>--%>
-                                        <%--</P>--%>
-                                        <%--<p class="text-center code">（<%=stock.getId()%>）</p>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="col-md-4">--%>
-                                    <%--<div class="inc-dec">--%>
-                                        <%--<p class="text-left text-danger price">--%>
-                                            <%--366.68--%>
-                                            <%--<small>--%>
-                                                <%--<small>--%>
-                                                    <%--<small class="text-success">-6.16 (-1.65%)</small>--%>
-                                                <%--</small>--%>
-                                            <%--</small>--%>
-                                        <%--</p>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="col-md-6">--%>
-                                    <%--<div class="data">--%>
-                                        <%--<div class="data-top">&lt;%&ndash;顶部数据，包含今开、最高、成交量&ndash;%&gt;--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<p class="text-left">今开：372.72</p>--%>
-                                            <%--</div>--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<p class="text-left">最高：373.64</p>--%>
-                                            <%--</div>--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<P class="text-left">成交量：60.03万手</P>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                        <%--<div class="data-bottom">&lt;%&ndash;底部数据，包含昨收、最低、成交额&ndash;%&gt;--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<p class="text-left">昨收：372.84</p>--%>
-                                            <%--</div>--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<p class="text-left">最低：366.50</p>--%>
-                                            <%--</div>--%>
-                                            <%--<div class="col-md-4">--%>
-                                                <%--<P class="text-left">成交额：4.92亿</P>--%>
-                                            <%--</div>--%>
-                                        <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--&lt;%&ndash;data&ndash;%&gt;--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                        <%--</div>--%>
-                    </div>
-                        <%--</div>--%>
-                    <%--简要信息栏End--%>
+                    <%--最新数据End--%>
                     <div class="graphs" id="graphs">
                         <ul class="nav nav-tabs">
                             <li class="active">
@@ -442,7 +317,6 @@
                             </div>
                         </div>
                     </div>
-
                     <%--统计图End--%>
                     <div class="history-data well" id="history-data">
                         <div class="options">
@@ -539,8 +413,8 @@
         </div>
     </div>
 </div>
-
 <%--content End--%>
+
 <footer class=bs-docs-footer role=contentinfo>
     <jsp:include page="footer.jsp"/>
 </footer>
