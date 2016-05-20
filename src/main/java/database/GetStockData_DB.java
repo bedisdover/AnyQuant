@@ -138,8 +138,69 @@ public class GetStockData_DB {
         return stockPOList;
     }
 
+    /**
+     * @return List<StockPO>
+     * 得到数据库中某支股票最新一天的股票数据
+     */
+    public StockPO getLatestStock(String id) throws SQLException {
+        Connect co=new Connect();
+        long[] volume = new long[1];
+        double[] pb = new double[1];
+        double[] high = new double[1];
+        double[] pe_ttm = new double[1];
+        double[] adj_price = new double[1];
+        double[] low = new double[1];
+        String[] date = new String[1];
+        double[] close = new double[1];
+        double[] open = new double[1];
+        double[] turnover = new double[1];
+        double[] increase_decreaseRate = new double[1];
+        double[] increase_decreaseNum = new double[1];
 
+        String sql="SELECT * FROM stockinfo where id = \'"+id+"\'";
+        ResultSet result=co.getResultSet(sql);
+        result.last();
+        StockPO stockPO = new StockPO(1);
 
+        volume[0] = result.getLong(2);
+        pb[0] = result.getDouble(3);
+        high[0] = result.getDouble(4);
+        pe_ttm[0] = result.getDouble(5);
+        adj_price[0] = result.getDouble(6);
+        low[0] = result.getDouble(7);
+        date[0] = result.getString(8);
+        close[0] = result.getDouble(9);
+        open[0] = result.getDouble(10);
+        turnover[0] = result.getDouble(11);
+        increase_decreaseRate[0] = result.getDouble(12);
+        increase_decreaseNum[0] = result.getDouble(13);
 
+        stockPO.setId(id);
+        stockPO.setVolume(volume);
+        stockPO.setPb(pb);
+        stockPO.setHigh(high);
+        stockPO.setPe_ttm(pe_ttm);
+        stockPO.setAdj_price(adj_price);
+        stockPO.setLow(low);
+        stockPO.setDate(date);
+        stockPO.setClose(close);
+        stockPO.setOpen(open);
+        stockPO.setTurnover(turnover);
+        stockPO.setIncrease_decreaseRate(increase_decreaseRate);
+        stockPO.setIncrease_decreaseNum(increase_decreaseNum);
+
+        co.closeConnection();
+
+        return stockPO;
+    }
+
+    public List<StockPO> getLatestStock() throws SQLException {
+        List<StockPO> stockPOList = new ArrayList<>();
+        for(int i=0;i<stock_id.length;i++){
+            StockPO stockPO = getLatestStock(stock_id[i]);
+            stockPOList.add(stockPO);
+        }
+        return stockPOList;
+    }
 
 }

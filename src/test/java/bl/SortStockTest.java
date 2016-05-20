@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 public class SortStockTest {
     SortStock sortStock;
     @Before
-    public void init() throws IOException {
+    public void init() throws IOException, SQLException {
         sortStock = new SortStock();
     }
 

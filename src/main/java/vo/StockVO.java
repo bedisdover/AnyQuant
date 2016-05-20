@@ -11,6 +11,7 @@ import java.math.BigInteger;
 
 /**
  * Created by zcy on 2016/3/8.
+ *
  */
 public class StockVO implements Serializable {
     /**
@@ -198,5 +199,14 @@ public class StockVO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String volumeToString(long v){
+        double vol = v/1000000.0;
+        return vol+"万手";
+    }
+
+    public String rateToString(double r){
+        return r+"%";
     }
 }

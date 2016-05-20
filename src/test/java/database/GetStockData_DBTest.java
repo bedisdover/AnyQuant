@@ -5,6 +5,7 @@ import org.junit.Test;
 import po.StockPO;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,7 +29,7 @@ public class GetStockData_DBTest {
         assertEquals(9.37,stockPO.getClose()[0],0.01);
         assertEquals(9.43,stockPO.getOpen()[0],0.01);
         assertEquals(0.15,stockPO.getTurnover()[0],0.01);
-        assertEquals(-0.0021,stockPO.getIncrease_decreaseRate()[0],0.01);
+        assertEquals(-0.21,stockPO.getIncrease_decreaseRate()[0],0.01);
         assertEquals(-0.02,stockPO.getIncrease_decreaseNum()[0],0.01);
 
         stockPO = getStockData_db.getStockData_name("sh600016","20160428","20160428");
@@ -36,6 +37,13 @@ public class GetStockData_DBTest {
 
         stockPO = getStockData_db.getStockData_name("sh500016","20160428","20160428");
         assertNull(stockPO);
+    }
+
+    @Test
+    public void getLatestStockTest() throws SQLException {
+        GetStockData_DB getStockData_db = new GetStockData_DB();
+        List<StockPO> list = getStockData_db.getLatestStock();
+        assertEquals("sh600015",list.get(1).getId());
     }
 
 

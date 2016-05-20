@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +26,12 @@ public class PictureFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
 
-        SortStockService sortStock = new SortStock();
+        SortStockService sortStock = null;
+        try {
+            sortStock = new SortStock();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         List<StockVO> increase_rank = sortStock.increase_sort();
         List<StockVO> decrease_rank = sortStock.decrease_sort();

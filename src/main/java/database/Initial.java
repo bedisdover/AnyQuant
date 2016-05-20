@@ -100,7 +100,7 @@ public class Initial {
 
     public static void main(String[] args){
         Initial initial = new Initial();
-        initial.initialTable_Indexinfo();
+        initial.initialTable_StockInfo();
     }
 
     /**
