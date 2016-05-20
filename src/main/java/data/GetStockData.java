@@ -77,7 +77,7 @@ public class GetStockData implements GetStockDataService {
     }
 
     /**
-     * 得到指定日期的指定名称的股票数据
+     * 得到指定日期的指定名称的股票数据(*)
      *
      * @param name
      * @param dates
@@ -290,7 +290,7 @@ public class GetStockData implements GetStockDataService {
         double incNum = a-b;
         double incRate = incNum/b*100.0;
         currentStockPO.setIncrease_decreaseNum(remain2bit(incNum+""));
-        currentStockPO.setIncrease_decreaseRate(remain2bit(incRate+"%"));
+        currentStockPO.setIncrease_decreaseRate(remain2bit(incRate+"")+"%");
         currentStockPO.setCurrentPrice(remain2bit(strings[3]));
         currentStockPO.setHigh(remain2bit(strings[4]));
         currentStockPO.setLow(remain2bit(strings[5]));
