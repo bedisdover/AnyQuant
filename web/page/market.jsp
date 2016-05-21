@@ -35,11 +35,43 @@
     <script type="text/javascript" src="js/jqplot.cursor.min.js"></script>
     <link rel="stylesheet" type="text/css" hrf="style/jquery.jqplot.min.css"/>
     <%--echarts引包--%>
-    <script src="${pageContext.request.contextPath}/page/js/echarts.js"></script>
+    <script src="${pageContext.request.contextPath}/page/js/echarts.min.js"></script>
 
     <script>
 
+        <%--var line1 = [[]];--%>
+        <%--<!-- data和volume是request中属性的名字-->--%>
+        <%--<c:forEach items="${date}" var="date1" varStatus="loop">--%>
+        <%--var date1 = "${date1}"--%>
+        <%--var quantity = "${volume[loop.count-1]}"--%>
+        <%--line1[0].push([date1, quantity]);--%>
+        <%--</c:forEach>--%>
+        <%--alert(line1);--%>
 
+        <%--var plot1 = $.jqplot('chart', line1, {--%>
+            <%--title: 'Google, Inc.',--%>
+            <%--series: [{--%>
+                <%--label: 'Google, Inc.',--%>
+                <%--neighborThreshold: -1--%>
+            <%--}],--%>
+            <%--axes: {--%>
+                <%--xaxis: {--%>
+                    <%--renderer: $.jqplot.DateAxisRenderer,--%>
+                    <%--tickRenderer: $.jqplot.CanvasAxisTickRenderer,--%>
+                    <%--tickOptions: {--%>
+                        <%--angle: -30--%>
+                    <%--}--%>
+                <%--},--%>
+                <%--yaxis: {--%>
+                    <%--renderer: $.jqplot.LogAxisRenderer,--%>
+                    <%--tickOptions: {prefix: '$'}--%>
+                <%--}--%>
+            <%--},--%>
+            <%--cursor: {--%>
+                <%--show: true,--%>
+                <%--zoom: true--%>
+            <%--}--%>
+        <%--});--%>
         <%
             long volume[] = new long[0];
             String date[] = new String[0];
@@ -70,43 +102,7 @@
 
 
 
-        //        zooming.html
-        function lineChart() {
 
-            var line1 = [[]];
-            <!-- data和volume是request中属性的名字-->
-            <c:forEach items="${date}" var="date1" varStatus="loop">
-            var date1 = "${date1}"
-            var quantity = "${volume[loop.count-1]}"
-            line1[0].push([date1, quantity]);
-            </c:forEach>
-            //alert(line1);
-
-            var plot1 = $.jqplot('chart', line1, {
-                title: 'Google, Inc.',
-                series: [{
-                    label: 'Google, Inc.',
-                    neighborThreshold: -1
-                }],
-                axes: {
-                    xaxis: {
-                        renderer: $.jqplot.DateAxisRenderer,
-                        tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                        tickOptions: {
-                            angle: -30
-                        }
-                    },
-                    yaxis: {
-                        renderer: $.jqplot.LogAxisRenderer,
-                        tickOptions: {prefix: '$'}
-                    }
-                },
-                cursor: {
-                    show: true,
-                    zoom: true
-                }
-            });
-        }
 
         //日K线 undone
 
@@ -121,94 +117,7 @@
         </c:forEach>
 
 
-        require.config({
-            paths: {
-                echarts: '../page/js/dist'
-            }
-        });
-        require(
-                [
-                    'echarts',
-                    'echarts/chart/line',
-                    'echarts/chart/bar',
-                    'echarts/chart/k'
-                ],
-                function (ec) {
-                    var myChart = ec.init(document.getElementById('radar-chart'));
-                    var option = {
-                        title: {
-                            text: '2013年上半年上证指数'
-                        },
-                        tooltip: {
-                            trigger: 'axis',
-                            formatter: function (params) {
-                                var res = params[0].seriesName + ' ' + params[0].name;
-                                res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
-                                res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
-                                return res;
-                            }
-                        },
-                        legend: {
-                            data: ['上证指数']
-                        },
-                        toolbox: {
-                            show: true,
-                            feature: {
-                                mark: {show: true},
-                                dataZoom: {show: true},
-                                dataView: {show: true, readOnly: false},
-                                magicType: {show: true, type: ['line', 'bar']},
-                                restore: {show: true},
-                                saveAsImage: {show: true}
-                            }
-                        },
-                        dataZoom: {
-                            show: true,
-                            realtime: true,
-                            start: 50,
-                            end: 100
-                        },
-                        xAxis: [
-                            {
-                                type: 'category',
-                                boundaryGap: true,
-                                axisTick: {onGap: false},
-                                splitLine: {show: false},
-                                data: [
-                                    "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
-                                    "2013/1/31", "2013/2/1",
 
-                                ]
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                scale: true,
-                                boundaryGap: [0.01, 0.01]
-                            }
-                        ],
-                        series: [
-                            {
-                                name: '上证指数',
-                                type: 'k',
-                                data: [ // 开盘，收盘，最低，最高
-                                    [2320.26, 2302.6, 2287.3, 2362.94],
-                                    [2300, 2291.3, 2288.26, 2308.38],
-                                    [2295.35, 2346.5, 2295.35, 2346.92],
-                                    [2347.22, 2358.98, 2337.35, 2363.8],
-                                    [2360.75, 2382.48, 2347.89, 2383.76],
-                                    [2383.43, 2385.42, 2371.23, 2391.82],
-                                    [2377.41, 2419.02, 2369.57, 2421.15],
-
-                                ]
-                            }
-                        ]
-                    };
-
-                    myChart.setOption(option);
-                }
-        );
     </script>
 
     <link href="style/jquery.jqplot.css" rel="stylesheet" type="text/css"/>
@@ -363,6 +272,7 @@
                 </div>
                 <%--最新数据End--%>
                 <div class="graphs" id="graphs">
+
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#分时图" data-toggle="tab">分时图</a>
@@ -381,12 +291,16 @@
                         </li>
                     </ul>
                     <div class="tab-content">
+                        <div id="chart" style="width: 800px; height: 500px;"></div>
                         <div class="tab-pane fade in active" id="分时图">
                             <%--todo 用一个div把你要画的图放在这里就好了--%>
+
                             这里是分时图
                         </div>
                         <div class="tab-pane fade" id="折线图">
+                         <div>
                             折线图
+                         </div>
                         </div>
                         <div class="tab-pane fade" id="月K线">
                             月K线
@@ -395,7 +309,97 @@
                             周K线
                         </div>
                         <div class="tab-pane fade" id="日K线">
-                            日K线
+                            <div>
+                            <script>
+                            require.config({
+                            paths: {
+                            echarts: '../page/js/dist'
+                            }
+                            });
+                            require(
+                            [
+                            'echarts',
+                            'echarts/chart/k'
+                            ],
+                            function (ec) {
+                            var myChart = ec.init(document.getElementById('chart'));
+                            var option = {
+                            title: {
+                            text: '2013年上半年上证指数'
+                            },
+                            tooltip: {
+                            trigger: 'axis',
+                            formatter: function (params) {
+                            var res = params[0].seriesName + ' ' + params[0].name;
+                            res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
+                            res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
+                            return res;
+                            }
+                            },
+                            legend: {
+                            data: ['上证指数']
+                            },
+                            toolbox: {
+                            show: true,
+                            feature: {
+                            mark: {show: true},
+                            dataZoom: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                            }
+                            },
+                            dataZoom: {
+                            show: true,
+                            realtime: true,
+                            start: 50,
+                            end: 100
+                            },
+                            xAxis: [
+                            {
+                            type: 'category',
+                            boundaryGap: true,
+                            axisTick: {onGap: false},
+                            splitLine: {show: false},
+                            data: [
+                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
+                            "2013/1/31", "2013/2/1",
+
+                            ]
+                            }
+                            ],
+                            yAxis: [
+                            {
+                            type: 'value',
+                            scale: true,
+                            boundaryGap: [0.01, 0.01]
+                            }
+                            ],
+                            series: [
+                            {
+                            name: '上证指数',
+                            type: 'k',
+                            data: [ // 开盘，收盘，最低，最高
+                            [2320.26, 2302.6, 2287.3, 2362.94],
+                            [2300, 2291.3, 2288.26, 2308.38],
+                            [2295.35, 2346.5, 2295.35, 2346.92],
+                            [2347.22, 2358.98, 2337.35, 2363.8],
+                            [2360.75, 2382.48, 2347.89, 2383.76],
+                            [2383.43, 2385.42, 2371.23, 2391.82],
+                            [2377.41, 2419.02, 2369.57, 2421.15],
+
+                            ]
+                            }
+                            ]
+                            };
+
+                            myChart.setOption(option);
+                            }
+                            );
+                            </script>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -465,5 +469,7 @@
 </div>
 <%--content End--%>
 
-
+</body>
 </html>
+
+
