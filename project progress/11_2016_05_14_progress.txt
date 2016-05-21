@@ -4,11 +4,11 @@ what : 写界面、写界面、写界面
 problem : 内容繁琐
 todo : 完成基本框架
 
-who : 
+who : 周梦佳
 when : 2016-05-14
-what : 
-problem : 
-todo : 
+what : 画大盘指数的折线图
+problem : 进度缓慢，对js缺乏了解
+todo : 研究js，完成折线图
 
 who : 
 when : 2016-05-14
