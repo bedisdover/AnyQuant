@@ -377,7 +377,6 @@
     </div>
 </div>
 <%--content End--%>
-<%--<script src="js/jquery.js"></script>--%>
 <script src="js/market.js"></script>
 
 <%--折线图Start--%>
@@ -396,8 +395,7 @@
                 var myChart = ec.init(document.getElementById('lineChart'));
                 var option = {
                     title: {
-                        text: '未来一周气温变化',
-                        subtext: '纯属虚构'
+                        text: '上证指数折线图',
                     },
                     tooltip: {
                         trigger: 'axis'
@@ -493,7 +491,7 @@
                 var myChart = ec.init(document.getElementById('dailyKLine'));
                 var option = {
                     title: {
-                        text: '2013年上半年上证指数'
+                        text: '上证指数日K线'
                     },
                     tooltip: {
                         trigger: 'axis',
