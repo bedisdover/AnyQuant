@@ -31,21 +31,25 @@
 
 <script>
     $('input[type=button]').click(function () {
+
+        var test = {
+            'head': '123'
+        };
+
         $.ajax({
             url: '/portfolio?data=' + Math.random(),
             type: 'POST',
             data: 'post',
             success: function (data) {
-//                var temp = eval(data);
+                var temp = eval(data);
 //                alert(typeof temp);
-                <%=string%> = data;
-                alert('<%=string%>' + '----' + data);
+                $('#test').html(data);
             }
         });
     });
 
     $(document).ajaxStop(function () {
-        alert('<%=string%>');
+        <%--alert('<%=string%>');--%>
     });
 
 </script>

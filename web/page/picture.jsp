@@ -90,6 +90,18 @@
     List<StockVO> increase_rank = (List<StockVO>) session.getAttribute("increase_rank");
     List<StockVO> decrease_rank = (List<StockVO>) session.getAttribute("decrease_rank");
     List<StockVO> volume_rank = (List<StockVO>) session.getAttribute("volume_rank");
+
+    int stock_num = increase_rank.size();//股票数目
+    int increase_num = 0;//涨幅大于0的股票数目
+
+    if (increase_rank.get(0).getIncrease_decreaseNum()[0] > 0) {
+        for (int i = 0; i < increase_rank.size(); i++) {
+            if (increase_rank.get(i).getIncrease_decreaseNum()[0] <= 0) {
+                increase_num = i;
+                break;
+            }
+        }
+    }
 %>
 
 <div class="container-fluid">
@@ -98,17 +110,25 @@
             <div id="sidebar">
                 <div class="list-group">
                     <ul class="menu">
+                        <li onclick="click_scroll('volume_rank')">
+                            <a href="javascript: void(0)" class="list-group-item
+                                    list-group-item-warning text-left active">今日行情
+                                <span class="badge" title="股票总数"><%=stock_num%></span>
+                            </a>
+                        </li>
                         <li onclick="click_scroll('increase_rank')">
                             <a href="javascript: void(0)" class="list-group-item
-                        list-group-item-danger text-center active">涨幅榜</a>
+                        list-group-item-danger text-left active">涨幅榜
+                                <span class="badge" title="上涨数量"><%=increase_num%></span></a>
                         </li>
                         <li onclick="click_scroll('decrease_rank')">
                             <a href="javascript: void(0)" class="list-group-item
-                        list-group-item-success text-center active">跌幅榜</a>
+                        list-group-item-success text-left active">
+                                跌幅榜<span class="badge" title="下跌数量"><%=stock_num - increase_num%></span></a>
                         </li>
                         <li onclick="click_scroll('volume_rank')">
                             <a href="javascript: void(0)" class="list-group-item
-                            text-center active">成交量榜</a>
+                            text-left active">成交量榜</a>
                         </li>
                     </ul>
                 </div>
@@ -126,7 +146,7 @@
                         <div id="increase_rank" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <div id="basic-sort">
+                                    <div id="basic-sort-0">
                                         <table class="table">
                                             <thead>
                                             <tr>
@@ -160,7 +180,7 @@
                                             </tfoot>
                                             <tbody>
                                             <%
-                                                String textColor = "";
+                                                String textColor;
                                                 for (StockVO stock : increase_rank) {
                                                     if (stock.getIncrease_decreaseNum()[0] > 0) {
                                                         textColor = "text-danger";
@@ -204,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-success">
+                    <div class="panel panel-success active">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
@@ -213,62 +233,79 @@
                         <div id="decrease_rank" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped text-center">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">名称</th>
-                                            <th class="text-center">代码</th>
-                                            <th class="text-center">最高</th>
-                                            <th class="text-center">最低</th>
-                                            <th class="text-center">涨跌额</th>
-                                            <th class="text-center">涨跌幅</th>
-                                            <th class="text-center">开盘</th>
-                                            <th class="text-center">收盘</th>
-                                            <th class="text-center">成交量</th>
-                                            <th class="text-center">市盈率</th>
-                                            <th class="text-center">市净率</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                            for (StockVO stock : decrease_rank) {
-                                                if (stock.getIncrease_decreaseNum()[0] > 0) {
-                                                    textColor = "text-danger";
-                                                } else if (stock.getIncrease_decreaseNum()[0] < 0) {
-                                                    textColor = "text-success";
-                                                } else {
-                                                    textColor = "";
+                                    <div id="basic-sort-1">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            <%
+                                                for (StockVO stock : decrease_rank) {
+                                                    if (stock.getIncrease_decreaseNum()[0] > 0) {
+                                                        textColor = "text-danger";
+                                                    } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+                                                        textColor = "text-success";
+                                                    } else {
+                                                        textColor = "";
+                                                    }
+                                            %>
+                                            <tr>
+                                                <td class="text-center"><%=stock.getName()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getId()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getHigh()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getLow()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getOpen()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getClose()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.volumeToString(stock.getVolume()[0])%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPe_ttm()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPb()[0]%>
+                                                </td>
+                                            </tr>
+                                            <%
                                                 }
-                                        %>
-                                        <tr>
-                                            <td><%=stock.getName()%>
-                                            </td>
-                                            <td><%=stock.getId()%>
-                                            </td>
-                                            <td><%=stock.getHigh()[0]%>
-                                            </td>
-                                            <td><%=stock.getLow()[0]%>
-                                            </td>
-                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
-                                            </td>
-                                            <td class="<%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
-                                            </td>
-                                            <td><%=stock.getOpen()[0]%>
-                                            </td>
-                                            <td><%=stock.getClose()[0]%>
-                                            </td>
-                                            <td><%=stock.volumeToString(stock.getVolume()[0])%>
-                                            </td>
-                                            <td><%=stock.getPe_ttm()[0]%>
-                                            </td>
-                                            <td><%=stock.getPb()[0]%>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                        </tbody>
-                                    </table>
+                                            %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -282,62 +319,79 @@
                         <div id="volume_rank" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped text-center">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">名称</th>
-                                            <th class="text-center">代码</th>
-                                            <th class="text-center">最高</th>
-                                            <th class="text-center">最低</th>
-                                            <th class="text-center">涨跌额</th>
-                                            <th class="text-center">涨跌幅</th>
-                                            <th class="text-center">开盘</th>
-                                            <th class="text-center">收盘</th>
-                                            <th class="text-center">成交量</th>
-                                            <th class="text-center">市盈率</th>
-                                            <th class="text-center">市净率</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                            for (StockVO stock : volume_rank) {
-                                                if (stock.getIncrease_decreaseNum()[0] > 0) {
-                                                    textColor = "text-danger";
-                                                } else if (stock.getIncrease_decreaseNum()[0] < 0) {
-                                                    textColor = "text-success";
-                                                } else {
-                                                    textColor = "";
+                                    <div id="basic-sort-2">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th class="text-center">名称</th>
+                                                <th class="text-center">代码</th>
+                                                <th class="text-center">最高</th>
+                                                <th class="text-center">最低</th>
+                                                <th class="text-center">涨跌额</th>
+                                                <th class="text-center">涨跌幅</th>
+                                                <th class="text-center">开盘</th>
+                                                <th class="text-center">收盘</th>
+                                                <th class="text-center">成交量</th>
+                                                <th class="text-center">市盈率</th>
+                                                <th class="text-center">市净率</th>
+                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            <%
+                                                for (StockVO stock : volume_rank) {
+                                                    if (stock.getIncrease_decreaseNum()[0] > 0) {
+                                                        textColor = "text-danger";
+                                                    } else if (stock.getIncrease_decreaseNum()[0] < 0) {
+                                                        textColor = "text-success";
+                                                    } else {
+                                                        textColor = "";
+                                                    }
+                                            %>
+                                            <tr>
+                                                <td class="text-center"><%=stock.getName()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getId()%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getHigh()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getLow()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
+                                                </td>
+                                                <td class="text-center <%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getOpen()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getClose()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.volumeToString(stock.getVolume()[0])%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPe_ttm()[0]%>
+                                                </td>
+                                                <td class="text-center"><%=stock.getPb()[0]%>
+                                                </td>
+                                            </tr>
+                                            <%
                                                 }
-                                        %>
-                                        <tr>
-                                            <td><%=stock.getName()%>
-                                            </td>
-                                            <td><%=stock.getId()%>
-                                            </td>
-                                            <td><%=stock.getHigh()[0]%>
-                                            </td>
-                                            <td><%=stock.getLow()[0]%>
-                                            </td>
-                                            <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[0]%>
-                                            </td>
-                                            <td class="<%=textColor%>"><%=stock.rateToString(stock.getIncrease_decreaseRate()[0])%>
-                                            </td>
-                                            <td><%=stock.getOpen()[0]%>
-                                            </td>
-                                            <td><%=stock.getClose()[0]%>
-                                            </td>
-                                            <td><%=stock.volumeToString(stock.getVolume()[0])%>
-                                            </td>
-                                            <td><%=stock.getPe_ttm()[0]%>
-                                            </td>
-                                            <td><%=stock.getPb()[0]%>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                        </tbody>
-                                    </table>
+                                            %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -354,45 +408,10 @@
 </footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
-<%--固定侧边栏Start--%>
-<script>
-    var jWindow = $(window);
-    var window_height = document.body.clientHeight;
-
-    jWindow.scroll(function () {
-        var scrollHeight = jWindow.scrollTop();
-
-        if (scrollHeight < window_height) {//157为footer高度
-            $("#sidebar").css({
-                position: "relative",
-                top: scrollHeight + "px"
-            });
-        }
-    });
-</script>
-<%--固定侧边栏End--%>
-
-<%--侧边栏导航Start--%>
-<script>
-    function click_scroll(target) {
-        var scroll_offset = $("#" + target).offset();  //得到pos这个div层的offset，包含两个值，top和left
-        $('body, html').animate({
-            scrollTop: scroll_offset.top - 100,  //让body的scrollTop等于pos的top，就实现了滚动
-        }, 0);
-    }
-</script>
-<%--侧边栏导航End--%>
-
-<%--固定表头Start--%>
-<script src="../reference/table/js/jquery.ba-throttle-debounce.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="../reference/table/js/jquery.stickysort.js"></script>
-<script>
-    $(function () {
-        $('#basic-sort table').stickySort({sortable: true});
-    });
-</script>
-<%--固定表头Start--%>
+<script src="js/picture.js"></script>
+<%--表格排序组件--%>
+<script src="../reference/table/js/jquery.ba-throttle-debounce.min.js"></script>
+<script src="../reference/table/js/jquery.stickysort.js"></script>
 
 </body>
 </html>

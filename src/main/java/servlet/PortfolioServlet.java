@@ -27,9 +27,6 @@ public class PortfolioServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        SelfSelectStockService selfSelect = new SelfSelectStock();
-//        List<String> stockList = selfSelect.getFollowedStocks();
-
         String test = "request----1";
 
         if (req.getAttribute("test") == null) {
@@ -46,9 +43,11 @@ public class PortfolioServlet extends HttpServlet{
         List<String> list = new ArrayList<>();
 
         list.add("123");
+        list.add("456");
+        list.add("789");
 
         PrintWriter out = resp.getWriter();
-        out.println(list);
+        out.println("{name: zhangsan, age: 30}");
 
 //        req.getRequestDispatcher("test/testAjax.jsp").forward(req, resp);
 //        req.getRequestDispatcher("portfolio.jsp").include(req, resp);

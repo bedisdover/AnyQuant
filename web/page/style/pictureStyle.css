@@ -17,11 +17,18 @@ li {
 
 /*侧边栏*/
 #sidebar {
-    margin-right: 60px;
+    padding: 0;
+    margin-left: 0;
 }
 
 .list-group {
+    margin-left: 0;
+    padding-left: 0;
+}
 
+.menu {
+    margin: 0 20px;
+    padding: 0 10px;
 }
 
 .rank-list .panel {
@@ -33,4 +40,3 @@ li {
     padding: 0;
     margin: 0;
 }
-
