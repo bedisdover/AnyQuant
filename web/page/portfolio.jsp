@@ -437,15 +437,6 @@
 <!-- ECharts单文件引入 -->
 <script src="js/dist/echarts.js"></script>
 
-<%--激活ToolTip Start--%>
-<script>
-    //    $('#portfolio-manager').tooltip(options);
-    //    $(function () {
-    //        $("[data-toggle='tooltip']").tooltip();
-    //    });
-</script>
-<%--激活ToolTip End--%>
-
 <script>
     // 路径配置
     require.config({

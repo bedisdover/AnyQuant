@@ -224,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-success active">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" href="#decrease_rank">跌幅榜</a>
@@ -310,7 +310,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary active">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" href="#volume_rank">成交量榜</a>
