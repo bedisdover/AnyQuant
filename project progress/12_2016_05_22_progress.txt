@@ -4,17 +4,17 @@ what :
 problem : 
 todo : 
 
-who : ���μ�
+who : 周梦佳
 when : 2016-05-22
-what : ���echarts����ͼ��k��ͼ������
-problem : ����̫����
-todo : ����ͼ���������k����kͼ
+what : 完成echarts折线图和k线图的引用
+problem : 进度太缓慢
+todo : 改善图表，完成周k、月k图
 
-who : 
+who : 章承尧
 when : 2016-05-22
-what : 
-problem : 
-todo : 
+what : 完成雷达图的绘制，对数据进行保留位数的处理，股票排序修改。
+problem : 进度比较缓慢。
+todo : 提供k线图所需要的数据。
 
 who : 
 when : 2016-05-22
