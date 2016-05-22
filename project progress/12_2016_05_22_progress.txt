@@ -1,0 +1,23 @@
+who : 
+when : 2016-05-22
+what : 
+problem : 
+todo : 
+
+who : 周梦佳
+when : 2016-05-22
+what : 完成echarts折线图和k线图的引用
+problem : 进度太缓慢
+todo : 改善图表，完成周k、月k图
+
+who : 
+when : 2016-05-22
+what : 
+problem : 
+todo : 
+
+who : 
+when : 2016-05-22
+what : 
+problem : 
+todo : 
