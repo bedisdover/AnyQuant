@@ -1,20 +1,20 @@
-who : ������
+who : 宋益明
 when : 2016-05-14
-what : д���桢д���桢д����
-problem : ���ݷ���
-todo : ��ɻ������
+what : 写界面、写界面、写界面
+problem : 内容繁琐
+todo : 完成基本框架
 
-who : ���μ�
+who : 周梦佳
 when : 2016-05-14
-what : ������ָ��������ͼ
-problem : ���Ȼ�������jsȱ���˽�
-todo : �о�js���������ͼ
+what : 画大盘指数的折线图
+problem : 进度缓慢，对js缺乏了解
+todo : 研究js，完成折线图
 
-who : 
+who : 章承尧
 when : 2016-05-14
-what : 
-problem : 
-todo : 
+what : 编写单元测试用例，重构部分方法，学习js。
+problem : 很多之前写的代码都没有用了。
+todo : 绘制雷达图
 
 who : 
 when : 2016-05-14
