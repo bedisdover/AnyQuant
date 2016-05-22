@@ -213,203 +213,213 @@
             </div>
         </div>
         <div class="col-xs-6 col-md-9">
-            <%
-                for (int i = 0; i < stockList.size(); i++) {
-                    stock = stockList.get(i);
-            %>
-            <div id="accordion-element-<%=i%>" class="collapse">
-                <div class="panel panel-default">
-                    <div class="latest-data" id="latest-data"><!--最新数据-->
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="name-code">
-                                    <P class="text-center name"><%=stock.getName()%>
-                                    </P>
-                                    <p class="text-center code">（<%=stock.getId()%>）</p>
+            <div id="main-content">
+                <%
+                    for (int i = 0; i < stockList.size(); i++) {
+                        stock = stockList.get(i);
+                %>
+                <div id="accordion-element-<%=i%>" class="collapse">
+                    <div class="panel panel-default">
+                        <div class="latest-data" id="latest-data"><!--最新数据-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="name-code">
+                                        <P class="text-center name"><%=stock.getName()%>
+                                        </P>
+                                        <p class="text-center code">（<%=stock.getId()%>）</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <%
-                                ShowCurrentData currentData = new ShowCurrentData();
-                                CurrentStockVO currentStockVO = currentData.showCurrentData(stock.getId());
-                                String textColor;
-                                if (currentStockVO.getIncrease_decreaseNum().charAt(0) == '-') {
-                                    textColor = "text-success";
-                                } else if (currentStockVO.getIncrease_decreaseNum().equals("0")){
-                                    textColor = "";
-                                } else {
-                                    textColor = "text-danger";
-                                }
-                            %>
-                            <div class="col-md-3">
-                                <div class="inc-dec">
-                                    <p class="text-left <%=textColor%> price">
-                                        <%=currentStockVO.getCurrentPrice()%>
-                                        <small>
+                                <%
+                                    ShowCurrentData currentData = new ShowCurrentData();
+                                    CurrentStockVO currentStockVO = currentData.showCurrentData(stock.getId());
+                                    String textColor;
+                                    if (currentStockVO.getIncrease_decreaseNum().charAt(0) == '-') {
+                                        textColor = "text-success";
+                                    } else if (currentStockVO.getIncrease_decreaseNum().equals("0")) {
+                                        textColor = "";
+                                    } else {
+                                        textColor = "text-danger";
+                                    }
+                                %>
+                                <div class="col-md-3">
+                                    <div class="inc-dec">
+                                        <p class="text-left <%=textColor%> price">
+                                            <%=currentStockVO.getCurrentPrice()%>
                                             <small>
-                                                <small class="<%=textColor%>">
-                                                    <%=currentStockVO.getIncrease_decreaseNum()%>
-                                                    (<%=currentStockVO.getIncrease_decreaseRate()%>)
+                                                <small>
+                                                    <small class="<%=textColor%>">
+                                                        <%=currentStockVO.getIncrease_decreaseNum()%>
+                                                        (<%=currentStockVO.getIncrease_decreaseRate()%>)
+                                                    </small>
                                                 </small>
                                             </small>
-                                        </small>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="data">
-                                    <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
-                                        <div class="col-md-3 col-md-offset-1">
-                                            <p class="text-left">今开：<%=currentStockVO.getOpen()%></p>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <p class="text-left">最高：<%=currentStockVO.getHigh()%></p>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <P class="text-left">成交量：<%=currentStockVO.getVolume()%></P>
-                                        </div>
-                                    </div>
-                                    <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
-                                        <div class="col-md-3 col-md-offset-1">
-                                            <p class="text-left">昨收：<%=currentStockVO.getClose()%></p>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <p class="text-left">最低：<%=currentStockVO.getLow()%></p>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <P class="text-left">成交额：<%=currentStockVO.getVolume_value()%></P>
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
-                                <%--data--%>
+                                <div class="col-md-7">
+                                    <div class="data">
+                                        <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <p class="text-left">今开：<%=currentStockVO.getOpen()%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="text-left">最高：<%=currentStockVO.getHigh()%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <P class="text-left">成交量：<%=currentStockVO.getVolume()%>
+                                                </P>
+                                            </div>
+                                        </div>
+                                        <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                                            <div class="col-md-3 col-md-offset-1">
+                                                <p class="text-left">昨收：<%=currentStockVO.getClose()%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="text-left">最低：<%=currentStockVO.getLow()%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <P class="text-left">成交额：<%=currentStockVO.getVolume_value()%>
+                                                </P>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%--data--%>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <%--最新数据End--%>
-                    <div class="graphs" id="graphs">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#分时图" data-toggle="tab">分时图</a>
-                            </li>
-                            <li>
-                                <a href="#折线图" data-toggle="tab">折线图</a>
-                            </li>
-                            <li>
-                                <a href="#月K线" data-toggle="tab">月K线</a>
-                            </li>
-                            <li>
-                                <a href="#周K线" data-toggle="tab">周K线</a>
-                            </li>
-                            <li>
-                                <a href="#日K线" data-toggle="tab">日K线</a>
-                            </li>
-                            <li>
-                                <a href="#雷达图" data-toggle="tab">雷达图</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="分时图">分时图</div>
-                            <div class="tab-pane fade" id="折线图">折线图</div>
-                            <div class="tab-pane fade" id="月K线">月K线</div>
-                            <div class="tab-pane fade" id="周K线">周K线</div>
-                            <div class="tab-pane fade" id="日K线">...</div>
-                            <div class="tab-pane fade" id="雷达图">
-                                <div class="chart" id="radar-chart"></div>
+                        <%--最新数据End--%>
+                        <div class="graphs">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#分时图" data-toggle="tab">分时图</a>
+                                </li>
+                                <li>
+                                    <a href="#折线图" data-toggle="tab">折线图</a>
+                                </li>
+                                <li>
+                                    <a href="#月K线" data-toggle="tab">月K线</a>
+                                </li>
+                                <li>
+                                    <a href="#周K线" data-toggle="tab">周K线</a>
+                                </li>
+                                <li>
+                                    <a href="#日K线" data-toggle="tab">日K线</a>
+                                </li>
+                                <li>
+                                    <a href="#雷达图" data-toggle="tab">雷达图</a>
+                                </li>
+                            </ul>
+                            <div id="graphs">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="分时图">分时图</div>
+                                    <div class="tab-pane fade" id="折线图">折线图</div>
+                                    <div class="tab-pane fade" id="月K线">月K线</div>
+                                    <div class="tab-pane fade" id="周K线">周K线</div>
+                                    <div class="tab-pane fade" id="日K线">...</div>
+                                    <div class="tab-pane fade" id="雷达图">
+                                        <div class="chart" id="radar-chart"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <%--统计图End--%>
-                    <div class="history-data well" id="history-data">
-                        <div class="options">
-                            <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围
-                            </button>
-                            <label id="date" style="display: none;">
-                                <%
-                                    Calendar calendar = Calendar.getInstance();
-                                    String endDate = stock.getDate()[stock.getDate().length - 1];
-                                    try {
-                                        calendar.setTime(dateFormat.parse(endDate));
-                                    } catch (ParseException e) {
-                                        //若发生异常，设为当前时间
-                                        calendar.getTime();
-                                    }
-                                    calendar.add(Calendar.MONTH, -1);
-                                    String startDate = dateFormat.format(calendar.getTime());
-                                %>
-                                <input id="startDate" value=<%=startDate%>> 至
-                                <input id="endDate" readonly value="<%=endDate%>">
-                            </label>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped text-center">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">日期</th>
-                                    <th class="text-center">最高</th>
-                                    <th class="text-center">最低</th>
-                                    <th class="text-center">涨跌额</th>
-                                    <th class="text-center">涨跌幅</th>
-                                    <th class="text-center">开盘</th>
-                                    <th class="text-center">收盘</th>
-                                    <th class="text-center">成交量</th>
-                                    <th class="text-center">市盈率</th>
-                                    <th class="text-center">市净率</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-//                                    String textColor;
-                                    for (int j = stock.getDate().length - 1; j >= 0; j--) {
-                                        if (stock.getIncrease_decreaseNum()[j] > 0) {
-                                            textColor = "text-danger";
-                                        } else if (stock.getIncrease_decreaseNum()[j] < 0) {
-                                            textColor = "text-success";
-                                        } else {
-                                            textColor = "";
+                        <%--统计图End--%>
+                        <div class="history-data well" id="history-data">
+                            <div class="options">
+                                <button type="button" class="btn btn-primary" onclick="showDatePicker()">日期范围
+                                </button>
+                                <label id="date" style="display: none;">
+                                    <%
+                                        Calendar calendar = Calendar.getInstance();
+                                        String endDate = stock.getDate()[stock.getDate().length - 1];
+                                        try {
+                                            calendar.setTime(dateFormat.parse(endDate));
+                                        } catch (ParseException e) {
+                                            //若发生异常，设为当前时间
+                                            calendar.getTime();
                                         }
-                                %>
-                                <tr>
-                                    <td><%=stock.getDate()[j]%>
-                                    </td>
-                                    <td><%=stock.getHigh()[j]%>
-                                    </td>
-                                    <td><%=stock.getLow()[j]%>
-                                    </td>
-                                    <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[j]%>
-                                    </td>
-                                    <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[j]%>
-                                    </td>
-                                    <td><%=stock.getOpen()[j]%>
-                                    </td>
-                                    <td><%=stock.getClose()[j]%>
-                                    </td>
-                                    <td><%=stock.getVolume()[j]%>
-                                    </td>
-                                    <td><%=stock.getPe_ttm()[j]%>
-                                    </td>
-                                    <td><%=stock.getPb()[j]%>
-                                    </td>
-                                </tr>
-                                <%
-                                    }
-                                %>
-                                </tbody>
-                            </table>
+                                        calendar.add(Calendar.MONTH, -1);
+                                        String startDate = dateFormat.format(calendar.getTime());
+                                    %>
+                                    <input id="startDate" value=<%=startDate%>> 至
+                                    <input id="endDate" readonly value="<%=endDate%>">
+                                </label>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">日期</th>
+                                        <th class="text-center">最高</th>
+                                        <th class="text-center">最低</th>
+                                        <th class="text-center">涨跌额</th>
+                                        <th class="text-center">涨跌幅</th>
+                                        <th class="text-center">开盘</th>
+                                        <th class="text-center">收盘</th>
+                                        <th class="text-center">成交量</th>
+                                        <th class="text-center">市盈率</th>
+                                        <th class="text-center">市净率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%
+//                                        String textColor;
+                                        for (int j = stock.getDate().length - 1; j >= 0; j--) {
+                                            if (stock.getIncrease_decreaseNum()[j] > 0) {
+                                                textColor = "text-danger";
+                                            } else if (stock.getIncrease_decreaseNum()[j] < 0) {
+                                                textColor = "text-success";
+                                            } else {
+                                                textColor = "";
+                                            }
+                                    %>
+                                    <tr>
+                                        <td><%=stock.getDate()[j]%>
+                                        </td>
+                                        <td><%=stock.getHigh()[j]%>
+                                        </td>
+                                        <td><%=stock.getLow()[j]%>
+                                        </td>
+                                        <td class="<%=textColor%>"><%=stock.getIncrease_decreaseNum()[j]%>
+                                        </td>
+                                        <td class="<%=textColor%>"><%=stock.getIncrease_decreaseRate()[j]%>
+                                        </td>
+                                        <td><%=stock.getOpen()[j]%>
+                                        </td>
+                                        <td><%=stock.getClose()[j]%>
+                                        </td>
+                                        <td><%=stock.getVolume()[j]%>
+                                        </td>
+                                        <td><%=stock.getPe_ttm()[j]%>
+                                        </td>
+                                        <td><%=stock.getPb()[j]%>
+                                        </td>
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <%--历史数据End--%>
-                    <div id="picture-prediction">
+                        <%--历史数据End--%>
+                        <div id="picture-prediction">
 
-                    </div>
-                    <%--行情预测End--%>
-                    <div id="stock-news">
+                        </div>
+                        <%--行情预测End--%>
+                        <div id="stock-news">
 
+                        </div>
+                        <%--实时资讯End--%>
                     </div>
-                    <%--实时资讯End--%>
                 </div>
+                <%
+                    }
+                %>
             </div>
-            <%
-                }
-            %>
         </div>
     </div>
 </div>
@@ -422,6 +432,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/jquery.daterangepicker.js"></script>
+<script src="js/portfolio.js"></script>
 
 <!-- ECharts单文件引入 -->
 <script src="js/dist/echarts.js"></script>
@@ -550,23 +561,6 @@
 </script>
 <%--日期选择框End--%>
 
-<%--固定侧边栏Start--%>
-<script>
-    var jWindow = $(window);
-    var window_height = document.body.clientHeight;
-
-    jWindow.scroll(function () {
-        var scrollHeight = jWindow.scrollTop();
-
-        if (scrollHeight < window_height - 157) {//157为footer高度
-            $("#sidebar").css({
-                position: "relative",
-                top: scrollHeight + "px"
-            });
-        }
-    });
-</script>
-<%--固定侧边栏End--%>
 
 <%--侧边栏导航Start--%>
 <script>

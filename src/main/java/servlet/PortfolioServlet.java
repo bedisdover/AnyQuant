@@ -7,8 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +31,28 @@ public class PortfolioServlet extends HttpServlet{
 //        List<String> stockList = selfSelect.getFollowedStocks();
 
         String test = "request----1";
-        System.out.println("doGet....");
 
-        req.setAttribute("test", test);
+        if (req.getAttribute("test") == null) {
+            req.setAttribute("test", test);
+        }
+
+        BufferedReader reader = req.getReader();
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        List<String> list = new ArrayList<>();
+
+        list.add("123");
+
         PrintWriter out = resp.getWriter();
-//        out.println("out");
-        req.getRequestDispatcher("page/portfolio.jsp").forward(req, resp);
+        out.println(list);
+
+//        req.getRequestDispatcher("test/testAjax.jsp").forward(req, resp);
 //        req.getRequestDispatcher("portfolio.jsp").include(req, resp);
+
     }
 
     @Override

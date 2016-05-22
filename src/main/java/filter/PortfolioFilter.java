@@ -3,7 +3,9 @@ package filter;
 import bl.ManageSelfSelectStock;
 import bl.ShowStockData;
 import bl.ShowStockIDName;
+import bl.ShowStockNews;
 import vo.StockIDNameVO;
+import vo.StockNewsVO;
 import vo.StockVO;
 
 import javax.servlet.*;
@@ -21,6 +23,9 @@ import java.util.List;
  */
 @WebFilter(filterName = "PortfolioFilter")
 public class PortfolioFilter implements Filter {
+
+    private List<String> stockIDList;
+
     public void destroy() {
     }
 
@@ -30,10 +35,13 @@ public class PortfolioFilter implements Filter {
 
 //        if (request.getAttribute("UserId") != null) {
 //  todo 判断是否登录
+        ManageSelfSelectStock selfSelectStock = new ManageSelfSelectStock();
+        stockIDList = selfSelectStock.getAllInterestedStock("123456789@qq.com");
 //        }
 
         if (session.getAttribute("stockList") == null) {
-            loadPortfolio(session, "123456789@qq.com");
+            loadPortfolio(session);
+            loadNews(session);
         }
         if (session.getAttribute("stockIDNameList") == null) {
             loadStockNameList(session);
@@ -43,28 +51,37 @@ public class PortfolioFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
     /**
      * 加载自选股列表
      *
      * @param session session对象
-     * @param ID      用户ID
      * @throws IOException
      */
-    private void loadPortfolio(HttpSession session, String ID) throws IOException {
-        ManageSelfSelectStock selfSelectStock = new ManageSelfSelectStock();
-        List<String> stockID = selfSelectStock.getAllInterestedStock(ID);
+    private void loadPortfolio(HttpSession session) throws IOException {
 
         ShowStockData stockData = new ShowStockData();
         List<StockVO> stockList = new ArrayList<>();
 
-        for (String temp : stockID) {
+        for (String temp : stockIDList) {
             stockList.add(stockData.getStockData(temp));
         }
 
         session.setAttribute("stockList", stockList);
+    }
+
+    /**
+     * 加载股票新闻
+     *
+     * @param session session对象
+     */
+    private void loadNews(HttpSession session) {
+        ShowStockNews stockNews = new ShowStockNews();
+
+        for (String id : stockIDList) {
+            session.setAttribute("news_" + id, stockNews.showStockNews(id));
+        }
     }
 
     /**
