@@ -292,23 +292,21 @@
                         <div id="graphs">
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="分时图">
-                                    <%--todo 用一个div把你要画的图放在这里就好了--%>
-
-                                    这里是分时图
+                                    <div class="chart" id="timeSeriesChart"></div>
                                 </div>
                                 <div class="tab-pane fade" id="折线图">
                                     <%--todo 这里只要加一个div就好了, 添加一个id，和398行的id要对应--%>
-                                    <div class="chart" id="*-line"></div>
+                                    <div class="chart" id="lineChart"></div>
                                 </div>
                                 <div class="tab-pane fade" id="月K线">
-                                    月K线
+                                    <div class="chart" id="monthlyKLine"></div>
                                 </div>
                                 <div class="tab-pane fade" id="周K线">
-                                    周K线
+                                    <div class="chart" id="weeklyKLine"></div>
                                 </div>
                                 <div class="tab-pane fade" id="日K线">
                                     <%--todo 这里只要加一个div就好了, 添加一个id，和495行的id要对应--%>
-                                    <div class="chart" id="daily-K"></div>
+                                    <div class="chart" id="dailyKLine"></div>
                                 </div>
                             </div>
                         </div>
@@ -395,7 +393,7 @@
                 'echarts/chart/line'
             ],
             function (ec) {
-                var myChart = ec.init(document.getElementById('*-line'));
+                var myChart = ec.init(document.getElementById('lineChart'));
                 var option = {
                     title: {
                         text: '未来一周气温变化',
@@ -492,7 +490,7 @@
                 'echarts/chart/k'
             ],
             function (ec) {
-                var myChart = ec.init(document.getElementById('daily-K'));
+                var myChart = ec.init(document.getElementById('dailyKLine'));
                 var option = {
                     title: {
                         text: '2013年上半年上证指数'
