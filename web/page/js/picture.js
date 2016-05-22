@@ -29,6 +29,9 @@ function click_scroll(target) {
 $('.badge').tooltip({
     placement: 'left'
 });
+$('#increase_collapse, #decrease_collapse, #volume_collapse').tooltip({
+    placement: 'right',
+});
 /*激活提示框End*/
 
 

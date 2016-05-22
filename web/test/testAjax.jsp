@@ -43,7 +43,7 @@
             success: function (data) {
                 var temp = eval(data);
 //                alert(typeof temp);
-                $('#test').html(data);
+                $('#test').html(temp[0].name);
             }
         });
     });

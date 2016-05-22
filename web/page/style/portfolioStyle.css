@@ -60,19 +60,6 @@ nav {
     cursor: pointer;
 }
 
-/*.primary-info {*/
-    /*padding: 0 14px;*/
-/*}*/
-
-/*.primary-info .panel {*/
-    /*margin-bottom: 5px;*/
-    /*background-color: rgba(0, 0, 0, .05);*/
-    /*border: 1px solid #337ab7;*/
-    /*border-radius: 4px;*/
-    /*-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);*/
-    /*box-shadow: 0 1px 1px rgba(0, 0, 0, .05)*/
-/*}*/
-
 .latest-data {
     height: 70px;
     margin-bottom: 5px;
@@ -100,12 +87,10 @@ nav {
     font-size: 20px;
     height: 30px;
     line-height: 50px;
-    /*margin-bottom: 5px;*/
 }
 
 .latest-data .name-code .code {
     font-size: 16px;
-    /*height: 30px;*/
     line-height: 30px;
     margin: 0 auto;
 }

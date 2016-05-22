@@ -47,7 +47,7 @@ public class PortfolioServlet extends HttpServlet{
         list.add("789");
 
         PrintWriter out = resp.getWriter();
-        out.println("{name: zhangsan, age: 30}");
+        out.println("[{'name': 'zhangsan', 'age': '30'}]");
 
 //        req.getRequestDispatcher("test/testAjax.jsp").forward(req, resp);
 //        req.getRequestDispatcher("portfolio.jsp").include(req, resp);

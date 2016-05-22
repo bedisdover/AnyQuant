@@ -14,8 +14,8 @@
     <link href="../images/icon.png" rel="icon"/>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="style/marketStyle.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/tab.js"></script>
+    <%--<script type="text/javascript" src="js/jquery.js"></script>--%>
+    <%--<script type="text/javascript" src="js/tab.js"></script>--%>
 
 
     <script src="js/jquery.min.js"></script>
@@ -49,28 +49,28 @@
         <%--alert(line1);--%>
 
         <%--var plot1 = $.jqplot('chart', line1, {--%>
-            <%--title: 'Google, Inc.',--%>
-            <%--series: [{--%>
-                <%--label: 'Google, Inc.',--%>
-                <%--neighborThreshold: -1--%>
-            <%--}],--%>
-            <%--axes: {--%>
-                <%--xaxis: {--%>
-                    <%--renderer: $.jqplot.DateAxisRenderer,--%>
-                    <%--tickRenderer: $.jqplot.CanvasAxisTickRenderer,--%>
-                    <%--tickOptions: {--%>
-                        <%--angle: -30--%>
-                    <%--}--%>
-                <%--},--%>
-                <%--yaxis: {--%>
-                    <%--renderer: $.jqplot.LogAxisRenderer,--%>
-                    <%--tickOptions: {prefix: '$'}--%>
-                <%--}--%>
-            <%--},--%>
-            <%--cursor: {--%>
-                <%--show: true,--%>
-                <%--zoom: true--%>
-            <%--}--%>
+        <%--title: 'Google, Inc.',--%>
+        <%--series: [{--%>
+        <%--label: 'Google, Inc.',--%>
+        <%--neighborThreshold: -1--%>
+        <%--}],--%>
+        <%--axes: {--%>
+        <%--xaxis: {--%>
+        <%--renderer: $.jqplot.DateAxisRenderer,--%>
+        <%--tickRenderer: $.jqplot.CanvasAxisTickRenderer,--%>
+        <%--tickOptions: {--%>
+        <%--angle: -30--%>
+        <%--}--%>
+        <%--},--%>
+        <%--yaxis: {--%>
+        <%--renderer: $.jqplot.LogAxisRenderer,--%>
+        <%--tickOptions: {prefix: '$'}--%>
+        <%--}--%>
+        <%--},--%>
+        <%--cursor: {--%>
+        <%--show: true,--%>
+        <%--zoom: true--%>
+        <%--}--%>
         <%--});--%>
         <%
             long volume[] = new long[0];
@@ -115,7 +115,6 @@
         var closeShow = "${close[loop.count-1]}"
         lineData[0].push([dateShow, highShow, lowShow, openShow, closeShow]);
         </c:forEach>
-
 
 
     </script>
@@ -211,351 +210,365 @@
             </div>
         </div>
         <div class="col-xs-6 col-md-9">
-            <div class="panel panel-default">
-                <div class="latest-data" id="latest-data"><!--最新数据-->
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="name-code">
-                                <P class="text-center name"> 沪深300
-                                </P>
-                                <p class="text-center code">（1B40003）</p>
+            <div id="main-content">
+                <div class="panel panel-default">
+                    <div class="latest-data" id="latest-data"><!--最新数据-->
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="name-code">
+                                    <P class="text-center name"> 沪深300
+                                    </P>
+                                    <p class="text-center code">（1B40003）</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="inc-dec">
-                                <p class="text-left text-danger price">
-                                    3776.3
-                                    <small>
+                            <div class="col-md-3">
+                                <div class="inc-dec">
+                                    <p class="text-left text-danger price">
+                                        3776.3
                                         <small>
                                             <small>
-                                                +23.5 0.34
+                                                <small>
+                                                    +23.5 0.34
+                                                </small>
                                             </small>
                                         </small>
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="data">
-                                <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
-                                    <div class="col-md-3 col-md-offset-1">
-                                        <p class="text-left">今开：1892.2
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="text-left">最高：1234
-                                        </p>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <P class="text-left">成交量：34243
-                                        </P>
-                                    </div>
-                                </div>
-                                <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
-                                    <div class="col-md-3 col-md-offset-1">
-                                        <p class="text-left">昨收：1234
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="text-left">最低：1234
-                                        </p>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <P class="text-left">成交额：1234
-                                        </P>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
-                            <%--data--%>
+                            <div class="col-md-7">
+                                <div class="data">
+                                    <div class="data-top"><%--顶部数据，包含今开、最高、成交量--%>
+                                        <div class="col-md-3 col-md-offset-1">
+                                            <p class="text-left">今开：1892.2
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="text-left">最高：1234
+                                            </p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <P class="text-left">成交量：34243
+                                            </P>
+                                        </div>
+                                    </div>
+                                    <div class="data-bottom"><%--底部数据，包含昨收、最低、成交额--%>
+                                        <div class="col-md-3 col-md-offset-1">
+                                            <p class="text-left">昨收：1234
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="text-left">最低：1234
+                                            </p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <P class="text-left">成交额：1234
+                                            </P>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--data--%>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <%--最新数据End--%>
-                <div class="graphs" id="graphs">
+                    <%--最新数据End--%>
+                    <div class="graphs">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#分时图" data-toggle="tab">分时图</a>
+                            </li>
+                            <li>
+                                <a href="#折线图" data-toggle="tab">折线图</a>
+                            </li>
+                            <li>
+                                <a href="#月K线" data-toggle="tab">月K线</a>
+                            </li>
+                            <li>
+                                <a href="#周K线" data-toggle="tab">周K线</a>
+                            </li>
+                            <li>
+                                <a href="#日K线" data-toggle="tab">日K线</a>
+                            </li>
+                        </ul>
+                        <div id="graphs">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="分时图">
+                                    <%--todo 用一个div把你要画的图放在这里就好了--%>
 
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#分时图" data-toggle="tab">分时图</a>
-                        </li>
-                        <li>
-                            <a href="#折线图" data-toggle="tab">折线图</a>
-                        </li>
-                        <li>
-                            <a href="#月K线" data-toggle="tab">月K线</a>
-                        </li>
-                        <li>
-                            <a href="#周K线" data-toggle="tab">周K线</a>
-                        </li>
-                        <li>
-                            <a href="#日K线" data-toggle="tab">日K线</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="chart" style="width: 800px; height: 500px;"></div>
-                        <div class="tab-pane fade in active" id="分时图">
-                            <%--todo 用一个div把你要画的图放在这里就好了--%>
-
-                            这里是分时图
+                                    这里是分时图
+                                </div>
+                                <div class="tab-pane fade" id="折线图">
+                                    <%--todo 这里只要加一个div就好了, 添加一个id，和398行的id要对应--%>
+                                    <div class="chart" id="*-line"></div>
+                                </div>
+                                <div class="tab-pane fade" id="月K线">
+                                    月K线
+                                </div>
+                                <div class="tab-pane fade" id="周K线">
+                                    周K线
+                                </div>
+                                <div class="tab-pane fade" id="日K线">
+                                    <%--todo 这里只要加一个div就好了, 添加一个id，和495行的id要对应--%>
+                                    <div class="chart" id="daily-K"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="折线图">
-                         <div>
-                            <script>
-                                require.config({
-                                    paths: {
-                                        echarts: 'js/dist'
+                    </div>
+                    <%--统计图End--%>
+                    <div class="history-data well" id="history-data">
+                        <div class="table-responsive">
+                            <table class="table table-striped text-center">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">日期</th>
+                                    <th class="text-center">最高</th>
+                                    <th class="text-center">最低</th>
+                                    <th class="text-center">涨跌额</th>
+                                    <th class="text-center">涨跌幅</th>
+                                    <th class="text-center">开盘</th>
+                                    <th class="text-center">收盘</th>
+                                    <th class="text-center">成交量</th>
+                                    <th class="text-center">市盈率</th>
+                                    <th class="text-center">市净率</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    for (int j = 10; j >= 0; j--) {
+                                %>
+                                <tr>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                    <td><%=j%>
+                                    </td>
+                                </tr>
+                                <%
                                     }
-                                });
-                                require(
-                                        [
-                                            'echarts',
-                                            'echarts/chart/line'
-                                        ],
-                                        function (ec) {
-                                            var myChart = ec.init(document.getElementById('chart'));
-                                            var option = {
-                                                title: {
-                                                    text: '未来一周气温变化',
-                                                    subtext: '纯属虚构'
-                                                },
-                                                tooltip: {
-                                                    trigger: 'axis'
-                                                },
-                                                legend: {
-                                                    data: ['最高气温', '最低气温']
-                                                },
-                                                toolbox: {
-                                                    show: true,
-                                                    feature: {
-                                                        mark: {show: true},
-                                                        dataView: {show: true, readOnly: false},
-                                                        magicType: {show: true, type: ['line', 'bar']},
-                                                        restore: {show: true},
-                                                        saveAsImage: {show: true}
-                                                    }
-                                                },
-                                                calculable: true,
-                                                xAxis: [
-                                                    {
-                                                        type: 'category',
-                                                        boundaryGap: false,
-                                                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                                                    }
-                                                ],
-                                                yAxis: [
-                                                    {
-                                                        type: 'value',
-                                                        axisLabel: {
-                                                            formatter: '{value} °C'
-                                                        }
-                                                    }
-                                                ],
-                                                series: [
-                                                    {
-                                                        name: '最高气温',
-                                                        type: 'line',
-                                                        data: [11, 11, 15, 13, 12, 13, 10],
-                                                        markPoint: {
-                                                            data: [
-                                                                {type: 'max', name: '最大值'},
-                                                                {type: 'min', name: '最小值'}
-                                                            ]
-                                                        },
-                                                        markLine: {
-                                                            data: [
-                                                                {type: 'average', name: '平均值'}
-                                                            ]
-                                                        }
-                                                    },
-                                                    {
-                                                        name: '最低气温',
-                                                        type: 'line',
-                                                        data: [1, -2, 2, 5, 3, 2, 0],
-                                                        markPoint: {
-                                                            data: [
-                                                                {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-                                                            ]
-                                                        },
-                                                        markLine: {
-                                                            data: [
-                                                                {type: 'average', name: '平均值'}
-                                                            ]
-                                                        }
-                                                    }
-                                                ]
-                                            };
-                                            myChart.setOption(option);
-                                        }
-                                );
+                                %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <%--历史数据End--%>
+                    <div id="picture-prediction">
 
-                            </script>
-                         </div>
-                        </div>
-                        <div class="tab-pane fade" id="月K线">
-                            月K线
-                        </div>
-                        <div class="tab-pane fade" id="周K线">
-                            周K线
-                        </div>
-                        <div class="tab-pane fade" id="日K线">
-                            <div>
-                            <script>
-                            require.config({
-                            paths: {
-                            echarts: 'js/dist'
+                    </div>
+                    <%--行情预测End--%>
+                    <div id="stock-news">
+
+                    </div>
+                    <%--实时资讯End--%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%--content End--%>
+<%--<script src="js/jquery.js"></script>--%>
+<script src="js/market.js"></script>
+
+<%--折线图Start--%>
+<script>
+    require.config({
+        paths: {
+            echarts: 'js/dist'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('*-line'));
+                var option = {
+                    title: {
+                        text: '未来一周气温变化',
+                        subtext: '纯属虚构'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['最高气温', '最低气温']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    calculable: true,
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value} °C'
                             }
-                            });
-                            require(
-                            [
-                            'echarts',
-                            'echarts/chart/k'
-                            ],
-                            function (ec) {
-                            var myChart = ec.init(document.getElementById('chart'));
-                            var option = {
-                            title: {
-                            text: '2013年上半年上证指数'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '最高气温',
+                            type: 'line',
+                            data: [11, 11, 15, 13, 12, 13, 10],
+                            markPoint: {
+                                data: [
+                                    {type: 'max', name: '最大值'},
+                                    {type: 'min', name: '最小值'}
+                                ]
                             },
-                            tooltip: {
-                            trigger: 'axis',
-                            formatter: function (params) {
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name: '最低气温',
+                            type: 'line',
+                            data: [1, -2, 2, 5, 3, 2, 0],
+                            markPoint: {
+                                data: [
+                                    {
+                                        name: '周最低',
+                                        value: -2,
+                                        xAxis: 1,
+                                        yAxis: -1.5
+                                    }
+                                ]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+    );
+
+</script>
+<%--折线图End--%>
+
+<%--日K线Start--%>
+<script>
+    require.config({
+        paths: {
+            echarts: 'js/dist'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/chart/k'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('daily-K'));
+                var option = {
+                    title: {
+                        text: '2013年上半年上证指数'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function (params) {
                             var res = params[0].seriesName + ' ' + params[0].name;
                             res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
                             res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
                             return res;
-                            }
-                            },
-                            legend: {
-                            data: ['上证指数']
-                            },
-                            toolbox: {
-                            show: true,
-                            feature: {
+                        }
+                    },
+                    legend: {
+                        data: ['上证指数']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
                             mark: {show: true},
                             dataZoom: {show: true},
                             dataView: {show: true, readOnly: false},
                             magicType: {show: true, type: ['line', 'bar']},
                             restore: {show: true},
                             saveAsImage: {show: true}
-                            }
-                            },
-                            dataZoom: {
-                            show: true,
-                            realtime: true,
-                            start: 50,
-                            end: 100
-                            },
-                            xAxis: [
-                            {
+                        }
+                    },
+                    dataZoom: {
+                        show: true,
+                        realtime: true,
+                        start: 50,
+                        end: 100
+                    },
+                    xAxis: [
+                        {
                             type: 'category',
                             boundaryGap: true,
                             axisTick: {onGap: false},
                             splitLine: {show: false},
                             data: [
-                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
-                            "2013/1/31", "2013/2/1",
+                                "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30",
+                                "2013/1/31", "2013/2/1",
 
                             ]
-                            }
-                            ],
-                            yAxis: [
-                            {
+                        }
+                    ],
+                    yAxis: [
+                        {
                             type: 'value',
                             scale: true,
                             boundaryGap: [0.01, 0.01]
-                            }
-                            ],
-                            series: [
-                            {
+                        }
+                    ],
+                    series: [
+                        {
                             name: '上证指数',
                             type: 'k',
                             data: [ // 开盘，收盘，最低，最高
-                            [2320.26, 2302.6, 2287.3, 2362.94],
-                            [2300, 2291.3, 2288.26, 2308.38],
-                            [2295.35, 2346.5, 2295.35, 2346.92],
-                            [2347.22, 2358.98, 2337.35, 2363.8],
-                            [2360.75, 2382.48, 2347.89, 2383.76],
-                            [2383.43, 2385.42, 2371.23, 2391.82],
-                            [2377.41, 2419.02, 2369.57, 2421.15],
+                                [2320.26, 2302.6, 2287.3, 2362.94],
+                                [2300, 2291.3, 2288.26, 2308.38],
+                                [2295.35, 2346.5, 2295.35, 2346.92],
+                                [2347.22, 2358.98, 2337.35, 2363.8],
+                                [2360.75, 2382.48, 2347.89, 2383.76],
+                                [2383.43, 2385.42, 2371.23, 2391.82],
+                                [2377.41, 2419.02, 2369.57, 2421.15],
 
                             ]
-                            }
-                            ]
-                            };
+                        }
+                    ]
+                };
 
-                            myChart.setOption(option);
-                            }
-                            );
-                            </script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <%--统计图End--%>
-                <div class="history-data well" id="history-data">
-                    <div class="table-responsive">
-                        <table class="table table-striped text-center">
-                            <thead>
-                            <tr>
-                                <th class="text-center">日期</th>
-                                <th class="text-center">最高</th>
-                                <th class="text-center">最低</th>
-                                <th class="text-center">涨跌额</th>
-                                <th class="text-center">涨跌幅</th>
-                                <th class="text-center">开盘</th>
-                                <th class="text-center">收盘</th>
-                                <th class="text-center">成交量</th>
-                                <th class="text-center">市盈率</th>
-                                <th class="text-center">市净率</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                                for (int j = 10; j >= 0; j--) {
-                            %>
-                            <tr>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                                <td><%=j%>
-                                </td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <%--历史数据End--%>
-                <div id="picture-prediction">
-
-                </div>
-                <%--行情预测End--%>
-                <div id="stock-news">
-
-                </div>
-                <%--实时资讯End--%>
-            </div>
-        </div>
-    </div>
-</div>
-<%--content End--%>
+                myChart.setOption(option);
+            }
+    );
+</script>
+<%--日K线End--%>
 
 </body>
 </html>
