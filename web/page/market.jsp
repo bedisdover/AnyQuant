@@ -35,7 +35,7 @@
     <script type="text/javascript" src="js/jqplot.cursor.min.js"></script>
     <link rel="stylesheet" type="text/css" hrf="style/jquery.jqplot.min.css"/>
     <%--echarts引包--%>
-    <script src="${pageContext.request.contextPath}/page/js/echarts.min.js"></script>
+    <script src="js/dist/echarts.js"></script>
 
     <script>
 
@@ -313,7 +313,7 @@
                             <script>
                             require.config({
                             paths: {
-                            echarts: '../page/js/dist'
+                            echarts: 'js/dist'
                             }
                             });
                             require(
