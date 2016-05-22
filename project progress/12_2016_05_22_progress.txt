@@ -1,8 +1,8 @@
-who : 
+who : 宋益明
 when : 2016-05-22
-what : 
-problem : 
-todo : 
+what : 完成自选、行情界面框架
+problem : ajax
+todo : 联动
 
 who : 周梦佳
 when : 2016-05-22
