@@ -58,4 +58,29 @@ public class ShowStockData {
         return stockVO;
     }
 
+    /**
+     * @param id 股票代号
+     * @return StockVO
+     * @throws IOException
+     * 给周K线提供数据
+     */
+    public StockVO getStockDataForKWeekly(String id) throws IOException {
+        GetStockData_DB getStockData_db = new GetStockData_DB();
+        StockPO stockPO = getStockData_db.getStockData_withInterval(id,5);
+        StockVO stockVO = new StockVO(stockPO);
+        return  stockVO;
+    }
+
+    /**
+     * @param id 股票代号
+     * @return StockVO
+     * @throws IOException
+     * 给月K线提供数据
+     */
+    public StockVO getStockDataForKMonthly(String id) throws IOException {
+        GetStockData_DB getStockData_db = new GetStockData_DB();
+        StockPO stockPO = getStockData_db.getStockData_withInterval(id,22);
+        StockVO stockVO = new StockVO(stockPO);
+        return  stockVO;
+    }
 }

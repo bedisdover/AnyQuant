@@ -22,24 +22,6 @@ public class GetStockData_DB {
             "sh601169", "sh601288","sh601328",
             "sh601398","sh601939","sh601988",
             "sh601998","sz000001","sz002142"}; //所有银行股的代号
-    public final static HashMap<String,String> stockId2Name = new HashMap<>();
-    static {
-        stockId2Name.put("sh601818","光大银行");
-        stockId2Name.put("sh600015","华夏银行");
-        stockId2Name.put("sh600016","民生银行");
-        stockId2Name.put("sh600036","招商银行");
-        stockId2Name.put("sh601009","南京银行");
-        stockId2Name.put("sh601166","兴业银行");
-        stockId2Name.put("sh601169","北京银行");
-        stockId2Name.put("sh601288","农业银行");
-        stockId2Name.put("sh601328","交通银行");
-        stockId2Name.put("sh601398","工商银行");
-        stockId2Name.put("sh601939","建设银行");
-        stockId2Name.put("sh601988","中国银行");
-        stockId2Name.put("sh601998","中信银行");
-        stockId2Name.put("sz000001","平安银行");
-        stockId2Name.put("sz002142","宁波银行");
-    }
 
     /**
      * @param name
@@ -201,6 +183,80 @@ public class GetStockData_DB {
             stockPOList.add(stockPO);
         }
         return stockPOList;
+    }
+
+    /**
+     * @param id 股票代号
+     * @return StockPO
+     * 股票数据日期不连续
+     */
+    public StockPO getStockData_withInterval(String id,int interval){
+        Connect co=new Connect();
+        String sql="SELECT * FROM stockinfo where id = \'"+id+"\'";
+        ResultSet result=co.getResultSet(sql);
+
+        int num = 100; //数据个数
+        StockPO stockPO = new StockPO(num);
+        try {
+            int size = result.getFetchSize();
+            long[] volume = new long[num];
+            double[] pb = new double[num];
+            double[] high = new double[num];
+            double[] pe_ttm = new double[num];
+            double[] adj_price = new double[num];
+            double[] low = new double[num];
+            String[] date = new String[num];
+            double[] close = new double[num];
+            double[] open = new double[num];
+            double[] turnover = new double[num];
+            double[] increase_decreaseRate = new double[num];
+            double[] increase_decreaseNum = new double[num];
+            int k = 0;
+            int n = 0;
+            for(;k<size-interval*num;k++){
+                result.next();
+            }
+            k = 0;
+            while(result.next()){
+                if(k%interval==0){
+                    volume[n] = result.getLong(2);
+                    pb[n] = result.getDouble(3);
+                    high[n] = result.getDouble(4);
+                    pe_ttm[n] = result.getDouble(5);
+                    adj_price[n] = result.getDouble(6);
+                    low[n] = result.getDouble(7);
+                    date[n] = result.getString(8);
+                    close[n] = result.getDouble(9);
+                    open[n] = result.getDouble(10);
+                    turnover[n] = result.getDouble(11);
+                    increase_decreaseRate[n] = result.getDouble(12);
+                    increase_decreaseNum[n] = result.getDouble(13);
+                    n++;
+                }
+                if(n==num){
+                    break;
+                }
+                k++;
+            }
+            stockPO.setId(id);
+            stockPO.setVolume(volume);
+            stockPO.setPb(pb);
+            stockPO.setHigh(high);
+            stockPO.setPe_ttm(pe_ttm);
+            stockPO.setAdj_price(adj_price);
+            stockPO.setLow(low);
+            stockPO.setDate(date);
+            stockPO.setClose(close);
+            stockPO.setOpen(open);
+            stockPO.setTurnover(turnover);
+            stockPO.setIncrease_decreaseRate(increase_decreaseRate);
+            stockPO.setIncrease_decreaseNum(increase_decreaseNum);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        co.closeConnection();
+
+        return stockPO;
     }
 
 }

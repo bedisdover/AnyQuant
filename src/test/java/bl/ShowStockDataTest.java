@@ -22,4 +22,16 @@ public class ShowStockDataTest {
         assertEquals(4.06999,stockVO.getLow()[0],0.01);
         assertEquals(4.10001,stockVO.getClose()[0],0.01);
     }
+    @Test
+    public void getStockDataForKWeeklyTest() throws IOException {
+        ShowStockData showStockData = new ShowStockData();
+        StockVO stockVO = showStockData.getStockDataForKWeekly("sh600015");
+        assertEquals(100,stockVO.getDate().length);
+    }
+    @Test
+    public void getStockDataForKMonthlyTest() throws IOException {
+        ShowStockData showStockData = new ShowStockData();
+        StockVO stockVO = showStockData.getStockDataForKMonthly("sh600015");
+        assertEquals(100,stockVO.getDate().length);
+    }
 }
