@@ -326,13 +326,23 @@
                             </ul>
                             <div id="graphs">
                                 <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="分时图">分时图</div>
-                                    <div class="tab-pane fade" id="折线图">折线图</div>
-                                    <div class="tab-pane fade" id="月K线">月K线</div>
-                                    <div class="tab-pane fade" id="周K线">周K线</div>
-                                    <div class="tab-pane fade" id="日K线">...</div>
+                                    <div class="tab-pane fade in active" id="分时图">
+                                        <div class="chart" id="timeSeriesChart"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="折线图">
+                                        <div class="chart" id="lineChart"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="月K线">
+                                        <div class="chart" id="monthlyKLine"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="周K线">
+                                        <div class="chart" id="weeklyKLine"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="日K线">
+                                        <div class="chart" id="dailyKLine"></div>
+                                    </div>
                                     <div class="tab-pane fade" id="雷达图">
-                                        <div class="chart" id="radar-chart"></div>
+                                        <div class="chart" id="radarChart"></div>
                                     </div>
                                 </div>
                             </div>
@@ -448,6 +458,193 @@
 <!-- ECharts单文件引入 -->
 <script src="js/dist/echarts.js"></script>
 
+<%--折线图最高价、最低价Start--%>
+<script>
+    require.config({
+        paths: {
+            echarts: 'js/dist'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/chart/line'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('lineChart'));
+                var option = {
+                    title: {
+                        text: '沪深300折线图',
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+//                        图例
+                        data: ['最高价', '最低价']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    calculable: true,
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap : false,
+                            data: dataDate
+
+
+                        }
+                    ],
+                    yAxis: [
+                        {
+
+                            type: 'value',
+                            axisLine : {onZero: false},
+                            axisLabel: {
+                                formatter: '{value} 元'
+                            },
+
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '最高价',
+                            type: 'line',
+                            data: dataHigh
+
+
+//                            markPoint: {
+//                                data: [
+//                                    {type: 'max', name: '最大值'},
+//                                    {type: 'min', name: '最小值'}
+//                                ]
+//                            },
+//                            markLine: {
+//                                data: [
+//                                    {type: 'average', name: '平均值'}
+//                                ]
+//                            }
+
+                        },
+                        {
+                            name: '最低价',
+                            type: 'line',
+                            data: dataLow
+//                            markPoint: {
+//                                data: [
+//                                    {type: 'max', name: '最大值'},
+//                                    {type: 'min', name: '最小值'}
+//                                ]
+//                            },
+//                            markLine: {
+//                                data: [
+//                                    {type: 'average', name: '平均值'}
+//                                ]
+//                            }
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+    );
+
+</script>
+<%--折线图End--%>
+
+<%--日K线Start--%>
+<script>
+
+
+    require.config({
+        paths: {
+            echarts: 'js/dist'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/k'
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('dailyKLine'));
+                var option = {
+                    title: {
+                        text: '日K线'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function (params) {
+                            var res = params[0].seriesName + ' ' + params[0].name;
+                            res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
+                            res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
+                            return res;
+                        }
+                    },
+                    legend: {
+                        data: ['沪深300']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: true},
+                            dataZoom: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    dataZoom: {
+                        show: true,
+                        realtime: true,
+                        start: 50,
+                        end: 100
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            boundaryGap: true,
+                            axisTick: {onGap: false},
+                            splitLine: {show: false},
+                            data: dataDate
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            scale: true,
+                            boundaryGap: [0.01, 0.01]
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '沪深300',
+                            type: 'k',
+                            data: dataHighLowOpenClose
+                            // 开盘，收盘，最低，最高
+                        }
+                    ]
+                };
+
+                myChart.setOption(option);
+            }
+    );
+</script>
+<%--日K线End--%>
+
+
+
+<%--雷达图Start--%>
 <script>
     // 路径配置
     require.config({
@@ -459,11 +656,10 @@
     require(
             [
                 'echarts',
-                'echarts/chart/radar' // 使用雷达图就加载radar模块，按需加载
+                'echarts/chart/radar'
             ],
             function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('radar-chart'), 'helianthus');
+                var myChart = ec.init(document.getElementById('radarChart'));
 
                 var option = {
                     title: {
@@ -529,6 +725,7 @@
             }
     );
 </script>
+<%--雷达图End--%>
 
 <%--日期选择框Start--%>
 <script>
