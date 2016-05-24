@@ -2,8 +2,6 @@
 var jWindow = $(window);
 var window_height = document.body.clientHeight;
 
-$('body').css('min-height', window_height);
-
 jWindow.scroll(function () {
     var scrollHeight = jWindow.scrollTop();
 

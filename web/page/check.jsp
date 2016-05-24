@@ -24,24 +24,28 @@
 <%
     boolean flag = false;
     UserInfo ui = new UserInfo();
-    UserPO userPO = new UserPO();
-    userPO = ui.getUserInfo(mid, password);
+    UserPO userPO = ui.getUserInfo(mid, password);
     if (userPO != null) {
         flag = true;
         session.setAttribute("UserId", userPO.getId());
     }
 %>
 <%
-    if (flag) {
-        if (session.getAttribute("which_button").equals("h")) {
-
+    String temp = (String) session.getAttribute("which_button");
+    if (temp == null) {
 %>
-<h1>用户登录成功，欢迎光临！</h1>
+<meta http-equiv="Refresh" content="1;url= portfolio.jsp">
+<%
+} else {
+    if (flag) {
+        if (temp.equals("h")) {
+%>
+<%--<h1>用户登录成功，欢迎光临！</h1>--%>
 <meta http-equiv="Refresh" content="1;url= history.jsp">
 <%
-} else if (session.getAttribute("which_button").equals("p")) {
+} else if (temp.equals("p")) {
 %>
-<h1>用户登录成功，欢迎光临！</h1>
+<%--<h1>用户登录成功，欢迎光临！</h1>--%>
 <meta http-equiv="Refresh" content="1;url= portfolio.jsp">
 <%
     }
@@ -49,6 +53,7 @@
 %>
 <h1>用户登录失败，请<a href="login.jsp">重新登录</a></h1>
 <%
+        }
     }
 %>
 </body>

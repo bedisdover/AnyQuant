@@ -6,15 +6,17 @@
          version="3.0">
 
     <servlet>
-        <servlet-name>DisplayChart</servlet-name>
-        <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+        <description>接收股票ID，加载股票数据</description>
+        <servlet-name>stock</servlet-name>
+        <servlet-class>servlet.StockServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DisplayChart</servlet-name>
-        <url-pattern>/DisplayChart</url-pattern>
+        <servlet-name>stock</servlet-name>
+        <url-pattern>/stock</url-pattern>
     </servlet-mapping>
 
     <servlet>
+        <description>关注列表管理</description>
         <servlet-name>portfolio</servlet-name>
         <servlet-class>servlet.PortfolioServlet</servlet-class>
     </servlet>
@@ -24,6 +26,7 @@
     </servlet-mapping>
 
     <servlet>
+        <description>登陆及退出操作</description>
         <servlet-name>login</servlet-name>
         <servlet-class>servlet.LoginServlet</servlet-class>
     </servlet>
@@ -44,6 +47,20 @@
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/page/history.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <description>过滤stock.jsp及stockContrast.jsp，获取请求ID，加载股票数据</description>
+        <filter-name>StockFilter</filter-name>
+        <filter-class>filter.StockFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>StockFilter</filter-name>
+        <url-pattern>/page/stock.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StockFilter</filter-name>
+        <url-pattern>/page/stockContrast.jsp</url-pattern>
     </filter-mapping>
 
     <filter>

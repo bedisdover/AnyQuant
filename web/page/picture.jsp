@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="vo.StockVO" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
@@ -163,25 +164,12 @@
                                                 <th class="text-center">市净率</th>
                                             </tr>
                                             </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th class="text-center">名称</th>
-                                                <th class="text-center">代码</th>
-                                                <th class="text-center">最高</th>
-                                                <th class="text-center">最低</th>
-                                                <th class="text-center">涨跌额</th>
-                                                <th class="text-center">涨跌幅</th>
-                                                <th class="text-center">开盘</th>
-                                                <th class="text-center">收盘</th>
-                                                <th class="text-center">成交量</th>
-                                                <th class="text-center">市盈率</th>
-                                                <th class="text-center">市净率</th>
-                                            </tr>
-                                            </tfoot>
                                             <tbody>
                                             <%
                                                 String textColor;
+                                                String url;
                                                 for (StockVO stock : increase_rank) {
+                                                    url = "stock.jsp?id=" + stock.getId();
                                                     if (stock.getIncrease_decreaseNum()[0] > 0) {
                                                         textColor = "text-danger";
                                                     } else if (stock.getIncrease_decreaseNum()[0] < 0) {
@@ -191,7 +179,7 @@
                                                     }
                                             %>
                                             <tr>
-                                                <td class="text-center"><%=stock.getName()%>
+                                                <td class="text-center"><a target="_blank" href=<%=url%>><%=stock.getName()%></a>
                                                 </td>
                                                 <td class="text-center"><%=stock.getId()%>
                                                 </td>
@@ -250,24 +238,10 @@
                                                 <th class="text-center">市净率</th>
                                             </tr>
                                             </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th class="text-center">名称</th>
-                                                <th class="text-center">代码</th>
-                                                <th class="text-center">最高</th>
-                                                <th class="text-center">最低</th>
-                                                <th class="text-center">涨跌额</th>
-                                                <th class="text-center">涨跌幅</th>
-                                                <th class="text-center">开盘</th>
-                                                <th class="text-center">收盘</th>
-                                                <th class="text-center">成交量</th>
-                                                <th class="text-center">市盈率</th>
-                                                <th class="text-center">市净率</th>
-                                            </tr>
-                                            </tfoot>
                                             <tbody>
                                             <%
                                                 for (StockVO stock : decrease_rank) {
+                                                    url = "stock.jsp?id=" + stock.getId();
                                                     if (stock.getIncrease_decreaseNum()[0] > 0) {
                                                         textColor = "text-danger";
                                                     } else if (stock.getIncrease_decreaseNum()[0] < 0) {
@@ -277,7 +251,7 @@
                                                     }
                                             %>
                                             <tr>
-                                                <td class="text-center"><%=stock.getName()%>
+                                                <td class="text-center"><a target="_blank" href=<%=url%>><%=stock.getName()%></a>
                                                 </td>
                                                 <td class="text-center"><%=stock.getId()%>
                                                 </td>
@@ -336,24 +310,10 @@
                                                 <th class="text-center">市净率</th>
                                             </tr>
                                             </thead>
-                                            <tfoot>
-                                            <tr>
-                                                <th class="text-center">名称</th>
-                                                <th class="text-center">代码</th>
-                                                <th class="text-center">最高</th>
-                                                <th class="text-center">最低</th>
-                                                <th class="text-center">涨跌额</th>
-                                                <th class="text-center">涨跌幅</th>
-                                                <th class="text-center">开盘</th>
-                                                <th class="text-center">收盘</th>
-                                                <th class="text-center">成交量</th>
-                                                <th class="text-center">市盈率</th>
-                                                <th class="text-center">市净率</th>
-                                            </tr>
-                                            </tfoot>
                                             <tbody>
                                             <%
                                                 for (StockVO stock : volume_rank) {
+                                                    url = "stock.jsp?id=" + stock.getId();
                                                     if (stock.getIncrease_decreaseNum()[0] > 0) {
                                                         textColor = "text-danger";
                                                     } else if (stock.getIncrease_decreaseNum()[0] < 0) {
@@ -363,7 +323,7 @@
                                                     }
                                             %>
                                             <tr>
-                                                <td class="text-center"><%=stock.getName()%>
+                                                <td class="text-center"><a target="_blank" href=<%=url%>><%=stock.getName()%></a>
                                                 </td>
                                                 <td class="text-center"><%=stock.getId()%>
                                                 </td>

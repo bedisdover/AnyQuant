@@ -27,8 +27,16 @@
 %>
 <%
     session.setAttribute("which_button", "p");
-%>
 
+    String userID = (String) session.getAttribute("UserId");
+
+    //关注股票列表
+    List<StockVO> stockList = (List<StockVO>) session.getAttribute("stockList");
+    //所有股票名称ID列表
+    List<StockIDNameVO> stockIDNameList =
+            (List<StockIDNameVO>) session.getAttribute("stockIDNameList");
+    StockVO stock;
+%>
 <%--导航栏Start--%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -75,9 +83,21 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="login.jsp">
-                            <span class="glyphicon glyphicon-user"></span> 登录
+                        <%
+                            if (userID != null) {
+                        %>
+                        <a href="javascript: void(0)" id="log-out">
+                            <span class="glyphicon glyphicon-user">退出</span>
                         </a>
+                        <%
+                            } else {
+                        %>
+                        <a href="login.jsp">
+                            <span class="glyphicon glyphicon-user" id="log-in">登录</span>
+                        </a>
+                        <%
+                            }
+                        %>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -85,15 +105,6 @@
     </div>
 </nav>
 <%--导航栏End--%>
-
-<%
-    //关注股票列表
-    List<StockVO> stockList = (List<StockVO>) session.getAttribute("stockList");
-    //所有股票名称ID列表
-    List<StockIDNameVO> stockIDNameList =
-            (List<StockIDNameVO>) session.getAttribute("stockIDNameList");
-    StockVO stock;
-%>
 
 <%--content Start--%>
 <div class="container-fluid">

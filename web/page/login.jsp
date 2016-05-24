@@ -11,12 +11,12 @@
     <title>AnyQuant--登录</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,inital-scale=1">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/login.js"></script>
     <link href="../images/icon.png" rel="icon"/>
-    <link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="style/loginStyle.css" rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style/loginStyle.css" rel="stylesheet"/>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -74,17 +74,11 @@
                         </a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="login.jsp">
-                            <span class="glyphicon glyphicon-user"></span> 登录
-                        </a>
-                    </li>
-                </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
 </nav>
+
 <div class="container">
     <form id="loginForm" action="check.jsp" method="post" class="form-horizontal">
         <fieldset>
@@ -111,7 +105,6 @@
             </div>
         </fieldset>
     </form>
-
 </div>
 </body>
 </html>

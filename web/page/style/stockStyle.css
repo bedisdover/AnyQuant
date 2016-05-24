@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding-top: 70px;
+    background-image: url("/images/background.jpg");
+    font-family: "Arial", "Hiragino Sans GB", "Microsoft YaHei",
+    \5fae\8f6f\96c5\9ed1, "Helvetica", "sans-serif";
+}
+
+nav {
+    font-size: 17px;
+}
+
+#main-content {
+    background-color: rgba(245, 245, 245, 0.09);
+    border: 1px solid rgba(227, 227, 227, 0.14);
+}
+
+#add-portfolio {
+    margin-right: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+#minus-portfolio {
+    margin-right: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.menu {
+    width: 170px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.menu li:hover {
+    cursor: pointer;
+    background: #999999;
+}
+
+#portfolio-manager:hover {
+    cursor: pointer;
+}
+
+.panel .well{
+    margin-bottom: 0;
+}
+
+.latest-data {
+    height: 70px;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.latest-data .name-code {
+    height: 70px;
+    line-height: 70px;
+    background: #999999;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+}
+
+.latest-data .name-code .name {
+    font-size: 20px;
+    height: 30px;
+    line-height: 50px;
+}
+
+.latest-data .name-code .code {
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0 auto;
+}
+
+.latest-data .inc-dec {
+    font-size: 28px;
+    padding-top: 25px;
+}
+
+.latest-data .data {
+    height: 70px;
+    padding: 10px;
+}
+
+.graphs {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.graphs .nav .nav-tabs {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.history-data {
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    margin-bottom: 10px;
+}
+
+.history-data .panel-info {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.history-data .options {
+    margin: 20px;
+}
