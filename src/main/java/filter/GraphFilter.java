@@ -44,6 +44,26 @@ public class GraphFilter implements Filter {
         System.out.println(volume.length+"volume");
         System.out.println(date.length+"date");
 
+        double[] highshort=new double[10];
+        double[] lowshort=new double[10];
+        double[] openshort=new double[10];
+        double[] closeshort=new double[10];
+        String[] dateshort=new String[10];
+        for(int i=0;i<10;i++){
+            highshort[i]=high[i];
+            lowshort[i]=low[i];
+            openshort[i]=open[i];
+            closeshort[i]=close[i];
+            dateshort[i]=date[i];
+
+        }
+
+        request.setAttribute("dateshort",dateshort);
+        request.setAttribute("highshort",highshort);
+        request.setAttribute("lowshort",lowshort);
+        request.setAttribute("closeshort",closeshort);
+        request.setAttribute("openshort",openshort);
+
         chain.doFilter(req, resp);
     }
 
